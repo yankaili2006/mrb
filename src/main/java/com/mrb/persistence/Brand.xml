@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="brand">
+	<insert id="addBrand" parameterClass="com.mrb.bean.BrandBean">
+		insert into tbbrand
+		values(#pid#,#bid#,#btitle#,#binfo#,#iid#,#name#,#price#,#function#,#summary#,#date#,#operid#)
+	</insert>
+
+	<select id="getBrandById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.Brand2ShowBean">
+		select p.name as pname, b.* from tbbrand b, tbproject p where p.pid = b.pid and b.bid = #id#
+	</select>
+
+	<select id="getBrandList" resultClass="com.mrb.bean.Brand2ShowBean">
+		select p.name as pname, b.* from tbbrand b, tbproject p where p.pid = b.pid order by date desc
+	</select>
+
+	<update id="updateBrand" parameterClass="com.mrb.bean.BrandBean">
+		update tbbrand set date=#date#
+		<isNotEmpty prepend="," property="pid">pid=#pid#</isNotEmpty>
+		<isNotEmpty prepend="," property="btitle">btitle=#btitle#</isNotEmpty>
+		<isNotEmpty prepend="," property="binfo">binfo=#binfo#</isNotEmpty>
+		<isNotEmpty prepend="," property="iid">iid=#iid#</isNotEmpty>
+		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
+		<isNotEmpty prepend="," property="price">price=#price#</isNotEmpty>
+		<isNotEmpty prepend="," property="function">function=#function#</isNotEmpty>
+		<isNotEmpty prepend="," property="summary">summary=#summary#</isNotEmpty>
+		<isNotEmpty prepend="," property="date">date=#date#</isNotEmpty>
+		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		where bid=#bid#
+	</update>
+
+	<delete id="delBrandById" parameterClass="java.lang.Long">
+		delete from tbbrand where bid = #id#
+	</delete>
+</sqlMap>

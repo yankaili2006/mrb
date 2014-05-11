@@ -3,11 +3,11 @@
   type="WEB"
   name="mrb"
   id="myeclipse.1399102814591"
-  context-root="/mrt"
+  context-root="/mrb"
   j2ee-spec="5.0"
   archive="mrb.war">
   <attributes>
-    <attribute name="webrootdir" value="WebRoot" />
+    <attribute name="webrootdir" value="target" />
   </attributes>
 </project-module>
 
