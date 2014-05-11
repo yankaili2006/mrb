@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="pcate">
+	<insert id="addPcate" parameterClass="com.mrb.bean.PcateBean">
+		insert into tbpcategory
+		values(#cid#,#name#,#date#,#operid#)
+	</insert>
+
+	<select id="getPcateById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.PcateBean">
+		select * from tbpcategory where cid = #id#
+	</select>
+
+	<select id="getPcateList" resultClass="com.mrb.bean.PcateBean">
+		select * from tbpcategory order by date desc
+	</select>
+
+	<update id="updatePcate" parameterClass="com.mrb.bean.PcateBean">
+		update tbpcategory set date=#date#
+		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
+		where cid=#cid#
+	</update>
+
+	<delete id="delPcateById" parameterClass="java.lang.Long">
+		delete from tbpcategory where cid = #id#
+	</delete>
+</sqlMap>

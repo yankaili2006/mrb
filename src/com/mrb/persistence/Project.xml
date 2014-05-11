@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="project">
+	<insert id="addProject" parameterClass="com.mrb.bean.ProjectBean">
+		insert into tbproject
+		values(#pid#,#name#,#iid#,#level#,#area#,#store#,#build#,#pack#,#sale#,#chain#,#fee#,#date#,#operid#)
+	</insert>
+
+	<select id="getProjectById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.ProjectBean">
+		select * from tbproject where pid = #id#
+	</select>
+
+	<select id="getProjectList" resultClass="com.mrb.bean.ProjectBean">
+		select * from tbproject order by date desc
+	</select>
+
+	<update id="updateProject" parameterClass="com.mrb.bean.ProjectBean">
+		update tbproject set date=#date#
+		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
+		<isNotEmpty prepend="," property="iid">iid=#iid#</isNotEmpty>
+		<isNotEmpty prepend="," property="level">level=#level#</isNotEmpty>
+		<isNotEmpty prepend="," property="area">area=#area#</isNotEmpty>
+		<isNotEmpty prepend="," property="store">store=#store#</isNotEmpty>
+		<isNotEmpty prepend="," property="build">build=#build#</isNotEmpty>
+		<isNotEmpty prepend="," property="pack">pack=#pack#</isNotEmpty>
+		<isNotEmpty prepend="," property="sale">sale=#sale#</isNotEmpty>
+		<isNotEmpty prepend="," property="chain">chain=#chain#</isNotEmpty>
+		<isNotEmpty prepend="," property="fee">fee=#fee#</isNotEmpty>
+		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		where pid=#pid#
+	</update>
+
+	<delete id="delProjectById" parameterClass="java.lang.Long">
+		delete from tbproject where pid = #id#
+	</delete>
+</sqlMap>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="brand">
+	<insert id="addBrand" parameterClass="com.mrb.bean.BrandBean">
+		insert into tbbrand
+		values(#uid#,#uname#,#phone#,#pwd#,#type#,#status#,#date#,#opdate#,#operid#)
+	</insert>
+
+	<select id="getBrandById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.BrandBean">
+		select * from tbbrand where bid = #id#
+	</select>
+
+	<select id="getBrandList" resultClass="com.mrb.bean.BrandBean">
+		select * from tbbrand order by date desc
+	</select>
+
+	<update id="updateBrand" parameterClass="com.mrb.bean.BrandBean">
+		update tbbrand set date=#date#
+		<isNotEmpty prepend="," property="status">status=#status#</isNotEmpty>
+		<isNotEmpty prepend="," property="phone">phone=#phone#</isNotEmpty>
+		<isNotEmpty prepend="," property="uname">uname=#uname#</isNotEmpty>
+		where bid=#bid#
+	</update>
+
+	<delete id="delBrandById" parameterClass="java.lang.Long">
+		delete from tbbrand where bid = #id#
+	</delete>
+</sqlMap>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowViewLayout Version="1.2">
+  <StrutsActivity path="/user/register.do" location="950,50" dimension="258,104" />
+  <StrutsActivity path="/user.do" location="950,750" dimension="198,104" />
+  <StrutsActivity path="/pcate.do" location="350,850" dimension="202,104" />
+  <StrutsActivity path="/project.do" location="50,1150" dimension="211,104" />
+  <StrutsActivity path="/index.do" location="650,250" dimension="203,104" />
+  <StrutsActivity path="/book.do" location="0,604" dimension="241,104" />
+  <StrutsActivity path="/bookType.do" location="0,0" dimension="269,104" />
+  <StrutsActivity path="/getSecondBookTypeByFirst.do" location="286,604" dimension="293,104" />
+  <StrutsActivity path="/search.do" location="369,0" dimension="249,104" />
+  <StrutsActivity path="/download.do" location="624,604" dimension="269,104" />
+  <StrutsActivity path="/swf.do" location="0,906" dimension="264,104" />
+  <StrutsActivity path="/index.jsp" location="523,506" dimension="88,53" />
+  <StrutsActivity path="/user.jsp" location="50,350" dimension="82,53" />
+  <StrutsActivity path="/adduser.jsp" location="350,1050" dimension="105,53" />
+  <StrutsActivity path="/edituser.jsp" location="950,550" dimension="104,53" />
+  <StrutsActivity path="/pcate.jsp" location="650,850" dimension="89,53" />
+  <StrutsActivity path="/addpcate.jsp" location="650,1050" dimension="112,53" />
+  <StrutsActivity path="/editpcate.jsp" location="950,950" dimension="111,53" />
+  <StrutsActivity path="/project.jsp" location="1250,350" dimension="98,53" />
+  <StrutsActivity path="/addproject.jsp" location="1250,550" dimension="121,53" />
+  <StrutsActivity path="/editproject.jsp" location="1250,750" dimension="120,53" />
+  <StrutsActivity path="/book.jsp" location="76,808" dimension="88,53" />
+  <StrutsActivity path="/bookList.jsp" location="260,204" dimension="107,53" />
+  <StrutsActivity path="/users.jsp" location="950,350" dimension="88,53" />
+  <StrutsActivity path="/messageSuccess.jsp" location="0,506" dimension="154,53" />
+  <StrutsActivity path="/messageFailure.jsp" location="254,506" dimension="147,53" />
+  <StrutsActivity path="/brand.do" />
+  <StrutsActivity path="/brand.jsp" />
+  <StrutsActivity path="/addbrand.jsp" />
+  <StrutsActivity path="/editbrand.jsp" />
+  <StrutsTransition id="/book.do,success,/book.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="120,708" />
+      <AbsolutePoint location="120,808" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/pcate.do,add,/addpcate.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="451,902" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/brand.do,add,/addbrand.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="0,0" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/search.do,success,/bookList.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="493,104" />
+      <AbsolutePoint location="493,154" />
+      <AbsolutePoint location="340,154" />
+      <AbsolutePoint location="340,204" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/index.do,index,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="650,332" />
+      <AbsolutePoint location="584,332" />
+      <AbsolutePoint location="584,506" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user/register.do,failure,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1049,154" />
+      <AbsolutePoint location="1049,469" />
+      <AbsolutePoint location="554,469" />
+      <AbsolutePoint location="554,506" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/project.do,list,/project.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="155,1202" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/bookType.do,show,/bookList.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="134,104" />
+      <AbsolutePoint location="134,154" />
+      <AbsolutePoint location="287,154" />
+      <AbsolutePoint location="287,204" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user.do,add,/adduser.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1076,854" />
+      <AbsolutePoint location="1076,1076" />
+      <AbsolutePoint location="455,1076" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/pcate.do,edit,/editpcate.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="552,918" />
+      <AbsolutePoint location="1005,918" />
+      <AbsolutePoint location="1005,950" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/project.do,add,/addproject.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="155,1202" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/project.do,fail,/index.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="50,1202" />
+      <AbsolutePoint location="-45,1202" />
+      <AbsolutePoint location="-45,302" />
+      <AbsolutePoint location="650,302" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/brand.do,list,/brand.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="0,0" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/pcate.do,list,/pcate.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="552,888" />
+      <AbsolutePoint location="650,888" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user.do,fail,/index.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1139,750" />
+      <AbsolutePoint location="1139,302" />
+      <AbsolutePoint location="853,302" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/brand.do,fail,/index.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="0,0" />
+      <AbsolutePoint location="751,302" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/project.do,edit,/editproject.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="155,1202" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user.do,list,/user.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1049,802" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/brand.do,edit,/editbrand.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="0,0" />
+      <AbsolutePoint location="0,0" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/pcate.do,fail,/index.do,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="350,891" />
+      <AbsolutePoint location="-75,891" />
+      <AbsolutePoint location="-75,272" />
+      <AbsolutePoint location="650,272" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user/register.do,success,/index.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1079,154" />
+      <AbsolutePoint location="1079,532" />
+      <AbsolutePoint location="611,532" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/user.do,edit,/edituser.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="1039,750" />
+      <AbsolutePoint location="1039,603" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+</FlowViewLayout>
+
