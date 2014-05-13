@@ -152,10 +152,10 @@
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
 							<li>
-								<a href="pcate.jsp">视频分类</a>
+								<a href="vcate.jsp">视频分类</a>
 							</li>
 							<li>
-								<a href="user.jsp">视频列表</a>
+								<a href="video.jsp">视频列表</a>
 							</li>
 						</ul>
 

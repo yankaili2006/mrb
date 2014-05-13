@@ -4,11 +4,14 @@
  */
 package com.mrb.action;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,19 +23,16 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.mrb.bean.Brand2ShowBean;
-import com.mrb.bean.BrandBean;
-import com.mrb.bean.ProjectBean;
-import com.mrb.bs.BrandBS;
-import com.mrb.bs.ProjectBS;
+import com.mrb.bean.VideoBean;
+import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
 
 /**
  * @author Administrator 9:06:26 PM
  * 
- *         品牌注册的Action
+ * 视频注册的Action
  */
-public class BrandAction extends Action {
+public class VideoAction extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest req, HttpServletResponse res) {
@@ -43,38 +43,39 @@ public class BrandAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
-		BrandBS bs = new BrandBS();
+		VideoBS bs = new VideoBS();
 		Gson gson = new Gson();
-		if ("list".equals(act)) { // 获取品牌列表 for ajax
+		if ("list".equals(act)) { // 获取视频列表 for ajax
 
-			ArrayList<Brand2ShowBean> ulist = bs.getBrandList();
+			ArrayList<VideoBean> ulist = bs.getVideoList();
 			log.debug("ulist.size(): " + ulist.size());
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<table class=\"table\"><thead><tr><th>品牌ID</th><th>品牌标题</th><th>项目名称</th><th>品牌图标</th><th>名称</th><th>价格</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<table class=\"table\"><thead><tr><th>视频ID</th><th>视频名称</th><th>mp4播放地址</th><th>上传时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
-					Brand2ShowBean bean = (Brand2ShowBean) ulist.get(i);
-					html.append("<tr><td>" + bean.getBid() + "</td><td>"
-							+ bean.getBtitle() + "</td><td>" + bean.getPname()
-							+ "</td><td>" + bean.getIid() + "</td><td>"
-							+ bean.getName() + "</td><td>" + bean.getPrice()
-							+ "</td>");
-					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
-					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setbid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
+					VideoBean bean = (VideoBean) ulist.get(i);
+					html.append("<tr><td>" + bean.getVid() + "</td><td>"
+							+ bean.getTitle() + "</td><td>" + bean.getMp4_url()
+							+ "</td><td>" + bean.getDate() + "</td>");
+					html
+							.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
+					html
+							.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setvid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
 
 			} else {
-				html.append("<tr><td>没有品牌记录！</td><td></td><td></td><td></td></tr>");
+				html
+						.append("<tr><td>没有视频记录！</td><td></td><td></td><td></td></tr>");
 			}
 			html.append("</tbody></table>");
 			result = html.toString();
-
-		} else if ("add".equals(act)) { // 添加品牌 for 跳转
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+			
+		} else if ("add".equals(act)) { // 添加视频 for 跳转
+			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
 			if (bean != null) {
-				bs.addBrand(bean);
+				bs.addVideo(bean);
 			} else {
 				result = "参数非法";
 			}
@@ -82,63 +83,64 @@ public class BrandAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 				return mapping.findForward("list");
-			} else {
-				req.setAttribute("brand", bean);
+			}
+			else{
+				req.setAttribute("video", bean);
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
 			}
-		} else if ("edit".equals(act)) {// 编辑品牌 for 跳转
-			Brand2ShowBean brand = null;
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+		} else if ("edit".equals(act)) {// 编辑视频 for 跳转
+			VideoBean video = null;
+			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				brand = bs.getBrandById(bean.getBid());
+				log.info("vid = [" + bean.getVid() + "]");
+				video = bs.getVideoById(bean.getVid());
 			} else {
 				log.error("bean is null");
 				result = "参数非法";
 			}
 
-			if (brand != null) {
-				req.setAttribute("brand", brand);
+			if (video != null) {
+				req.setAttribute("video", video);
 			} else {
-				result = "未找到该品牌";
+				result = "未找到该视频";
 			}
-			
+
 			if ("ok".equals(result)) {
 				return mapping.findForward(act);
-			} else {
+			}
+			else{
 				req.setAttribute("result", result);
-				return mapping.findForward("list");
+				return mapping.findForward("list");			
 			}
-
-		} else if ("del".equals(act)) { // 删除品牌 for ajax
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+			
+		} else if ("del".equals(act)) { // 删除视频 for ajax
+			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				bs.delBrandById(bean.getBid());
-			} else {
-				result = "参数非法";
-			}
-
-		} else if ("update".equals(act)) { // 更新品牌 for 跳转
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
-			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				bean.setDate(Long.valueOf(now));
-				bs.updateBrand(bean);
+				log.info("vid = [" + bean.getVid() + "]");
+				bs.delVideoById(bean.getVid());
 			} else {
 				result = "参数非法";
 			}
 			
+		} else if ("update".equals(act)) { // 更新视频 for 跳转
+			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
+			if (bean != null) {
+				log.info("vid = [" + bean.getVid() + "]");
+				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
+				String now = dfm.format(new Date());
+				bean.setOpdate(Long.valueOf(now));
+				bs.updateVideo(bean);
+			} else {
+				result = "参数非法";
+			}
+
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
-
-				Brand2ShowBean showBean = bs.getBrandById(bean.getBid());
-				req.setAttribute("brand", showBean);
+				req.setAttribute("video", bean);
 				return mapping.findForward("edit");
-			} else {
+			}
+			else{
 				req.setAttribute("result", result);
 				return mapping.findForward("list");
 			}

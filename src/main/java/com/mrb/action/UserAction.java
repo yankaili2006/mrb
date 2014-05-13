@@ -23,9 +23,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.mrb.bean.UserIDBean;
 import com.mrb.bean.UserBean;
-import com.mrb.bean.UserPwdBean;
 import com.mrb.bs.UserBS;
 import com.mrb.form.JsonForm;
 
@@ -100,7 +98,7 @@ public class UserAction extends Action {
 			}
 		} else if ("edit".equals(act)) {// 编辑用户 for 跳转
 			UserBean user = null;
-			UserIDBean bean = (UserIDBean) gson.fromJson(msg, UserIDBean.class);
+			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
 				log.info("uid = [" + bean.getUid() + "]");
 				user = bs.getUserById(bean.getUid());
@@ -124,7 +122,7 @@ public class UserAction extends Action {
 			}
 			
 		} else if ("del".equals(act)) { // 删除用户 for ajax
-			UserIDBean bean = (UserIDBean) gson.fromJson(msg, UserIDBean.class);
+			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
 				log.info("uid = [" + bean.getUid() + "]");
 				bs.delUserById(bean.getUid());
@@ -155,7 +153,7 @@ public class UserAction extends Action {
 			}
 		
 		} else if ("updatepwd".equals(act)) { // 更新用户 for 跳转
-			UserPwdBean bean = (UserPwdBean) gson.fromJson(msg, UserPwdBean.class);
+			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			UserBean user = new UserBean();
 			if (bean != null) {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -198,33 +196,4 @@ public class UserAction extends Action {
 		return null;
 	}
 
-	private String readFromReq(BufferedReader reader) {
-
-		StringBuilder builder = new StringBuilder();
-		String line = null;
-		try {
-			while ((line = reader.readLine()) != null) {
-				builder.append(line);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return builder.toString();
-	}
-
-	private String readJsonFromRequestBody(HttpServletRequest request) {
-		StringBuffer jsonBuf = new StringBuffer();
-		char[] buf = new char[2048];
-		int len = -1;
-		try {
-			BufferedReader reader = request.getReader();
-			while ((len = reader.read(buf)) != -1) {
-				jsonBuf.append(new String(buf, 0, len));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return jsonBuf.toString();
-	}
 }

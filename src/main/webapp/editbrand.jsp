@@ -66,8 +66,9 @@
 			
 			function updatebrand(){
 			    $('#act').val("update");
-			    $('#msg').val("{bid:" + $('#bid').val() + ",name:" + $('#name').val() + ",phone:" + $('#phone').val() + ",status:" + $('#status').val() + "}");
-				$('#updateform').submit();
+			    $('#msg').val("{pid:" + $('#pid').val() + ",bid:" + $('#bid').val() + ",btitle:\"" + $('#btitle').val() + "\",binfo:\"" + $('#binfo').val()+ "\",iid:" + $('#iid').val() + ",name:\"" + $('#name').val() + "\",price:\"" + $('#price').val() + "\",function:\"" + $('#function').val()+ "\",summary:\"" + $('#summary').val()   + "\"}");
+				//alert($('#msg').val());
+			    $('#updateform').submit();
 			}
 			
 </script>
@@ -136,7 +137,7 @@
 							<i class="icon-dashboard"></i>用户管理
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
-							<li class="active">
+							<li>
 								<a href="user.jsp">用户列表</a>
 							</li>
 						</ul>
@@ -147,10 +148,10 @@
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
 							<li>
-								<a href="pcate.jsp">视频分类</a>
+								<a href="vcate.jsp">视频分类</a>
 							</li>
 							<li>
-								<a href="user.jsp">视频列表</a>
+								<a href="video.jsp">视频列表</a>
 							</li>
 						</ul>
 
@@ -165,7 +166,7 @@
 							<li>
 								<a href="project.jsp">项目列表</a>
 							</li>
-							<li>
+							<li class="active">
 								<a href="brand.jsp">品牌列表</a>
 							</li>
 						</ul>
@@ -282,15 +283,51 @@
 											Brand2ShowBean bean = (Brand2ShowBean) obj;
 									%>
 									<label>
-										品牌名
+										品牌标题
 									</label>
-									<input type="text" name="uname" id="uname"
-										value="<%=bean.getName()%>" class="input-xlarge">
-									<label>
-										项目名称
-									</label>
-									<input type="text" name="phone" id="phone"
+									<input type="text" name="btitle" id="btitle"
 										value="<%=bean.getBtitle()%>" class="input-xlarge">
+									
+									<label>
+										所属项目
+									</label>
+									<input type="text" name="pid" id="pid"
+										value="<%=bean.getPid()%>" class="input-xlarge">
+
+									<label>
+										产品简介
+									</label>
+									<textarea name="binfo" id="binfo" class="form-control" rows="3"><%=bean.getBinfo()%></textarea>
+									
+									<label>
+										品牌图标
+									</label>
+									<input type="text" name="iid" id="iid"
+										value="<%=bean.getIid()%>" class="input-xlarge">
+
+									<label>
+										名称
+									</label>
+									<input type="text" name="name" id="name"
+										value="<%=bean.getName()%>" class="input-xlarge">
+									
+									<label>
+										价格
+									</label>
+									<input type="text" name="price" id="price"
+										value="<%=bean.getPrice()%>" class="input-xlarge">
+									
+									<label>
+										产品功效
+									</label>
+									<input type="text" name="function" id="function"
+										value="<%=bean.getFunction()%>" class="input-xlarge">
+									
+									<label>
+										其他说明
+									</label>
+									<textarea name="summary" id="summary" class="form-control" rows="3"><%=bean.getSummary()%></textarea>
+									
 									
 									<input type="hidden" id="bid" name="bid"
 										value="<%=bean.getBid()%>">
@@ -298,16 +335,55 @@
 										} else {
 									%>
 									<label>
-										品牌名
+										品牌标题
 									</label>
-									<input type="text" name="uname" id="uname" value=""
-										class="input-xlarge">
+									<input type="text" name="btitle" id="btitle"
+										value="" class="input-xlarge">
+									
 									<label>
-										手机号
+										所属项目
 									</label>
-									<input type="text" name="phone" id="phone" value=""
-										class="input-xlarge">
-									<input type="hidden" id="bid" name="bid" value="">
+									<input type="text" name="pid" id="pid"
+										value="" class="input-xlarge">
+
+									<label>
+										产品简介
+									</label>
+									<input type="text" name="binfo" id="binfo"
+										value="" class="input-xlarge">
+									
+									<label>
+										品牌图标
+									</label>
+									<input type="text" name="iid" id="iid"
+										value="" class="input-xlarge">
+
+									<label>
+										名称
+									</label>
+									<input type="text" name="name" id="name"
+										value="" class="input-xlarge">
+									
+									<label>
+										价格
+									</label>
+									<input type="text" name="price" id="price"
+										value="" class="input-xlarge">
+									
+									<label>
+										产品功效
+									</label>
+									<input type="text" name="function" id="function"
+										value="" class="input-xlarge">
+									
+									<label>
+										其他说明
+									</label>
+									<input type="text" name="summary" id="summary"
+										value="" class="input-xlarge">
+									
+									<input type="hidden" id="bid" name="bid"
+										value="">
 									<%
 										}
 									%>

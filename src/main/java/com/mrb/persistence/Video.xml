@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="video">
+	<insert id="addVideo" parameterClass="com.mrb.bean.VideoBean">
+		insert into tbvideo
+		values(#vid#,#status#,#description#,#tags#,#snapshot_url#,#thumbnail_url#,#file_size#,#activated#,#modified_time#,#created_time#,#height#,#width#,#duration#,#extension#,#title#,#category_id#,#mp4_url#,#mp4_expires#,#permanent_url#,#permanent_expires#,#m3u8_url#,#m3u8_expires#,#zm_file_size#,#zm_type#,#zm_id#,#date#,#opdate#,#operid#)
+	</insert>
+
+	<select id="getVideoById" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.VideoBean">
+		select * from tbvideo where vid = #id#
+	</select>
+
+	<select id="getVideoList" resultClass="com.mrb.bean.VideoBean">
+		select * from tbvideo order by date desc
+	</select>
+
+	<update id="updateVideo" parameterClass="com.mrb.bean.VideoBean">
+		update tbvideo set opdate=#opdate#
+		<isNotEmpty prepend="," property="status">status=#status#</isNotEmpty>
+		<isNotEmpty prepend="," property="description">description=#description#</isNotEmpty>
+		<isNotEmpty prepend="," property="tags">tags=#tags#</isNotEmpty>
+		<isNotEmpty prepend="," property="snapshot_url">snapshot_url=#snapshot_url#</isNotEmpty>
+		<isNotEmpty prepend="," property="thumbnail_url">thumbnail_url=#thumbnail_url#</isNotEmpty>
+		<isNotEmpty prepend="," property="file_size">file_size=#file_size#</isNotEmpty>
+		<isNotEmpty prepend="," property="activated">activated=#activated#</isNotEmpty>
+		<isNotEmpty prepend="," property="modified_time">modified_time=#modified_time#</isNotEmpty>
+		<isNotEmpty prepend="," property="created_time">created_time=#created_time#</isNotEmpty>
+		<isNotEmpty prepend="," property="height">height=#height#</isNotEmpty>
+		<isNotEmpty prepend="," property="width">width=#width#</isNotEmpty>
+		<isNotEmpty prepend="," property="duration">duration=#duration#</isNotEmpty>
+		<isNotEmpty prepend="," property="extension">extension=#extension#</isNotEmpty>
+		<isNotEmpty prepend="," property="title">title=#title#</isNotEmpty>
+		<isNotEmpty prepend="," property="category_id">category_id=#category_id#</isNotEmpty>
+		<isNotEmpty prepend="," property="mp4_url">mp4_url=#mp4_url#</isNotEmpty>
+		<isNotEmpty prepend="," property="mp4_expires">mp4_expires=#mp4_expires#</isNotEmpty>
+		<isNotEmpty prepend="," property="permanent_url">permanent_url=#permanent_url#</isNotEmpty>
+		<isNotEmpty prepend="," property="permanent_expires">permanent_expires=#permanent_expires#</isNotEmpty>
+		<isNotEmpty prepend="," property="m3u8_url">m3u8_url=#m3u8_url#</isNotEmpty>
+		<isNotEmpty prepend="," property="m3u8_expires">m3u8_expires=#m3u8_expires#</isNotEmpty>
+		<isNotEmpty prepend="," property="zm_file_size">zm_file_size=#zm_file_size#</isNotEmpty>
+		<isNotEmpty prepend="," property="zm_type">zm_type=#zm_type#</isNotEmpty>
+		<isNotEmpty prepend="," property="zm_id">zm_id=#zm_id#</isNotEmpty>
+		<isNotEmpty prepend="," property="date">date=#date#</isNotEmpty>
+		<isNotEmpty prepend="," property="opdate">opdate=#opdate#</isNotEmpty>
+		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		where vid=#vid#
+	</update>
+
+	<delete id="delVideoById" parameterClass="java.lang.String">
+		delete from tbvideo where vid = #id#
+	</delete>
+</sqlMap>

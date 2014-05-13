@@ -59,6 +59,24 @@
 			<forward name="edit" path="/editbrand.jsp" />
 		</action>
 		
+		<!--  视频分类管理 -->
+		<action path="/vcate" type="com.mrb.action.VCateAction"
+			name="jsonForm" scope="request" validate="false">
+			<forward name="fail" path="/index.do" />
+			<forward name="list" path="/vcate.jsp" />
+			<forward name="add" path="/addvcate.jsp" />
+			<forward name="edit" path="/editvcate.jsp" />
+		</action>
+				
+		<!--  视频管理 -->
+		<action path="/video" type="com.mrb.action.VideoAction"
+			name="jsonForm" scope="request" validate="false">
+			<forward name="fail" path="/index.do" />
+			<forward name="list" path="/video.jsp" />
+			<forward name="add" path="/addvideo.jsp" />
+			<forward name="edit" path="/editvideo.jsp" />
+		</action>
+		
 		<action path="/index" type="com.mrb.action.IndexAction">
 			<forward name="index" path="/index.jsp" />
 		</action>

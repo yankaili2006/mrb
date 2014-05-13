@@ -52,7 +52,7 @@ public class ProjectAction extends Action {
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<table class=\"table\"><thead><tr><th>项目ID</th><th>项目名</th><th>图标</th><th>定位</th><th>时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<table class=\"table\"><thead><tr><th>项目ID</th><th>项目名</th><th>图标</th><th>定位</th><th>地址</th><th>时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					ProjectBean bean = (ProjectBean) ulist.get(i);

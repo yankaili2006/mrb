@@ -8,33 +8,41 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mrb.bean.Brand2ShowBean;
-import com.mrb.bean.BrandBean;
+import com.mrb.bean.Book2ShowBean;
+import com.mrb.bean.VideoBean;
 import com.mrb.ibatis.SqlMap;
 
 /**
  * @author Administrator 7:24:13 PM
  */
-public class BrandBS {
+public class VideoBS {
+
+	/**
+	 * 
+	 */
+	public VideoBS() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/*
-	 * 注册新品牌
+	 * 注册新用户
 	 */
-	public Boolean addBrand(BrandBean bean) {
+	public Boolean addVideo(VideoBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-
-			long bid = System.currentTimeMillis() % 1000000;
-			bean.setBid(bid);
+			
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
+			
 			bean.setDate(Long.valueOf(now));
+			bean.setOpdate(Long.valueOf(now));
 			bean.setOperid(1L);
 
-			client.update("addBrand", bean);
+			client.update("addVideo", bean);
 			client.commitTransaction();
 
 			client.endTransaction();
@@ -46,14 +54,14 @@ public class BrandBS {
 	}
 
 	/*
-	 * 通过uid获取品牌信息
+	 * 通过uid获取用户信息
 	 */
-	public Brand2ShowBean getBrandById(Long id) {
-		Brand2ShowBean bean = null;
+	public VideoBean getVideoById(String id) {
+		VideoBean bean = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			bean = (Brand2ShowBean) client.queryForObject("getBrandById", id);
+			bean = (VideoBean) client.queryForObject("getVideoById", id);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -63,33 +71,48 @@ public class BrandBS {
 	}
 
 	/*
-	 * 获取品牌列表
+	 * 获取用户列表
 	 */
-	public ArrayList<Brand2ShowBean> getBrandList() {
-		ArrayList<Brand2ShowBean> brandList = null;
+	public ArrayList<VideoBean> getVideoList() {
+		ArrayList<VideoBean> videoList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			Object obj = client.queryForList("getBrandList");
-			if (obj != null) {
-				brandList = (ArrayList<Brand2ShowBean>) obj;
-			}
+			videoList = (ArrayList<VideoBean>) client.queryForList("getVideoList");
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return videoList;
+	}
+
+	/*
+	 * 更新用户信息
+	 */
+	public Boolean updateVideo(VideoBean bean) {
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			client.update("updateVideo", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return false;
 		}
-		return brandList;
+		return true;
 	}
-
+	
 	/*
-	 * 更新品牌信息
+	 * 更新用户信息
 	 */
-	public Boolean updateBrand(BrandBean bean) {
+	public Boolean updateVideoPwd(VideoBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("updateBrand", bean);
+			client.update("updateVideoPwd", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -100,13 +123,13 @@ public class BrandBS {
 	}
 
 	/*
-	 * 更新品牌信息
+	 * 删除用户信息
 	 */
-	public Boolean updateBrandPwd(BrandBean bean) {
+	public Boolean delVideoById(String id) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("updateBrandPwd", bean);
+			client.update("delVideoById", id);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -115,42 +138,43 @@ public class BrandBS {
 		}
 		return true;
 	}
-
-	/*
-	 * 删除品牌信息
-	 */
-	public Boolean delBrandById(Long id) {
-		SqlMapClient client = SqlMap.getSqlMapInstance();
-		try {
-			client.startTransaction();
-			client.update("delBrandById", id);
-			client.commitTransaction();
-			client.endTransaction();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-		BrandBS bs = new BrandBS();
-		BrandBean bean = new BrandBean();
-		bean.setPid(283222L);
-		bean.setBtitle("眼部护理系列");
-		bean.setBinfo("产品简介");
-		bean.setName("祛皱眼部精华");
-		bean.setPrice("1280元/套");
-		bean.setFunction("功效");
-		bean.setSummary("其他说明");
+		VideoBS bs = new VideoBS();
+		VideoBean bean = new VideoBean();
+		bean.setVid("ZZZZZZZ111111112222222222");
+		bean.setStatus("Z");
+		bean.setSnapshot_url("http://www.baidu.com/a.jpg");
+		bean.setThumbnail_url("http://www.baidu.com/b.jpg");
+		bean.setFile_size(1024L);
+		bean.setActivated(0);
+		bean.setModified_time("2014-04-13 12:42:32");
+		bean.setCreated_time("2014-04-13 12:42:32");
+		bean.setHeight(100L);
+		bean.setWidth(200L);
+		bean.setDuration(10000L);
+		bean.setExtension(".jpg");
+		bean.setTitle("这是一个测试视频");
+		bean.setCategory_id(10L);
+		bean.setMp4_expires(10);
+		bean.setMp4_url("1000.mp4");
+		bean.setM3u8_expires(100);
+		bean.setM3u8_url("m3u8.m3u8");
+		bean.setPermanent_expires(11);
+		bean.setPermanent_url("url.perm");
+		bean.setZm_file_size(100020L);
+		bean.setZm_id("100000ddddd");
+		bean.setZm_type("mp4");
+		
 
-		bs.addBrand(bean);
+		bs.addVideo(bean);
 
-		System.out.println(bs.getBrandList().size());
+		System.out.println(bs.getVideoList().size());
+
 	}
 
 }

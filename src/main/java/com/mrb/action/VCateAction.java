@@ -20,19 +20,16 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.mrb.bean.Brand2ShowBean;
-import com.mrb.bean.BrandBean;
-import com.mrb.bean.ProjectBean;
-import com.mrb.bs.BrandBS;
-import com.mrb.bs.ProjectBS;
+import com.mrb.bean.VCateBean;
+import com.mrb.bs.VCateBS;
 import com.mrb.form.JsonForm;
 
 /**
  * @author Administrator 9:06:26 PM
  * 
- *         品牌注册的Action
+ * 视频分类注册的Action
  */
-public class BrandAction extends Action {
+public class VCateAction extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest req, HttpServletResponse res) {
@@ -43,38 +40,40 @@ public class BrandAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
-		BrandBS bs = new BrandBS();
+		VCateBS bs = new VCateBS();
 		Gson gson = new Gson();
-		if ("list".equals(act)) { // 获取品牌列表 for ajax
+		if ("list".equals(act)) { // 获取视频分类列表 for ajax
 
-			ArrayList<Brand2ShowBean> ulist = bs.getBrandList();
+			ArrayList<VCateBean> ulist = bs.getVCateList();
 			log.debug("ulist.size(): " + ulist.size());
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<table class=\"table\"><thead><tr><th>品牌ID</th><th>品牌标题</th><th>项目名称</th><th>品牌图标</th><th>名称</th><th>价格</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<table class=\"table\"><thead><tr><th>视频分类ID</th><th>分类名称</th><th>创建日期</th><th>操作人</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
-					Brand2ShowBean bean = (Brand2ShowBean) ulist.get(i);
-					html.append("<tr><td>" + bean.getBid() + "</td><td>"
-							+ bean.getBtitle() + "</td><td>" + bean.getPname()
-							+ "</td><td>" + bean.getIid() + "</td><td>"
-							+ bean.getName() + "</td><td>" + bean.getPrice()
-							+ "</td>");
-					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
-					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setbid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
+					VCateBean bean = (VCateBean) ulist.get(i);
+					html.append("<tr><td>" + bean.getVcid() + "</td><td>"
+							+ bean.getName() + "</td><td>" + bean.getDate()
+							+ "</td><td>" + bean.getOperid() + "</td>");
+					
+					html
+							.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
+					html
+							.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setvcid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
 
 			} else {
-				html.append("<tr><td>没有品牌记录！</td><td></td><td></td><td></td></tr>");
+				html
+						.append("<tr><td>没有视频分类记录！</td><td></td><td></td><td></td></tr>");
 			}
 			html.append("</tbody></table>");
 			result = html.toString();
-
-		} else if ("add".equals(act)) { // 添加品牌 for 跳转
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+			
+		} else if ("add".equals(act)) { // 添加视频分类 for 跳转
+			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
-				bs.addBrand(bean);
+				bs.addVCate(bean);
 			} else {
 				result = "参数非法";
 			}
@@ -82,67 +81,68 @@ public class BrandAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 				return mapping.findForward("list");
-			} else {
-				req.setAttribute("brand", bean);
+			}
+			else{
+				req.setAttribute("vcate", bean);
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
 			}
-		} else if ("edit".equals(act)) {// 编辑品牌 for 跳转
-			Brand2ShowBean brand = null;
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+		} else if ("edit".equals(act)) {// 编辑视频分类 for 跳转
+			VCateBean vcate = null;
+			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				brand = bs.getBrandById(bean.getBid());
+				log.info("vcid = [" + bean.getVcid() + "]");
+				vcate = bs.getVCateById(bean.getVcid());
 			} else {
 				log.error("bean is null");
 				result = "参数非法";
 			}
 
-			if (brand != null) {
-				req.setAttribute("brand", brand);
+			if (vcate != null) {
+				req.setAttribute("vcate", vcate);
 			} else {
-				result = "未找到该品牌";
-			}
-			
-			if ("ok".equals(result)) {
-				return mapping.findForward(act);
-			} else {
-				req.setAttribute("result", result);
-				return mapping.findForward("list");
+				result = "未找到该视频分类";
 			}
 
-		} else if ("del".equals(act)) { // 删除品牌 for ajax
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+			if ("ok".equals(result)) {
+				return mapping.findForward(act);
+			}
+			else{
+				req.setAttribute("result", result);
+				return mapping.findForward("list");			
+			}
+			
+		} else if ("del".equals(act)) { // 删除视频分类 for ajax
+			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				bs.delBrandById(bean.getBid());
+				log.info("vcid = [" + bean.getVcid() + "]");
+				bs.delVCateById(bean.getVcid());
 			} else {
 				result = "参数非法";
 			}
-
-		} else if ("update".equals(act)) { // 更新品牌 for 跳转
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+			
+		} else if ("update".equals(act)) { // 更新视频分类 for 跳转
+			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
+				log.info("Vcid = [" + bean.getVcid() + "]");
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setDate(Long.valueOf(now));
-				bs.updateBrand(bean);
+				bs.updateVCate(bean);
 			} else {
 				result = "参数非法";
 			}
-			
+
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
-
-				Brand2ShowBean showBean = bs.getBrandById(bean.getBid());
-				req.setAttribute("brand", showBean);
+				req.setAttribute("vcate", bean);
 				return mapping.findForward("edit");
-			} else {
+			}
+			else{
 				req.setAttribute("result", result);
 				return mapping.findForward("list");
 			}
-
+		
 		} else {
 			result = "不支持的操作类型";
 		}
@@ -161,5 +161,4 @@ public class BrandAction extends Action {
 
 		return null;
 	}
-
 }

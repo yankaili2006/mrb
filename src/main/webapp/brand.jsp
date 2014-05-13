@@ -64,6 +64,7 @@
 			
 			function gotoedit(obj){
 				var tds=$(obj).parent().parent().find('td');
+				$('#act').val("edit");
 				$('#bid').val(tds.eq(0).text());
 				$('#msg').val("{bid:" + tds.eq(0).text()+"}");
 				$('#editbid').submit();
@@ -156,10 +157,10 @@
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
 							<li>
-								<a href="pcate.jsp">视频分类</a>
+								<a href="vcate.jsp">视频分类</a>
 							</li>
 							<li>
-								<a href="user.jsp">视频列表</a>
+								<a href="video.jsp">视频列表</a>
 							</li>
 						</ul>
 
@@ -300,7 +301,7 @@
 					%>
 					<!-- 位置重要 -->
 					<form name="editbid" id="editbid" action="brand.do" method="post">
-						<input type="hidden" id="act" name="act" value="edit">
+						<input type="hidden" id="act" name="act" value="">
 						<input type="hidden" id="msg" name="msg" value="">
 					</form>
 					<input type="hidden" id="bid" value="">

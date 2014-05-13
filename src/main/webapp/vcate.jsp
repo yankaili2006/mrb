@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>项目分类管理</title>
+		<title>视频分类管理</title>
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
@@ -49,14 +49,14 @@
     <![endif]-->
 
 		<script type="text/javascript">
-			function delpcate(){
-				$.post("pcate.do", {act:"del", msg:"{cid:"+$('#cid').val()+"}"},
+			function delvcate(){
+				$.post("vcate.do", {act:"del", msg:"{vcid:"+$('#vcid').val()+"}"},
 			   function(data){
 			     if (data != "ok"){
 			         alert(data);
 			     }else{
-	  				$.post("pcate.do?act=list", function(data) {
-	  					$("#pcategrid").html(data);
+	  				$.post("vcate.do?act=list", function(data) {
+	  					$("#vcategrid").html(data);
 	  				});
 			     }
 			   });
@@ -64,24 +64,24 @@
 			
 			function gotoedit(obj){
 				var tds=$(obj).parent().parent().find('td');
-				$('#cid').val(tds.eq(0).text());
-				$('#msg').val("{cid:" + tds.eq(0).text()+"}");
-				$('#editcid').submit();
+				$('#vcid').val(tds.eq(0).text());
+				$('#msg').val("{vcid:" + tds.eq(0).text()+"}");
+				$('#editvcid').submit();
 			}
 			
 			function gotoadd(){
-				window.location.href="addpcate.jsp";
+				window.location.href="addvcate.jsp";
 			}
 			
-			function setcid(obj){
+			function setvcid(obj){
 				var tds=$(obj).parent().parent().find('td');
-				$('#cid').val(tds.eq(0).text());
+				$('#vcid').val(tds.eq(0).text());
 				$('#update').modal('show');
 			}
 			
 			$(document).ready(function(){
-  				$.post("pcate.do?act=list", function(data) {
-  					$("#pcategrid").html(data);
+  				$.post("vcate.do?act=list", function(data) {
+  					$("#vcategrid").html(data);
   				});
   			});
 </script>
@@ -119,7 +119,8 @@
 								<li>
 									<a tabindex="-1" href="#">设置</a>
 								</li>
-								<li class="divider"></li>
+								<li class="divider">
+								</li>
 								<li>
 									<a tabindex="-1" href="admin.jsp">退出</a>
 								</li>
@@ -154,20 +155,20 @@
 							<i class="icon-dashboard"></i>视频管理
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
-							<li>
+							<li class="active">
 								<a href="vcate.jsp">视频分类</a>
 							</li>
 							<li>
 								<a href="video.jsp">视频列表</a>
 							</li>
 						</ul>
-						
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#dashboard-menu">
 							<i class="icon-dashboard"></i>项目管理
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
-							<li class="active">
+							<li>
 								<a href="pcate.jsp">项目分类</a>
 							</li>
 							<li>
@@ -177,7 +178,7 @@
 								<a href="brand.jsp">品牌列表</a>
 							</li>
 						</ul>
-						
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#dashboard-menu">
 							<i class="icon-dashboard"></i>其他
@@ -187,7 +188,7 @@
 								<a href="user.jsp">城市列表</a>
 							</li>
 						</ul>
-						
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#dashboard-menu">
 							<i class="icon-dashboard"></i>Dashboard
@@ -268,22 +269,42 @@
 				</div>
 				<div class="span9">
 					<h1 class="page-title">
-						项目分类
+						所有视频分类
 					</h1>
 					<div class="btn-toolbar">
 						<button class="btn btn-primary" onclick="gotoadd();">
-							<i class="icon-plus"></i>添加分类
+							<i class="icon-plus"></i>添加视频分类
 						</button>
 						<div class="btn-group">
 						</div>
 					</div>
+					<%
+					    Object robj = request.getAttribute("result");
+					    if (robj != null){
+					    	String result = (String)robj;
+					    	if ("ok".equals(result)){
+					%>
+					<div class="alert alert-success">
+						<a href="#" class="alert-link">操作成功！</a>
+					</div>
+					<%
+						}
+						else{
+						%>
+					<div class="alert alert-danger">
+						<a href="#" class="alert-link"><%=result %></a>
+					</div>
+					<%
+					    	}
+					    }
+					%>
 					<!-- 位置重要 -->
-					<form name="editcid" id="editcid" action="pcate.do" method="post">
+					<form name="editvcid" id="editvcid" action="vcate.do" method="post">
 						<input type="hidden" id="act" name="act" value="edit">
 						<input type="hidden" id="msg" name="msg" value="">
 					</form>
-					<input type="hidden" id="cid" value="">
-					<div class="well" id="pcategrid">
+					<input type="hidden" id="vcid" value="">
+					<div class="well" id="vcategrid">
 					</div>
 					<div class="pagination">
 						<ul>
@@ -321,7 +342,7 @@
 						</div>
 						<div class="modal-body">
 							<p class="error-text">
-								<i class="icon-warning-sign modal-icon"></i>您确定删除该分类?
+								<i class="icon-warning-sign modal-icon"></i>您确定删除该视频分类?
 							</p>
 						</div>
 						<div class="modal-footer">
@@ -329,7 +350,7 @@
 								取消
 							</button>
 							<button class="btn btn-danger" data-dismiss="modal"
-								onclick="delpcate();">
+								onclick="delvcate();">
 								删除
 							</button>
 						</div>

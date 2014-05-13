@@ -10,31 +10,37 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mrb.bean.Brand2ShowBean;
-import com.mrb.bean.BrandBean;
+import com.mrb.bean.VCateBean;
 import com.mrb.ibatis.SqlMap;
 
 /**
  * @author Administrator 7:24:13 PM
  */
-public class BrandBS {
+public class VCateBS {
+
+	/**
+	 * 
+	 */
+	public VCateBS() {
+		// TODO Auto-generated constructor stub
+	}
 
 	/*
-	 * 注册新品牌
+	 * 注册新视频分类
 	 */
-	public Boolean addBrand(BrandBean bean) {
+	public Boolean addVCate(VCateBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-
-			long bid = System.currentTimeMillis() % 1000000;
-			bean.setBid(bid);
+			
+			long vcid = System.currentTimeMillis() % 1000000;
+			bean.setVcid(vcid);
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
 			bean.setDate(Long.valueOf(now));
 			bean.setOperid(1L);
 
-			client.update("addBrand", bean);
+			client.update("addVCate", bean);
 			client.commitTransaction();
 
 			client.endTransaction();
@@ -46,14 +52,14 @@ public class BrandBS {
 	}
 
 	/*
-	 * 通过uid获取品牌信息
+	 * 通过vcid获取视频分类信息
 	 */
-	public Brand2ShowBean getBrandById(Long id) {
-		Brand2ShowBean bean = null;
+	public VCateBean getVCateById(Long id) {
+		VCateBean bean = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			bean = (Brand2ShowBean) client.queryForObject("getBrandById", id);
+			bean = (VCateBean) client.queryForObject("getVCateById", id);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -63,33 +69,31 @@ public class BrandBS {
 	}
 
 	/*
-	 * 获取品牌列表
+	 * 获取视频分类列表
 	 */
-	public ArrayList<Brand2ShowBean> getBrandList() {
-		ArrayList<Brand2ShowBean> brandList = null;
+	public ArrayList<VCateBean> getVCateList() {
+		ArrayList<VCateBean> vcateList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			Object obj = client.queryForList("getBrandList");
-			if (obj != null) {
-				brandList = (ArrayList<Brand2ShowBean>) obj;
-			}
+			vcateList = (ArrayList<VCateBean>) client.queryForList("getVCateList");
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return brandList;
+		return vcateList;
 	}
 
 	/*
-	 * 更新品牌信息
+	 * 更新视频分类信息
 	 */
-	public Boolean updateBrand(BrandBean bean) {
+	public Boolean updateVCate(VCateBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("updateBrand", bean);
+			client.update("updateVCate", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -98,15 +102,15 @@ public class BrandBS {
 		}
 		return true;
 	}
-
+	
 	/*
-	 * 更新品牌信息
+	 * 删除视频分类信息
 	 */
-	public Boolean updateBrandPwd(BrandBean bean) {
+	public Boolean delVCateById(Long id) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("updateBrandPwd", bean);
+			client.update("delVCateById", id);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -115,42 +119,20 @@ public class BrandBS {
 		}
 		return true;
 	}
-
-	/*
-	 * 删除品牌信息
-	 */
-	public Boolean delBrandById(Long id) {
-		SqlMapClient client = SqlMap.getSqlMapInstance();
-		try {
-			client.startTransaction();
-			client.update("delBrandById", id);
-			client.commitTransaction();
-			client.endTransaction();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return true;
-	}
-
+	
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 
-		BrandBS bs = new BrandBS();
-		BrandBean bean = new BrandBean();
-		bean.setPid(283222L);
-		bean.setBtitle("眼部护理系列");
-		bean.setBinfo("产品简介");
-		bean.setName("祛皱眼部精华");
-		bean.setPrice("1280元/套");
-		bean.setFunction("功效");
-		bean.setSummary("其他说明");
+		VCateBS bs = new VCateBS();
+		VCateBean bean = new VCateBean();
+		bean.setName("专家课堂");
 
-		bs.addBrand(bean);
+		bs.addVCate(bean);
 
-		System.out.println(bs.getBrandList().size());
+		System.out.println(bs.getVCateList().size());
+
 	}
 
 }

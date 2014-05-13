@@ -1,9 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.mrb.bean.VideoBean"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>项目分类管理</title>
+		<title>视频管理</title>
 		<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="">
@@ -48,42 +50,26 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+
 		<script type="text/javascript">
-			function delpcate(){
-				$.post("pcate.do", {act:"del", msg:"{cid:"+$('#cid').val()+"}"},
+			function delvideo(){
+				$.post("video.do", {act:"del", msg:"{uid:"+$('#uid').val()+"}"},
 			   function(data){
 			     if (data != "ok"){
 			         alert(data);
 			     }else{
-	  				$.post("pcate.do?act=list", function(data) {
-	  					$("#pcategrid").html(data);
-	  				});
+			        alert("删除成功");
+			        window.location.href="video.jsp";
 			     }
 			   });
 			}
 			
-			function gotoedit(obj){
-				var tds=$(obj).parent().parent().find('td');
-				$('#cid').val(tds.eq(0).text());
-				$('#msg').val("{cid:" + tds.eq(0).text()+"}");
-				$('#editcid').submit();
+			function updatevideo(){
+			    $('#act').val("update");
+			    $('#msg').val("{uid:" + $('#uid').val() + ",uname:" + $('#uname').val() + ",phone:" + $('#phone').val() + ",status:" + $('#status').val() + "}");
+				$('#updateform').submit();
 			}
 			
-			function gotoadd(){
-				window.location.href="addpcate.jsp";
-			}
-			
-			function setcid(obj){
-				var tds=$(obj).parent().parent().find('td');
-				$('#cid').val(tds.eq(0).text());
-				$('#update').modal('show');
-			}
-			
-			$(document).ready(function(){
-  				$.post("pcate.do?act=list", function(data) {
-  					$("#pcategrid").html(data);
-  				});
-  			});
 </script>
 		<!-- Le fav and touch icons -->
 		<link rel="shortcut icon" href="../assets/ico/favicon.ico">
@@ -103,6 +89,7 @@
 	<!--[if IE 9 ]> <body class="ie ie9"> <![endif]-->
 	<!--[if (gt IE 9)|!(IE)]><!-->
 	<body>
+		&nbsp;
 		<!--<![endif]-->
 
 		<div class="navbar">
@@ -118,8 +105,12 @@
 							<ul class="dropdown-menu">
 								<li>
 									<a tabindex="-1" href="#">设置</a>
+									<br>
 								</li>
-								<li class="divider"></li>
+								<li class="divider">
+									u
+									<br>
+								</li>
 								<li>
 									<a tabindex="-1" href="admin.jsp">退出</a>
 								</li>
@@ -127,7 +118,7 @@
 						</li>
 
 					</ul>
-					<a class="brand" href="index.html"><span class="first">欢迎登陆</span>
+					<a class="brand" href="index.html"><span class="first">pdpda欢迎登陆</span>
 						<span class="second">美人帮管理端</span> </a>
 				</div>
 			</div>
@@ -139,6 +130,7 @@
 			<div class="row-fluid">
 				<div class="span3">
 					<div class="sidebar-nav">
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#dashboard-menu">
 							<i class="icon-dashboard"></i>用户管理
@@ -157,17 +149,17 @@
 							<li>
 								<a href="vcate.jsp">视频分类</a>
 							</li>
-							<li>
+							<li class="active">
 								<a href="video.jsp">视频列表</a>
 							</li>
 						</ul>
-						
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#dashboard-menu">
 							<i class="icon-dashboard"></i>项目管理
 						</div>
 						<ul id="dashboard-menu" class="nav nav-list collapse in">
-							<li class="active">
+							<li>
 								<a href="pcate.jsp">项目分类</a>
 							</li>
 							<li>
@@ -177,7 +169,7 @@
 								<a href="brand.jsp">品牌列表</a>
 							</li>
 						</ul>
-						
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#dashboard-menu">
 							<i class="icon-dashboard"></i>其他
@@ -187,35 +179,8 @@
 								<a href="user.jsp">城市列表</a>
 							</li>
 						</ul>
-						
-						<div class="nav-header" data-toggle="collapse"
-							data-target="#dashboard-menu">
-							<i class="icon-dashboard"></i>Dashboard
-						</div>
-						<ul id="dashboard-menu" class="nav nav-list collapse in">
-							<li>
-								<a href="index.html">Home</a>
-							</li>
-							<li>
-								<a href="user.html">Sample List</a>
-							</li>
-							<li>
-								<a href="user.html">Sample Item</a>
-							</li>
-							<li>
-								<a href="gallery.html">Gallery</a>
-							</li>
-							<li>
-								<a href="calendar.html">Calendar</a>
-							</li>
-							<li>
-								<a href="faq.html">Faq</a>
-							</li>
-							<li>
-								<a href="help.html">Help</a>
-							</li>
 
-						</ul>
+
 						<div class="nav-header" data-toggle="collapse"
 							data-target="#accounts-menu">
 							<i class="icon-briefcase"></i>Account
@@ -268,44 +233,116 @@
 				</div>
 				<div class="span9">
 					<h1 class="page-title">
-						项目分类
+						编辑视频
 					</h1>
 					<div class="btn-toolbar">
-						<button class="btn btn-primary" onclick="gotoadd();">
-							<i class="icon-plus"></i>添加分类
+						<button class="btn btn-primary" onclick="updatevideo();">
+							<i class="icon-save"></i>保存
 						</button>
+						<a href="#myModal" data-toggle="modal" class="btn">删除</a>
 						<div class="btn-group">
 						</div>
 					</div>
-					<!-- 位置重要 -->
-					<form name="editcid" id="editcid" action="pcate.do" method="post">
-						<input type="hidden" id="act" name="act" value="edit">
-						<input type="hidden" id="msg" name="msg" value="">
-					</form>
-					<input type="hidden" id="cid" value="">
-					<div class="well" id="pcategrid">
+					<%
+						Object robj = request.getAttribute("result");
+						if (robj != null) {
+							String result = (String) robj;
+							if ("ok".equals(result)) {
+					%>
+					<div class="alert alert-success">
+						<a href="#" class="alert-link">操作成功！</a>
 					</div>
-					<div class="pagination">
-						<ul>
-							<li>
-								<a href="#">上一页</a>
-							</li>
-							<li>
-								<a href="#">1</a>
-							</li>
-							<li>
-								<a href="#">2</a>
-							</li>
-							<li>
-								<a href="#">3</a>
-							</li>
-							<li>
-								<a href="#">4</a>
-							</li>
-							<li>
-								<a href="#">下一页</a>
+					<%
+						} else {
+					%>
+					<div class="alert alert-danger">
+						<a href="#" class="alert-link"><%=result%></a>
+					</div>
+					<%
+						}
+						}
+					%>
+					<div class="well">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="#home" data-toggle="tab">基本信息</a>
 							</li>
 						</ul>
+						<form id="updateform" name="updateform" action="video.do"
+							method="post">
+							<input type="hidden" id="act" name="act" value="">
+							<input type="hidden" id="msg" name="msg" value="">
+						</form>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane active in" id="home">
+								<form id="tab">
+									<%
+										Object obj = request.getAttribute("video");
+										if (obj != null) {
+											VideoBean bean = (VideoBean) obj;
+									%>
+									<label>
+										视频名称
+									</label>
+									<input type="text" name="title" id="title"
+										value="<%=bean.getTitle()%>" class="input-xlarge">
+									
+									<label>
+										描述信息
+									</label>
+									<textarea name="description" id="description" class="form-control" rows="3"><%=bean.getDescription()%></textarea>
+									
+									<label>
+										状态
+									</label>
+									<select name="status" id="status" class="input-xlarge">
+										<option value="Z"
+											<% if("Z".equals(bean.getStatus())){ out.print("selected=\"selected\"");} %>>
+											正常
+										</option>
+										<option value="C"
+											<% if("C".equals(bean.getStatus())){ out.print("selected=\"selected\"");} %>>
+											注销
+										</option>
+									</select>
+
+									<input type="hidden" id="vid" name="vid"
+										value="<%=bean.getVid()%>">
+									<%
+										} else {
+									%>
+									<label>
+										视频名称
+									</label>
+									<input type="text" name="title" id="title"
+										value="" class="input-xlarge">
+									
+									<label>
+										描述信息
+									</label>
+									<textarea name="description" id="description" class="form-control" rows="3"></textarea>
+									
+									<label>
+										状态
+									</label>
+									<select name="status" id="status" class="input-xlarge">
+										<option value="Z">
+											正常
+										</option>
+										<option value="C">
+											注销
+										</option>
+									</select>
+
+									<input type="hidden" id="vid" name="vid"
+										value="0">
+									<%
+										}
+									%>
+								</form>
+							</div>
+						</div>
+
 					</div>
 
 					<div class="modal small hide fade" id="myModal" tabindex="-1"
@@ -320,8 +357,9 @@
 							</h3>
 						</div>
 						<div class="modal-body">
+
 							<p class="error-text">
-								<i class="icon-warning-sign modal-icon"></i>您确定删除该分类?
+								<i class="icon-warning-sign modal-icon"></i>您确定删除该视频?
 							</p>
 						</div>
 						<div class="modal-footer">
@@ -329,7 +367,7 @@
 								取消
 							</button>
 							<button class="btn btn-danger" data-dismiss="modal"
-								onclick="delpcate();">
+								onclick="delvideo();">
 								删除
 							</button>
 						</div>

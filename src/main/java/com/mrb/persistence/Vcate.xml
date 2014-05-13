@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="vcate">
+	<insert id="addVCate" parameterClass="com.mrb.bean.VCateBean">
+		insert into tbvcate
+		values(#vcid#,#name#,#date#,#operid#)
+	</insert>
+
+	<select id="getVCateById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.VCateBean">
+		select * from tbvcate where vcid = #id#
+	</select>
+
+	<select id="getVCateList" resultClass="com.mrb.bean.VCateBean">
+		select * from tbvcate order by date desc
+	</select>
+
+	<update id="updateVCate" parameterClass="com.mrb.bean.VCateBean">
+		update tbvcate set date=#date#
+		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
+		<isNotEmpty prepend="," property="date">date=#date#</isNotEmpty>
+		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		where vcid=#vcid#
+	</update>
+
+	<delete id="delVCateById" parameterClass="java.lang.Long">
+		delete from tbvcate where vcid = #id#
+	</delete>
+</sqlMap>
