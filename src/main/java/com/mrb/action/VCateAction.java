@@ -20,9 +20,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.mrb.bean.PageBean;
 import com.mrb.bean.VCateBean;
 import com.mrb.bs.VCateBS;
 import com.mrb.form.JsonForm;
+import com.mrb.util.PageUtil;
 
 /**
  * @author Administrator 9:06:26 PM
@@ -43,13 +45,18 @@ public class VCateAction extends Action {
 		VCateBS bs = new VCateBS();
 		Gson gson = new Gson();
 		if ("list".equals(act)) { // 获取视频分类列表 for ajax
+			
+			PageBean pbean = gson.fromJson(msg, PageBean.class);
+			pbean.setMaxpage(5);
+			pbean.setPerpage(5);
+			pbean.setTotal((bs.getVCateCnt() - 1) / pbean.getPerpage() + 1);
 
-			ArrayList<VCateBean> ulist = bs.getVCateList();
-			log.debug("ulist.size(): " + ulist.size());
+			ArrayList<VCateBean> ulist = bs.getVCateList((pbean.getP() - 1)
+					* pbean.getPerpage(), pbean.getPerpage());
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<table class=\"table\"><thead><tr><th>视频分类ID</th><th>分类名称</th><th>创建日期</th><th>操作人</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>视频分类ID</th><th>分类名称</th><th>创建日期</th><th>操作人</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					VCateBean bean = (VCateBean) ulist.get(i);
@@ -67,7 +74,11 @@ public class VCateAction extends Action {
 				html
 						.append("<tr><td>没有视频分类记录！</td><td></td><td></td><td></td></tr>");
 			}
-			html.append("</tbody></table>");
+			html.append("</tbody></table></div>");
+
+			PageUtil util = new PageUtil();
+			html.append(util.pagination(pbean));
+			
 			result = html.toString();
 			
 		} else if ("add".equals(act)) { // 添加视频分类 for 跳转

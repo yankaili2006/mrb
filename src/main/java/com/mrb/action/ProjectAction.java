@@ -23,14 +23,16 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.mrb.bean.PageBean;
 import com.mrb.bean.ProjectBean;
 import com.mrb.bs.ProjectBS;
 import com.mrb.form.JsonForm;
+import com.mrb.util.PageUtil;
 
 /**
  * @author Administrator 9:06:26 PM
  * 
- * 项目注册的Action
+ *         项目注册的Action
  */
 public class ProjectAction extends Action {
 
@@ -47,12 +49,17 @@ public class ProjectAction extends Action {
 		Gson gson = new Gson();
 		if ("list".equals(act)) { // 获取项目列表 for ajax
 
-			ArrayList<ProjectBean> ulist = bs.getProjectList();
-			log.debug("ulist.size(): " + ulist.size());
+			PageBean pbean = gson.fromJson(msg, PageBean.class);
+			pbean.setPerpage(5);
+			pbean.setMaxpage(5);
+			pbean.setTotal((bs.getProjectCnt() - 1) / pbean.getPerpage() + 1);
+
+			ArrayList<ProjectBean> ulist = bs.getProjectList((pbean.getP() - 1)
+					* pbean.getPerpage(), pbean.getPerpage());
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<table class=\"table\"><thead><tr><th>项目ID</th><th>项目名</th><th>图标</th><th>定位</th><th>地址</th><th>时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>项目ID</th><th>项目名</th><th>图标</th><th>定位</th><th>地址</th><th>时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					ProjectBean bean = (ProjectBean) ulist.get(i);
@@ -60,20 +67,21 @@ public class ProjectAction extends Action {
 							+ bean.getName() + "</td><td>" + bean.getIid()
 							+ "</td><td>" + bean.getLevel() + "</td><td>"
 							+ bean.getArea() + "</td><td>");
-					
+
 					html.append("<td>" + bean.getDate() + "</td>");
-					
-					html
-							.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
-					html
-							.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setpid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
+
+					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
+					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setpid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
 
 			} else {
-				html
-						.append("<tr><td>没有项目记录！</td><td></td><td></td><td></td></tr>");
+				html.append("<tr><td>没有项目记录！</td><td></td><td></td><td></td></tr>");
 			}
-			html.append("</tbody></table>");
+
+			PageUtil util = new PageUtil();
+			html.append(util.pagination(pbean));
+
+			html.append("</tbody></table></div>");
 			result = html.toString();
 
 		} else if ("add".equals(act)) { // 添加项目 for 跳转
@@ -127,7 +135,7 @@ public class ProjectAction extends Action {
 			} else {
 				result = "参数非法";
 			}
-			
+
 			req.setAttribute("result", result);
 			return mapping.findForward("list");
 
@@ -171,33 +179,4 @@ public class ProjectAction extends Action {
 		return null;
 	}
 
-	private String readFromReq(BufferedReader reader) {
-
-		StringBuilder builder = new StringBuilder();
-		String line = null;
-		try {
-			while ((line = reader.readLine()) != null) {
-				builder.append(line);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return builder.toString();
-	}
-
-	private String readJsonFromRequestBody(HttpServletRequest request) {
-		StringBuffer jsonBuf = new StringBuffer();
-		char[] buf = new char[2048];
-		int len = -1;
-		try {
-			BufferedReader reader = request.getReader();
-			while ((len = reader.read(buf)) != -1) {
-				jsonBuf.append(new String(buf, 0, len));
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return jsonBuf.toString();
-	}
 }

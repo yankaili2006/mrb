@@ -10,7 +10,7 @@ package com.mrb.util;
  *
  *将文档的字节大小数字，转换为KB,MB和GB
  */
-public class PageShowUtil {
+public class WebShowUtil {
 
 	public static String number2GMK(long num){
 		String gmk = "";

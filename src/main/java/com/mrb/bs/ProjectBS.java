@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mrb.bean.Book2ShowBean;
 import com.mrb.bean.ProjectBean;
 import com.mrb.ibatis.SqlMap;
 
@@ -74,12 +73,15 @@ public class ProjectBS {
 	/*
 	 * 获取项目列表
 	 */
-	public ArrayList<ProjectBean> getProjectList() {
+	public ArrayList<ProjectBean> getProjectList(Integer index, Integer cnt) {
 		ArrayList<ProjectBean> projectList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			projectList = (ArrayList<ProjectBean>) client.queryForList("getProjectList");
+			HashMap map = new HashMap();
+			map.put("index", index);
+			map.put("cnt", cnt);
+			projectList = (ArrayList<ProjectBean>) client.queryForList("getProjectList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -87,6 +89,24 @@ public class ProjectBS {
 			e.printStackTrace();
 		}
 		return projectList;
+	}
+	
+	/*
+	 * 获取项目数目
+	 */
+	public Integer getProjectCnt() {
+		Integer cnt = 0;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			cnt = (Integer) client.queryForObject("getProjectCnt");
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	/*
@@ -154,7 +174,7 @@ public class ProjectBS {
 		bean.setIid(10000L);
 
 		bs.addProject(bean);
-		System.out.println(bs.getProjectList().size());
+		System.out.println(bs.getProjectList(1,5).size());
 	}
 
 }

@@ -5,7 +5,7 @@
 <%
 	//项目列表
 	ProjectBS pbs = new ProjectBS();
-	ArrayList<ProjectBean> plist = pbs.getProjectList();
+	ArrayList<ProjectBean> plist = pbs.getProjectList(0,5);
 	String result = null;
 	
 	Object robj = request.getAttribute("result");
@@ -102,7 +102,10 @@
 <body>
 	&nbsp;
 	<!--<![endif]-->
-
+	<%
+		Long uid = (Long) session.getAttribute("uid");
+		String uname = (String) session.getAttribute("uname");
+	%>
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container-fluid">
@@ -110,7 +113,7 @@
 
 					<li id="fat-menu" class="dropdown"><a href="#" id="drop3"
 						role="button" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-user"></i>管理员admin<i class="icon-caret-down"></i>
+							<i class="icon-user"></i><%=uname%><i class="icon-caret-down"></i>
 					</a>
 
 						<ul class="dropdown-menu">
@@ -121,7 +124,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="index.html"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -212,10 +215,9 @@
 					<div class="btn-group"></div>
 				</div>
 				<%
-					if (result == null || "".equals(result)){
+					if (result == null || "".equals(result)) {
 						;
-					}
-					else if ("ok".equals(result)) {
+					} else if ("ok".equals(result)) {
 				%>
 				<div class="alert alert-success">
 					<a href="#" class="alert-link">操作成功！</a>

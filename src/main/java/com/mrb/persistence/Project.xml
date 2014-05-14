@@ -11,10 +11,14 @@
 		select * from tbproject where pid = #id#
 	</select>
 
-	<select id="getProjectList" resultClass="com.mrb.bean.ProjectBean">
-		select * from tbproject order by date desc
+	<select id="getProjectList"  parameterClass="java.util.HashMap" resultClass="com.mrb.bean.ProjectBean">
+		select * from tbproject order by date desc limit #index#, #cnt#
 	</select>
 
+	<select id="getProjectCnt" resultClass="java.lang.Integer">
+		select count(1) from tbproject
+	</select>
+	
 	<update id="updateProject" parameterClass="com.mrb.bean.ProjectBean">
 		update tbproject set date=#date#
 		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>

@@ -13,7 +13,6 @@ import org.apache.struts.action.ActionMapping;
  * @author Administrator 9:03:50 PM
  */
 public class JsonForm extends ActionForm {
-
 	private String act;
 	private String msg;
 
@@ -30,7 +29,8 @@ public class JsonForm extends ActionForm {
 	}
 
 	/**
-	 * @param act the act to set
+	 * @param act
+	 *            the act to set
 	 */
 	public void setAct(String act) {
 		this.act = act;
@@ -44,7 +44,8 @@ public class JsonForm extends ActionForm {
 	}
 
 	/**
-	 * @param msg the msg to set
+	 * @param msg
+	 *            the msg to set
 	 */
 	public void setMsg(String msg) {
 		this.msg = msg;

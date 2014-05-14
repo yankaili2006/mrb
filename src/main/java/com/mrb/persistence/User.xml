@@ -10,9 +10,24 @@
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where uid = #id#
 	</select>
+	
+	<select id="loginUser" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where uname = #uname# and phone = #phone# and pwd = #pwd#
+	</select>
 
-	<select id="getUserList" resultClass="com.mrb.bean.UserBean">
-		select * from tbuser order by date desc
+<select id="loginUPUser" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where (uname = #uname# or phone = #uname#) and pwd = #pwd#
+	</select>
+
+
+	<select id="getUserList" parameterClass="java.util.HashMap" resultClass="com.mrb.bean.UserBean">
+		select * from tbuser order by date desc limit #index#, #cnt#
+	</select>
+	
+	<select id="getUserCnt" resultClass="java.lang.Integer">
+		select Count(1) from tbuser
 	</select>
 
 	<update id="updateUser" parameterClass="com.mrb.bean.UserBean">
@@ -29,6 +44,10 @@
 		where uid=#uid#
 	</update>
 	
+	<select id="chkPwd" parameterClass="com.mrb.bean.PwdBean"
+		resultClass="java.lang.Integer">
+		select count(1) from tbuser where uid = #uid# and pwd = #pwd#
+	</select>
 
 	<delete id="delUserById" parameterClass="java.lang.Long">
 		delete from tbuser where uid = #id#

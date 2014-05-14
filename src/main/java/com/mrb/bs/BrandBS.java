@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.Brand2ShowBean;
@@ -65,12 +66,15 @@ public class BrandBS {
 	/*
 	 * 获取品牌列表
 	 */
-	public ArrayList<Brand2ShowBean> getBrandList() {
+	public ArrayList<Brand2ShowBean> getBrandList(Integer index, Integer cnt) {
 		ArrayList<Brand2ShowBean> brandList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			Object obj = client.queryForList("getBrandList");
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("index", index);
+			map.put("cnt", cnt);
+			Object obj = client.queryForList("getBrandList", map);
 			if (obj != null) {
 				brandList = (ArrayList<Brand2ShowBean>) obj;
 			}
@@ -80,6 +84,23 @@ public class BrandBS {
 			e.printStackTrace();
 		}
 		return brandList;
+	}
+
+	/*
+	 * 获取品牌数目
+	 */
+	public Integer getBrandCnt() {
+		Integer cnt = 0;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			cnt = (Integer) client.queryForObject("getBrandCnt");
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	/*
@@ -150,7 +171,7 @@ public class BrandBS {
 
 		bs.addBrand(bean);
 
-		System.out.println(bs.getBrandList().size());
+		System.out.println(bs.getBrandList(0, 5).size());
 	}
 
 }

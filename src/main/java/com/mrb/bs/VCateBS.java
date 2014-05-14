@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.VCateBean;
@@ -32,7 +33,7 @@ public class VCateBS {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			
+
 			long vcid = System.currentTimeMillis() % 1000000;
 			bean.setVcid(vcid);
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
@@ -71,12 +72,16 @@ public class VCateBS {
 	/*
 	 * 获取视频分类列表
 	 */
-	public ArrayList<VCateBean> getVCateList() {
+	public ArrayList<VCateBean> getVCateList(Integer index, Integer cnt) {
 		ArrayList<VCateBean> vcateList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			vcateList = (ArrayList<VCateBean>) client.queryForList("getVCateList");
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("index", index);
+			map.put("cnt", cnt);
+			vcateList = (ArrayList<VCateBean>) client.queryForList(
+					"getVCateList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -84,6 +89,24 @@ public class VCateBS {
 			e.printStackTrace();
 		}
 		return vcateList;
+	}
+
+	/*
+	 * 获取视频分类数目
+	 */
+	public Integer getVCateCnt() {
+		Integer cnt = 0;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			cnt = (Integer) client.queryForObject("getVCateCnt");
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	/*
@@ -102,7 +125,7 @@ public class VCateBS {
 		}
 		return true;
 	}
-	
+
 	/*
 	 * 删除视频分类信息
 	 */
@@ -119,7 +142,7 @@ public class VCateBS {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * @param args
 	 */
@@ -131,7 +154,7 @@ public class VCateBS {
 
 		bs.addVCate(bean);
 
-		System.out.println(bs.getVCateList().size());
+		System.out.println(bs.getVCateList(0, 5).size());
 
 	}
 

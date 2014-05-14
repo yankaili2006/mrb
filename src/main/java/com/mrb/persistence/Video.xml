@@ -11,8 +11,15 @@
 		select * from tbvideo where vid = #id#
 	</select>
 
-	<select id="getVideoList" resultClass="com.mrb.bean.VideoBean">
-		select * from tbvideo order by date desc
+	<select id="getVideoList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.VideoBean">
+		select * from tbvideo order by date desc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getVideoCnt" resultClass="java.lang.Integer">
+		select count(1) from
+		tbvideo
 	</select>
 
 	<update id="updateVideo" parameterClass="com.mrb.bean.VideoBean">
@@ -48,6 +55,7 @@
 	</update>
 
 	<delete id="delVideoById" parameterClass="java.lang.String">
-		delete from tbvideo where vid = #id#
+		delete from tbvideo
+		where vid = #id#
 	</delete>
 </sqlMap>

@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mrb.bean.Book2ShowBean;
 import com.mrb.bean.UserBean;
 import com.mrb.ibatis.SqlMap;
 
@@ -30,14 +29,17 @@ public class UserBS {
 	/*
 	 * 注册新用户
 	 */
-	public Boolean addUser(UserBean bean) {
+	public Long addUser(UserBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
+		long uid = 0;
 		try {
 			client.startTransaction();
-			
-			long uid = System.currentTimeMillis() % 1000000;
+
+			uid = System.currentTimeMillis() % 1000000;
 			bean.setUid(uid);
 			bean.setType(0);
+			bean.setStatus("Z");
+
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
 			bean.setDate(Long.valueOf(now));
@@ -50,11 +52,54 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			uid = -1;
 		}
-		return true;
+		return uid;
 	}
 
+	/*
+	 * 用户登录
+	 */
+	public UserBean loginUser(UserBean bean) {
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		UserBean resultBean = null;
+		try {
+			client.startTransaction();
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("uname", bean.getUname());
+			map.put("phone", bean.getPhone());
+			map.put("pwd", bean.getPwd());
+			resultBean = (UserBean) client.queryForObject("loginUser", map);
+			client.commitTransaction();
+
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultBean;
+	}
+	
+	/*
+	 * 用户登录, 可以用户名或者密码登录
+	 */
+	public UserBean loginUPUser(UserBean bean) {
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		UserBean resultBean = null;
+		try {
+			client.startTransaction();
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("uname", bean.getUname());
+			map.put("pwd", bean.getPwd());
+			resultBean = (UserBean) client.queryForObject("loginUPUser", map);
+			client.commitTransaction();
+
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultBean;
+	}
+	
 	/*
 	 * 通过uid获取用户信息
 	 */
@@ -75,12 +120,16 @@ public class UserBS {
 	/*
 	 * 获取用户列表
 	 */
-	public ArrayList<UserBean> getUserList() {
+	public ArrayList<UserBean> getUserList(Integer index, Integer cnt) {
 		ArrayList<UserBean> userList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			userList = (ArrayList<UserBean>) client.queryForList("getUserList");
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("index", index);
+			map.put("cnt", cnt);
+			userList = (ArrayList<UserBean>) client.queryForList("getUserList",
+					map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -88,6 +137,24 @@ public class UserBS {
 			e.printStackTrace();
 		}
 		return userList;
+	}
+
+	/*
+	 * 获取用户数目
+	 */
+	public Integer getUserCnt() {
+		Integer cnt = 0;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			cnt = (Integer) client.queryForObject("getUserCnt");
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
 	}
 
 	/*
@@ -106,7 +173,7 @@ public class UserBS {
 		}
 		return true;
 	}
-	
+
 	/*
 	 * 更新用户信息
 	 */
@@ -140,7 +207,7 @@ public class UserBS {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * @param args
 	 */
@@ -157,7 +224,7 @@ public class UserBS {
 
 		System.out.println(bs.getUserById(635281L).getUname());
 
-		System.out.println(bs.getUserList().size());
+		System.out.println(bs.getUserList(0, 5).size());
 
 	}
 

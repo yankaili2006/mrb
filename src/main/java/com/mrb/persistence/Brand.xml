@@ -8,11 +8,19 @@
 
 	<select id="getBrandById" parameterClass="java.lang.Long"
 		resultClass="com.mrb.bean.Brand2ShowBean">
-		select p.name as pname, b.* from tbbrand b, tbproject p where p.pid = b.pid and b.bid = #id#
+		select p.name as pname, b.* from tbbrand b, tbproject p
+		where p.pid = b.pid and b.bid = #id#
 	</select>
 
-	<select id="getBrandList" resultClass="com.mrb.bean.Brand2ShowBean">
-		select p.name as pname, b.* from tbbrand b, tbproject p where p.pid = b.pid order by date desc
+	<select id="getBrandList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.Brand2ShowBean">
+		select p.name as pname, b.* from tbbrand b, tbproject p
+		where p.pid = b.pid order by date desc limit #index#, #cnt#
+	</select>
+
+	<select id="getBrandCnt" resultClass="java.lang.Integer">
+		select count(1) from
+		tbbrand b, tbproject p where p.pid = b.pid
 	</select>
 
 	<update id="updateBrand" parameterClass="com.mrb.bean.BrandBean">
@@ -31,6 +39,7 @@
 	</update>
 
 	<delete id="delBrandById" parameterClass="java.lang.Long">
-		delete from tbbrand where bid = #id#
+		delete from tbbrand
+		where bid = #id#
 	</delete>
 </sqlMap>

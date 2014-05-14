@@ -92,7 +92,10 @@
 	<body>
 		&nbsp;
 		<!--<![endif]-->
-
+<%
+		Long uid = (Long) session.getAttribute("uid");
+		String uname = (String) session.getAttribute("uname");
+	%>
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container-fluid">
@@ -100,7 +103,7 @@
 
 						<li id="fat-menu" class="dropdown">
 							<a href="#" id="drop3" role="button" class="dropdown-toggle"
-								data-toggle="dropdown"> <i class="icon-user"></i>管理员admin<i
+								data-toggle="dropdown"> <i class="icon-user"></i><%=uname %><i
 								class="icon-caret-down"></i> </a>
 
 							<ul class="dropdown-menu">
@@ -119,7 +122,7 @@
 						</li>
 
 					</ul>
-					<a class="brand" href="index.html"><span class="first">pdpda欢迎登陆</span>
+					<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
 						<span class="second">美人帮管理端</span> </a>
 				</div>
 			</div>

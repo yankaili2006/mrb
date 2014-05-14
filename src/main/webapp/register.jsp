@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>登陆</title>
+<title>注册新用户</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -47,26 +47,7 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-<script type="text/javascript">
-	$(function() {
-		$('#loginbutton').click(
-				function() {
-					if ($('#uname').val() == '') {
-						alert("用户名或手机号不能为空");
-						return false;
-					} else if ($('#pwd').val() == '') {
-						alert("密码不能为空");
-						return false;
-					}
 
-					$('#msg').val(
-							"{uname:" + $('#uname').val() + ",pwd:"
-									+ $('#pwd').val() + "}");
-					$('#loginform').submit();
-
-				});
-	});
-</script>
 <!-- Le fav and touch icons -->
 <link rel="shortcut icon" href="../assets/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="144x144"
@@ -79,6 +60,47 @@
 	href="../assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 
+<script type="text/javascript">
+	$(function() {
+		$('#regbutton').click(
+				function() {
+					if ($('#uname').val() == '') {
+						alert("用户名不能为空");
+						return false;
+					} else if ($('#phone').val() == '') {
+						alert("手机号不能为空");
+						return false;
+					} else if ($('#pwd').val() == '') {
+						alert("密码不能为空");
+						return false;
+					} else if ($('#pwd').val() != $('#repwd').val()) {
+						alert("两次输入的密码不一致");
+						return false;
+					} else if (!document.getElementById('protocol').checked) {
+						alert("请先阅读并接受协议");
+						return false;
+					}
+
+					$.post("user.do", {
+						act : "register",
+						msg : "{uname:" + $('#uname').val() + ",phone:"
+								+ $('#phone').val() + ",pwd:" + $('#pwd').val()
+								+ "}",
+					}, function(data) {
+						var obj = eval('(' + data + ')');
+						alert(obj.msg);
+						if (obj.code == '0000') {
+							$('#msg').val(
+									"{uname:" + $('#uname').val() + ",phone:"
+											+ $('#phone').val() + ",pwd:"
+											+ $('#pwd').val() + "}");
+							$('#loginform').submit();
+						}
+					});
+
+				});
+	});
+</script>
 <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
 <!--[if IE 7 ]> <body class="ie ie7"> <![endif]-->
 <!--[if IE 8 ]> <body class="ie ie8"> <![endif]-->
@@ -100,39 +122,44 @@
 	</div>
 
 	<form name="loginform" id="loginform" action="user.do" method="post">
-		<input type="hidden" id="act" name="act" value="loginuserphone"> <input
+		<input type="hidden" id="act" name="act" value="loginweb"> <input
 			type="hidden" id="msg" name="msg" value="">
 	</form>
 	<div class="container-fluid">
 
 		<div class="row-fluid">
-			<div class="dialog span4">
+			<div class="span4 offset4 dialog">
 				<div class="block">
-					<div class="block-heading">登&nbsp;&nbsp;陆</div>
+					<div class="block-heading">注册新用户</div>
 					<div class="block-body">
 						<form>
-							<label> 用户名或手机号 </label> <input type="text" id="uname"
-								name="uname" class="span12"> <label>
-								密&nbsp;&nbsp;码 </label> <input type="password" id="pwd" name="pwd"
-								class="span12">
-							<button type="button" id="loginbutton" name="loginbutton"
-								class="btn btn-primary pull-right">登陆</button>
-							<label class="remember-me"> <input type="checkbox">
-								记住我
+							<label> 用户名 </label> <input id="uname" name="uname" type="text"
+								class="span12"> <label> 手机号 </label> <input id="phone"
+								name="phone" type="text" class="span12"> <label>
+								密码 </label> <input id="pwd" name="pwd" type="password" class="span12">
+							<label> 重复密码 </label> <input id="repwd" name="repwd"
+								type="password" class="span12"> <label
+								class="remember-me"> <input id="protocol"
+								name="protocol" type="checkbox"> 我已经阅读并同意了 <a
+								href="terms.jsp">《美人帮使用协议》</a>
 							</label>
+							<button type="button" id="regbutton" name="regbutton"
+								class="btn btn-primary pull-center">注册</button>
 							<div class="clearfix"></div>
 						</form>
 					</div>
 				</div>
-				<p class="pull-right" style="">
-					<a href="register.jsp" target="blank">注册新用户?</a>
-				</p>
-
 				<p>
-					<a href="resetpwd.jsp">忘记密码?</a>
+					<a href="privacy.jsp">版权说明</a>
 				</p>
 			</div>
 		</div>
+
+
+
+
+
+
 
 
 		<!-- Le javascript
@@ -141,3 +168,5 @@
 		<script src="lib/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
+
+

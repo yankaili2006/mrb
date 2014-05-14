@@ -33,14 +33,16 @@ public class SqlMap {
 				if (sqlMap == null) {
 					try {
 						String resource = "SqlMapConfig.xml";
-						
+
 						Reader reader = Resources.getResourceAsReader(resource);
-						
+
 						sqlMap = SqlMapClientBuilder.buildSqlMapClient(reader);
-						
+
 					} catch (Exception e) {
 						e.printStackTrace();
-						throw new RuntimeException("Error initializing MyAppSqlConfig class. Cause: " + e);
+						throw new RuntimeException(
+								"Error initializing MyAppSqlConfig class. Cause: "
+										+ e);
 					}
 
 				}

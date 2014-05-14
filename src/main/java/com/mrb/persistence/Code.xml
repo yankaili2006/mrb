@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="code">
+	<insert id="addCode" parameterClass="com.mrb.bean.CodeBean">
+		insert into tbcode
+		values(#uid#,#phone#,#code#,#status#,#date#)
+	</insert>
+
+	<select id="getCodeById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.CodeBean">
+		select * from tbcode where uid = #id#
+	</select>
+
+	<select id="chkCode" parameterClass="com.mrb.bean.CodeBean"
+		resultClass="java.lang.Integer">
+		select count(1) from tbcode where phone = #phone# and code
+		= #code# and status = "0" and date > #date#
+	</select>
+
+	<select id="getCodeList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.CodeBean">
+		select * from tbcode order by date desc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getCodeCnt" resultClass="java.lang.Integer">
+		select count(1) from tbcode
+	</select>
+
+	<update id="updateCode" parameterClass="com.mrb.bean.CodeBean">
+		update tbcode set date=#date#
+		<isNotEmpty prepend="," property="status">status=#status#</isNotEmpty>
+		where phone=#phone# and code = #code#
+	</update>
+
+</sqlMap>

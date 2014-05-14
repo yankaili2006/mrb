@@ -11,7 +11,6 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mrb.bean.Book2ShowBean;
 import com.mrb.bean.VideoBean;
 import com.mrb.ibatis.SqlMap;
 
@@ -28,16 +27,16 @@ public class VideoBS {
 	}
 
 	/*
-	 * 注册新用户
+	 * 注册新视频
 	 */
 	public Boolean addVideo(VideoBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			
+
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
-			
+
 			bean.setDate(Long.valueOf(now));
 			bean.setOpdate(Long.valueOf(now));
 			bean.setOperid(1L);
@@ -54,7 +53,7 @@ public class VideoBS {
 	}
 
 	/*
-	 * 通过uid获取用户信息
+	 * 通过uid获取视频信息
 	 */
 	public VideoBean getVideoById(String id) {
 		VideoBean bean = null;
@@ -71,14 +70,18 @@ public class VideoBS {
 	}
 
 	/*
-	 * 获取用户列表
+	 * 获取视频列表
 	 */
-	public ArrayList<VideoBean> getVideoList() {
+	public ArrayList<VideoBean> getVideoList(Integer index, Integer cnt) {
 		ArrayList<VideoBean> videoList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			videoList = (ArrayList<VideoBean>) client.queryForList("getVideoList");
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("index", index);
+			map.put("cnt", cnt);
+			videoList = (ArrayList<VideoBean>) client.queryForList(
+					"getVideoList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -89,7 +92,25 @@ public class VideoBS {
 	}
 
 	/*
-	 * 更新用户信息
+	 * 获取视频数目
+	 */
+	public Integer getVideoCnt() {
+		Integer cnt = 0;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			cnt = (Integer) client.queryForObject("getVideoCnt");
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
+	/*
+	 * 更新视频信息
 	 */
 	public Boolean updateVideo(VideoBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
@@ -104,9 +125,9 @@ public class VideoBS {
 		}
 		return true;
 	}
-	
+
 	/*
-	 * 更新用户信息
+	 * 更新视频信息
 	 */
 	public Boolean updateVideoPwd(VideoBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
@@ -123,7 +144,7 @@ public class VideoBS {
 	}
 
 	/*
-	 * 删除用户信息
+	 * 删除视频信息
 	 */
 	public Boolean delVideoById(String id) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
@@ -138,7 +159,7 @@ public class VideoBS {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * @param args
 	 */
@@ -169,11 +190,10 @@ public class VideoBS {
 		bean.setZm_file_size(100020L);
 		bean.setZm_id("100000ddddd");
 		bean.setZm_type("mp4");
-		
 
 		bs.addVideo(bean);
 
-		System.out.println(bs.getVideoList().size());
+		System.out.println(bs.getVideoList(0, 5).size());
 
 	}
 

@@ -11,8 +11,15 @@
 		select * from tbvcate where vcid = #id#
 	</select>
 
-	<select id="getVCateList" resultClass="com.mrb.bean.VCateBean">
-		select * from tbvcate order by date desc
+	<select id="getVCateList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.VCateBean">
+		select * from tbvcate order by date desc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getVCateCnt" resultClass="java.lang.Integer">
+		select count(1) from
+		tbvcate
 	</select>
 
 	<update id="updateVCate" parameterClass="com.mrb.bean.VCateBean">
@@ -24,6 +31,7 @@
 	</update>
 
 	<delete id="delVCateById" parameterClass="java.lang.Long">
-		delete from tbvcate where vcid = #id#
+		delete from tbvcate
+		where vcid = #id#
 	</delete>
 </sqlMap>

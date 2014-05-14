@@ -22,10 +22,10 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.mrb.bean.Brand2ShowBean;
 import com.mrb.bean.BrandBean;
-import com.mrb.bean.ProjectBean;
+import com.mrb.bean.PageBean;
 import com.mrb.bs.BrandBS;
-import com.mrb.bs.ProjectBS;
 import com.mrb.form.JsonForm;
+import com.mrb.util.PageUtil;
 
 /**
  * @author Administrator 9:06:26 PM
@@ -47,12 +47,19 @@ public class BrandAction extends Action {
 		Gson gson = new Gson();
 		if ("list".equals(act)) { // 获取品牌列表 for ajax
 
-			ArrayList<Brand2ShowBean> ulist = bs.getBrandList();
-			log.debug("ulist.size(): " + ulist.size());
+			PageBean pbean = gson.fromJson(msg, PageBean.class);
+			pbean.setMaxpage(5);
+			pbean.setPerpage(5);
+			pbean.setTotal((bs.getBrandCnt() - 1) / pbean.getPerpage() + 1);
+
+			ArrayList<Brand2ShowBean> ulist = bs
+					.getBrandList((pbean.getP() - 1) * pbean.getPerpage(),
+							pbean.getPerpage());
+
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<table class=\"table\"><thead><tr><th>品牌ID</th><th>品牌标题</th><th>项目名称</th><th>品牌图标</th><th>名称</th><th>价格</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>品牌ID</th><th>品牌标题</th><th>项目名称</th><th>品牌图标</th><th>名称</th><th>价格</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					Brand2ShowBean bean = (Brand2ShowBean) ulist.get(i);
@@ -68,7 +75,11 @@ public class BrandAction extends Action {
 			} else {
 				html.append("<tr><td>没有品牌记录！</td><td></td><td></td><td></td></tr>");
 			}
-			html.append("</tbody></table>");
+			html.append("</tbody></table></div>");
+
+			PageUtil util = new PageUtil();
+			html.append(util.pagination(pbean));
+
 			result = html.toString();
 
 		} else if ("add".equals(act)) { // 添加品牌 for 跳转
@@ -103,7 +114,7 @@ public class BrandAction extends Action {
 			} else {
 				result = "未找到该品牌";
 			}
-			
+
 			if ("ok".equals(result)) {
 				return mapping.findForward(act);
 			} else {
@@ -131,7 +142,7 @@ public class BrandAction extends Action {
 			} else {
 				result = "参数非法";
 			}
-			
+
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 
