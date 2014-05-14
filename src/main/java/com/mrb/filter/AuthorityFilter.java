@@ -24,24 +24,23 @@ public class AuthorityFilter implements Filter {
 	public void destroy() {
 	}
 
-	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse res,
+			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		String uri = request.getRequestURI();
 
-		// System.out.println("uri:"+uri);
-		// || uri.contains("html") || uri.contains("htm") || uri.endsWith("/")
-		if (uri.endsWith("index.jsp") || uri.endsWith("/")) {
-			HttpSession session = request.getSession();
-			response.sendRedirect(request.getContextPath() + "/index.do");
+		HttpSession session = request.getSession();
+		if (session.getAttribute("uid") == null) {
+			response.sendRedirect(request.getContextPath() + "/admin.jsp");
 			return;
-			
-			/*
-			 * if (session.getAttribute(AuthorityInterceptor.LOGINED_FLAG) ==
-			 * null) { response.sendRedirect(request.getContextPath() +
-			 * "/admin/jumpLoginPage.action"); return; }
-			 */
 		}
+
+		if (uri.endsWith("/") || uri.endsWith("/index.jsp")) {
+			response.sendRedirect(request.getContextPath() + "/admin.jsp");
+			return;
+		}
+
 		chain.doFilter(req, res);
 		return;
 	}

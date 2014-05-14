@@ -62,11 +62,29 @@
 								alert(data);
 							});
 				});
+
+		$('#chg').click(
+				function() {
+					$.post("pwd.do?act=chg&msg={uid:" + $('#uid').val()
+							+ ",oldpwd:" + $('#oldpwd').val() + ",newpwd:"
+							+ $('#newpwd').val() + "}", function(data) {
+						alert(data);
+						$('#chkcode').val(data);
+					});
+				});
+		$('#set').click(
+				function() {
+					$.post("pwd.do?act=set&msg={uid:" + $('#uid').val()
+							+ ",oldpwd:" + $('#oldpwd').val() + ",newpwd:"
+							+ $('#newpwd').val() + "}", function(data) {
+						alert(data);
+					});
+				});
 	});
 </script>
 </head>
 <body>
-<h2>手机校验码</h2>
+	<h2>手机校验码</h2>
 	<label>chkcode</label>
 	<input type="text" id="chkcode" name="chkcode" value="">
 	<br>
@@ -76,5 +94,19 @@
 	<button id="snd" name="snd" class="btn" data-dismiss="modal"
 		aria-hidden="true">发送</button>
 	<button id="chk" name="chk" class="btn btn-danger" data-dismiss="modal">校验</button>
+
+	<h2>密码</h2>
+	<label>uid</label>
+	<input type="text" id="uid" name="uid" value="">
+	<br>
+	<label>oldpwd</label>
+	<input type="text" id="oldpwd" name="oldpwd" value="">
+	<br>
+	<label>newpwd</label>
+	<input type="text" id="newpwd" name="newpwd" value="">
+	<br>
+	<button id="chg" name="chg" class="btn" data-dismiss="modal"
+		aria-hidden="true">修改</button>
+	<button id="set" name="set" class="btn btn-danger" data-dismiss="modal">重置</button>
 </body>
 </html>

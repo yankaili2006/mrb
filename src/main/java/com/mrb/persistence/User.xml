@@ -46,7 +46,7 @@
 	
 	<select id="chkPwd" parameterClass="com.mrb.bean.PwdBean"
 		resultClass="java.lang.Integer">
-		select count(1) from tbuser where uid = #uid# and pwd = #pwd#
+		select count(1) from tbuser where uid = #uid# and pwd = #oldpwd#
 	</select>
 
 	<delete id="delUserById" parameterClass="java.lang.Long">

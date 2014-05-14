@@ -9,6 +9,11 @@ package com.mrb.bean;
  */
 public class VCateBean {
 
+	private long vcid;
+	private String name;
+	private long date;
+	private long operid;
+
 	public long getVcid() {
 		return vcid;
 	}
@@ -16,11 +21,6 @@ public class VCateBean {
 	public void setVcid(long vcid) {
 		this.vcid = vcid;
 	}
-
-	private long vcid;
-	private String name;
-	private long date;
-	private long operid;
 
 	public String getName() {
 		return name;

@@ -35,9 +35,27 @@ public class VideoBean {
 	private long zm_file_size;
 	private String zm_type;
 	private String zm_id;
+	private String type;
+	private String teacher;
 	private long date;
 	private long opdate;
 	private long operid;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
+	}
 
 	public String getVid() {
 		return vid;
@@ -175,7 +193,6 @@ public class VideoBean {
 		this.mp4_url = mp4_url;
 	}
 
-
 	public String getPermanent_url() {
 		return permanent_url;
 	}
@@ -183,7 +200,6 @@ public class VideoBean {
 	public void setPermanent_url(String permanent_url) {
 		this.permanent_url = permanent_url;
 	}
-
 
 	public long getMp4_expires() {
 		return mp4_expires;
@@ -216,7 +232,6 @@ public class VideoBean {
 	public void setM3u8_url(String m3u8_url) {
 		this.m3u8_url = m3u8_url;
 	}
-
 
 	public long getZm_file_size() {
 		return zm_file_size;
@@ -265,6 +280,5 @@ public class VideoBean {
 	public void setOperid(long operid) {
 		this.operid = operid;
 	}
-
 
 }

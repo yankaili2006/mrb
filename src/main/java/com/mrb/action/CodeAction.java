@@ -22,6 +22,7 @@ import com.mrb.bean.CodeReqBean;
 import com.mrb.bean.CodeResBean;
 import com.mrb.bean.ResBean;
 import com.mrb.bs.CodeBS;
+import com.mrb.form.JsonForm;
 import com.mrb.util.CodeUtil;
 
 /**

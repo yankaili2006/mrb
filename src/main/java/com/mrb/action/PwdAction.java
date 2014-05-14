@@ -28,11 +28,12 @@ import com.mrb.bean.PwdBean;
 import com.mrb.bean.PwdRespBean;
 import com.mrb.bean.ResBean;
 import com.mrb.bs.PwdBS;
+import com.mrb.form.JsonForm;
 
 /**
  * @author Administrator 9:06:26 PM
  * 
- *         密码注册的Action
+ *         密码注册的Action   for phone
  */
 public class PwdAction extends Action {
 
@@ -72,7 +73,7 @@ public class PwdAction extends Action {
 			PwdBean bean = (PwdBean) gson.fromJson(msg, PwdBean.class);
 			PwdRespBean resBean = new PwdRespBean();
 			if (bean != null) {
-				if (bs.chgPwd(bean)) {
+				if (bs.setPwd(bean)) {
 					resBean.setCode("0000");
 					resBean.setMsg("交易成功");
 					resBean.setUid(bean.getUid());

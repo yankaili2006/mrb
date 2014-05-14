@@ -98,7 +98,7 @@
 							<li><a tabindex="-1" href="#">设置</a> <br></li>
 							<li class="divider">u <br>
 							</li>
-							<li><a tabindex="-1" href="admin.jsp">退出</a></li>
+							<li><a tabindex="-1" href="loginout.do">退出</a></li>
 						</ul></li>
 
 				</ul>

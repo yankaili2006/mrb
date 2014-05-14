@@ -13,6 +13,7 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.VideoBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.pbean.VBean;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -91,6 +92,30 @@ public class VideoBS {
 		return videoList;
 	}
 
+
+	/*
+	 * 获取视频列表
+	 */
+	public ArrayList<VBean> getVList(Integer index, Integer cnt) {
+		ArrayList<VBean> videoList = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("index", index);
+			map.put("cnt", cnt);
+			videoList = (ArrayList<VBean>) client.queryForList(
+					"getVList", map);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return videoList;
+	}
+
+	
 	/*
 	 * 获取视频数目
 	 */

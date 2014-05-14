@@ -73,6 +73,10 @@ public class PwdBS {
 		UserBean userBean = new UserBean();
 		userBean.setUid(bean.getUid());
 		userBean.setPwd(bean.getNewpwd());
+
+		SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
+		String now = dfm.format(new Date());
+		userBean.setOpdate(Long.valueOf(now));
 		try {
 			client.startTransaction();
 			client.update("updateUserPwd", userBean);

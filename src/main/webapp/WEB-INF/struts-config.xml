@@ -5,19 +5,12 @@
 	<data-sources />
 
 	<form-beans>
-		<form-bean name="regForm" type="com.mrb.form.RegisterForm" />
 		<form-bean name="jsonForm" type="com.mrb.form.JsonForm" />
 	</form-beans>
 	<global-exceptions />
 	<global-forwards />
 
 	<action-mappings>
-		<!-- Register -->
-		<action path="/user/register" type="com.mrb.action.RegisterAction"
-			scope="request" validate="false">
-			<forward name="failure" path="/index.jsp" />
-			<forward name="success" path="/index.jsp" />
-		</action>
 
 		<!-- 用户管理 -->
 		<action path="/user" type="com.mrb.action.UserAction" name="jsonForm"
@@ -76,18 +69,30 @@
 			<forward name="edit" path="/editvideo.jsp" />
 		</action>
 
-		<!-- 校验码 -->
-		<action path="/code" type="com.mrb.action.CodeAction" name="jsonForm"
-			scope="request" validate="false">
-		</action>
-
+		<!-- 管理台首页 -->
 		<action path="/home" type="com.mrb.action.HomeAction" name="jsonForm"
 			scope="request" validate="false">
 			<forward name="home" path="/home.jsp" />
 		</action>
+		
+		<!-- 校验码 for phone -->
+		<action path="/code" type="com.mrb.action.CodeAction" name="jsonForm"
+			scope="request" validate="false">
+		</action>
+		
+		<!-- 密码 for phone -->
+		<action path="/pwd" type="com.mrb.action.PwdAction" name="jsonForm"
+			scope="request" validate="false">
+		</action>
+
+
+		<action path="/loginout" type="com.mrb.action.LoginoutAction" name="jsonForm"
+			scope="request" validate="false">
+			<forward name="admin" path="/admin.jsp" />
+		</action>
 
 		<action path="/index" type="com.mrb.action.IndexAction">
-			<forward name="index" path="/index.jsp" />
+			<forward name="index" path="/admin.jsp" />
 		</action>
 
 	</action-mappings>

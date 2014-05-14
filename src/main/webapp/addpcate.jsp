@@ -97,7 +97,7 @@
 								</li>
 								<li class="divider"></li>
 								<li>
-									<a tabindex="-1" href="admin.jsp">退出</a>
+									<a tabindex="-1" href="loginout.do">退出</a>
 								</li>
 							</ul>
 						</li>

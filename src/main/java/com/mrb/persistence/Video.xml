@@ -3,7 +3,7 @@
 <sqlMap namespace="video">
 	<insert id="addVideo" parameterClass="com.mrb.bean.VideoBean">
 		insert into tbvideo
-		values(#vid#,#status#,#description#,#tags#,#snapshot_url#,#thumbnail_url#,#file_size#,#activated#,#modified_time#,#created_time#,#height#,#width#,#duration#,#extension#,#title#,#category_id#,#mp4_url#,#mp4_expires#,#permanent_url#,#permanent_expires#,#m3u8_url#,#m3u8_expires#,#zm_file_size#,#zm_type#,#zm_id#,#date#,#opdate#,#operid#)
+		values(#vid#,#status#,#description#,#tags#,#snapshot_url#,#thumbnail_url#,#file_size#,#activated#,#modified_time#,#created_time#,#height#,#width#,#duration#,#extension#,#title#,#category_id#,#mp4_url#,#mp4_expires#,#permanent_url#,#permanent_expires#,#m3u8_url#,#m3u8_expires#,#zm_file_size#,#zm_type#,#zm_id#,#type#,#teacher#,#date#,#opdate#,#operid#)
 	</insert>
 
 	<select id="getVideoById" parameterClass="java.lang.String"
@@ -14,6 +14,12 @@
 	<select id="getVideoList" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.bean.VideoBean">
 		select * from tbvideo order by date desc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getVList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.VBean">
+		select v.vid, v.title, v.duration, v.type, v.teacher, v.detail, v.date, v.time, vr.cnt as reviewcnt from tbvideo v, vreview vr order by date desc limit #index#,
 		#cnt#
 	</select>
 
