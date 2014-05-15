@@ -158,43 +158,19 @@
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>其他
+						<i class="icon-dashboard"></i>管店管理
 					</div>
 					<ul id="dashboard-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">城市列表</a></li>
 					</ul>
 
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#accounts-menu">
-						<i class="icon-briefcase"></i>Account <span
-							class="label label-info">+10</span>
-					</div>
-					<ul id="accounts-menu" class="nav nav-list collapse in">
-						<li><a href="sign-in.html">Sign In</a></li>
-						<li><a href="sign-up.html">Sign Up</a></li>
-						<li><a href="reset-password.html">Reset Password</a></li>
-					</ul>
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#settings-menu">
-						<i class="icon-exclamation-sign"></i>Error Pages
-					</div>
-					<ul id="settings-menu" class="nav nav-list collapse in">
-						<li><a href="403.html">403 page</a></li>
-						<li><a href="404.html">404 page</a></li>
-						<li><a href="500.html">500 page</a></li>
-						<li><a href="503.html">503 page</a></li>
-					</ul>
-
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
-						<i class="icon-legal"></i>Legal
+						<i class="icon-legal"></i>法律协议
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
-						<li><a href="privacy-policy.html">Privacy Policy</a></li>
-						<li><a href="terms-and-conditions.html">Terms and
-								Conditions</a></li>
+						<li><a href="privacy.jsp">版权说明</a></li>
+						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
 				</div>
 			</div>
@@ -314,15 +290,12 @@
 
 		<footer>
 		<hr>
-		<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-		<p class="pull-right">
-			A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free
-				Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a>
+		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 
 		<p>
-			&copy; 2012 <a href="http://www.portnine.com">Portnine</a>
+			&copy; 2014 <a href="#">美人帮</a>
 		</p>
 		</footer>
 

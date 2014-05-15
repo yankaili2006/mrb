@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class ResBean {
+	
 	private String code;
 	private String msg;
 

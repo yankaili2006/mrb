@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class VBean {
+	
 	private int id;
 	private String title;
 	private String duration;

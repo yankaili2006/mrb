@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class CodeBean {
+	
 	private long uid;
 	private String phone;
 	private String code;

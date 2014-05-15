@@ -18,6 +18,7 @@ import com.mrb.ibatis.SqlMap;
  * @author Administrator 7:24:13 PM
  */
 public class VCateBS {
+	
 
 	/**
 	 * 

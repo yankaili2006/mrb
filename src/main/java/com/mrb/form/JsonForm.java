@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionMapping;
  * @author Administrator 9:03:50 PM
  */
 public class JsonForm extends ActionForm {
+
 	private String act;
 	private String msg;
 

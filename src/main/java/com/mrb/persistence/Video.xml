@@ -18,7 +18,7 @@
 	</select>
 
 	<select id="getVList" parameterClass="java.util.HashMap"
-		resultClass="com.mrb.bean.VBean">
+		resultClass="com.mrb.pbean.VBean">
 		select v.vid, v.title, v.duration, v.type, v.teacher, v.detail, v.date, v.time, vr.cnt as reviewcnt from tbvideo v, vreview vr order by date desc limit #index#,
 		#cnt#
 	</select>

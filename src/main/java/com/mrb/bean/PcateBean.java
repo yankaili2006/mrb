@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class PcateBean {
+	
 	private long cid;
 	private String name;
 	private long date;

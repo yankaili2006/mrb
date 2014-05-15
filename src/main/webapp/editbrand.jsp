@@ -52,25 +52,33 @@
 
 
 <script type="text/javascript">
-			function delbrand(){
-				$.post("brand.do", {act:"del", msg:"{bid:"+$('#bid').val()+"}"},
-			   function(data){
-			     if (data != "ok"){
-			         alert(data);
-			     }else{
-			        alert("删除成功");
-			        window.location.href="brand.jsp";
-			     }
-			   });
+	function delbrand() {
+		$.post("brand.do", {
+			act : "del",
+			msg : "{bid:" + $('#bid').val() + "}"
+		}, function(data) {
+			if (data != "ok") {
+				alert(data);
+			} else {
+				alert("删除成功");
+				window.location.href = "brand.jsp";
 			}
-			
-			function updatebrand(){
-			    $('#act').val("update");
-			    $('#msg').val("{pid:" + $('#pid').val() + ",bid:" + $('#bid').val() + ",btitle:\"" + $('#btitle').val() + "\",binfo:\"" + $('#binfo').val()+ "\",iid:" + $('#iid').val() + ",name:\"" + $('#name').val() + "\",price:\"" + $('#price').val() + "\",function:\"" + $('#function').val()+ "\",summary:\"" + $('#summary').val()   + "\"}");
-				//alert($('#msg').val());
-			    $('#updateform').submit();
-			}
-			
+		});
+	}
+
+	function updatebrand() {
+		$('#act').val("update");
+		$('#msg').val(
+				"{pid:" + $('#pid').val() + ",bid:" + $('#bid').val()
+						+ ",btitle:\"" + $('#btitle').val() + "\",binfo:\""
+						+ $('#binfo').val() + "\",iid:" + $('#iid').val()
+						+ ",name:\"" + $('#name').val() + "\",price:\""
+						+ $('#price').val() + "\",function:\""
+						+ $('#function').val() + "\",summary:\""
+						+ $('#summary').val() + "\"}");
+		//alert($('#msg').val());
+		$('#updateform').submit();
+	}
 </script>
 <!-- Le fav and touch icons -->
 <link rel="shortcut icon" href="../assets/ico/favicon.ico">
@@ -103,7 +111,7 @@
 
 					<li id="fat-menu" class="dropdown"><a href="#" id="drop3"
 						role="button" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-user"></i><%=uname %><i class="icon-caret-down"></i>
+							<i class="icon-user"></i><%=uname%><i class="icon-caret-down"></i>
 					</a>
 
 						<ul class="dropdown-menu">
@@ -155,43 +163,19 @@
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>其他
+						<i class="icon-dashboard"></i>管店管理
 					</div>
 					<ul id="dashboard-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">城市列表</a></li>
 					</ul>
 
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#accounts-menu">
-						<i class="icon-briefcase"></i>Account <span
-							class="label label-info">+10</span>
-					</div>
-					<ul id="accounts-menu" class="nav nav-list collapse in">
-						<li><a href="sign-in.html">Sign In</a></li>
-						<li><a href="sign-up.html">Sign Up</a></li>
-						<li><a href="reset-password.html">Reset Password</a></li>
-					</ul>
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#settings-menu">
-						<i class="icon-exclamation-sign"></i>Error Pages
-					</div>
-					<ul id="settings-menu" class="nav nav-list collapse in">
-						<li><a href="403.html">403 page</a></li>
-						<li><a href="404.html">404 page</a></li>
-						<li><a href="500.html">500 page</a></li>
-						<li><a href="503.html">503 page</a></li>
-					</ul>
-
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
-						<i class="icon-legal"></i>Legal
+						<i class="icon-legal"></i>法律协议
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
-						<li><a href="privacy-policy.html">Privacy Policy</a></li>
-						<li><a href="terms-and-conditions.html">Terms and
-								Conditions</a></li>
+						<li><a href="privacy.jsp">版权说明</a></li>
+						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
 				</div>
 			</div>
@@ -205,24 +189,24 @@
 					<div class="btn-group"></div>
 				</div>
 				<%
-						Object robj = request.getAttribute("result");
-						if (robj != null) {
-							String result = (String) robj;
-							if ("ok".equals(result)) {
-					%>
+					Object robj = request.getAttribute("result");
+					if (robj != null) {
+						String result = (String) robj;
+						if ("ok".equals(result)) {
+				%>
 				<div class="alert alert-success">
 					<a href="#" class="alert-link">操作成功！</a>
 				</div>
 				<%
-						} else {
-					%>
+					} else {
+				%>
 				<div class="alert alert-danger">
 					<a href="#" class="alert-link"><%=result%></a>
 				</div>
 				<%
-						}
-						}
-					%>
+					}
+					}
+				%>
 				<div class="well">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
@@ -237,10 +221,10 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
-										Object obj = request.getAttribute("brand");
-										if (obj != null) {
-											Brand2ShowBean bean = (Brand2ShowBean) obj;
-									%>
+									Object obj = request.getAttribute("brand");
+									if (obj != null) {
+										Brand2ShowBean bean = (Brand2ShowBean) obj;
+								%>
 								<label> 品牌标题 </label> <input type="text" name="btitle"
 									id="btitle" value="<%=bean.getBtitle()%>" class="input-xlarge">
 
@@ -265,8 +249,8 @@
 								<input type="hidden" id="bid" name="bid"
 									value="<%=bean.getBid()%>">
 								<%
-										} else {
-									%>
+									} else {
+								%>
 								<label> 品牌标题 </label> <input type="text" name="btitle"
 									id="btitle" value="" class="input-xlarge"> <label>
 									所属项目 </label> <input type="text" name="pid" id="pid" value=""
@@ -285,8 +269,8 @@
 									class="input-xlarge"> <input type="hidden" id="bid"
 									name="bid" value="">
 								<%
-										}
-									%>
+									}
+								%>
 							</form>
 						</div>
 					</div>
@@ -320,15 +304,12 @@
 
 		<footer>
 		<hr>
-		<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-		<p class="pull-right">
-			A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free
-				Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a>
+		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 
 		<p>
-			&copy; 2012 <a href="http://www.portnine.com">Portnine</a>
+			&copy; 2014 <a href="#">美人帮</a>
 		</p>
 		</footer>
 

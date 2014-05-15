@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class PwdBean {
+	
 	private long uid;
 	private String user;
 	private String phone;

@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class PwdRespBean {
+	
 	private String code;
 	private String msg;
 	private long uid;

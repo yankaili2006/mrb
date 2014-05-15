@@ -128,6 +128,22 @@
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
 
+					<div class="nav-header" data-toggle="collapse"
+						data-target="#dashboard-menu">
+						<i class="icon-dashboard"></i>管店管理
+					</div>
+					<ul id="dashboard-menu" class="nav nav-list collapse in">
+						<li><a href="user.jsp">城市列表</a></li>
+					</ul>
+
+					<div class="nav-header" data-toggle="collapse"
+						data-target="#legal-menu">
+						<i class="icon-legal"></i>法律协议
+					</div>
+					<ul id="legal-menu" class="nav nav-list collapse in">
+						<li><a href="privacy.jsp">版权说明</a></li>
+						<li><a href="terms.jsp">美人帮使用协议</a></li>
+					</ul>
 				</div>
 			</div>
 			<div class="span9">
@@ -146,12 +162,12 @@
 						<span class="number">15</span>waiting
 					</p>
 				</div>
-				<h1 class="page-title">Dashboard</h1>
+				<h1 class="page-title">主页</h1>
 
 				<div class="row-fluid">
 					<div class="block">
 						<p class="block-heading" data-toggle="collapse"
-							data-target="#chart-container">Performance Chart</p>
+							data-target="#chart-container">动态趋势</p>
 						<div id="chart-container" class="block-body collapse in">
 							<div id="line-chart"></div>
 						</div>
@@ -161,7 +177,7 @@
 				<div class="row-fluid">
 					<div class="block span6">
 						<div class="block-heading" data-toggle="collapse"
-							data-target="#tablewidget">Users</div>
+							data-target="#tablewidget">用户</div>
 						<div id="tablewidget" class="block-body collapse in">
 							<table class="table">
 								<thead>
@@ -205,28 +221,18 @@
 								</tbody>
 							</table>
 							<p>
-								<a href="users.html">More...</a>
+								<a href="user.jsp">更多</a>
 							</p>
 						</div>
 					</div>
 					<div class="block span6">
 						<div class="block-heading" data-toggle="collapse"
-							data-target="#widget1container">Collapsible</div>
+							data-target="#widget1container">通知</div>
 						<div id="widget1container" class="block-body collapse in">
-							<h2>Using Ruby?</h2>
+							<h2>通知标题</h2>
 							<p>
-								This template was developed with <a
-									href="http://middlemanapp.com/" target="_blank">Middleman</a>
-								and includes .erb layouts and views.
+								恭喜美人帮正式上线！
 							</p>
-							<p>All of the views you see here (sign in, sign up, users,
-								etc) are already split up so you don't have to waste your time
-								doing it yourself!</p>
-							<p>The layout.erb file includes the header, footer, and side
-								navigation and all of the views are broken out into their own
-								files.</p>
-							<p>If you aren't using Ruby, there is also a set of plain
-								HTML files for each page, just like you would expect.</p>
 						</div>
 					</div>
 				</div>
@@ -235,7 +241,7 @@
 					<div class="block span6">
 						<div class="block-heading" data-toggle="collapse"
 							data-target="#widget2container">
-							History<span class="label label-warning">+10</span>
+							操作历史<span class="label label-warning">+10</span>
 						</div>
 						<div id="widget2container" class="block-body collapse in">
 							<table class="table">
@@ -250,7 +256,7 @@
 											<p>Amount: $1,247</p>
 										</td>
 										<td>
-											<p>Date: 7/19/2012</p> <a href="#">View Transaction</a>
+											<p>Date: 7/19/2012</p> <a href="#">查看</a>
 										</td>
 									</tr>
 									<tr>
@@ -263,7 +269,7 @@
 											<p>Amount: $2,793</p>
 										</td>
 										<td>
-											<p>Date: 7/12/2012</p> <a href="#">View Transaction</a>
+											<p>Date: 7/12/2012</p> <a href="#">查看</a>
 										</td>
 									</tr>
 									<tr>
@@ -276,7 +282,7 @@
 											<p>Amount: $2,349</p>
 										</td>
 										<td>
-											<p>Date: 3/10/2012</p> <a href="#">View Transaction</a>
+											<p>Date: 3/10/2012</p> <a href="#">查看</a>
 										</td>
 									</tr>
 									<tr>
@@ -289,7 +295,7 @@
 											<p>Amount: $1,192</p>
 										</td>
 										<td>
-											<p>Date: 1/19/2012</p> <a href="#">View Transaction</a>
+											<p>Date: 1/19/2012</p> <a href="#">查看</a>
 										</td>
 									</tr>
 
@@ -298,20 +304,12 @@
 						</div>
 					</div>
 					<div class="block span6">
-						<p class="block-heading">Not Collapsible</p>
+						<p class="block-heading">使用说明</p>
 						<div class="block-body">
-							<h2>Tip of the Day</h2>
-							<p>Fava bean jícama seakale beetroot courgette shallot
-								amaranth pea garbanzo carrot radicchio peanut leek pea sprouts
-								arugula brussels sprout green bean. Spring onion broccoli
-								chicory shallot winter purslane pumpkin gumbo cabbage squash
-								beet greens lettuce celery. Gram zucchini swiss chard mustard
-								burdock radish brussels sprout groundnut. Asparagus horseradish
-								beet greens broccoli brussels sprout bitterleaf groundnut cress
-								sweet pepper leek bok choy shallot celtuce scallion chickpea
-								radish pea sprouts.</p>
+							<h2>如何添加视频？</h2>
+							<p>请先将视频上传至石山视频(www.smvp.cn),生成一个唯一ID号，点击菜单中的[视频管理]->[视频列表]->[添加视频]。录入在石山视频的唯一的ID号，系统自动获取该视频的播放地址，简介等详细信息。添加成功后，可以修改该视频的部分信息。
 							<p>
-								<a class="btn btn-primary btn-large">Learn more &raquo;</a>
+								<a class="btn btn-primary btn-large">了解更多 &raquo;</a>
 							</p>
 						</div>
 					</div>
@@ -324,15 +322,12 @@
 
 		<footer>
 		<hr>
-		<!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-		<p class="pull-right">
-			A <a href="http://www.portnine.com/bootstrap-themes" target="_blank">Free
-				Bootstrap Theme</a> by <a href="http://www.portnine.com" target="_blank">Portnine</a>
+		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 
 		<p>
-			&copy; 2012 <a href="http://www.portnine.com">Portnine</a>
+			&copy; 2014 <a href="#">美人帮</a>
 		</p>
 		</footer>
 

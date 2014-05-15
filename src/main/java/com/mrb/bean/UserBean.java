@@ -8,6 +8,7 @@ package com.mrb.bean;
  * @author Administrator 11:52:49 AM
  */
 public class UserBean {
+	
 
 	private long uid;
 	private String uname;
