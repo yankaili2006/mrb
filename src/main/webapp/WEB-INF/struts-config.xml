@@ -75,20 +75,25 @@
 			scope="request" validate="false">
 			<forward name="home" path="/home.jsp" />
 		</action>
-		
+
 		<!-- 校验码 for phone -->
 		<action path="/code" type="com.mrb.action.CodeAction" name="jsonForm"
 			scope="request" validate="false">
 		</action>
-		
+
 		<!-- 密码 for phone -->
 		<action path="/pwd" type="com.mrb.action.PwdAction" name="jsonForm"
 			scope="request" validate="false">
 		</action>
 
-
-		<action path="/loginout" type="com.mrb.action.LoginoutAction" name="jsonForm"
+		<!-- 视频 for phone -->
+		<action path="/v" type="com.mrb.action.VAction" name="jsonForm"
 			scope="request" validate="false">
+		</action>
+
+
+		<action path="/loginout" type="com.mrb.action.LoginoutAction"
+			name="jsonForm" scope="request" validate="false">
 			<forward name="admin" path="/admin.jsp" />
 		</action>
 

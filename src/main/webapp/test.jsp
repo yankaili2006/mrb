@@ -72,6 +72,7 @@
 						$('#chkcode').val(data);
 					});
 				});
+
 		$('#set').click(
 				function() {
 					$.post("pwd.do?act=set&msg={uid:" + $('#uid').val()
@@ -80,6 +81,32 @@
 						alert(data);
 					});
 				});
+
+		$('#vcate').click(
+				function() {
+					$.post("v.do?act=category&msg={num:" + $('#num').val()
+							+ "}", function(data) {
+						alert(data);
+					});
+				});
+
+		$('#vlist').click(
+				function() {
+					$.post("v.do?act=list&msg={num:" + $('#num').val()
+							+ ",vcid:" + $('#vcid').val() + ",start:"
+							+ $('#start').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
+		$('#vdetail').click(
+				function() {
+					$.post("v.do?act=detail&msg={uid:" + $('#uid').val()
+							+ ",vid:" + $('#vid').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
 	});
 </script>
 </head>
@@ -108,5 +135,27 @@
 	<button id="chg" name="chg" class="btn" data-dismiss="modal"
 		aria-hidden="true">修改</button>
 	<button id="set" name="set" class="btn btn-danger" data-dismiss="modal">重置</button>
+
+	<h2>视频分类 & 视频</h2>
+	<label>num</label>
+	<input type="text" id="num" name="num" value="">
+	<br>
+
+	<label>vcid</label>
+	<input type="text" id="vcid" name="vcid" value="">
+	<br>
+	<label>start</label>
+	<input type="text" id="start" name="start" value="">
+	<br>
+	<label>vid</label>
+	<input type="text" id="vid" name="vid" value="">
+	<br>
+	<button id="vcate" name="vcate" class="btn" data-dismiss="modal"
+		aria-hidden="true">获取视频分类</button>
+	<button id="vlist" name="vlist" class="btn" data-dismiss="modal"
+		aria-hidden="true">获取视频</button>
+	<button id="vdetail" name="vdetail" class="btn" data-dismiss="modal"
+		aria-hidden="true">视频详情</button>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 <sqlMap namespace="video">
 	<insert id="addVideo" parameterClass="com.mrb.bean.VideoBean">
 		insert into tbvideo
-		values(#vid#,#status#,#description#,#tags#,#snapshot_url#,#thumbnail_url#,#file_size#,#activated#,#modified_time#,#created_time#,#height#,#width#,#duration#,#extension#,#title#,#category_id#,#mp4_url#,#mp4_expires#,#permanent_url#,#permanent_expires#,#m3u8_url#,#m3u8_expires#,#zm_file_size#,#zm_type#,#zm_id#,#type#,#teacher#,#date#,#opdate#,#operid#)
+		values(#vid#,#vcid#,#status#,#description#,#tags#,#snapshot_url#,#thumbnail_url#,#file_size#,#activated#,#modified_time#,#created_time#,#height#,#width#,#duration#,#extension#,#title#,#mp4_url#,#mp4_expires#,#permanent_url#,#permanent_expires#,#m3u8_url#,#m3u8_expires#,#zm_file_size#,#zm_type#,#zm_id#,#type#,#teacher#,#date#,#opdate#,#operid#)
 	</insert>
 
 	<select id="getVideoById" parameterClass="java.lang.String"
@@ -17,12 +17,30 @@
 		#cnt#
 	</select>
 
+	<!-- for phone -->
 	<select id="getVList" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.pbean.VBean">
-		select v.vid, v.title, v.duration, v.type, v.teacher,
-		v.detail, v.date, v.time, vr.cnt as reviewcnt from tbvideo v
-		left outer join vvreview vr on v.vid = vr.vid order by v.date desc limit #index#,
+		select v.vid, v.vcid, v.title, v.duration, v.type,
+		v.teacher,
+		v.description, v.date, vr.cnt as reviewcnt from tbvideo v
+		left outer join vvreview vr on v.vid = vr.vid where v.vcid = #vcid#
+		order by v.date desc limit #index#,
 		#cnt#
+	</select>
+
+	<select id="getVDetail" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.pbean.VDetailRespBean">
+		select v.mp4_url as vuri, v.title, v.duration, v.type,
+		v.teacher,
+		v.description, v.date, vp.cnt as playcnt, vl.laststop from tbvideo v
+		left
+		outer join vvplay vp on v.vid = vp.vid
+		left
+		outer join vvlaststop vl on
+		v.vid = vl.vid
+		where vl.uid = #uid# and v.vid = #vid# order by
+		v.date
+		desc
 	</select>
 
 	<select id="getVideoCnt" resultClass="java.lang.Integer">
@@ -32,6 +50,7 @@
 
 	<update id="updateVideo" parameterClass="com.mrb.bean.VideoBean">
 		update tbvideo set opdate=#opdate#
+		<isNotEmpty prepend="," property="vcid">vcid=#vcid#</isNotEmpty>
 		<isNotEmpty prepend="," property="status">status=#status#</isNotEmpty>
 		<isNotEmpty prepend="," property="description">description=#description#</isNotEmpty>
 		<isNotEmpty prepend="," property="tags">tags=#tags#</isNotEmpty>
@@ -46,7 +65,6 @@
 		<isNotEmpty prepend="," property="duration">duration=#duration#</isNotEmpty>
 		<isNotEmpty prepend="," property="extension">extension=#extension#</isNotEmpty>
 		<isNotEmpty prepend="," property="title">title=#title#</isNotEmpty>
-		<isNotEmpty prepend="," property="category_id">category_id=#category_id#</isNotEmpty>
 		<isNotEmpty prepend="," property="mp4_url">mp4_url=#mp4_url#</isNotEmpty>
 		<isNotEmpty prepend="," property="mp4_expires">mp4_expires=#mp4_expires#</isNotEmpty>
 		<isNotEmpty prepend="," property="permanent_url">permanent_url=#permanent_url#</isNotEmpty>

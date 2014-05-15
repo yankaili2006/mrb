@@ -20,16 +20,18 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.VCateBean;
 import com.mrb.bs.VCateBS;
 import com.mrb.form.JsonForm;
+import com.mrb.pbean.VBean;
 import com.mrb.util.PageUtil;
 
 /**
  * @author Administrator 9:06:26 PM
  * 
- * 视频分类注册的Action
+ *         视频分类注册的Action
  */
 public class VCateAction extends Action {
 
@@ -45,7 +47,7 @@ public class VCateAction extends Action {
 		VCateBS bs = new VCateBS();
 		Gson gson = new Gson();
 		if ("list".equals(act)) { // 获取视频分类列表 for ajax
-			
+
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
 			pbean.setMaxpage(5);
 			pbean.setPerpage(5);
@@ -63,24 +65,20 @@ public class VCateAction extends Action {
 					html.append("<tr><td>" + bean.getVcid() + "</td><td>"
 							+ bean.getName() + "</td><td>" + bean.getDate()
 							+ "</td><td>" + bean.getOperid() + "</td>");
-					
-					html
-							.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
-					html
-							.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setvcid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
+
+					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
+					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setvcid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
 
 			} else {
-				html
-						.append("<tr><td>没有视频分类记录！</td><td></td><td></td><td></td></tr>");
+				html.append("<tr><td>没有视频分类记录！</td><td></td><td></td><td></td></tr>");
 			}
 			html.append("</tbody></table></div>");
 
 			PageUtil util = new PageUtil();
 			html.append(util.pagination(pbean));
-			
+
 			result = html.toString();
-			
 		} else if ("add".equals(act)) { // 添加视频分类 for 跳转
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
@@ -92,8 +90,7 @@ public class VCateAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 				return mapping.findForward("list");
-			}
-			else{
+			} else {
 				req.setAttribute("vcate", bean);
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
@@ -117,12 +114,11 @@ public class VCateAction extends Action {
 
 			if ("ok".equals(result)) {
 				return mapping.findForward(act);
-			}
-			else{
+			} else {
 				req.setAttribute("result", result);
-				return mapping.findForward("list");			
+				return mapping.findForward("list");
 			}
-			
+
 		} else if ("del".equals(act)) { // 删除视频分类 for ajax
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
@@ -131,7 +127,7 @@ public class VCateAction extends Action {
 			} else {
 				result = "参数非法";
 			}
-			
+
 		} else if ("update".equals(act)) { // 更新视频分类 for 跳转
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
@@ -148,12 +144,11 @@ public class VCateAction extends Action {
 			if ("ok".equals(result)) {
 				req.setAttribute("vcate", bean);
 				return mapping.findForward("edit");
-			}
-			else{
+			} else {
 				req.setAttribute("result", result);
 				return mapping.findForward("list");
 			}
-		
+
 		} else {
 			result = "不支持的操作类型";
 		}

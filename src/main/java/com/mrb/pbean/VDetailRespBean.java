@@ -1,36 +1,40 @@
 package com.mrb.pbean;
 
-public class VBean {
-
-	private String vid;
-	private long vcid;
+public class VDetailRespBean {
+	private String code;
+	private String msg;
+	private String vuri;
 	private String title;
 	private String duration;
-	private long reviewcnt;
+	private long playcnt;
+	private String laststop;
 	private String type;
 	private String teacher;
 	private String description;
-	private String date;
+	private long date;
 
-
-	public String getVid() {
-		return vid;
+	public String getCode() {
+		return code;
 	}
 
-	public void setVid(String vid) {
-		this.vid = vid;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public long getVcid() {
-		return vcid;
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setVcid(long vcid) {
-		this.vcid = vcid;
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
 
-	public void setReviewcnt(long reviewcnt) {
-		this.reviewcnt = reviewcnt;
+	public String getVuri() {
+		return vuri;
+	}
+
+	public void setVuri(String vuri) {
+		this.vuri = vuri;
 	}
 
 	public String getTitle() {
@@ -49,12 +53,20 @@ public class VBean {
 		this.duration = duration;
 	}
 
-	public long getReviewcnt() {
-		return reviewcnt;
+	public long getPlaycnt() {
+		return playcnt;
 	}
 
-	public void setReviewcnt(int reviewcnt) {
-		this.reviewcnt = reviewcnt;
+	public void setPlaycnt(long playcnt) {
+		this.playcnt = playcnt;
+	}
+
+	public String getLaststop() {
+		return laststop;
+	}
+
+	public void setLaststop(String laststop) {
+		this.laststop = laststop;
 	}
 
 	public String getType() {
@@ -81,13 +93,12 @@ public class VBean {
 		this.description = description;
 	}
 
-	public String getDate() {
+	public long getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(long date) {
 		this.date = date;
 	}
-
 
 }

@@ -1,17 +1,17 @@
 package com.mrb.pbean;
 
 public class VListReqBean {
-	
-	private int cid;
+
+	private int vcid;
 	private int start;
 	private int num;
 
-	public int getCid() {
-		return cid;
+	public int getVcid() {
+		return vcid;
 	}
 
-	public void setCid(int cid) {
-		this.cid = cid;
+	public void setVcid(int vcid) {
+		this.vcid = vcid;
 	}
 
 	public int getStart() {

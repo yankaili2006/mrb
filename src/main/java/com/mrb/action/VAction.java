@@ -33,6 +33,8 @@ import com.mrb.form.JsonForm;
 import com.mrb.pbean.VBean;
 import com.mrb.pbean.VCateReqBean;
 import com.mrb.pbean.VCateRespBean;
+import com.mrb.pbean.VDetailReqBean;
+import com.mrb.pbean.VDetailRespBean;
 import com.mrb.pbean.VListReqBean;
 import com.mrb.pbean.VRespBean;
 import com.mrb.util.PageUtil;
@@ -60,7 +62,12 @@ public class VAction extends Action {
 			ArrayList<VCateBean> ulist = bs.getVCateList(0, reqBean.getNum());
 
 			VCateRespBean respBean = new VCateRespBean();
-			if (ulist != null && ulist.size() > 0) {
+			if (ulist == null) {
+				respBean.setCode("6000");
+				respBean.setMsg("交易失败");
+				respBean.setNum(0);
+				respBean.setClist("");
+			} else if (ulist.size() >= 0) {
 				respBean.setCode("0000");
 				respBean.setMsg("交易成功");
 				respBean.setNum(ulist.size());
@@ -71,18 +78,24 @@ public class VAction extends Action {
 				respBean.setCode("6000");
 				respBean.setMsg("交易失败");
 				respBean.setNum(0);
-				respBean.setClist("{}");
+				respBean.setClist("");
 			}
 			result = gson.toJson(respBean);
 		} else if ("list".equals(act)) { // 获取视频列表 for ajax
 
 			VListReqBean reqBean = gson.fromJson(msg, VListReqBean.class);
 			VideoBS bs = new VideoBS();
-			ArrayList<VBean> ulist = bs.getVList(reqBean.getStart(),
-					reqBean.getNum());
+			ArrayList<VBean> ulist = bs.getVList(reqBean.getVcid(),
+					reqBean.getStart(), reqBean.getNum());
 
 			VRespBean respBean = new VRespBean();
-			if (ulist != null && ulist.size() > 0) {
+			if (ulist == null) {
+				respBean.setCode("6001");
+				respBean.setMsg("交易失败");
+				respBean.setStart(0);
+				respBean.setNum(0);
+				respBean.setVlist("");
+			} else if (ulist.size() >= 0) {
 				respBean.setCode("0000");
 				respBean.setMsg("交易成功");
 				respBean.setStart(reqBean.getStart());
@@ -93,6 +106,27 @@ public class VAction extends Action {
 			} else {
 				respBean.setCode("6001");
 				respBean.setMsg("交易失败");
+				respBean.setStart(0);
+				respBean.setNum(0);
+				respBean.setVlist("");
+			}
+
+			result = gson.toJson(respBean);
+
+		} else if ("detail".equals(act)) { // 获取视频详情 for ajax
+
+			VDetailReqBean reqBean = gson.fromJson(msg, VDetailReqBean.class);
+			VideoBS bs = new VideoBS();
+			VDetailRespBean respBean = bs.getVDetail(reqBean.getVid(),
+					reqBean.getUid());
+
+			if (respBean == null) {
+				respBean = new VDetailRespBean();
+				respBean.setCode("6001");
+				respBean.setMsg("交易失败");
+			} else {
+				respBean.setCode("0000");
+				respBean.setMsg("交易成功");
 			}
 
 			result = gson.toJson(respBean);

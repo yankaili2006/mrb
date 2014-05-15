@@ -14,6 +14,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.VideoBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.VBean;
+import com.mrb.pbean.VDetailRespBean;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -92,20 +93,19 @@ public class VideoBS {
 		return videoList;
 	}
 
-
 	/*
 	 * 获取视频列表
 	 */
-	public ArrayList<VBean> getVList(Integer index, Integer cnt) {
+	public ArrayList<VBean> getVList(Integer vcid, Integer index, Integer cnt) {
 		ArrayList<VBean> videoList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
+			map.put("vcid", vcid);
 			map.put("index", index);
 			map.put("cnt", cnt);
-			videoList = (ArrayList<VBean>) client.queryForList(
-					"getVList", map);
+			videoList = (ArrayList<VBean>) client.queryForList("getVList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -115,7 +115,28 @@ public class VideoBS {
 		return videoList;
 	}
 
-	
+	/*
+	 * 获取视频列表
+	 */
+	public VDetailRespBean getVDetail(String vid, long uid) {
+		VDetailRespBean bean = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			HashMap map = new HashMap();
+			map.put("vid", vid);
+			map.put("uid", uid);
+			bean = (VDetailRespBean) client.queryForObject("getVDetail",
+					map);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return bean;
+	}
+
 	/*
 	 * 获取视频数目
 	 */
@@ -193,6 +214,7 @@ public class VideoBS {
 		VideoBS bs = new VideoBS();
 		VideoBean bean = new VideoBean();
 		bean.setVid("ZZZZZZZ111111112222222222");
+		bean.setVcid(648194L);
 		bean.setStatus("Z");
 		bean.setSnapshot_url("http://www.baidu.com/a.jpg");
 		bean.setThumbnail_url("http://www.baidu.com/b.jpg");
@@ -205,7 +227,6 @@ public class VideoBS {
 		bean.setDuration(10000L);
 		bean.setExtension(".jpg");
 		bean.setTitle("这是一个测试视频");
-		bean.setCategory_id(10L);
 		bean.setMp4_expires(10);
 		bean.setMp4_url("1000.mp4");
 		bean.setM3u8_expires(100);

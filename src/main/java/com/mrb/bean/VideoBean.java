@@ -8,9 +8,9 @@ package com.mrb.bean;
  * @author Administrator 11:52:49 AM
  */
 public class VideoBean {
-	
 
 	private String vid;
+	private long vcid;
 	private String status;
 	private String description;
 	private String tags;
@@ -25,7 +25,6 @@ public class VideoBean {
 	private long duration;
 	private String extension;
 	private String title;
-	private long category_id;
 
 	private String mp4_url;
 	private long mp4_expires;
@@ -178,12 +177,12 @@ public class VideoBean {
 		this.title = title;
 	}
 
-	public long getCategory_id() {
-		return category_id;
+	public long getVcid() {
+		return vcid;
 	}
 
-	public void setCategory_id(long category_id) {
-		this.category_id = category_id;
+	public void setVcid(long vcid) {
+		this.vcid = vcid;
 	}
 
 	public String getMp4_url() {
