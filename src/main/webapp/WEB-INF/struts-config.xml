@@ -17,6 +17,7 @@
 			scope="request" validate="false">
 			<forward name="fail" path="/index.do" />
 			<forward name="list" path="/user.jsp" />
+			<forward name="home" path="/home.jsp" />
 			<forward name="add" path="/adduser.jsp" />
 			<forward name="edit" path="/edituser.jsp" />
 		</action>

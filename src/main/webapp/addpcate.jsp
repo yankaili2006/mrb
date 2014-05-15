@@ -109,37 +109,45 @@
 			<div class="span3">
 				<div class="sidebar-nav">
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>用户管理
+						data-target="#home-menu">
+						<i class="icon-home"></i>主页
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="home-menu" class="nav nav-list collapse in">
+						<li><a href="home.jsp">主页</a></li>
+					</ul>
+
+					<div class="nav-header" data-toggle="collapse"
+						data-target="#user-menu">
+						<i class="icon-user"></i>用户管理
+					</div>
+					<ul id="user-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">用户列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>视频管理
+						data-target="#video-menu">
+						<i class="icon-facetime-video"></i>视频管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="video-menu" class="nav nav-list collapse in">
 						<li><a href="vcate.jsp">视频分类</a></li>
 						<li><a href="video.jsp">视频列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>项目管理
+						data-target="#project-menu">
+						<i class="icon-road"></i>项目管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="project-menu" class="nav nav-list collapse in">
 						<li class="active"><a href="pcate.jsp">项目分类</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>管店管理
+						data-target="#store-menu">
+						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="store-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">城市列表</a></li>
 					</ul>
 
@@ -220,7 +228,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

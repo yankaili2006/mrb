@@ -116,71 +116,55 @@
 				<div class="sidebar-nav">
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>用户管理
+						data-target="#home-menu">
+						<i class="icon-home"></i>主页
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="home-menu" class="nav nav-list collapse in">
+						<li><a href="home.jsp">主页</a></li>
+					</ul>
+
+					<div class="nav-header" data-toggle="collapse"
+						data-target="#user-menu">
+						<i class="icon-user"></i>用户管理
+					</div>
+					<ul id="user-menu" class="nav nav-list collapse in">
 						<li class="active"><a href="user.jsp">用户列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>视频管理
+						data-target="#video-menu">
+						<i class="icon-facetime-video"></i>视频管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="video-menu" class="nav nav-list collapse in">
 						<li><a href="vcate.jsp">视频分类</a></li>
 						<li><a href="video.jsp">视频列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>项目管理
+						data-target="#project-menu">
+						<i class="icon-road"></i>项目管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
-						<li><a href="user.jsp">品牌分类</a></li>
+						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>其他
+						data-target="#store-menu">
+						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="store-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
-
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#accounts-menu">
-						<i class="icon-briefcase"></i>Account <span
-							class="label label-info">+10</span>
-					</div>
-					<ul id="accounts-menu" class="nav nav-list collapse in">
-						<li><a href="sign-in.html">Sign In</a></li>
-						<li><a href="sign-up.html">Sign Up</a></li>
-						<li><a href="reset-password.html">Reset Password</a></li>
-					</ul>
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#settings-menu">
-						<i class="icon-exclamation-sign"></i>Error Pages
-					</div>
-					<ul id="settings-menu" class="nav nav-list collapse in">
-						<li><a href="403.html">403 page</a></li>
-						<li><a href="404.html">404 page</a></li>
-						<li><a href="500.html">500 page</a></li>
-						<li><a href="503.html">503 page</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
-						<i class="icon-legal"></i>Legal
+						<i class="icon-legal"></i>法律协议
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
-						<li><a href="privacy-policy.html">Privacy Policy</a></li>
-						<li><a href="terms-and-conditions.html">Terms and
-								Conditions</a></li>
+						<li><a href="privacy.jsp">版权说明</a></li>
+						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
 				</div>
 			</div>

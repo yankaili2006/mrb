@@ -148,7 +148,7 @@ public class UserAction extends Action {
 				if (resultBean != null) {
 					req.getSession().setAttribute("uid", resultBean.getUid());
 					req.getSession().setAttribute("uname", resultBean.getUname());
-					return mapping.findForward("list");
+					return mapping.findForward("home");
 				} else {
 					result = "登录失败";
 				}
@@ -162,7 +162,7 @@ public class UserAction extends Action {
 				if (resultBean != null) {
 					req.getSession().setAttribute("uid", resultBean.getUid());
 					req.getSession().setAttribute("uname", resultBean.getUname());
-					return mapping.findForward("list");
+					return mapping.findForward("home");
 				} else {
 					result = "登录失败";
 				}

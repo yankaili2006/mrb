@@ -102,37 +102,45 @@
 			<div class="span3">
 				<div class="sidebar-nav">
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>用户管理
+						data-target="#home-menu">
+						<i class="icon-home"></i>主页
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="home-menu" class="nav nav-list collapse in">
+						<li class="active"><a href="home.jsp">主页</a></li>
+					</ul>
+					
+					<div class="nav-header" data-toggle="collapse"
+						data-target="#user-menu">
+						<i class="icon-user"></i>用户管理
+					</div>
+					<ul id="user-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">用户列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>视频管理
+						data-target="#video-menu">
+						<i class="icon-facetime-video"></i>视频管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="video-menu" class="nav nav-list collapse in">
 						<li><a href="vcate.jsp">视频分类</a></li>
 						<li><a href="video.jsp">视频列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>项目管理
+						data-target="#project-menu">
+						<i class="icon-road"></i>项目管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#dashboard-menu">
-						<i class="icon-dashboard"></i>管店管理
+						data-target="#store-menu">
+						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="dashboard-menu" class="nav nav-list collapse in">
+					<ul id="store-menu" class="nav nav-list collapse in">
 						<li><a href="user.jsp">城市列表</a></li>
 					</ul>
 
@@ -230,9 +238,7 @@
 							data-target="#widget1container">通知</div>
 						<div id="widget1container" class="block-body collapse in">
 							<h2>通知标题</h2>
-							<p>
-								恭喜美人帮正式上线！
-							</p>
+							<p>恭喜美人帮正式上线！</p>
 						</div>
 					</div>
 				</div>
@@ -308,6 +314,7 @@
 						<div class="block-body">
 							<h2>如何添加视频？</h2>
 							<p>请先将视频上传至石山视频(www.smvp.cn),生成一个唯一ID号，点击菜单中的[视频管理]->[视频列表]->[添加视频]。录入在石山视频的唯一的ID号，系统自动获取该视频的播放地址，简介等详细信息。添加成功后，可以修改该视频的部分信息。
+							
 							<p>
 								<a class="btn btn-primary btn-large">了解更多 &raquo;</a>
 							</p>
@@ -322,7 +329,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

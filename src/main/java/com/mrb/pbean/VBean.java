@@ -1,8 +1,8 @@
 package com.mrb.pbean;
 
 public class VBean {
-	
-	private int id;
+
+	private int vid;
 	private String title;
 	private String duration;
 	private int reviewcnt;
@@ -11,60 +11,77 @@ public class VBean {
 	private String detail;
 	private String date;
 	private String time;
-	public int getId() {
-		return id;
+
+	public int getVid() {
+		return vid;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setVid(int vid) {
+		this.vid = vid;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getDuration() {
 		return duration;
 	}
+
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
+
 	public int getReviewcnt() {
 		return reviewcnt;
 	}
+
 	public void setReviewcnt(int reviewcnt) {
 		this.reviewcnt = reviewcnt;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public void setType(String type) {
 		this.type = type;
 	}
+
 	public String getTeacher() {
 		return teacher;
 	}
+
 	public void setTeacher(String teacher) {
 		this.teacher = teacher;
 	}
+
 	public String getDetail() {
 		return detail;
 	}
+
 	public void setDetail(String detail) {
 		this.detail = detail;
 	}
+
 	public String getDate() {
 		return date;
 	}
+
 	public void setDate(String date) {
 		this.date = date;
 	}
+
 	public String getTime() {
 		return time;
 	}
+
 	public void setTime(String time) {
 		this.time = time;
 	}
-
 
 }
