@@ -262,6 +262,83 @@ LOCK TABLES `tbstore` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbucolletc`
+--
+
+DROP TABLE IF EXISTS `tbucolletc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbucolletc` (
+  `vcid` int(10) NOT NULL,
+  `vid` varchar(32) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `date` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbucolletc`
+--
+
+LOCK TABLES `tbucolletc` WRITE;
+/*!40000 ALTER TABLE `tbucolletc` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbucolletc` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbuplay`
+--
+
+DROP TABLE IF EXISTS `tbuplay`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbuplay` (
+  `vpid` int(10) NOT NULL,
+  `vid` varchar(32) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `finish` char(1) NOT NULL,
+  `date` bigint(20) NOT NULL,
+  `laststop` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbuplay`
+--
+
+LOCK TABLES `tbuplay` WRITE;
+/*!40000 ALTER TABLE `tbuplay` DISABLE KEYS */;
+INSERT INTO `tbuplay` VALUES (1111,'ZZZZZZZ111111112222222222',995811,'0',20140321042322,'20140321042322');
+/*!40000 ALTER TABLE `tbuplay` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tbureview`
+--
+
+DROP TABLE IF EXISTS `tbureview`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbureview` (
+  `vrid` int(10) NOT NULL,
+  `vid` varchar(32) NOT NULL,
+  `uid` int(10) NOT NULL,
+  `text` varchar(512) NOT NULL,
+  `date` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbureview`
+--
+
+LOCK TABLES `tbureview` WRITE;
+/*!40000 ALTER TABLE `tbureview` DISABLE KEYS */;
+INSERT INTO `tbureview` VALUES (1,'ZZZZZZZ111111112222222222',1,'1111122222',20140323042321),(1,'ZZZZZZZ111111112222222222',1,'1111122222',20140323042321);
+/*!40000 ALTER TABLE `tbureview` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbuser`
 --
 
@@ -327,6 +404,7 @@ DROP TABLE IF EXISTS `tbvideo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbvideo` (
   `vid` varchar(32) NOT NULL,
+  `vcid` int(10) NOT NULL,
   `status` char(1) NOT NULL,
   `description` varchar(2048) DEFAULT NULL,
   `tags` varchar(512) DEFAULT NULL,
@@ -341,7 +419,6 @@ CREATE TABLE `tbvideo` (
   `duration` bigint(20) NOT NULL,
   `extension` varchar(10) NOT NULL,
   `title` varchar(512) NOT NULL,
-  `category_id` int(10) NOT NULL,
   `mp4_url` varchar(128) NOT NULL,
   `mp4_expires` int(10) NOT NULL,
   `permanent_url` varchar(128) NOT NULL,
@@ -351,6 +428,8 @@ CREATE TABLE `tbvideo` (
   `zm_file_size` bigint(20) NOT NULL,
   `zm_type` varchar(10) NOT NULL,
   `zm_id` varchar(32) NOT NULL,
+  `type` varchar(32) NOT NULL,
+  `teacher` varchar(32) NOT NULL,
   `date` bigint(20) NOT NULL,
   `opdate` bigint(20) NOT NULL,
   `operid` int(10) NOT NULL
@@ -363,9 +442,109 @@ CREATE TABLE `tbvideo` (
 
 LOCK TABLES `tbvideo` WRITE;
 /*!40000 ALTER TABLE `tbvideo` DISABLE KEYS */;
-INSERT INTO `tbvideo` VALUES ('ZZZZZZZ111111112222222222','Z',NULL,NULL,'http://www.baidu.com/a.jpg','http://www.baidu.com/b.jpg',1024,0,'2014-04-13 12:42:32','2014-04-13 12:42:32',100,200,10000,'.jpg','这是一个测试视频',10,'1000.mp4',10,'url.perm',11,'m3u8.m3u8',100,100020,'mp4','100000ddddd',20140513195553,20140513195553,1);
+INSERT INTO `tbvideo` VALUES ('ZZZZZZZ111111112222222222',648194,'Z',NULL,NULL,'http://www.baidu.com/a.jpg','http://www.baidu.com/b.jpg',1024,0,'2014-04-13 12:42:32','2014-04-13 12:42:32',100,200,10000,'.jpg','这是一个测试视频','1000.mp4',10,'url.perm',11,'m3u8.m3u8',100,100020,'mp4','100000ddddd','','',20140513195553,20140513195553,1);
 /*!40000 ALTER TABLE `tbvideo` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary table structure for view `vvlaststop`
+--
+
+DROP TABLE IF EXISTS `vvlaststop`;
+/*!50001 DROP VIEW IF EXISTS `vvlaststop`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vvlaststop` (
+  `vid` tinyint NOT NULL,
+  `uid` tinyint NOT NULL,
+  `laststop` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vvplay`
+--
+
+DROP TABLE IF EXISTS `vvplay`;
+/*!50001 DROP VIEW IF EXISTS `vvplay`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vvplay` (
+  `vid` tinyint NOT NULL,
+  `cnt` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary table structure for view `vvreview`
+--
+
+DROP TABLE IF EXISTS `vvreview`;
+/*!50001 DROP VIEW IF EXISTS `vvreview`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE TABLE `vvreview` (
+  `vid` tinyint NOT NULL,
+  `cnt` tinyint NOT NULL
+) ENGINE=MyISAM */;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Final view structure for view `vvlaststop`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vvlaststop`*/;
+/*!50001 DROP VIEW IF EXISTS `vvlaststop`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vvlaststop` AS (select `tbuplay`.`vid` AS `vid`,`tbuplay`.`uid` AS `uid`,max(`tbuplay`.`laststop`) AS `laststop` from `tbuplay` group by `tbuplay`.`vid`,`tbuplay`.`uid`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vvplay`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vvplay`*/;
+/*!50001 DROP VIEW IF EXISTS `vvplay`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vvplay` AS (select `tbuplay`.`vid` AS `vid`,count(1) AS `cnt` from `tbuplay` group by `tbuplay`.`vid`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `vvreview`
+--
+
+/*!50001 DROP TABLE IF EXISTS `vvreview`*/;
+/*!50001 DROP VIEW IF EXISTS `vvreview`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `vvreview` AS (select `tbureview`.`vid` AS `vid`,count(1) AS `cnt` from `tbureview`) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -376,4 +555,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-15  9:38:04
+-- Dump completed on 2014-05-16  7:35:51
