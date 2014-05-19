@@ -11,10 +11,13 @@ import java.util.Date;
 import java.util.HashMap;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
+import com.mrb.bean.EntryBean;
 import com.mrb.bean.VideoBean;
+import com.mrb.bean.VideoReqBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.VBean;
 import com.mrb.pbean.VDetailRespBean;
+import com.mrb.util.SmvpUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -31,19 +34,58 @@ public class VideoBS {
 	/*
 	 * 注册新视频
 	 */
-	public Boolean addVideo(VideoBean bean) {
+	public Boolean addVideo(VideoReqBean reqBean) {
+
+		SmvpUtil util = new SmvpUtil();
+		EntryBean ebean = util.getEntries(reqBean.getEntryid());
+
+		VideoBean vbean = new VideoBean();
+		SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
+		String now = dfm.format(new Date());
+
+		vbean.setDate(Long.valueOf(now));
+		vbean.setOpdate(Long.valueOf(now));
+		vbean.setOperid(1L);
+
+		vbean.setVid(ebean.getId());
+		vbean.setVcid(0);
+		if ("FINISHED".equals(ebean.getStatus())) {
+			vbean.setStatus("Z");
+		} else {
+			vbean.setStatus("C");
+		}
+		vbean.setDescription(ebean.getDescription());
+		vbean.setTags("");
+		vbean.setSnapshot_url(ebean.getSnapshot_url());
+		vbean.setThumbnail_url(ebean.getThumbnail_url());
+		vbean.setFile_size(ebean.getFile_size());
+		if ("FINISHED".equals(ebean.getStatus())) {
+			vbean.setActivated(1);
+		} else {
+			vbean.setActivated(0);
+		}
+		vbean.setModified_time(ebean.getModified_time());
+		vbean.setCreated_time(ebean.getCreated_time());
+		vbean.setHeight(ebean.getHeight());
+		vbean.setWidth(ebean.getWidth());
+		vbean.setDuration(ebean.getDuration());
+		vbean.setExtension(ebean.getExtension());
+		vbean.setTitle(ebean.getTitle());
+
+		vbean.setMp4_expires(0);
+		vbean.setMp4_url("");
+		vbean.setM3u8_expires(0);
+		vbean.setM3u8_url("");
+		vbean.setPermanent_expires(11);
+		vbean.setPermanent_url("");
+		vbean.setZm_file_size(0);
+		vbean.setZm_id("");
+		vbean.setZm_type("");
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-
-			bean.setDate(Long.valueOf(now));
-			bean.setOpdate(Long.valueOf(now));
-			bean.setOperid(1L);
-
-			client.update("addVideo", bean);
+			client.update("addVideo", vbean);
 			client.commitTransaction();
 
 			client.endTransaction();
@@ -126,8 +168,7 @@ public class VideoBS {
 			HashMap map = new HashMap();
 			map.put("vid", vid);
 			map.put("uid", uid);
-			bean = (VDetailRespBean) client.queryForObject("getVDetail",
-					map);
+			bean = (VDetailRespBean) client.queryForObject("getVDetail", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -237,7 +278,7 @@ public class VideoBS {
 		bean.setZm_id("100000ddddd");
 		bean.setZm_type("mp4");
 
-		bs.addVideo(bean);
+		// bs.addVideo(bean);
 
 		System.out.println(bs.getVideoList(0, 5).size());
 

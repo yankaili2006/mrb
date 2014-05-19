@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page import="com.mrb.bean.VideoBean"%>
+<%@ page import="com.mrb.bean.VideoReqBean"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -52,27 +52,16 @@
 
 
 <script type="text/javascript">
-	function delvideo() {
-		$.post("video.do", {
-			act : "del",
-			msg : "{uid:" + $('#uid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				alert("删除成功");
-				window.location.href = "video.jsp";
-			}
-		});
-	}
+	function addvideo() {
 
-	function updatevideo() {
-		$('#act').val("update");
-		$('#msg').val(
-				"{uid:" + $('#uid').val() + ",uname:" + $('#uname').val()
-						+ ",phone:" + $('#phone').val() + ",status:"
-						+ $('#status').val() + "}");
-		$('#updateform').submit();
+		if ($('#entryid').val() == '') {
+			alert("请输入视频ID");
+			return false;
+		}
+
+		$('#act').val("add");
+		$('#msg').val("{entryid:" + $('#entryid').val() + "}");
+		$('#addform').submit();
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -184,12 +173,11 @@
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">编辑视频</h1>
+				<h1 class="page-title">添加视频</h1>
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" onclick="updatevideo();">
+					<button class="btn btn-primary" onclick="addvideo();">
 						<i class="icon-save"></i>保存
 					</button>
-					<a href="#myModal" data-toggle="modal" class="btn">删除</a>
 					<div class="btn-group"></div>
 				</div>
 				<%
@@ -216,8 +204,7 @@
 						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
 						</li>
 					</ul>
-					<form id="updateform" name="updateform" action="video.do"
-						method="post">
+					<form id="addform" name="addform" action="video.do" method="post">
 						<input type="hidden" id="act" name="act" value=""> <input
 							type="hidden" id="msg" name="msg" value="">
 					</form>
@@ -227,82 +214,25 @@
 								<%
 									Object obj = request.getAttribute("video");
 									if (obj != null) {
-										VideoBean bean = (VideoBean) obj;
+										VideoReqBean bean = (VideoReqBean) obj;
 								%>
-								<label>视频名称</label> <input type="text" name="title" id="title"
-									value="<%=bean.getTitle()%>" class="input-xlarge"> <label>
-									描述信息</label>
-								<textarea name="description" id="description"
-									class="form-control" rows="3"><%=bean.getDescription()%></textarea>
-
-								<label>截图</label> <img alt="" src="<%=bean.getSnapshot_url()%>">
-								<label>缩略图</label> <img alt=""
-									src="<%=bean.getThumbnail_url()%>"> <label>时长</label> <input
-									type="text" name="title" id="title"
-									value="<%=bean.getDuration()%>" class="input-xlarge"> <label>创建时间</label>
-								<input type="text" name="title" id="title"
-									value="<%=bean.getCreated_time()%>" class="input-xlarge">
-
-								<label>修改时间</label> <input type="text" name="title" id="title"
-									value="<%=bean.getModified_time()%>" class="input-xlarge">
-
-								<label>状态</label> <select name="status" id="status"
+								<label> 视频ID </label> <input type="text" name="entryid"
+									id="entryid" value="<%=bean.getEntryid()%>"
 									class="input-xlarge">
-									<option value="Z"
-										<%if ("Z".equals(bean.getStatus())) {
-					out.print("selected=\"selected\"");
-				}%>>
-										正常</option>
-									<option value="C"
-										<%if ("C".equals(bean.getStatus())) {
-					out.print("selected=\"selected\"");
-				}%>>
-										注销</option>
-								</select> <input type="hidden" id="vid" name="vid"
-									value="<%=bean.getVid()%>">
 								<%
 									} else {
 								%>
-								<label> 视频名称 </label> <input type="text" name="title" id="title"
-									value="" class="input-xlarge"> <label> 描述信息 </label>
-								<textarea name="description" id="description"
-									class="form-control" rows="3"></textarea>
-
-								<label> 状态 </label> <select name="status" id="status"
-									class="input-xlarge">
-									<option value="Z">正常</option>
-									<option value="C">注销</option>
-								</select> <input type="hidden" id="vid" name="vid" value="0">
+								<label> 视频ID </label> <input type="text" name="entryid"
+									id="entryid" value="" class="input-xlarge">
 								<%
 									}
 								%>
+
 							</form>
 						</div>
 					</div>
 
 				</div>
-
-				<div class="modal small hide fade" id="myModal" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">×</button>
-						<h3 id="myModalLabel">删除确认</h3>
-					</div>
-					<div class="modal-body">
-
-						<p class="error-text">
-							<i class="icon-warning-sign modal-icon"></i>您确定删除该视频?
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button class="btn" data-dismiss="modal" aria-hidden="true">
-							取消</button>
-						<button class="btn btn-danger" data-dismiss="modal"
-							onclick="delvideo();">删除</button>
-					</div>
-				</div>
-
 			</div>
 		</div>
 

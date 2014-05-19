@@ -25,6 +25,7 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.VideoBean;
+import com.mrb.bean.VideoReqBean;
 import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
 import com.mrb.util.PageUtil;
@@ -59,13 +60,13 @@ public class VideoAction extends Action {
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>视频ID</th><th>视频名称</th><th>mp4播放地址</th><th>上传时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>视频ID</th><th>视频名称</th><th>视频缩略图</th><th>上传时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					VideoBean bean = (VideoBean) ulist.get(i);
 					html.append("<tr><td>" + bean.getVid() + "</td><td>"
-							+ bean.getTitle() + "</td><td>" + bean.getMp4_url()
-							+ "</td><td>" + bean.getDate() + "</td>");
+							+ bean.getTitle() + "</td><td><img src=\"" + bean.getThumbnail_url()
+							+ "\"></td><td>" + bean.getDate() + "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
 					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setvid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
@@ -81,7 +82,7 @@ public class VideoAction extends Action {
 			result = html.toString();
 
 		} else if ("add".equals(act)) { // 添加视频 for 跳转
-			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
+			VideoReqBean bean = (VideoReqBean) gson.fromJson(msg, VideoReqBean.class);
 			if (bean != null) {
 				bs.addVideo(bean);
 			} else {

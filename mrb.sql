@@ -404,32 +404,32 @@ DROP TABLE IF EXISTS `tbvideo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbvideo` (
   `vid` varchar(32) NOT NULL,
-  `vcid` int(10) NOT NULL,
-  `status` char(1) NOT NULL,
+  `vcid` int(10) DEFAULT NULL,
+  `status` char(1) DEFAULT NULL,
   `description` varchar(2048) DEFAULT NULL,
   `tags` varchar(512) DEFAULT NULL,
-  `snapshot_url` varchar(128) NOT NULL,
-  `thumbnail_url` varchar(128) NOT NULL,
-  `file_size` bigint(20) NOT NULL,
-  `activated` int(1) NOT NULL,
-  `modified_time` varchar(20) NOT NULL,
-  `created_time` varchar(20) NOT NULL,
-  `height` int(10) NOT NULL,
-  `width` int(10) NOT NULL,
-  `duration` bigint(20) NOT NULL,
-  `extension` varchar(10) NOT NULL,
-  `title` varchar(512) NOT NULL,
-  `mp4_url` varchar(128) NOT NULL,
-  `mp4_expires` int(10) NOT NULL,
-  `permanent_url` varchar(128) NOT NULL,
-  `permanent_expires` int(10) NOT NULL,
-  `m3u8_url` varchar(128) NOT NULL,
-  `m3u8_expires` int(10) NOT NULL,
-  `zm_file_size` bigint(20) NOT NULL,
-  `zm_type` varchar(10) NOT NULL,
-  `zm_id` varchar(32) NOT NULL,
-  `type` varchar(32) NOT NULL,
-  `teacher` varchar(32) NOT NULL,
+  `snapshot_url` varchar(512) DEFAULT NULL,
+  `thumbnail_url` varchar(512) DEFAULT NULL,
+  `file_size` bigint(20) DEFAULT NULL,
+  `activated` int(1) DEFAULT NULL,
+  `modified_time` varchar(20) DEFAULT NULL,
+  `created_time` varchar(20) DEFAULT NULL,
+  `height` int(10) DEFAULT NULL,
+  `width` int(10) DEFAULT NULL,
+  `duration` bigint(20) DEFAULT NULL,
+  `extension` varchar(10) DEFAULT NULL,
+  `title` varchar(512) DEFAULT NULL,
+  `mp4_url` varchar(512) DEFAULT NULL,
+  `mp4_expires` int(10) DEFAULT NULL,
+  `permanent_url` varchar(512) DEFAULT NULL,
+  `permanent_expires` int(10) DEFAULT NULL,
+  `m3u8_url` varchar(512) DEFAULT NULL,
+  `m3u8_expires` int(10) DEFAULT NULL,
+  `zm_file_size` bigint(20) DEFAULT NULL,
+  `zm_type` varchar(10) DEFAULT NULL,
+  `zm_id` varchar(32) DEFAULT NULL,
+  `type` varchar(32) DEFAULT NULL,
+  `teacher` varchar(32) DEFAULT NULL,
   `date` bigint(20) NOT NULL,
   `opdate` bigint(20) NOT NULL,
   `operid` int(10) NOT NULL
@@ -442,7 +442,7 @@ CREATE TABLE `tbvideo` (
 
 LOCK TABLES `tbvideo` WRITE;
 /*!40000 ALTER TABLE `tbvideo` DISABLE KEYS */;
-INSERT INTO `tbvideo` VALUES ('ZZZZZZZ111111112222222222',648194,'Z',NULL,NULL,'http://www.baidu.com/a.jpg','http://www.baidu.com/b.jpg',1024,0,'2014-04-13 12:42:32','2014-04-13 12:42:32',100,200,10000,'.jpg','这是一个测试视频','1000.mp4',10,'url.perm',11,'m3u8.m3u8',100,100020,'mp4','100000ddddd','','',20140513195553,20140513195553,1);
+INSERT INTO `tbvideo` VALUES ('593727852328384587',0,'Z','','','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-593727852328384587/593727865242728667.jpg','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-593727852328384587/593727865242728669.jpg',25030656,1,'2014-05-19 23:28:51','2014-05-19 23:27:18',360,640,159310,'.mp4','周杰伦-天台的月光-国语[www.mtvxz.cn]','',0,'',11,'',0,0,'','',NULL,NULL,20140520004748,20140520004748,1),('592063311985780151',0,'Z','','','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-592063311985780151/592063324897358963.jpg','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-592063311985780151/592063324897358965.jpg',194048,1,'2014-05-15 11:48:06','2014-05-15 11:48:02',97,165,10290,'.avi','split','',0,'',11,'',0,0,'','',NULL,NULL,20140520010154,20140520010154,1);
 /*!40000 ALTER TABLE `tbvideo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -555,4 +555,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-16  7:35:51
+-- Dump completed on 2014-05-20  1:03:03
