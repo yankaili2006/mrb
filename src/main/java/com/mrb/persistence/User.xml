@@ -10,22 +10,20 @@
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where uid = #id#
 	</select>
-	
-	<select id="loginUser" parameterClass="java.util.HashMap"
+
+	<select id="loginUPUser" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.bean.UserBean">
-		select * from tbuser where uname = #uname# and phone = #phone# and pwd = #pwd#
+		select * from tbuser where (uname = #uname# or phone =
+		#uname#) and pwd = #pwd#
 	</select>
 
-<select id="loginUPUser" parameterClass="java.util.HashMap"
+
+	<select id="getUserList" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.bean.UserBean">
-		select * from tbuser where (uname = #uname# or phone = #uname#) and pwd = #pwd#
+		select * from tbuser order by date desc limit #index#,
+		#cnt#
 	</select>
 
-
-	<select id="getUserList" parameterClass="java.util.HashMap" resultClass="com.mrb.bean.UserBean">
-		select * from tbuser order by date desc limit #index#, #cnt#
-	</select>
-	
 	<select id="getUserCnt" resultClass="java.lang.Integer">
 		select Count(1) from tbuser
 	</select>
@@ -38,18 +36,33 @@
 		where uid=#uid#
 	</update>
 
+	<delete id="delUserById" parameterClass="java.lang.Long">
+		delete from tbuser where
+		uid = #id#
+	</delete>
+
+	<!-- for phone -->
+
 	<update id="updateUserPwd" parameterClass="com.mrb.bean.UserBean">
 		update tbuser set opdate=#opdate#
 		<isNotEmpty prepend="," property="pwd">pwd=#pwd#</isNotEmpty>
 		where uid=#uid#
 	</update>
-	
-	<select id="chkPwd" parameterClass="com.mrb.bean.PwdBean"
-		resultClass="java.lang.Integer">
-		select count(1) from tbuser where uid = #uid# and pwd = #oldpwd#
-	</select>
 
-	<delete id="delUserById" parameterClass="java.lang.Long">
-		delete from tbuser where uid = #id#
-	</delete>
+	<select id="chkPwd" parameterClass="com.mrb.pbean.PwdBean"
+		resultClass="java.lang.Integer">
+		select count(1) from tbuser where uid = #uid# and pwd =
+		#oldpwd#
+	</select>
+	<select id="getPwdByUid" parameterClass="java.lang.Long"
+		resultClass="java.lang.String">
+		select pwd from tbuser where uid = #uid#
+	</select>
+	
+	<select id="loginUser" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where phone = #phone# and pwd = #pwd#
+	</select>
+	
+
 </sqlMap>

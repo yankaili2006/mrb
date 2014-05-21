@@ -36,7 +36,7 @@ public class PcateBS {
 
 			long uid = System.currentTimeMillis() % 1000000;
 			bean.setCid(uid);
-			
+
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
 			bean.setDate(Long.valueOf(now));
@@ -48,6 +48,12 @@ public class PcateBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -66,6 +72,12 @@ public class PcateBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return bean;
 	}
@@ -81,16 +93,23 @@ public class PcateBS {
 			HashMap map = new HashMap();
 			map.put("index", index);
 			map.put("cnt", cnt);
-			pcateList = (ArrayList<PcateBean>) client.queryForList("getPcateList", map);
+			pcateList = (ArrayList<PcateBean>) client.queryForList(
+					"getPcateList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return pcateList;
 	}
-	
+
 	/*
 	 * 获取项目分类列表记录数
 	 */
@@ -99,12 +118,18 @@ public class PcateBS {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			cnt = (Integer)client.queryForObject("getPcateCnt");
+			cnt = (Integer) client.queryForObject("getPcateCnt");
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return cnt;
 	}
@@ -119,12 +144,18 @@ public class PcateBS {
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
 			bean.setDate(Long.valueOf(now));
-			
+
 			client.update("updatePcate", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -142,11 +173,17 @@ public class PcateBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
 	}
-	
+
 	/**
 	 * @param args
 	 */
@@ -157,7 +194,7 @@ public class PcateBS {
 		PcateBean bean = new PcateBean();
 		bean.setName("疗效护理");
 		bs.addPcate(bean);
-		System.out.println(bs.getPcateList(0,5).size());
+		System.out.println(bs.getPcateList(0, 5).size());
 	}
 
 }

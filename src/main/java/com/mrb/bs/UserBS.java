@@ -52,6 +52,12 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+
+			}
 			uid = -1;
 		}
 		return uid;
@@ -66,7 +72,6 @@ public class UserBS {
 		try {
 			client.startTransaction();
 			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("uname", bean.getUname());
 			map.put("phone", bean.getPhone());
 			map.put("pwd", bean.getPwd());
 			resultBean = (UserBean) client.queryForObject("loginUser", map);
@@ -75,12 +80,17 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return resultBean;
 	}
-	
+
 	/*
-	 * 用户登录, 可以用户名或者密码登录
+	 * 用户登录, 可以用户名或者密码登录 管理端
 	 */
 	public UserBean loginUPUser(UserBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
@@ -96,10 +106,15 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return resultBean;
 	}
-	
+
 	/*
 	 * 通过uid获取用户信息
 	 */
@@ -113,6 +128,11 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return bean;
 	}
@@ -135,6 +155,11 @@ public class UserBS {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return userList;
 	}
@@ -153,6 +178,11 @@ public class UserBS {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return cnt;
 	}
@@ -169,6 +199,11 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -186,6 +221,11 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -203,6 +243,11 @@ public class UserBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;

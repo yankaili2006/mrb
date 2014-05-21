@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class VideoReqBean {
+	
 	private String entryid;
 
 	public String getEntryid() {

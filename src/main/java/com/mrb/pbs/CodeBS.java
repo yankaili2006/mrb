@@ -2,7 +2,7 @@
  * Feb 25, 2011 
  * BookBS.java 
  */
-package com.mrb.bs;
+package com.mrb.pbs;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -48,6 +48,12 @@ public class CodeBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -66,13 +72,18 @@ public class CodeBS {
 			// 有效时间五分钟
 			Long left = Long.valueOf(now) - 300;
 			bean.setDate(left);
-			
+
 			cnt = (Integer) client.queryForObject("chkCode", bean);
 			client.commitTransaction();
 
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			return cnt;
 		}
 		return cnt;
@@ -91,6 +102,11 @@ public class CodeBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return bean;
 	}
@@ -111,8 +127,12 @@ public class CodeBS {
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return CodeList;
 	}
@@ -129,8 +149,12 @@ public class CodeBS {
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		}
 		return cnt;
 	}
@@ -147,6 +171,11 @@ public class CodeBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;

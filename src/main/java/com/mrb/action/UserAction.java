@@ -102,9 +102,28 @@ public class UserAction extends Action {
 				return mapping.findForward("add");
 			}
 		} else if ("register".equals(act)) { // 注册用户 for 手机端
-			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
+			UserBean bean = null;
+			try {
+				bean = (UserBean) gson.fromJson(msg, UserBean.class);
+			} catch (Exception e) {
+				log.error(e.getStackTrace());
+			}
+
 			UserRegRespBean respBean = new UserRegRespBean();
-			if (bean != null) {
+
+			if (bean == null) {
+				respBean.setCode("1001");
+				respBean.setMsg("参数非法");
+			} else if ((bean.getUname() == null || "".equals(bean.getUname()))
+					&& (bean.getPhone() == null || "".equals(bean.getPhone()))) {
+				respBean.setCode("1002");
+				respBean.setMsg("用户名和手机号不能同时为空");
+			} else if (bean.getPwd() == null || "".equals(bean.getPwd())) {
+				respBean.setCode("1003");
+				respBean.setMsg("密码为空");
+			} else {
+
+				// 添加用户
 				Long uid = bs.addUser(bean);
 				if (uid > 0) {
 					respBean.setCode("0000");
@@ -116,38 +135,56 @@ public class UserAction extends Action {
 					respBean.setCode("1000");
 					respBean.setMsg("注册失败");
 				}
-			} else {
-				respBean.setCode("1001");
-				respBean.setMsg("参数非法");
 			}
 
 			result = gson.toJson(respBean);
-		} else if ("login".equals(act)) { // 用户登录 for ajax
-			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
+
+		} else if ("login".equals(act)) { // 用户登录 for 手机端
+			UserBean bean = null;
+			try {
+				bean = (UserBean) gson.fromJson(msg, UserBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+			
 			UserRegRespBean respBean = new UserRegRespBean();
-			if (bean != null) {
+
+			if (bean == null) {
+				respBean.setCode("1001");
+				respBean.setMsg("参数非法");
+			} else if (bean.getPhone() == null || "".equals(bean.getPhone())) {
+				respBean.setCode("1002");
+				respBean.setMsg("手机号不能为空");
+			} else {
 				UserBean resultBean = bs.loginUser(bean);
 				if (resultBean != null) {
 					respBean.setCode("0000");
 					respBean.setMsg("登录成功");
 					respBean.setUid(resultBean.getUid());
 				} else {
-					respBean.setCode("2000");
+					respBean.setCode("1009");
 					respBean.setMsg("登录失败");
 				}
-			} else {
-				respBean.setCode("1001");
-				respBean.setMsg("参数非法");
 			}
 
 			result = gson.toJson(respBean);
-		} else if ("loginweb".equals(act)) { // 用户登录 for 管理端
-			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
+
+		} else if ("loginuserphone".equals(act)) { // 用户登录 for 管理端
+			// 可以使用用户名或者手机号码登录
+			UserBean bean = null;
+			try {
+				bean = (UserBean) gson.fromJson(msg, UserBean.class);
+			} catch (Exception e) {
+				log.error(e.getStackTrace());
+			}
+
 			if (bean != null) {
-				UserBean resultBean = bs.loginUser(bean);
+				UserBean resultBean = bs.loginUPUser(bean);
 				if (resultBean != null) {
 					req.getSession().setAttribute("uid", resultBean.getUid());
-					req.getSession().setAttribute("uname", resultBean.getUname());
+					req.getSession().setAttribute("uname",
+							resultBean.getUname());
 					return mapping.findForward("home");
 				} else {
 					result = "登录失败";
@@ -155,13 +192,14 @@ public class UserAction extends Action {
 			} else {
 				result = "参数非法";
 			}
-		} else if ("loginuserphone".equals(act)) { // 用户登录 for 管理端 可以使用用户名或者手机号码登录
+		} else if ("loginweb".equals(act)) { // 用户登录 for 管理端
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
-				UserBean resultBean = bs.loginUPUser(bean);
+				UserBean resultBean = bs.loginUser(bean);
 				if (resultBean != null) {
 					req.getSession().setAttribute("uid", resultBean.getUid());
-					req.getSession().setAttribute("uname", resultBean.getUname());
+					req.getSession().setAttribute("uname",
+							resultBean.getUname());
 					return mapping.findForward("home");
 				} else {
 					result = "登录失败";

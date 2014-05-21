@@ -1,7 +1,6 @@
 package com.mrb.pbean;
 
 public class VListReqBean {
-
 	private int vcid;
 	private int start;
 	private int num;

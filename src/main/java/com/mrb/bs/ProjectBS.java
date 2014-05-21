@@ -66,6 +66,12 @@ public class ProjectBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return bean;
 	}
@@ -81,16 +87,23 @@ public class ProjectBS {
 			HashMap map = new HashMap();
 			map.put("index", index);
 			map.put("cnt", cnt);
-			projectList = (ArrayList<ProjectBean>) client.queryForList("getProjectList", map);
+			projectList = (ArrayList<ProjectBean>) client.queryForList(
+					"getProjectList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return projectList;
 	}
-	
+
 	/*
 	 * 获取项目数目
 	 */
@@ -105,6 +118,12 @@ public class ProjectBS {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return cnt;
 	}
@@ -121,11 +140,17 @@ public class ProjectBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
 	}
-	
+
 	/*
 	 * 更新项目信息
 	 */
@@ -138,6 +163,12 @@ public class ProjectBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -155,6 +186,12 @@ public class ProjectBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -165,7 +202,7 @@ public class ProjectBS {
 	 */
 	public static void main(String[] args) {
 		ProjectBS bs = new ProjectBS();
-		
+
 		ProjectBean bean = new ProjectBean();
 		bean.setName("欧莱雅");
 		bean.setLevel("高端客户");
@@ -174,7 +211,7 @@ public class ProjectBS {
 		bean.setIid(10000L);
 
 		bs.addProject(bean);
-		System.out.println(bs.getProjectList(1,5).size());
+		System.out.println(bs.getProjectList(1, 5).size());
 	}
 
 }

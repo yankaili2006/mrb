@@ -22,25 +22,26 @@
 		resultClass="com.mrb.pbean.VBean">
 		select v.vid, v.vcid, v.title, v.duration, v.type,
 		v.teacher,
-		v.description, v.date, vr.cnt as reviewcnt from tbvideo v
-		left outer join vvreview vr on v.vid = vr.vid where v.vcid = #vcid#
+		v.description, v.date, if(isnull(vr.cnt),0,vr.cnt) as
+		reviewcnt from tbvideo v
+		left join vvreview vr on v.vid = vr.vid where
+		v.vcid = #vcid#
 		order by v.date desc limit #index#,
 		#cnt#
 	</select>
 
-	<select id="getVDetail" parameterClass="java.util.HashMap"
+	<select id="getVDetail" parameterClass="com.mrb.pbean.VDetailReqBean"
 		resultClass="com.mrb.pbean.VDetailRespBean">
 		select v.mp4_url as vuri, v.title, v.duration, v.type,
 		v.teacher,
-		v.description, v.date, vp.cnt as playcnt, vl.laststop from tbvideo v
-		left
-		outer join vvplay vp on v.vid = vp.vid
-		left
-		outer join vvlaststop vl on
-		v.vid = vl.vid
-		where vl.uid = #uid# and v.vid = #vid# order by
-		v.date
-		desc
+		v.description, v.date, if(isnull(vp.cnt), 0 , vp.cnt) as
+		playcnt from
+		tbvideo v
+		left outer join vvplay vp on v.vid =
+		vp.vid
+		where
+		v.vid = #vid# order by
+		v.date desc
 	</select>
 
 	<select id="getVideoCnt" resultClass="java.lang.Integer">

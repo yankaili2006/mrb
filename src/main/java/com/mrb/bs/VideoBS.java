@@ -16,6 +16,7 @@ import com.mrb.bean.VideoBean;
 import com.mrb.bean.VideoReqBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.VBean;
+import com.mrb.pbean.VDetailReqBean;
 import com.mrb.pbean.VDetailRespBean;
 import com.mrb.util.SmvpUtil;
 
@@ -91,6 +92,12 @@ public class VideoBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -109,6 +116,12 @@ public class VideoBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return bean;
 	}
@@ -131,6 +144,12 @@ public class VideoBS {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return videoList;
 	}
@@ -153,6 +172,12 @@ public class VideoBS {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return videoList;
 	}
@@ -160,20 +185,27 @@ public class VideoBS {
 	/*
 	 * 获取视频列表
 	 */
-	public VDetailRespBean getVDetail(String vid, long uid) {
+	public VDetailRespBean getVDetail(VDetailReqBean reqBean) {
 		VDetailRespBean bean = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			HashMap map = new HashMap();
-			map.put("vid", vid);
-			map.put("uid", uid);
-			bean = (VDetailRespBean) client.queryForObject("getVDetail", map);
+			Object obj = client.queryForObject("getVDetail", reqBean);
+			if (obj == null) {
+				bean = null;
+			} else {
+				bean = (VDetailRespBean) obj;
+			}
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return bean;
 	}
@@ -192,6 +224,12 @@ public class VideoBS {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		return cnt;
 	}
@@ -208,6 +246,12 @@ public class VideoBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -225,6 +269,12 @@ public class VideoBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;
@@ -242,6 +292,12 @@ public class VideoBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;

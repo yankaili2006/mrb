@@ -1,7 +1,6 @@
 package com.mrb.pbean;
 
 public class VCateRespBean {
-	
 	private String code;
 	private String msg;
 	private Integer num;

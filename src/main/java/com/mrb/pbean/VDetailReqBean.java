@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VDetailReqBean {
 
+	
 	private String vid;
 	private long uid;
 

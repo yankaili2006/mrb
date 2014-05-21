@@ -1,13 +1,10 @@
-package com.mrb.bean;
+package com.mrb.pbean;
 
 public class PwdBean {
 	
 	private long uid;
-	private String user;
-	private String phone;
 	private String oldpwd;
 	private String newpwd;
-
 	public long getUid() {
 		return uid;
 	}
@@ -16,21 +13,6 @@ public class PwdBean {
 		this.uid = uid;
 	}
 
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
 
 	public String getOldpwd() {
 		return oldpwd;

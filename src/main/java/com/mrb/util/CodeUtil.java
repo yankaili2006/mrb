@@ -1,12 +1,39 @@
 package com.mrb.util;
 
+import java.util.Random;
+
+import org.apache.log4j.Logger;
+
 import com.mrb.bean.CodeBean;
 
 public class CodeUtil {
+
+	private Logger log = Logger.getLogger(this.getClass());
+
 	public CodeBean sendCode(String phone) {
 		CodeBean bean = new CodeBean();
 
-		bean.setCode("111111111");
+		if (phone == null || "".equals(phone)) {
+			log.debug("发送手机校验码: 输入的手机号为空");
+			return null;
+		}
+
+		// 生成code
+		StringBuilder code = new StringBuilder();
+		Integer[] rand = new Integer[6];
+		for (int i = 0; i < rand.length; i++)
+			rand[i] = (Integer) new Random().nextInt(9);
+
+		for (Integer i : rand)
+			code.append(i);
+		if (code == null || code.length() <= 0) {
+			log.debug("发送手机校验码: 生成手机验证码失败");
+			return null;
+		}
+
+		// 发送code给手机
+
+		bean.setCode(code.toString());
 		// 发送code
 		return bean;
 	}

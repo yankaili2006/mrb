@@ -3,6 +3,7 @@ package com.mrb.bean;
 import java.util.ArrayList;
 
 public class EntryBean {
+	
 	private String entries;
 	private String password;
 	private String id;

@@ -1,5 +1,12 @@
 package com.mrb.util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Map;
 
 import com.google.gson.Gson;
@@ -37,13 +44,84 @@ public class SmvpUtil {
 	public EntryBean getEntries(String entryId) {
 		SmvpClient client = new SmvpClient(TOKEN);
 
-		Map result = client.entries.get(entryId);
+		 Map result = client.entries.get(entryId);
+		//String url = "http://api.alpha.smvp.cn/entries/json?entry_id="
+		//		+ ENTRY_ID + "&types=MP4";
+		//String result = getPage(url);
 
+		//System.out.println(result);
 		Gson gson = new Gson();
 		String json = gson.toJson(result);
+		System.out.println(json);
 		EntryBean bean = gson.fromJson(json, EntryBean.class);
-		
+
 		return bean;
+	}
+
+	/**
+	 * @param urlString
+	 * @return URL对应的HTML字符串
+	 */
+	public String getPage(String urlString) {
+
+		URL url;
+		try {
+			url = new URL(urlString);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		// 创建HTTP连接
+		HttpURLConnection connection;
+		try {
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("User-Agent",
+					"Mozilla/4.0 (compatible; MSIE 6.0; Windows 2000)");
+			String basicAuth = "SMVP_TOKEN|" + TOKEN;
+			connection.setRequestProperty("Authorization", basicAuth);
+			connection.connect();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		InputStream in = null;
+		int tryTimes = 5;
+		boolean connectOK = false;
+		while (tryTimes >= 0 && !connectOK) {
+			try {
+				in = connection.getInputStream();
+				connectOK = true;
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} finally {
+				tryTimes--;
+			}
+		}
+		if (null == in) {
+			return null;
+		}
+
+		StringBuffer buffer = new StringBuffer();
+		try {
+			BufferedReader breader = new BufferedReader(new InputStreamReader(
+					in, "GBK"));
+			String str = null;
+			while ((str = breader.readLine()) != null) {
+				buffer.append(str + "\n");
+			}
+			if (breader != null) {
+				breader.close();
+			}
+			if (in != null) {
+				in.close();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return buffer.toString();
 	}
 
 	public static void main(String[] args) {

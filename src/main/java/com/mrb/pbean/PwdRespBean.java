@@ -1,11 +1,9 @@
-package com.mrb.bean;
+package com.mrb.pbean;
 
 public class PwdRespBean {
-	
 	private String code;
 	private String msg;
 	private long uid;
-
 	public String getCode() {
 		return code;
 	}

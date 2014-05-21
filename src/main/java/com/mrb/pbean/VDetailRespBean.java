@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class VDetailRespBean {
+	
 	private String code;
 	private String msg;
 	private String vuri;

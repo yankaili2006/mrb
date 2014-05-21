@@ -6,7 +6,6 @@ public class CodeResBean {
 	private String msg;
 	private String phone;
 	private String chkcode;
-
 	public String getCode() {
 		return code;
 	}

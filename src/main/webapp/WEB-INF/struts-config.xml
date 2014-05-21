@@ -77,17 +77,17 @@
 		</action>
 
 		<!-- 校验码 for phone -->
-		<action path="/code" type="com.mrb.action.CodeAction" name="jsonForm"
+		<action path="/code" type="com.mrb.paction.CodeAction" name="jsonForm"
 			scope="request" validate="false">
 		</action>
 
 		<!-- 密码 for phone -->
-		<action path="/pwd" type="com.mrb.action.PwdAction" name="jsonForm"
+		<action path="/pwd" type="com.mrb.paction.PwdAction" name="jsonForm"
 			scope="request" validate="false">
 		</action>
 
 		<!-- 视频 for phone -->
-		<action path="/v" type="com.mrb.action.VAction" name="jsonForm"
+		<action path="/v" type="com.mrb.paction.VAction" name="jsonForm"
 			scope="request" validate="false">
 		</action>
 
