@@ -2,6 +2,7 @@ package com.mrb.bean;
 
 public class PageBean {
 	
+	
 	private Integer total;
 	private Integer p;
 	private Integer maxpage;

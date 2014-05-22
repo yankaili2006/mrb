@@ -69,6 +69,19 @@
 			<forward name="add" path="/addvideo.jsp" />
 			<forward name="edit" path="/editvideo.jsp" />
 		</action>
+		
+		
+		<!-- 城市管理 -->
+		<action path="/city" type="com.mrb.action.CityAction" name="jsonForm"
+			scope="request" validate="false">
+			<forward name="fail" path="/index.do" />
+			<forward name="list" path="/city.jsp" />
+			<forward name="home" path="/home.jsp" />
+			<forward name="add" path="/addcity.jsp" />
+			<forward name="edit" path="/editcity.jsp" />
+		</action>
+		
+		
 
 		<!-- 管理台首页 -->
 		<action path="/home" type="com.mrb.action.HomeAction" name="jsonForm"

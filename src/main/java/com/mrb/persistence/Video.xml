@@ -17,32 +17,6 @@
 		#cnt#
 	</select>
 
-	<!-- for phone -->
-	<select id="getVList" parameterClass="java.util.HashMap"
-		resultClass="com.mrb.pbean.VBean">
-		select v.vid, v.vcid, v.title, v.duration, v.type,
-		v.teacher,
-		v.description, v.date, if(isnull(vr.cnt),0,vr.cnt) as
-		reviewcnt from tbvideo v
-		left join vvreview vr on v.vid = vr.vid where
-		v.vcid = #vcid#
-		order by v.date desc limit #index#,
-		#cnt#
-	</select>
-
-	<select id="getVDetail" parameterClass="com.mrb.pbean.VDetailReqBean"
-		resultClass="com.mrb.pbean.VDetailRespBean">
-		select v.mp4_url as vuri, v.title, v.duration, v.type,
-		v.teacher,
-		v.description, v.date, if(isnull(vp.cnt), 0 , vp.cnt) as
-		playcnt from
-		tbvideo v
-		left outer join vvplay vp on v.vid =
-		vp.vid
-		where
-		v.vid = #vid# order by
-		v.date desc
-	</select>
 
 	<select id="getVideoCnt" resultClass="java.lang.Integer">
 		select count(1) from
@@ -85,4 +59,95 @@
 		delete from tbvideo
 		where vid = #id#
 	</delete>
+
+
+
+	<!-- for phone -->
+	<select id="getVList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.pbean.VBean">
+		select v.vid, v.vcid, v.title, v.duration, v.type,
+		v.teacher,
+		v.description, v.date, if(isnull(vr.cnt),0,vr.cnt) as
+		reviewcnt from tbvideo v
+		left join vvreview vr on v.vid = vr.vid where
+		v.vcid = #vcid#
+		order by v.date desc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getVDetail" parameterClass="com.mrb.pbean.VDetailReqBean"
+		resultClass="com.mrb.pbean.VDetailRespBean">
+		select v.mp4_url as vuri, v.title, v.duration, v.type,
+		v.teacher,
+		v.description, v.date, if(isnull(vp.cnt), 0 , vp.cnt) as
+		playcnt from
+		tbvideo v
+		left outer join vvplay vp on v.vid =
+		vp.vid
+		where
+		v.vid = #vid# order by
+		v.date desc
+	</select>
+
+	<select id="getVReviewList" parameterClass="com.mrb.pbean.VReviewReqBean"
+		resultClass="com.mrb.pbean.VReviewBean">
+		select * from tbureview where vid = #vid# order by date
+		desc limit #start#,
+		#num#
+	</select>
+
+	<select id="getVHisList" parameterClass="com.mrb.pbean.VHisReqBean"
+		resultClass="com.mrb.pbean.VHisBean">
+		select up.vpid, up.vid, v.title, up.laststop from tbuplay
+		up, tbvideo v where up.uid = #uid# and up.vid = v.vid order by up.date
+		desc limit #start#,
+		#num#
+	</select>
+
+	<select id="getVRelateList" parameterClass="com.mrb.pbean.VRelateReqBean"
+		resultClass="com.mrb.pbean.VRelateBean">
+		select vr.vrid, vr.vidb as vid, v.thumbnail_url as iuri,
+		v.title, v.duration, vv.cnt as reviewcnt, vr.date from tbvideo
+		v,tbvrelate vr
+		left join vvreview vv on vv.vid = vr.vidb where vr.vida
+		= #vid# order by
+		vr.date
+		desc limit #start#,
+		#num#
+	</select>
+
+
+	<select id="getVCollectList" parameterClass="com.mrb.pbean.VCollectReqBean"
+		resultClass="com.mrb.pbean.VCollectBean">
+		select uc.ucid, uc.vid, v.thumbnail_url as iuri,
+		v.title,
+		v.duration, vv.cnt as reviewcnt, uc.date from tbvideo
+		v,tbucollect uc
+		left join vvreview vv on vv.vid = uc.vid where uc.uid
+		= #uid# order by
+		uc.date
+		desc limit #start#,
+		#num#
+	</select>
+
+	<insert id="doVCollect" parameterClass="com.mrb.pbean.VDoCollectBean">
+		insert into tbucollect
+		values(#ucid#,#uid#,#vid#,#date#)
+	</insert>
+
+	<insert id="doVPlay" parameterClass="com.mrb.pbean.VDoPlayBean">
+		insert into tbuplay
+		values(#vpid#,#vid#,#uid#,#finish#,#date#,#laststop#)
+	</insert>
+
+	<insert id="doVShare" parameterClass="com.mrb.pbean.VDoCollectBean">
+		insert into tbushare
+		values(#ucid#,#uid#,#vid#,#date#)
+	</insert>
+
+	<insert id="doVReivew" parameterClass="com.mrb.pbean.VDoReviewBean">
+		insert into tbureview
+		values(#vrid#,#vid#,#uid#,#text#,#date#)
+	</insert>
+
 </sqlMap>

@@ -9,6 +9,7 @@ package com.mrb.bean;
  */
 public class VCateBean {
 	
+	
 	private long vcid;
 	private String name;
 	private long date;

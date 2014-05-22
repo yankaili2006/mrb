@@ -13,6 +13,7 @@ public class VDetailRespBean {
 	private String teacher;
 	private String description;
 	private long date;
+	
 
 	public String getCode() {
 		return code;

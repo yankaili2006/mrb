@@ -1,6 +1,8 @@
 package com.mrb.pbean;
 
 public class VRespBean {
+	
+	
 	private String code;
 	private String msg;
 	private int start;

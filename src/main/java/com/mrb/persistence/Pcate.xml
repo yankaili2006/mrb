@@ -11,12 +11,21 @@
 		select * from tbpcategory where cid = #id#
 	</select>
 
-	<select id="getPcateList" parameterClass="java.util.HashMap" resultClass="com.mrb.bean.PcateBean">
-		select * from tbpcategory order by date desc limit #index#, #cnt#
+	<select id="getPcateList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.PcateBean">
+		select * from tbpcategory order by date desc limit
+		#index#, #cnt#
+	</select>
+
+	<select id="getPCate4PhonetList" parameterClass="com.mrb.pbean.PCateReqBean"
+		resultClass="com.mrb.pbean.PCate4PhoneBean">
+		select cid,name from tbpcategory order by date desc limit
+		0, #num#
 	</select>
 
 	<select id="getPcateCnt" resultClass="java.lang.Integer">
-		select count(1) from tbpcategory
+		select count(1) from
+		tbpcategory
 	</select>
 
 	<update id="updatePcate" parameterClass="com.mrb.bean.PcateBean">
@@ -26,6 +35,7 @@
 	</update>
 
 	<delete id="delPcateById" parameterClass="java.lang.Long">
-		delete from tbpcategory where cid = #id#
+		delete from tbpcategory
+		where cid = #id#
 	</delete>
 </sqlMap>

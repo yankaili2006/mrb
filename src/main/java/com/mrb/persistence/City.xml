@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="city">
+	<insert id="addCity" parameterClass="com.mrb.bean.CityBean">
+		insert into tbcity
+		values(#cid#,#name#,#level#)
+	</insert>
+
+	<select id="getCityById" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.CityBean">
+		select * from tbcity where cid = #id#
+	</select>
+
+	<select id="getCityList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.CityBean">
+		select * from tbcity limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getCList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.pbean.City4PhoneBean">
+		select * from tbcity where level = #level# limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getCityCnt" resultClass="java.lang.Integer">
+		select Count(1) from tbcity
+	</select>
+
+	<update id="updateCity" parameterClass="com.mrb.bean.CityBean">
+		update tbcity set cid = cid
+		<isNotEmpty prepend="," property="level">level=#level#</isNotEmpty>
+		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
+		where cid=#cid#
+	</update>
+
+	<delete id="delCityById" parameterClass="java.lang.Long">
+		delete from tbcity where
+		cid = #id#
+	</delete>
+
+
+</sqlMap>

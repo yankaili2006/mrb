@@ -9,9 +9,11 @@ package com.mrb.bean;
  */
 public class ProjectBean {
 
+	
 	private Long pid;
 	private String name;
-	private Long iid;
+	private long cid;
+	private String iuri;
 	private String level;
 	private String area;
 	private String store;
@@ -22,6 +24,14 @@ public class ProjectBean {
 	private int fee;
 	private long date;
 	private long operid;
+
+	public long getCid() {
+		return cid;
+	}
+
+	public void setCid(long cid) {
+		this.cid = cid;
+	}
 
 	/**
 	 * @return the name
@@ -38,25 +48,17 @@ public class ProjectBean {
 		this.name = name;
 	}
 
-	
+	public String getIuri() {
+		return iuri;
+	}
 
-
-	/**
-	 * @return the iid
-	 */
-	public Long getIid() {
-		return iid;
+	public void setIuri(String iuri) {
+		this.iuri = iuri;
 	}
 
 	/**
-	 * @param iid the iid to set
-	 */
-	public void setIid(Long iid) {
-		this.iid = iid;
-	}
-
-	/**
-	 * @param pid the pid to set
+	 * @param pid
+	 *            the pid to set
 	 */
 	public void setPid(Long pid) {
 		this.pid = pid;

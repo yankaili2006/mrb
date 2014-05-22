@@ -1,6 +1,7 @@
 package com.mrb.bean;
 
 public class UserLoginRespBean {
+
 	private String code;
 	private String msg;
 	private long uid;

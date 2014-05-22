@@ -2,6 +2,7 @@ package com.mrb.bean;
 
 public class CodeResBean {
 	
+	
 	private String code;
 	private String msg;
 	private String phone;

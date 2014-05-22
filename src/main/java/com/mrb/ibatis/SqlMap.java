@@ -22,9 +22,8 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
  * @author Administrator 12:07:57 PM
  */
 public class SqlMap {
-	
-	
 
+	
 	private static SqlMapClient sqlMap = null;
 
 	public static SqlMapClient getSqlMapInstance() {

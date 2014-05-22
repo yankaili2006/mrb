@@ -13,6 +13,8 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.PcateBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.pbean.PCate4PhoneBean;
+import com.mrb.pbean.PCateReqBean;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -110,6 +112,33 @@ public class PcateBS {
 		return pcateList;
 	}
 
+	
+
+	/*
+	 * 获取项目分类列表
+	 */
+	public ArrayList<PCate4PhoneBean> getPCate4PhonetList(PCateReqBean bean) {
+		ArrayList<PCate4PhoneBean> pcateList = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			pcateList = (ArrayList<PCate4PhoneBean>) client.queryForList(
+					"getPCate4PhonetList", bean);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return pcateList;
+	}
+	
 	/*
 	 * 获取项目分类列表记录数
 	 */

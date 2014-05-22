@@ -65,7 +65,7 @@ public class BrandAction extends Action {
 					Brand2ShowBean bean = (Brand2ShowBean) ulist.get(i);
 					html.append("<tr><td>" + bean.getBid() + "</td><td>"
 							+ bean.getBtitle() + "</td><td>" + bean.getPname()
-							+ "</td><td>" + bean.getIid() + "</td><td>"
+							+ "</td><td>" + bean.getIuri() + "</td><td>"
 							+ bean.getName() + "</td><td>" + bean.getPrice()
 							+ "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");

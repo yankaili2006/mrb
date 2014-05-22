@@ -55,13 +55,14 @@
 	function addproject() {
 		$('#act').val("add");
 		$('#msg').val(
-				"{name:" + $('#name').val() + ",iid:" + $('#iid').val()
-						+ ",level:" + $('#level').val() + ",area:"
-						+ $('#area').val() + ",store:" + $('#store').val()
-						+ ",build:" + $('#build').val() + ",pack:"
-						+ $('#pack').val() + ",sale:" + $('#sale').val()
-						+ ",chain:" + $('#chain').val() + ",fee:"
-						+ $('#fee').val() + ",date:" + $('#date').val() + "}");
+				"{name:" + $('#name').val() + ",cid:" + $('#cid').val()
+						+ ",iuri:" + $('#iuri').val() + ",level:"
+						+ $('#level').val() + ",area:" + $('#area').val()
+						+ ",store:" + $('#store').val() + ",build:"
+						+ $('#build').val() + ",pack:" + $('#pack').val()
+						+ ",sale:" + $('#sale').val() + ",chain:"
+						+ $('#chain').val() + ",fee:" + $('#fee').val()
+						+ ",date:" + $('#date').val() + "}");
 		$('#addform').submit();
 	}
 </script>
@@ -217,9 +218,11 @@
 										ProjectBean bean = (ProjectBean) obj;
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
-									value="<%=bean.getName()%>" class="input-xlarge"> <label>
-									图标 </label> <input type="text" name="iid" id="iid"
-									value="<%=bean.getIid()%>" class="input-xlarge"> <label>
+									value="<%=bean.getName()%>" class="input-xlarge"><label>
+									城市 </label> <input type="text" name="cid" id="cid"
+									value="<%=bean.getCid()%>" class="input-xlarge"> <label>
+									图标 </label> <input type="text" name="iuri" id="iuri"
+									value="<%=bean.getIuri()%>" class="input-xlarge"> <label>
 									定位 </label> <input type="text" name="level" id="level"
 									value="<%=bean.getLevel()%>" class="input-xlarge"> <label>
 									生存地址 </label> <input type="text" name="area" id="area"
@@ -261,10 +264,12 @@
 									} else {
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"> <label> 图标 </label> <input
-									type="text" name="iid" id="iid" value="" class="input-xlarge">
-								<label> 定位 </label> <input type="text" name="level" id="level"
-									value="" class="input-xlarge"> <label> 生存地址 </label> <input
+									value="" class="input-xlarge"><label> 城市 </label> <input
+									type="text" name="cid" id="cid" value="" class="input-xlarge">
+								<label> 图标 </label> <input type="text" name="iuri" id="iuri"
+									value="" class="input-xlarge"> <label> 定位 </label> <input
+									type="text" name="level" id="level" value=""
+									class="input-xlarge"> <label> 生存地址 </label> <input
 									type="text" name="area" id="area" value="" class="input-xlarge">
 								<label> 店面类型 </label> <input type="text" name="store" id="store"
 									value="" class="input-xlarge"> <label> 成立时间 </label> <input

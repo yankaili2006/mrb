@@ -21,7 +21,6 @@ import com.mrb.bean.CodeBean;
 import com.mrb.bean.CodeReqBean;
 import com.mrb.bean.CodeResBean;
 import com.mrb.form.JsonForm;
-import com.mrb.pbean.PwdBean;
 import com.mrb.pbean.ResBean;
 import com.mrb.pbs.CodeBS;
 import com.mrb.util.CodeUtil;

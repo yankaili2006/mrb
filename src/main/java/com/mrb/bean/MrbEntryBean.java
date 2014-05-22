@@ -2,7 +2,7 @@ package com.mrb.bean;
 
 import java.util.ArrayList;
 
-public class EntryBean {
+public class MrbEntryBean {
 	
 	private String entries;
 	private String password;

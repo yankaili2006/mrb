@@ -23,13 +23,29 @@ import com.mrb.bean.VCateBean;
 import com.mrb.bs.VCateBS;
 import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
+import com.mrb.pbean.ResBean;
 import com.mrb.pbean.VBean;
 import com.mrb.pbean.VCateReqBean;
 import com.mrb.pbean.VCateRespBean;
+import com.mrb.pbean.VCollectBean;
+import com.mrb.pbean.VCollectReqBean;
+import com.mrb.pbean.VCollectRespBean;
 import com.mrb.pbean.VDetailReqBean;
 import com.mrb.pbean.VDetailRespBean;
+import com.mrb.pbean.VDoCollectReqBean;
+import com.mrb.pbean.VDoPlayReqBean;
+import com.mrb.pbean.VDoReviewReqBean;
+import com.mrb.pbean.VHisBean;
+import com.mrb.pbean.VHisReqBean;
+import com.mrb.pbean.VHisRespBean;
 import com.mrb.pbean.VListReqBean;
+import com.mrb.pbean.VRelateBean;
+import com.mrb.pbean.VRelateReqBean;
+import com.mrb.pbean.VRelateRespBean;
 import com.mrb.pbean.VRespBean;
+import com.mrb.pbean.VReviewBean;
+import com.mrb.pbean.VReviewReqBean;
+import com.mrb.pbean.VReviewResBean;
 
 /**
  * @author Administrator 9:06:26 PM
@@ -175,7 +191,302 @@ public class VAction extends Action {
 				}
 			}
 			result = gson.toJson(respBean);
+		} else if ("review".equals(act)) { // 获取视频评论 for ajax
 
+			VReviewReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VReviewReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			VReviewResBean respBean = new VReviewResBean();
+			if (reqBean == null) {
+				respBean.setCode("7001");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
+				respBean.setCode("7002");
+				respBean.setMsg("视频ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				ArrayList<VReviewBean> rlist = bs.getVReviewList(reqBean);
+
+				if (rlist == null) {
+					respBean.setCode("7003");
+					respBean.setMsg("查询视频评论信息失败");
+				} else if (rlist.size() <= 0) {
+					respBean.setCode("7004");
+					respBean.setMsg("无视频评论信息");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setRlist(rlist);
+					respBean.setStart(reqBean.getStart());
+					respBean.setNum(reqBean.getNum());
+				}
+			}
+			result = gson.toJson(respBean);
+		} else if ("his".equals(act)) { // 获取视频评论 for ajax
+
+			VHisReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VHisReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			VHisRespBean respBean = new VHisRespBean();
+			if (reqBean == null) {
+				respBean.setCode("8001");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getUid() <= 0) {
+				respBean.setCode("8002");
+				respBean.setMsg("用户ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				ArrayList<VHisBean> vlist = bs.getVHisList(reqBean);
+
+				if (vlist == null) {
+					respBean.setCode("8003");
+					respBean.setMsg("查询历史播放信息失败");
+				} else if (vlist.size() <= 0) {
+					respBean.setCode("8004");
+					respBean.setMsg("无历史播放信息");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setVlist(vlist);
+					respBean.setStart(reqBean.getStart());
+					respBean.setNum(reqBean.getNum());
+				}
+			}
+			result = gson.toJson(respBean);
+
+		} else if ("relate".equals(act)) { // 获取相关视频 for ajax
+
+			VRelateReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VRelateReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			VRelateRespBean respBean = new VRelateRespBean();
+			if (reqBean == null) {
+				respBean.setCode("9001");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
+				respBean.setCode("9002");
+				respBean.setMsg("视频ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				ArrayList<VRelateBean> vlist = bs.getVRelateList(reqBean);
+
+				if (vlist == null) {
+					respBean.setCode("9003");
+					respBean.setMsg("查询相关视频列表失败");
+				} else if (vlist.size() <= 0) {
+					respBean.setCode("9004");
+					respBean.setMsg("无相关视频信息");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setRlist(vlist);
+					respBean.setStart(reqBean.getStart());
+					respBean.setNum(reqBean.getNum());
+				}
+			}
+			result = gson.toJson(respBean);
+
+		} else if ("collect".equals(act)) { // 获取收藏列表 for ajax
+
+			VCollectReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VCollectReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			VCollectRespBean respBean = new VCollectRespBean();
+			if (reqBean == null) {
+				respBean.setCode("1101");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getUid() <= 0) {
+				respBean.setCode("1102");
+				respBean.setMsg("用户ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				ArrayList<VCollectBean> vlist = bs.getVCollectList(reqBean);
+
+				if (vlist == null) {
+					respBean.setCode("1103");
+					respBean.setMsg("查询收藏视频列表失败");
+				} else if (vlist.size() <= 0) {
+					respBean.setCode("1104");
+					respBean.setMsg("无收藏视频信息");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setVlist(vlist);
+					respBean.setStart(reqBean.getStart());
+					respBean.setNum(reqBean.getNum());
+				}
+			}
+			result = gson.toJson(respBean);
+
+		} else if ("docollect".equals(act)) { // 收藏视频 for ajax
+
+			VDoCollectReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VDoCollectReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			ResBean respBean = new ResBean();
+			if (reqBean == null) {
+				respBean.setCode("1201");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getUid() <= 0) {
+				respBean.setCode("1202");
+				respBean.setMsg("用户ID值非法");
+			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
+				respBean.setCode("1203");
+				respBean.setMsg("视频ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				boolean doResult = bs.doVCollect(reqBean);
+
+				if (!doResult) {
+					respBean.setCode("1204");
+					respBean.setMsg("收藏视频失败");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+				}
+			}
+			result = gson.toJson(respBean);
+
+		} else if ("doplay".equals(act)) { // 播放视频 for ajax
+
+			VDoPlayReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VDoPlayReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			ResBean respBean = new ResBean();
+			if (reqBean == null) {
+				respBean.setCode("1301");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getUid() <= 0) {
+				respBean.setCode("1302");
+				respBean.setMsg("用户ID值非法");
+			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
+				respBean.setCode("1303");
+				respBean.setMsg("视频ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				boolean doResult = bs.doVPlay(reqBean);
+
+				if (!doResult) {
+					respBean.setCode("1304");
+					respBean.setMsg("添加播放视频记录失败");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+				}
+			}
+			result = gson.toJson(respBean);
+
+		} else if ("doshare".equals(act)) { // 分享视频 for ajax
+
+			VDoCollectReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VDoCollectReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			ResBean respBean = new ResBean();
+			if (reqBean == null) {
+				respBean.setCode("1401");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getUid() <= 0) {
+				respBean.setCode("1402");
+				respBean.setMsg("用户ID值非法");
+			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
+				respBean.setCode("1403");
+				respBean.setMsg("视频ID值非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				boolean doResult = bs.doVShare(reqBean);
+
+				if (!doResult) {
+					respBean.setCode("1404");
+					respBean.setMsg("分享视频失败");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+				}
+			}
+			result = gson.toJson(respBean);
+
+
+		} else if ("doreview".equals(act)) { // 评论视频 for ajax
+
+			VDoReviewReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, VDoReviewReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			ResBean respBean = new ResBean();
+			if (reqBean == null) {
+				respBean.setCode("1401");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getUid() <= 0) {
+				respBean.setCode("1402");
+				respBean.setMsg("用户ID值非法");
+			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
+				respBean.setCode("1403");
+				respBean.setMsg("视频ID值非法");
+			} else if (reqBean.getText() == null || "".equals(reqBean.getText())) {
+				respBean.setCode("1404");
+				respBean.setMsg("评论内容非法");
+			} else {
+				VideoBS bs = new VideoBS();
+
+				boolean doResult = bs.doVReview(reqBean);
+
+				if (!doResult) {
+					respBean.setCode("1405");
+					respBean.setMsg("评论视频失败");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+				}
+			}
+			result = gson.toJson(respBean);
+
+			
 		} else {
 			result = "不支持的操作类型";
 		}

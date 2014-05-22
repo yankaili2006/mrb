@@ -8,12 +8,13 @@ package com.mrb.bean;
  * @author Administrator 11:52:49 AM
  */
 public class VideoBean {
+	
 	private String vid;
 	private long vcid;
 	private String status;
 	private String description;
 	private String tags;
-	private String snapshot_url;
+	private String snapshot_url; //大图
 	private String thumbnail_url;
 	private long file_size;
 	private int activated;

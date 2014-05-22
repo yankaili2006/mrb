@@ -13,6 +13,8 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.ProjectBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.pbean.Project4PhoneBean;
+import com.mrb.pbean.ProjectReqBean;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -89,6 +91,31 @@ public class ProjectBS {
 			map.put("cnt", cnt);
 			projectList = (ArrayList<ProjectBean>) client.queryForList(
 					"getProjectList", map);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return projectList;
+	}
+
+	/*
+	 * 获取项目列表
+	 */
+	public ArrayList<Project4PhoneBean> getProjec4PhonetList(ProjectReqBean bean) {
+		ArrayList<Project4PhoneBean> projectList = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			projectList = (ArrayList<Project4PhoneBean>) client.queryForList(
+					"getProjec4PhonetList", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -208,7 +235,7 @@ public class ProjectBS {
 		bean.setLevel("高端客户");
 		bean.setArea("北京");
 		bean.setBuild("1988年");
-		bean.setIid(10000L);
+		bean.setIuri("www.jpg");
 
 		bs.addProject(bean);
 		System.out.println(bs.getProjectList(1, 5).size());

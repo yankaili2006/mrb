@@ -1,17 +1,16 @@
 package com.mrb.util;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.mrb.bean.EntryBean;
 import com.mrb.bean.PublishBean;
+import com.mrb.pbean.MetaBean;
+import com.mrb.pbean.SmvpBean;
 import com.smvp.sdk.SmvpClient;
 
 public class SmvpUtil {
@@ -20,6 +19,7 @@ public class SmvpUtil {
 	private final String PLAYER_ID = "591771262799587214";
 	private final Integer WIDTH = 640;
 	private final Integer HEIGHT = 480;
+	private final String URL = "http://api.alpha.smvp.cn/entries/json";
 
 	/*
 	 * 参数 类型 必选 描述 entry_id string 是 视频的ID player_id string 是 播放器的ID width int 是
@@ -36,99 +36,98 @@ public class SmvpUtil {
 		return bean;
 	}
 
-	/*
-	 * 
-	 * 参数 类型 必选 描述 entry_id string 是 视频的ID types object 否
-	 * 默认是：‘MP4’，PC端的转码信息；‘ANDROID’：安卓端的转码信息;'IOS':Iphone端的转码信息
-	 */
-	public EntryBean getEntries(String entryId) {
+	public MetaBean getEntries(String entryId) {
 		SmvpClient client = new SmvpClient(TOKEN);
 
-		 Map result = client.entries.get(entryId);
-		//String url = "http://api.alpha.smvp.cn/entries/json?entry_id="
-		//		+ ENTRY_ID + "&types=MP4";
-		//String result = getPage(url);
+		Map result = client.entries.get(entryId);
 
-		//System.out.println(result);
+		// System.out.println(result);
 		Gson gson = new Gson();
 		String json = gson.toJson(result);
 		System.out.println(json);
-		EntryBean bean = gson.fromJson(json, EntryBean.class);
+		MetaBean bean = gson.fromJson(json, MetaBean.class);
 
 		return bean;
 	}
 
-	/**
-	 * @param urlString
-	 * @return URL对应的HTML字符串
-	 */
-	public String getPage(String urlString) {
+	public SmvpBean smvpPost(String entryId) {
+		SmvpBean smvp = null;
 
-		URL url;
+		URL url = null;
+		HttpURLConnection conn = null;
 		try {
-			url = new URL(urlString);
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		// 创建HTTP连接
-		HttpURLConnection connection;
-		try {
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestProperty("User-Agent",
-					"Mozilla/4.0 (compatible; MSIE 6.0; Windows 2000)");
-			String basicAuth = "SMVP_TOKEN|" + TOKEN;
-			connection.setRequestProperty("Authorization", basicAuth);
-			connection.connect();
-		} catch (IOException e) {
+			url = new URL(URL);
+			conn = (HttpURLConnection) url.openConnection();
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 
-		InputStream in = null;
-		int tryTimes = 5;
-		boolean connectOK = false;
-		while (tryTimes >= 0 && !connectOK) {
-			try {
-				in = connection.getInputStream();
-				connectOK = true;
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			} finally {
-				tryTimes--;
-			}
-		}
-		if (null == in) {
+		conn.setDoOutput(true); // 允许向服务器输出数据
+		conn.setDoInput(true); // 允许接收服务器数据
+		try {
+			conn.setRequestMethod("POST");
+		} catch (ProtocolException e1) {
+			e1.printStackTrace();
 			return null;
 		}
+		conn.setUseCaches(false); // Post 请求不能使用缓存
+		conn.setConnectTimeout(5000);
 
-		StringBuffer buffer = new StringBuffer();
+		// 参数前面不能加？号
+		String urlParas = "entry_id=" + entryId
+				+ "&types=[\"MP4\",\"ANDROID\",\"IOS\"]";
+		byte[] entity = urlParas.getBytes();
+
+		// 设置请求参数
+		conn.setRequestProperty("Content-Type",
+				"application/x-www-form-urlencoded"); // 实体参数类型
+		conn.setRequestProperty("Content-Length", entity.length + ""); // 实体参数长度
+		String basicAuth = "SMVP_TOKEN|" + TOKEN;
+		conn.setRequestProperty("Authorization", basicAuth);
+
+		// 连接，从postUrl.openConnection()至此的配置必须要在connect之前完成，
+		// 要注意的是connection.getOutputStream会隐含的进行connect。
 		try {
-			BufferedReader breader = new BufferedReader(new InputStreamReader(
-					in, "GBK"));
-			String str = null;
-			while ((str = breader.readLine()) != null) {
-				buffer.append(str + "\n");
-			}
-			if (breader != null) {
-				breader.close();
-			}
-			if (in != null) {
-				in.close();
-			}
-		} catch (IOException e) {
+			conn.connect();
+			conn.getOutputStream().write(entity);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 
-		return buffer.toString();
+		try {
+			if (conn.getResponseCode() == 200) {
+				InputStream is = conn.getInputStream();
+				// 将输入流转换成字符串
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				byte[] buffer = new byte[1024];
+				int len = 0;
+				while ((len = is.read(buffer)) != -1) {
+					baos.write(buffer, 0, len);
+				}
+				String json = baos.toString();
+				baos.close();
+				is.close();
+
+				System.out.println(json);
+				Gson gson = new Gson();
+				smvp = gson.fromJson(json, SmvpBean.class);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return smvp;
 	}
 
 	public static void main(String[] args) {
 		SmvpUtil smvp = new SmvpUtil();
-		String ENTRY_ID = "593727852328384587";
-		System.out.println(smvp.getPublishing(ENTRY_ID).getFlash());
-		System.out.println(smvp.getEntries(ENTRY_ID).getThumbnail_url());
+		// System.out.println(smvp.getPublishing(ENTRY_ID).getFlash());
+		// System.out.println(smvp.getEntries(ENTRY_ID).getThumbnail_url());
+		smvp.smvpPost(smvp.ENTRY_ID);
 	}
 
 }

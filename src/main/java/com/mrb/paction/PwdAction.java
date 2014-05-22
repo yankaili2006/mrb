@@ -4,14 +4,8 @@
  */
 package com.mrb.paction;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +17,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.mrb.bean.PageBean;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.PwdBean;
 import com.mrb.pbean.PwdRespBean;

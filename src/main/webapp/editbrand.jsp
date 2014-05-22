@@ -71,7 +71,7 @@
 		$('#msg').val(
 				"{pid:" + $('#pid').val() + ",bid:" + $('#bid').val()
 						+ ",btitle:\"" + $('#btitle').val() + "\",binfo:\""
-						+ $('#binfo').val() + "\",iid:" + $('#iid').val()
+						+ $('#binfo').val() + "\",iuri:" + $('#iuri').val()
 						+ ",name:\"" + $('#name').val() + "\",price:\""
 						+ $('#price').val() + "\",function:\""
 						+ $('#function').val() + "\",summary:\""
@@ -241,8 +241,8 @@
 									产品简介 </label>
 								<textarea name="binfo" id="binfo" class="form-control" rows="3"><%=bean.getBinfo()%></textarea>
 
-								<label> 品牌图标 </label> <input type="text" name="iid" id="iid"
-									value="<%=bean.getIid()%>" class="input-xlarge"> <label>
+								<label> 品牌图标 </label> <input type="text" name="iuri" id="iuri"
+									value="<%=bean.getIuri()%>" class="input-xlarge"> <label>
 									名称 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"> <label>
 									价格 </label> <input type="text" name="price" id="price"
@@ -265,7 +265,7 @@
 									class="input-xlarge"> <label> 产品简介 </label> <input
 									type="text" name="binfo" id="binfo" value=""
 									class="input-xlarge"> <label> 品牌图标 </label> <input
-									type="text" name="iid" id="iid" value="" class="input-xlarge">
+									type="text" name="iuri" id="iuri" value="" class="input-xlarge">
 
 								<label> 名称 </label> <input type="text" name="name" id="name"
 									value="" class="input-xlarge"> <label> 价格 </label> <input

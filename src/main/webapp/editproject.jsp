@@ -61,14 +61,15 @@
 	function updateproject() {
 		$('#act').val("update");
 		$('#msg').val(
-				"{pid:" + $('#pid').val() + ",name:" + $('#name').val()
-						+ ",iid:" + $('#iid').val() + ",level:"
-						+ $('#level').val() + ",area:" + $('#area').val()
-						+ ",store:" + $('#store').val() + ",build:"
-						+ $('#build').val() + ",pack:" + $('#pack').val()
-						+ ",sale:" + $('#sale').val() + ",chain:"
-						+ $('#chain').val() + ",fee:" + $('#fee').val()
-						+ ",date:" + $('#date').val() + "}");
+				"{pid:" + $('#pid').val() + ",cid:" + $('#cid').val()
+						+ ",name:" + $('#name').val() + ",iuri:"
+						+ $('#iuri').val() + ",level:" + $('#level').val()
+						+ ",area:" + $('#area').val() + ",store:"
+						+ $('#store').val() + ",build:" + $('#build').val()
+						+ ",pack:" + $('#pack').val() + ",sale:"
+						+ $('#sale').val() + ",chain:" + $('#chain').val()
+						+ ",fee:" + $('#fee').val() + ",date:"
+						+ $('#date').val() + "}");
 		$('#updateform').submit();
 	}
 </script>
@@ -113,7 +114,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -177,7 +178,7 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-					
+
 				</div>
 			</div>
 			<div class="span9">
@@ -228,8 +229,10 @@
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"> <label>
-									图标 </label> <input type="text" name="iid" id="iid"
-									value="<%=bean.getIid()%>" class="input-xlarge"> <label>
+									城市 </label> <input type="text" name="cid" id="cid"
+									value="<%=bean.getCid()%>" class="input-xlarge"> <label>
+									图标 </label> <input type="text" name="iuri" id="iuri"
+									value="<%=bean.getIuri()%>" class="input-xlarge"> <label>
 									定位 </label> <input type="text" name="level" id="level"
 									value="<%=bean.getLevel()%>" class="input-xlarge"> <label>
 									生存地址 </label> <input type="text" name="area" id="area"
@@ -272,10 +275,12 @@
 									} else {
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"> <label> 图标 </label> <input
-									type="text" name="iid" id="iid" value="" class="input-xlarge">
-								<label> 定位 </label> <input type="text" name="level" id="level"
-									value="" class="input-xlarge"> <label> 生存地址 </label> <input
+									value="" class="input-xlarge"> <label> 城市 </label> <input
+									type="text" name="cid" id="cid" value="" class="input-xlarge">
+								<label> 图标 </label> <input type="text" name="iuri" id="iuri"
+									value="" class="input-xlarge"> <label> 定位 </label> <input
+									type="text" name="level" id="level" value=""
+									class="input-xlarge"> <label> 生存地址 </label> <input
 									type="text" name="area" id="area" value="" class="input-xlarge">
 								<label> 店面类型 </label> <input type="text" name="store" id="store"
 									value="" class="input-xlarge"> <label> 成立时间 </label> <input
@@ -331,7 +336,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

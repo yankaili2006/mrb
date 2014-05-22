@@ -2,6 +2,7 @@ package com.mrb.bean;
 
 public class CodeReqBean {
 	
+	
 	private long uid;
 	private String phone;
 	private String chkcode;

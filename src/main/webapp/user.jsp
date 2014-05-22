@@ -184,7 +184,7 @@
 						<i class="icon-globe"></i>管店管理
 					</div>
 					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"

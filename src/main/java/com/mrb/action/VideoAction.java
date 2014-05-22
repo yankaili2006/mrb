@@ -110,6 +110,7 @@ public class VideoAction extends Action {
 
 			if (video != null) {
 				req.setAttribute("video", video);
+				
 			} else {
 				result = "未找到该视频";
 			}

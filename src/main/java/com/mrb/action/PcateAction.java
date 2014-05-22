@@ -18,10 +18,16 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.PcateBean;
 import com.mrb.bs.PcateBS;
 import com.mrb.form.JsonForm;
+import com.mrb.pbean.City4PhoneBean;
+import com.mrb.pbean.CityReqBean;
+import com.mrb.pbean.CityRespBean;
+import com.mrb.pbean.ProjectReqBean;
+import com.mrb.pbean.ProjectRespBean;
 import com.mrb.util.PageUtil;
 
 /**
@@ -77,9 +83,7 @@ public class PcateAction extends Action {
 			PageUtil util = new PageUtil();
 			html.append(util.pagination(pbean));
 
-			result = html.toString();
-
-		} else if ("add".equals(act)) { // 添加分类 for 跳转
+			result = html.toString();		} else if ("add".equals(act)) { // 添加分类 for 跳转
 			PcateBean bean = (PcateBean) gson.fromJson(msg, PcateBean.class);
 			if (bean != null) {
 				if (!bs.addPcate(bean)) {
