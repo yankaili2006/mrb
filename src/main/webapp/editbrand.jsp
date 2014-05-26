@@ -167,7 +167,7 @@
 			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
 		}
 
-		var filePath = "http://localhost:8080/mrb/files/";
+		var filePath = "files/";
 		$('#iuri').val(iuri);
 		$('#imguri').attr("src", filePath + iuri);
 		$('#uploadModal').modal('hide');
@@ -320,7 +320,7 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
-									String filePath = "http://localhost:8080/mrb/files/";
+									String filePath = "files/";
 									Object obj = request.getAttribute("brand");
 									if (obj != null) {
 										Brand2ShowBean bean = (Brand2ShowBean) obj;

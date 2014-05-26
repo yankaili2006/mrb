@@ -189,7 +189,7 @@
 			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
 		}
 
-		var filePath = "http://localhost:8080/mrb/files/";
+		var filePath = "files/";
 		$('#iuri').val(iuri);
 		$('#imguri').attr("src", filePath + iuri);
 		$('#uploadModal').modal('hide');
@@ -346,7 +346,7 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
-									String filePath = "http://localhost:8080/mrb/files/";
+									String filePath = "files/";
 									Object obj = request.getAttribute("project");
 									if (obj != null) {
 										ProjectBean bean = (ProjectBean) obj;
@@ -371,7 +371,7 @@
 										}
 									%>
 								</select><label> 图标 </label><img id="imguri" name="imguri" alt=""
-									width="100" height="60" src="<%=filePath + bean.getIuri()%>"></img><input
+									width="100" height="60" src="files/<%=bean.getIuri()%>"></img><input
 									type="text" name="iuri" id="iuri" value="<%=bean.getIuri()%>"
 									class="input-xlarge" style="display: none;">
 								<button class="btn btn-primary btn-lg" data-toggle="modal"
