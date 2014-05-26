@@ -58,8 +58,7 @@
 			alert("城市ID不能为空");
 		} else {
 			$('#act').val("del");
-			$('#msg').val(
-					"{cid:" + $('#cid').val() + "}");
+			$('#msg').val("{cid:" + $('#cid').val() + "}");
 			$('#updateform').submit();
 		}
 	}
@@ -239,9 +238,9 @@
 								<label> 城市名 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"> <label>
 									城市层级 </label> <input type="text" name="level" id="level"
-									value="<%=bean.getLevel()%>" class="input-xlarge"> <input
-									type="hidden" id="cid" name="cid" value="<%=bean.getCid()%>"
-									readonly="readonly">
+									value="<%=bean.getLevel()%>" class="input-xlarge"
+									readonly="readonly"> <input type="hidden" id="cid"
+									name="cid" value="<%=bean.getCid()%>" readonly="readonly">
 								<%
 									} else {
 								%>

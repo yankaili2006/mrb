@@ -1,17 +1,16 @@
 package com.mrb.pbean;
 
 public class VListReqBean {
-	
-	
-	private int vcid;
+
+	private long vcid;
 	private int start;
 	private int num;
 
-	public int getVcid() {
+	public long getVcid() {
 		return vcid;
 	}
 
-	public void setVcid(int vcid) {
+	public void setVcid(long vcid) {
 		this.vcid = vcid;
 	}
 

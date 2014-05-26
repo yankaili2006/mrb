@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class VRelateRespBean {
 
+	
 	private String code;
 	private String msg;
 	private int start;

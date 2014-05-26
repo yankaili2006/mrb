@@ -3,7 +3,7 @@ package com.mrb.pbean;
 public class Project4PhoneBean {
 	private long pid;
 	private String name;
-	private String uri;
+	private String iuri;
 
 	public long getPid() {
 		return pid;
@@ -21,12 +21,12 @@ public class Project4PhoneBean {
 		this.name = name;
 	}
 
-	public String getUri() {
-		return uri;
+	public String getIuri() {
+		return iuri;
 	}
 
-	public void setUri(String uri) {
-		this.uri = uri;
+	public void setIuri(String iuri) {
+		this.iuri = iuri;
 	}
 
 }

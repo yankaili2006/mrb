@@ -2,14 +2,14 @@ package com.mrb.pbean;
 
 public class PCate4PhoneBean {
 
-	private int cid;
+	private long cid;
 	private String name;
 
-	public int getCid() {
+	public long getCid() {
 		return cid;
 	}
 
-	public void setCid(int cid) {
+	public void setCid(long cid) {
 		this.cid = cid;
 	}
 

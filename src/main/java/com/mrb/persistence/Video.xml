@@ -63,7 +63,7 @@
 
 
 	<!-- for phone -->
-	<select id="getVList" parameterClass="java.util.HashMap"
+	<select id="getVList" parameterClass="com.mrb.pbean.VListReqBean"
 		resultClass="com.mrb.pbean.VBean">
 		select v.vid, v.vcid, v.title, v.duration, v.type,
 		v.teacher,
@@ -71,8 +71,8 @@
 		reviewcnt from tbvideo v
 		left join vvreview vr on v.vid = vr.vid where
 		v.vcid = #vcid#
-		order by v.date desc limit #index#,
-		#cnt#
+		order by v.date desc limit #start#,
+		#num#
 	</select>
 
 	<select id="getVDetail" parameterClass="com.mrb.pbean.VDetailReqBean"

@@ -16,6 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `tbbimg`
+--
+
+DROP TABLE IF EXISTS `tbbimg`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbbimg` (
+  `id` bigint(20) NOT NULL,
+  `bid` int(10) NOT NULL,
+  `iuri` varchar(20480) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbbimg`
+--
+
+LOCK TABLES `tbbimg` WRITE;
+/*!40000 ALTER TABLE `tbbimg` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbbimg` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbbrand`
 --
 
@@ -43,7 +66,7 @@ CREATE TABLE `tbbrand` (
 
 LOCK TABLES `tbbrand` WRITE;
 /*!40000 ALTER TABLE `tbbrand` DISABLE KEYS */;
-INSERT INTO `tbbrand` VALUES (283222,29781,'眼部护理系列','产品简介','管店首页.png','祛皱眼部精华','1280元/套','功效','其他说明',20140526185728,0),(283222,799618,'眼部护理系列111','产品简介33','切换店铺.png','祛皱眼部精华','33222元/套','功效','其他说明33',20140526185743,0),(476979,925927,'1','1','有奖反馈.png','1','1','1','1',20140526184532,0);
+INSERT INTO `tbbrand` VALUES (283222,29781,'眼部护理系列','产品简介','管店首页.png','祛皱眼部精华','1280元/套','功效','其他说明',20140526215046,0),(283222,799618,'眼部护理系列111','产品简介33','切换店铺.png','祛皱眼部精华','33222元/套','功效','其他说明33',20140526185743,0),(476979,925927,'1','1','有奖反馈.png','1','1','1','1',20140526184532,0);
 /*!40000 ALTER TABLE `tbbrand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,35 +121,6 @@ INSERT INTO `tbcode` VALUES (382139,'15901411984','111111111',1,20140514171629),
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbimage`
---
-
-DROP TABLE IF EXISTS `tbimage`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbimage` (
-  `iid` int(10) NOT NULL,
-  `uri` varchar(512) NOT NULL,
-  `title` varchar(128) DEFAULT NULL,
-  `size` int(10) DEFAULT NULL,
-  `suffix` char(10) DEFAULT NULL,
-  `width` int(10) DEFAULT NULL,
-  `height` int(10) DEFAULT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbimage`
---
-
-LOCK TABLES `tbimage` WRITE;
-/*!40000 ALTER TABLE `tbimage` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbimage` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `tbpcategory`
 --
 
@@ -147,32 +141,8 @@ CREATE TABLE `tbpcategory` (
 
 LOCK TABLES `tbpcategory` WRITE;
 /*!40000 ALTER TABLE `tbpcategory` DISABLE KEYS */;
-INSERT INTO `tbpcategory` VALUES (893062,'面部护理',20140526131344,1),(161013,'疗效护理',20140514002241,1),(168748,'疗效护理',20140514002248,1);
+INSERT INTO `tbpcategory` VALUES (893062,'面部护理',20140526131344,1),(168748,'疗效护理',20140514002248,1);
 /*!40000 ALTER TABLE `tbpcategory` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbpimg`
---
-
-DROP TABLE IF EXISTS `tbpimg`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbpimg` (
-  `bid` int(10) NOT NULL,
-  `iid` int(10) NOT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbpimg`
---
-
-LOCK TABLES `tbpimg` WRITE;
-/*!40000 ALTER TABLE `tbpimg` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbpimg` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -210,6 +180,7 @@ DROP TABLE IF EXISTS `tbproject`;
 CREATE TABLE `tbproject` (
   `pid` int(10) NOT NULL,
   `name` varchar(128) NOT NULL,
+  `pcid` bigint(20) NOT NULL,
   `cid` bigint(20) NOT NULL,
   `iuri` varchar(512) NOT NULL,
   `level` varchar(128) DEFAULT NULL,
@@ -231,7 +202,7 @@ CREATE TABLE `tbproject` (
 
 LOCK TABLES `tbproject` WRITE;
 /*!40000 ALTER TABLE `tbproject` DISABLE KEYS */;
-INSERT INTO `tbproject` VALUES (283222,'欧莱雅',1401078312450,'项目首页-品牌故事.png','高端客户','北京','大中型店','1988年','普通装','直销',1,0,20140526185702,0),(476979,'欧莱雅',1401078312450,'左侧抽屉导航.png','高端客户','北','大中型店','1988年',NULL,NULL,1,1,20140526185651,0),(507360,'1',1401078764927,'版本检测.png','1','1','1','1','2','2',1,1,20140526185634,0);
+INSERT INTO `tbproject` VALUES (283222,'欧莱雅',168748,1401078312450,'项目首页-品牌故事.png','高端客户','北京','大中型店','1988年','普通装','直销',1,0,20140526215501,0),(476979,'欧莱雅',168748,1401078312450,'左侧抽屉导航.png','高端客户','北','大中型店','1988年',NULL,NULL,1,1,20140526215555,0),(507360,'1',893062,1401078764927,'版本检测.png','1','1','1','1','2','2',1,1,20140526215542,0);
 /*!40000 ALTER TABLE `tbproject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -358,7 +329,7 @@ CREATE TABLE `tbuser` (
   PRIMARY KEY (`uid`),
   UNIQUE KEY `uid` (`uid`),
   UNIQUE KEY `uname` (`uname`)
-) ENGINE=MyISAM AUTO_INCREMENT=995812 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=995813 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -367,7 +338,7 @@ CREATE TABLE `tbuser` (
 
 LOCK TABLES `tbuser` WRITE;
 /*!40000 ALTER TABLE `tbuser` DISABLE KEYS */;
-INSERT INTO `tbuser` VALUES (482773,'yankaili2006','15901411984','dddd',0,'C',20140510180802,20140510203950,1),(562869,'abc','111112233333','1111',0,'Z',20140510203922,0,1),(950133,'coola58','15901411984','000000',0,'C',20140505220910,20140512003523,0),(597783,'1221','1212','1212',0,'Z',20140514113637,20140514113637,1),(608197,'1212','root','root',0,'Z',20140514113648,20140514113648,1),(995811,'1','1','1',0,'Z',20140514141315,20140514141315,1),(78392,'2','2','2',0,'Z',20140514141438,20140514141438,1),(276263,'3','3','3',0,'Z',20140514141756,20140514141756,1),(501161,'6','6','6',0,'Z',20140514145501,20140526140159,1),(559350,'7','7','7',0,'Z',20140514145559,20140514145559,1),(593289,'8','8','8',0,'Z',20140514145633,20140514145633,1);
+INSERT INTO `tbuser` VALUES (482773,'yankaili2006','15901411984','dddd',0,'C',20140510180802,20140510203950,1),(562869,'abc','111112233333','1111',0,'Z',20140510203922,20140526203414,1),(950133,'coola58','15901411984','000000',0,'C',20140505220910,20140512003523,0),(597783,'1221','1212','1212',0,'Z',20140514113637,20140514113637,1),(608197,'1212','root','root',0,'Z',20140514113648,20140514113648,1),(995811,'1','1','1',0,'Z',20140514141315,20140514141315,1),(78392,'2','2','2',0,'Z',20140514141438,20140514141438,1),(276263,'3','3','3',0,'Z',20140514141756,20140514141756,1),(995812,'w8888','15641190209','654321',0,'Z',20140526203110,20140526203110,1),(501161,'6','6','6',0,'Z',20140514145501,20140526140159,1),(559350,'7','7','7',0,'Z',20140514145559,20140514145559,1),(593289,'8','8','8',0,'Z',20140514145633,20140514145633,1);
 /*!40000 ALTER TABLE `tbuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -606,4 +577,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-26 19:03:34
+-- Dump completed on 2014-05-27  1:41:52

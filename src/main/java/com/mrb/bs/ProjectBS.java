@@ -13,6 +13,7 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.ProjectBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.pbean.BImgReqBean;
 import com.mrb.pbean.Project4PhoneBean;
 import com.mrb.pbean.ProjectReqBean;
 
@@ -139,6 +140,31 @@ public class ProjectBS {
 			}
 		}
 		return projectList;
+	}
+
+	/*
+	 * 获取项目列表
+	 */
+	public ArrayList<String> getProjectImagesList(BImgReqBean bean) {
+		ArrayList<String> projectImagesList = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			projectImagesList = (ArrayList<String>) client.queryForList(
+					"getProjectImagesList", bean);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return projectImagesList;
 	}
 
 	/*

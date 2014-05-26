@@ -4,7 +4,6 @@ public class VDoCollectReqBean {
 	
 	private long uid;
 	private String vid;
-
 	
 
 	public long getUid() {

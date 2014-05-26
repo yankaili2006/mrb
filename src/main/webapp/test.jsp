@@ -254,6 +254,37 @@
 					});
 				});
 
+		//获取品牌列表
+		$('#brand').click(
+				function() {
+					$.post("project.do?act=story&msg={pid:"
+							+ $('#brand_pid').val() + ",start:"
+							+ $('#brand_start').val() + ",num:"
+							+ $('#brand_num').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
+		//获取项目信息
+		$('#pinfo').click(
+				function() {
+					$.post("project.do?act=info&msg={pid:"
+							+ $('#pinfo_pid').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
+		//获取品牌图片列表
+		$('#bimg').click(
+				function() {
+					$.post("project.do?act=bimg&msg={bid:"
+							+ $('#bimg_bid').val() + ",start:"
+							+ $('#bimg_start').val() + ",num:"
+							+ $('#bimg_num').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
 	});
 </script>
 <!-- Le fav and touch icons -->
@@ -528,7 +559,7 @@
 				<h4>获取项目分类列表</h4>
 				<label>num</label> <input type="text" id="pcate_num"
 					name="pcate_num" value=""> <br>
-				<button id="pcate" name="city" class="btn" data-dismiss="modal"
+				<button id="pcate" name="pcate" class="btn" data-dismiss="modal"
 					aria-hidden="true">获取项目分类列表</button>
 			</div>
 		</div>
@@ -539,18 +570,61 @@
 			<div class="span4">
 				<h4>获取项目列表</h4>
 				<label>pcid</label> <input type="text" id="project_pcid"
-					name="project_pcid" value=""> <br> <label>cid</label>
-				<input type="text" id="project_cid" name="project_cid" value="">
-				<br> <label>start</label> <input type="text" id="project_start"
-					name="project_start" value=""> <br> <label>num</label>
-				<input type="text" id="project_num" name="project_num" value="">
-				<br>
-				<button id="project" name="city" class="btn" data-dismiss="modal"
+					name="project_pcid" value="893062"> <br> <label>cid</label>
+				<input type="text" id="project_cid" name="project_cid"
+					value="1401078312450"> <br> <label>start</label> <input
+					type="text" id="project_start" name="project_start" value="">
+				<br> <label>num</label> <input type="text" id="project_num"
+					name="project_num" value=""> <br>
+				<button id="project" name="project" class="btn" data-dismiss="modal"
 					aria-hidden="true">获取项目列表</button>
 			</div>
 		</div>
 
 
+
+		<div class="row">
+			<h2>获取品牌列表</h2>
+			<hr>
+			<div class="span4">
+				<h4>获取品牌列表</h4>
+				<label>pid</label> <input type="text" id="brand_pid"
+					name="brand_pid" value="476979"> <br> <label>start</label>
+				<input type="text" id="brand_start" name="brand_start" value="">
+				<br> <label>num</label> <input type="text" id="brand_num"
+					name="brand_num" value=""> <br>
+				<button id="brand" name="brand" class="btn" data-dismiss="modal"
+					aria-hidden="true">获取品牌列表</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<h2>获取项目信息</h2>
+			<hr>
+			<div class="span4">
+				<h4>获取项目信息</h4>
+				<label>pid</label> <input type="text" id="pinfo_pid"
+					name="pinfo_pid" value="476979"> <br>
+				<button id="pinfo" name="pinfo" class="btn" data-dismiss="modal"
+					aria-hidden="true">获取项目信息</button>
+			</div>
+		</div>
+
+		<div class="row">
+			<h2>获取品牌图片列表</h2>
+			<hr>
+			<div class="span4">
+				<h4>获取品牌图片列表</h4>
+				<label>pid</label> <input type="text" id="bimg_bid" name="bimg_bid"
+					value="29781"> <br> <label>start</label> <input
+					type="text" id="bimg_start" name="bimg_start" value=""> <br>
+				<label>num</label> <input type="text" id="bimg_num" name="bimg_num"
+					value=""> <br>
+				<button id="bimg" name="bimg" class="btn" data-dismiss="modal"
+					aria-hidden="true">获取品牌图片列表</button>
+			</div>
+		</div>
 
 	</div>
 </body>

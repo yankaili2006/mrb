@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class VDoReviewBean {
+
 	
 	private long vrid;
 	private long uid;

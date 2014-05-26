@@ -12,10 +12,16 @@
 		where p.pid = b.pid and b.bid = #id#
 	</select>
 
-	<select id="getBrandList" parameterClass="java.util.HashMap"
+	<select id="getBrandList" parameterClass="com.mrb.pbean.BrandReqBean"
 		resultClass="com.mrb.bean.Brand2ShowBean">
 		select p.name as pname, b.* from tbbrand b, tbproject p
-		where p.pid = b.pid order by date desc limit #index#, #cnt#
+		where p.pid = b.pid order by date desc limit #start#, #num#
+	</select>
+
+	<select id="getBrandListByPid" parameterClass="com.mrb.pbean.BrandReqBean"
+		resultClass="com.mrb.bean.Brand2ShowBean">
+		select p.name as pname, b.* from tbbrand b, tbproject p
+		where p.pid = b.pid and b.pid=#pid# order by date desc limit #start#, #num#
 	</select>
 
 	<select id="getBrandCnt" resultClass="java.lang.Integer">

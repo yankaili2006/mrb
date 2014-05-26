@@ -3,7 +3,7 @@
 <sqlMap namespace="project">
 	<insert id="addProject" parameterClass="com.mrb.bean.ProjectBean">
 		insert into tbproject
-		values(#pid#,#name#,#cid#,#iuri#,#level#,#area#,#store#,#build#,#pack#,#sale#,#chain#,#fee#,#date#,#operid#)
+		values(#pid#,#name#,#pcid#,#cid#,#iuri#,#level#,#area#,#store#,#build#,#pack#,#sale#,#chain#,#fee#,#date#,#operid#)
 	</insert>
 
 	<select id="getProjectById" parameterClass="java.lang.Long"
@@ -19,7 +19,16 @@
 
 	<select id="getProjec4PhonetList" parameterClass="com.mrb.pbean.ProjectReqBean"
 		resultClass="com.mrb.pbean.Project4PhoneBean">
-		select pid, name, iuri from tbproject order by date desc limit #start#,
+		select pid, name, iuri from tbproject order by date desc
+		limit #start#,
+		#num#
+	</select>
+
+	<select id="getProjectImagesList" parameterClass="com.mrb.pbean.BImgReqBean"
+		resultClass="java.lang.String">
+		select id, bid, iuri from tbbimg where bid= #bid#
+		limit
+		#start#,
 		#num#
 	</select>
 
@@ -31,6 +40,7 @@
 	<update id="updateProject" parameterClass="com.mrb.bean.ProjectBean">
 		update tbproject set date=#date#
 		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
+		<isNotEmpty prepend="," property="pcid">pcid=#pcid#</isNotEmpty>
 		<isNotEmpty prepend="," property="cid">cid=#cid#</isNotEmpty>
 		<isNotEmpty prepend="," property="iuri">iuri=#iuri#</isNotEmpty>
 		<isNotEmpty prepend="," property="level">level=#level#</isNotEmpty>

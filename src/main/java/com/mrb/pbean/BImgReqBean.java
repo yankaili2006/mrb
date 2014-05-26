@@ -1,25 +1,16 @@
 package com.mrb.pbean;
 
-public class ProjectReqBean {
-	private long pcid;
-	private long cid;
+public class BImgReqBean {
+	private long bid;
 	private int start;
 	private int num;
 
-	public long getPcid() {
-		return pcid;
+	public long getBid() {
+		return bid;
 	}
 
-	public void setPcid(long pcid) {
-		this.pcid = pcid;
-	}
-
-	public long getCid() {
-		return cid;
-	}
-
-	public void setCid(long cid) {
-		this.cid = cid;
+	public void setBid(long bid) {
+		this.bid = bid;
 	}
 
 	public int getStart() {

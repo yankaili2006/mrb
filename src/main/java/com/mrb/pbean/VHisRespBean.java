@@ -3,6 +3,7 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 public class VHisRespBean {
+	
 	private String Code;
 	private String Msg;
 	private int Start;

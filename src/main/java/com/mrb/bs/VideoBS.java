@@ -32,6 +32,7 @@ import com.mrb.pbean.VDoReviewBean;
 import com.mrb.pbean.VDoReviewReqBean;
 import com.mrb.pbean.VHisBean;
 import com.mrb.pbean.VHisReqBean;
+import com.mrb.pbean.VListReqBean;
 import com.mrb.pbean.VRelateBean;
 import com.mrb.pbean.VRelateReqBean;
 import com.mrb.pbean.VReviewBean;
@@ -200,16 +201,12 @@ public class VideoBS {
 	/*
 	 * 获取视频列表
 	 */
-	public ArrayList<VBean> getVList(Integer vcid, Integer index, Integer cnt) {
+	public ArrayList<VBean> getVList(VListReqBean bean) {
 		ArrayList<VBean> videoList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("vcid", vcid);
-			map.put("index", index);
-			map.put("cnt", cnt);
-			videoList = (ArrayList<VBean>) client.queryForList("getVList", map);
+			videoList = (ArrayList<VBean>) client.queryForList("getVList", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {

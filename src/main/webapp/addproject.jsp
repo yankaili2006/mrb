@@ -1,7 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mrb.bean.ProjectBean"%>
 <%@ page import="com.mrb.bean.CityBean"%>
+<%@ page import="com.mrb.bean.PcateBean"%>
 <%@ page import="com.mrb.bs.CityBS"%>
+<%@ page import="com.mrb.bs.PcateBS"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -143,13 +145,14 @@
 
 		$('#act').val("add");
 		$('#msg').val(
-				"{name:" + $('#name').val() + ",cid:" + $('#cid').val()
-						+ ",iuri:\"" + iuri + "\",level:" + $('#level').val()
-						+ ",area:" + $('#area').val() + ",store:"
-						+ $('#store').val() + ",build:" + $('#build').val()
-						+ ",pack:" + $('#pack').val() + ",sale:"
-						+ $('#sale').val() + ",chain:" + $('#chain').val()
-						+ ",fee:" + $('#fee').val() + "}");
+				"{name:" + $('#name').val() + ",pcid:" + $('#pcid').val()
+						+ ",cid:" + $('#cid').val() + ",iuri:\"" + iuri
+						+ "\",level:" + $('#level').val() + ",area:"
+						+ $('#area').val() + ",store:" + $('#store').val()
+						+ ",build:" + $('#build').val() + ",pack:"
+						+ $('#pack').val() + ",sale:" + $('#sale').val()
+						+ ",chain:" + $('#chain').val() + ",fee:"
+						+ $('#fee').val() + "}");
 		$('#addform').submit();
 	}
 
@@ -292,6 +295,10 @@
 					Integer cnt = cityBS.getCityCnt();
 					ArrayList<CityBean> clist = cityBS.getCityList(0, cnt);
 
+					PcateBS pcateBS = new PcateBS();
+					cnt = pcateBS.getPcateCnt();
+					ArrayList<PcateBean> pclist = pcateBS.getPcateList(0, cnt);
+
 					Object robj = request.getAttribute("result");
 					if (robj != null) {
 						String result = (String) robj;
@@ -328,8 +335,25 @@
 										ProjectBean bean = (ProjectBean) obj;
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
-									value="<%=bean.getName()%>" class="input-xlarge"><label>
-									城市 </label> <select name="cid" id="cid">
+									value="<%=bean.getName()%>" class="input-xlarge"> <label>
+									项目分类 </label> <select name="pcid" id="pcid">
+									<%
+										if (pclist != null && pclist.size() > 0) {
+												for (int i = 0; i < pclist.size(); i++) {
+													PcateBean pcBean = pclist.get(i);
+									%>
+									<option value="<%=pcBean.getCid()%>"
+										<%if (pcBean.getCid() == bean.getPcid())
+							out.print("selected=\"selected\"");%>><%=pcBean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select> <label> 城市 </label> <select name="cid" id="cid">
 									<%
 										if (clist != null && clist.size() > 0) {
 												for (int i = 0; i < clist.size(); i++) {
@@ -346,7 +370,7 @@
 									<%
 										}
 									%>
-								</select><label> 图标 </label> <input type="text" name="iuri" id="iuri"
+								</select> <label> 图标 </label> <input type="text" name="iuri" id="iuri"
 									value="<%=bean.getIuri()%>" class="input-xlarge"> <label>
 									定位 </label> <input type="text" name="level" id="level"
 									value="<%=bean.getLevel()%>" class="input-xlarge"> <label>
@@ -388,8 +412,23 @@
 									} else {
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"><label> 城市 </label> <select
-									name="cid" id="cid">
+									value="" class="input-xlarge"> <label> 项目分类 </label> <select
+									name="pcid" id="pcid">
+									<%
+										if (pclist != null && pclist.size() > 0) {
+												for (int i = 0; i < pclist.size(); i++) {
+													PcateBean pcBean = pclist.get(i);
+									%>
+									<option value="<%=pcBean.getCid()%>"><%=pcBean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select> <label> 城市 </label> <select name="cid" id="cid">
 									<%
 										if (clist != null && clist.size() > 0) {
 												for (int i = 0; i < clist.size(); i++) {

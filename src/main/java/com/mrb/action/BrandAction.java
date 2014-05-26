@@ -25,6 +25,7 @@ import com.mrb.bean.BrandBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bs.BrandBS;
 import com.mrb.form.JsonForm;
+import com.mrb.pbean.BrandReqBean;
 import com.mrb.util.PageUtil;
 
 /**
@@ -52,9 +53,10 @@ public class BrandAction extends Action {
 			pbean.setPerpage(5);
 			pbean.setTotal((bs.getBrandCnt() - 1) / pbean.getPerpage() + 1);
 
-			ArrayList<Brand2ShowBean> ulist = bs
-					.getBrandList((pbean.getP() - 1) * pbean.getPerpage(),
-							pbean.getPerpage());
+			BrandReqBean reqBean = new BrandReqBean();
+			reqBean.setStart((pbean.getP() - 1) * pbean.getPerpage());
+			reqBean.setNum(pbean.getPerpage());
+			ArrayList<Brand2ShowBean> ulist = bs.getBrandList(reqBean);
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(

@@ -14,6 +14,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.Brand2ShowBean;
 import com.mrb.bean.BrandBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.pbean.BrandReqBean;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -40,7 +41,8 @@ public class BrandBS {
 				iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length());
 			}
 			if (iuri.contains("\\")) {
-				iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length());
+				iuri = iuri
+						.substring(iuri.lastIndexOf("\\") + 1, iuri.length());
 			}
 			bean.setIuri(iuri);
 
@@ -75,15 +77,32 @@ public class BrandBS {
 	/*
 	 * 获取品牌列表
 	 */
-	public ArrayList<Brand2ShowBean> getBrandList(Integer index, Integer cnt) {
+	public ArrayList<Brand2ShowBean> getBrandList(BrandReqBean bean) {
 		ArrayList<Brand2ShowBean> brandList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("index", index);
-			map.put("cnt", cnt);
-			Object obj = client.queryForList("getBrandList", map);
+			Object obj = client.queryForList("getBrandList", bean);
+			if (obj != null) {
+				brandList = (ArrayList<Brand2ShowBean>) obj;
+			}
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return brandList;
+	}
+
+	/*
+	 * 获取品牌列表 by pid
+	 */
+	public ArrayList<Brand2ShowBean> getBrandListByPid(BrandReqBean bean) {
+		ArrayList<Brand2ShowBean> brandList = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			Object obj = client.queryForList("getBrandListByPid", bean);
 			if (obj != null) {
 				brandList = (ArrayList<Brand2ShowBean>) obj;
 			}
@@ -180,7 +199,7 @@ public class BrandBS {
 
 		bs.addBrand(bean);
 
-		System.out.println(bs.getBrandList(0, 5).size());
+		// System.out.println(bs.getBrandList(0, 5).size());
 	}
 
 }

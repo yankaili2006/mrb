@@ -21,15 +21,23 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mrb.bean.Brand2ShowBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.ProjectBean;
+import com.mrb.bs.BrandBS;
 import com.mrb.bs.PcateBS;
 import com.mrb.bs.ProjectBS;
 import com.mrb.form.JsonForm;
+import com.mrb.pbean.BImgReqBean;
+import com.mrb.pbean.BImgRespBean;
+import com.mrb.pbean.BrandReqBean;
+import com.mrb.pbean.BrandRespBean;
 import com.mrb.pbean.PCate4PhoneBean;
 import com.mrb.pbean.PCateReqBean;
 import com.mrb.pbean.PCateRespBean;
 import com.mrb.pbean.Project4PhoneBean;
+import com.mrb.pbean.ProjectInfoReqBean;
+import com.mrb.pbean.ProjectInfoRespBean;
 import com.mrb.pbean.ProjectReqBean;
 import com.mrb.pbean.ProjectRespBean;
 import com.mrb.util.PageUtil;
@@ -146,6 +154,122 @@ public class ProjectAction extends Action {
 				} else {
 					respBean.setCode("1700");
 					respBean.setMsg("交易失败");
+				}
+			}
+			result = gson.toJson(respBean);
+		} else if ("story".equals(act)) { // 获取品牌故事 for 手机端
+
+			BrandReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, BrandReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			BrandBS brandBS = new BrandBS();
+			BrandRespBean respBean = new BrandRespBean();
+			if (reqBean == null) {
+				respBean.setCode("1701");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getPid() < 0) {
+				respBean.setCode("1702");
+				respBean.setMsg("项目ID非法");
+			} else if (reqBean.getStart() < 0) {
+				respBean.setCode("1704");
+				respBean.setMsg("开始索引start值非法");
+			} else if (reqBean.getNum() < 0) {
+				respBean.setCode("1705");
+				respBean.setMsg("num值非法");
+			} else {
+				ArrayList<Brand2ShowBean> ulist = brandBS
+						.getBrandListByPid(reqBean);
+
+				if (ulist == null || ulist.size() < 0) {
+					respBean.setCode("1706");
+					respBean.setMsg("查询品牌故事失败");
+				} else if (ulist.size() >= 0) {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setNum(ulist.size());
+					respBean.setBlist(gson.toJson(ulist,
+							new TypeToken<ArrayList<Brand2ShowBean>>() {
+							}.getType()));
+				} else {
+					respBean.setCode("1700");
+					respBean.setMsg("交易失败");
+				}
+			}
+			result = gson.toJson(respBean);
+		} else if ("info".equals(act)) { // 获取项目参数 for 手机端
+
+			ProjectInfoReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, ProjectInfoReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			ProjectInfoRespBean respBean = new ProjectInfoRespBean();
+			if (reqBean == null) {
+				respBean.setCode("1701");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getPid() < 0) {
+				respBean.setCode("1702");
+				respBean.setMsg("项目ID非法");
+			} else {
+
+				ProjectBean pBean = bs.getProjectById(reqBean.getPid());
+				respBean.setArea(pBean.getArea());
+				respBean.setBuild(pBean.getBuild());
+				respBean.setChain(pBean.getChain());
+				respBean.setFee(pBean.getFee());
+				respBean.setLevel(pBean.getLevel());
+				respBean.setName(pBean.getName());
+				respBean.setPack(pBean.getPack());
+				respBean.setSale(pBean.getSale());
+				respBean.setStore(pBean.getStore());
+
+				if (pBean == null) {
+					respBean.setCode("1706");
+					respBean.setMsg("查询品牌故事失败");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+				}
+			}
+			result = gson.toJson(respBean);
+
+		} else if ("bimg".equals(act)) { // 获取项目参数 for 手机端
+
+			BImgReqBean reqBean = null;
+			try {
+				reqBean = gson.fromJson(msg, BImgReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
+
+			BImgRespBean respBean = new BImgRespBean();
+			if (reqBean == null) {
+				respBean.setCode("1701");
+				respBean.setMsg("参数非法");
+			} else if (reqBean.getBid() < 0) {
+				respBean.setCode("1702");
+				respBean.setMsg("品牌ID非法");
+			} else {
+
+				ArrayList<String> imgList = bs.getProjectImagesList(reqBean);
+
+				if (imgList == null) {
+					respBean.setCode("1706");
+					respBean.setMsg("查询品牌故事失败");
+				} else {
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setImgs(imgList);
+					respBean.setNum(imgList.size());
 				}
 			}
 			result = gson.toJson(respBean);
@@ -289,5 +413,4 @@ public class ProjectAction extends Action {
 
 		return null;
 	}
-
 }

@@ -19,7 +19,7 @@
 
 	<select id="getCList" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.pbean.City4PhoneBean">
-		select * from tbcity where level = #level# limit #index#,
+		select cid,name from tbcity where level = #level# limit #index#,
 		#cnt#
 	</select>
 

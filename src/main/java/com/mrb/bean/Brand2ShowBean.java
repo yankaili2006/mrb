@@ -20,8 +20,6 @@ public class Brand2ShowBean {
 	private String price;
 	private String function;
 	private String summary;
-	private long date;
-	private long operid;
 
 	public String getPname() {
 		return pname;
@@ -157,36 +155,6 @@ public class Brand2ShowBean {
 	 */
 	public void setSummary(String summary) {
 		this.summary = summary;
-	}
-
-	/**
-	 * @return the date
-	 */
-	public long getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(long date) {
-		this.date = date;
-	}
-
-	/**
-	 * @return the operid
-	 */
-	public long getOperid() {
-		return operid;
-	}
-
-	/**
-	 * @param operid
-	 *            the operid to set
-	 */
-	public void setOperid(long operid) {
-		this.operid = operid;
 	}
 
 }

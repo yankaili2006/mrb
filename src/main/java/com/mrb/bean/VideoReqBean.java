@@ -3,7 +3,7 @@ package com.mrb.bean;
 public class VideoReqBean {
 
 	private String entryid;
-	private Integer vcid;
+	private long vcid;
 
 	public String getEntryid() {
 		return entryid;
@@ -13,11 +13,11 @@ public class VideoReqBean {
 		this.entryid = entryid;
 	}
 
-	public Integer getVcid() {
+	public long getVcid() {
 		return vcid;
 	}
 
-	public void setVcid(Integer vcid) {
+	public void setVcid(long vcid) {
 		this.vcid = vcid;
 	}
 

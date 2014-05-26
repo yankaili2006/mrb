@@ -21,6 +21,7 @@ import com.mrb.pbean.City4PhoneBean;
  * @author Administrator 7:24:13 PM
  */
 public class CityBS {
+	
 	Logger log = Logger.getLogger(this.getClass());
 
 	/**

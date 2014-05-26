@@ -130,8 +130,7 @@ public class VAction extends Action {
 				respBean.setMsg("num值非法");
 			} else {
 				VideoBS bs = new VideoBS();
-				ArrayList<VBean> ulist = bs.getVList(reqBean.getVcid(),
-						reqBean.getStart(), reqBean.getNum());
+				ArrayList<VBean> ulist = bs.getVList(reqBean);
 
 				if (ulist == null || ulist.size() < 0) {
 					respBean.setCode("6005");

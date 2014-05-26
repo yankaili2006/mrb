@@ -9,9 +9,9 @@ package com.mrb.bean;
  */
 public class ProjectBean {
 
-	
 	private Long pid;
 	private String name;
+	private long pcid;
 	private long cid;
 	private String iuri;
 	private String level;
@@ -46,6 +46,14 @@ public class ProjectBean {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public long getPcid() {
+		return pcid;
+	}
+
+	public void setPcid(long pcid) {
+		this.pcid = pcid;
 	}
 
 	public String getIuri() {

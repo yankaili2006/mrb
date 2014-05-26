@@ -4,6 +4,7 @@ import com.mrb.bean.PageBean;
 
 public class PageUtil {
 
+	
 	public String pagination(PageBean bean) {
 		StringBuilder html = new StringBuilder();
 		if (bean.getTotal() > 1 && bean.getP() > 0 && bean.getMaxpage() > 0) {

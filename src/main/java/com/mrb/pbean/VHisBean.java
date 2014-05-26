@@ -1,22 +1,22 @@
 package com.mrb.pbean;
 
 public class VHisBean {
-	
-	private int vpid;
+
+	private long vpid;
 	private String vid;
 	private String title;
 	private String laststop;
 
-	public String getVid() {
-		return vid;
-	}
-
-	public int getVpid() {
+	public long getVpid() {
 		return vpid;
 	}
 
-	public void setVpid(int vpid) {
+	public void setVpid(long vpid) {
 		this.vpid = vpid;
+	}
+
+	public String getVid() {
+		return vid;
 	}
 
 	public void setVid(String vid) {
