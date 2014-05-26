@@ -3,7 +3,7 @@
 <sqlMap namespace="city">
 	<insert id="addCity" parameterClass="com.mrb.bean.CityBean">
 		insert into tbcity
-		values(#cid#,#name#,#level#)
+		values(#cid#,#level#,#name#)
 	</insert>
 
 	<select id="getCityById" parameterClass="java.lang.Long"
@@ -34,9 +34,9 @@
 		where cid=#cid#
 	</update>
 
-	<delete id="delCityById" parameterClass="java.lang.Long">
+	<delete id="delCityById" parameterClass="com.mrb.bean.CityBean">
 		delete from tbcity where
-		cid = #id#
+		cid = #cid#
 	</delete>
 
 

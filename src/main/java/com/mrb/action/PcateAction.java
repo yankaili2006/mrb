@@ -52,15 +52,22 @@ public class PcateAction extends Action {
 		Gson gson = new Gson();
 
 		if ("list".equals(act)) { // 获取分类列表 for ajax
+			ArrayList<PcateBean> ulist = null;
+			PageBean pbean = null;
+			try {
+				pbean = gson.fromJson(msg, PageBean.class);
+				pbean.setMaxpage(5);
+				pbean.setPerpage(5);
+				pbean.setTotal((bs.getPcateCnt() - 1) / pbean.getPerpage() + 1);
 
-			PageBean pbean = gson.fromJson(msg, PageBean.class);
-			pbean.setMaxpage(5);
-			pbean.setPerpage(5);
-			pbean.setTotal((bs.getPcateCnt() - 1) / pbean.getPerpage() + 1);
-
-			ArrayList<PcateBean> ulist = bs.getPcateList((pbean.getP() - 1)
-					* pbean.getPerpage(), pbean.getPerpage());
-			req.setAttribute("ulist", ulist);
+				ulist = bs.getPcateList(
+						(pbean.getP() - 1) * pbean.getPerpage(),
+						pbean.getPerpage());
+				req.setAttribute("ulist", ulist);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
 
 			StringBuilder html = new StringBuilder(
 					"<div class=\"well\"><table class=\"table\"><thead><tr><th>分类ID</th><th>分类名</th><th>注册日期</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
@@ -83,7 +90,8 @@ public class PcateAction extends Action {
 			PageUtil util = new PageUtil();
 			html.append(util.pagination(pbean));
 
-			result = html.toString();		} else if ("add".equals(act)) { // 添加分类 for 跳转
+			result = html.toString();
+		} else if ("add".equals(act)) { // 添加分类 for 跳转
 			PcateBean bean = (PcateBean) gson.fromJson(msg, PcateBean.class);
 			if (bean != null) {
 				if (!bs.addPcate(bean)) {
@@ -144,6 +152,8 @@ public class PcateAction extends Action {
 				result = "未找到该分类";
 			}
 
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 		} else {
 			result = "不支持的操作类型";
 		}

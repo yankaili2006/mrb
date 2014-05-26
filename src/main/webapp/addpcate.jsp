@@ -51,6 +51,13 @@
     <![endif]-->
 <script type="text/javascript">
 	function addpcate() {
+		var exp = $('#name').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("分类名不能为空!");
+			$('#name').focus();
+			return false;
+		}
+		
 		$('#act').val("add");
 		$('#msg').val("{name:" + $('#name').val() + "}");
 		$('#addform').submit();
@@ -139,6 +146,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li class="active"><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -147,9 +155,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">

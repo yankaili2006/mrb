@@ -44,6 +44,16 @@ public class ProjectBS {
 			bean.setDate(Long.valueOf(now));
 			bean.setOperid(1L);
 
+			String iuri = bean.getIuri();
+			if (iuri.contains("/")) {
+				iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length());
+			}
+			if (iuri.contains("\\")) {
+				iuri = iuri
+						.substring(iuri.lastIndexOf("\\") + 1, iuri.length());
+			}
+			bean.setIuri(iuri);
+
 			client.update("addProject", bean);
 			client.commitTransaction();
 

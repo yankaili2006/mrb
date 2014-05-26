@@ -53,33 +53,72 @@
 
 <script type="text/javascript">
 	function deluser() {
-		$.post("user.do", {
-			act : "del",
-			msg : "{uid:" + $('#uid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				alert("删除成功");
-				window.location.href = "user.jsp";
-			}
-		});
+		var exp = $('#uid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("用户ID不能为空");
+		} else {
+			$('#act').val("del");
+			$('#msg').val("{uid:" + $('#uid').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 
 	function updateuser() {
-		$('#act').val("update");
-		$('#msg').val(
-				"{uid:" + $('#uid').val() + ",uname:" + $('#uname').val()
-						+ ",phone:" + $('#phone').val() + ",status:"
-						+ $('#status').val() + "}");
-		$('#updateform').submit();
+		var exp = $('#uid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("用户ID不能为空");
+		} else {
+
+			var exp = $('#uname').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("用户名不能为空!");
+				$('#uname').focus();
+				return false;
+			}
+
+			exp = $('#phone').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("手机号不能为空!");
+				$('#phone').focus();
+				return false;
+			}
+
+			exp = $('#status').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("状态不能为空!");
+				$('#status').focus();
+				return false;
+			}
+
+			$('#act').val("update");
+			$('#msg').val(
+					"{uid:" + $('#uid').val() + ",uname:" + $('#uname').val()
+							+ ",phone:" + $('#phone').val() + ",status:"
+							+ $('#status').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 
 	function updatepwd() {
-		$('#act').val("updatepwd");
-		$('#msg').val(
-				"{uid:" + $('#uid').val() + ",pwd:" + $('#pwd').val() + "}");
-		$('#updateform').submit();
+		var exp = $('#uid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("用户ID不能为空");
+		} else {
+
+			exp = $('#pwd').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("密码不能为空!");
+				$('#pwd').focus();
+				return false;
+			}
+
+			$('#act').val("updatepwd");
+			$('#msg')
+					.val(
+							"{uid:" + $('#uid').val() + ",pwd:"
+									+ $('#pwd').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -123,7 +162,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -167,6 +206,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -175,9 +215,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -187,7 +224,7 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-					
+
 				</div>
 			</div>
 			<div class="span9">
@@ -257,14 +294,7 @@
 								<%
 									} else {
 								%>
-								<label> 用户名 </label> <input type="text" name="uname" id="uname"
-									value="" class="input-xlarge"> <label> 手机号 </label> <input
-									type="text" name="phone" id="phone" value=""
-									class="input-xlarge"> <label> 状态 </label> <select
-									name="status" id="status" class="input-xlarge">
-									<option value="Z">正常</option>
-									<option value="C">注销</option>
-								</select> <input type="hidden" id="uid" name="uid" value="">
+								<label> 未找到对应用户 </label>
 								<%
 									}
 								%>
@@ -311,7 +341,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

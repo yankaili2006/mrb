@@ -53,26 +53,35 @@
 
 <script type="text/javascript">
 	function delvcate() {
-		$.post("vcate.do", {
-			act : "del",
-			msg : "{vcid:" + $('#vcid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				alert("删除成功");
-				window.location.href = "vcate.jsp";
-			}
-		});
+		var exp = $('#vcid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("视频分类ID不能为空");
+		} else {
+			$('#act').val("del");
+			$('#msg').val("{vcid:" + $('#vcid').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 
 	function updatevcate() {
-		$('#act').val("update");
-		$('#msg').val(
-				"{vcid:" + $('#vcid').val() + ",name:" + $('#name').val()
-						+ ",date:" + $('#date').val() + ",operid:"
-						+ $('#operid').val() + "}");
-		$('#updateform').submit();
+		var exp = $('#vcid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("视频分类ID不能为空");
+		} else {
+
+			exp = $('#name').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("分类名称不能为空!");
+				$('#name').focus();
+				return false;
+			}
+
+			$('#act').val("update");
+			$('#msg').val(
+					"{vcid:" + $('#vcid').val() + ",name:" + $('#name').val()
+							+ "}");
+			$('#updateform').submit();
+		}
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -116,7 +125,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -160,6 +169,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -168,9 +178,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -180,7 +187,7 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-					
+
 				</div>
 			</div>
 			<div class="span9">
@@ -230,16 +237,14 @@
 										VCateBean bean = (VCateBean) obj;
 								%>
 								<label> 视频分类ID </label> <input type="text" name="vcid" id="vcid"
-									value="<%=bean.getVcid()%>" class="input-xlarge"> <label>
+									value="<%=bean.getVcid()%>" class="input-xlarge" readonly="readonly"> <label>
 									分类名称 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge">
 
 								<%
 									} else {
 								%>
-								<label> 视频分类ID </label> <input type="text" name="vcid" id="vcid"
-									value="" class="input-xlarge"> <label> 分类名称 </label> <input
-									type="text" name="name" id="name" value="" class="input-xlarge">
+								<label> 未找到对应视频分类 </label>
 								<%
 									}
 								%>
@@ -275,8 +280,8 @@
 
 			<footer>
 			<hr>
-			<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#"
-					target="_blank">YKLI</a>
+			<p class="pull-right">
+				<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 			</p>
 
 

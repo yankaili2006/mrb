@@ -82,7 +82,9 @@ public class VCateAction extends Action {
 		} else if ("add".equals(act)) { // 添加视频分类 for 跳转
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
-				bs.addVCate(bean);
+				if(!bs.addVCate(bean)){
+					result = "添加失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -123,10 +125,14 @@ public class VCateAction extends Action {
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
 				log.info("vcid = [" + bean.getVcid() + "]");
-				bs.delVCateById(bean.getVcid());
+				if(!bs.delVCateById(bean.getVcid())){
+					result = "删除失败";
+				}
 			} else {
 				result = "参数非法";
 			}
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 
 		} else if ("update".equals(act)) { // 更新视频分类 for 跳转
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
@@ -135,7 +141,9 @@ public class VCateAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setDate(Long.valueOf(now));
-				bs.updateVCate(bean);
+				if(!bs.updateVCate(bean)){
+					result = "更新失败";
+				}
 			} else {
 				result = "参数非法";
 			}

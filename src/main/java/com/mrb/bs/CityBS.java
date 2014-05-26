@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.CityBean;
 import com.mrb.ibatis.SqlMap;
@@ -19,6 +21,7 @@ import com.mrb.pbean.City4PhoneBean;
  * @author Administrator 7:24:13 PM
  */
 public class CityBS {
+	Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * 
@@ -45,11 +48,13 @@ public class CityBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			log.debug(e.getMessage());
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 
+				log.debug(e1.getMessage());
 			}
 			cid = -1;
 		}
@@ -106,7 +111,7 @@ public class CityBS {
 	}
 
 	/*
-	 * 获取城市列表  for phone
+	 * 获取城市列表 for phone
 	 */
 	public ArrayList<City4PhoneBean> getCList(Integer level, Integer index,
 			Integer cnt) {
@@ -182,11 +187,11 @@ public class CityBS {
 	/*
 	 * 删除城市信息
 	 */
-	public Boolean delCityById(Long id) {
+	public Boolean delCityById(CityBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("delCityById", id);
+			client.update("delCityById", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {

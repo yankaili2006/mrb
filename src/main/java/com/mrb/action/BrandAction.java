@@ -55,7 +55,6 @@ public class BrandAction extends Action {
 			ArrayList<Brand2ShowBean> ulist = bs
 					.getBrandList((pbean.getP() - 1) * pbean.getPerpage(),
 							pbean.getPerpage());
-
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
@@ -85,7 +84,9 @@ public class BrandAction extends Action {
 		} else if ("add".equals(act)) { // 添加品牌 for 跳转
 			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
 			if (bean != null) {
-				bs.addBrand(bean);
+				if (!bs.addBrand(bean)) {
+					result = "添加失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -126,10 +127,15 @@ public class BrandAction extends Action {
 			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
 			if (bean != null) {
 				log.info("bid = [" + bean.getBid() + "]");
-				bs.delBrandById(bean.getBid());
+				if (!bs.delBrandById(bean.getBid())) {
+					result = "删除失败";
+				}
 			} else {
 				result = "参数非法";
 			}
+
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 
 		} else if ("update".equals(act)) { // 更新品牌 for 跳转
 			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
@@ -138,7 +144,9 @@ public class BrandAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setDate(Long.valueOf(now));
-				bs.updateBrand(bean);
+				if (!bs.updateBrand(bean)) {
+					result = "更新失败";
+				}
 			} else {
 				result = "参数非法";
 			}

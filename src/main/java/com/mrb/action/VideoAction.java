@@ -24,8 +24,10 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.mrb.bean.PageBean;
+import com.mrb.bean.VCateBean;
 import com.mrb.bean.VideoBean;
 import com.mrb.bean.VideoReqBean;
+import com.mrb.bs.VCateBS;
 import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
 import com.mrb.util.PageUtil;
@@ -65,8 +67,9 @@ public class VideoAction extends Action {
 				for (int i = 0; i < ulist.size(); i++) {
 					VideoBean bean = (VideoBean) ulist.get(i);
 					html.append("<tr><td>" + bean.getVid() + "</td><td>"
-							+ bean.getTitle() + "</td><td><img src=\"" + bean.getThumbnail_url()
-							+ "\"></td><td>" + bean.getDate() + "</td>");
+							+ bean.getTitle() + "</td><td><img src=\""
+							+ bean.getThumbnail_url() + "\"></td><td>"
+							+ bean.getDate() + "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
 					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setvid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
@@ -82,9 +85,12 @@ public class VideoAction extends Action {
 			result = html.toString();
 
 		} else if ("add".equals(act)) { // 添加视频 for 跳转
-			VideoReqBean bean = (VideoReqBean) gson.fromJson(msg, VideoReqBean.class);
+			VideoReqBean bean = (VideoReqBean) gson.fromJson(msg,
+					VideoReqBean.class);
 			if (bean != null) {
-				bs.addVideo(bean);
+				if(!bs.addVideo(bean)){
+					result = "添加失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -97,6 +103,7 @@ public class VideoAction extends Action {
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
 			}
+
 		} else if ("edit".equals(act)) {// 编辑视频 for 跳转
 			VideoBean video = null;
 			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
@@ -110,7 +117,14 @@ public class VideoAction extends Action {
 
 			if (video != null) {
 				req.setAttribute("video", video);
-				
+
+				VCateBS vcateBS = new VCateBS();
+				Integer cnt = vcateBS.getVCateCnt();
+				ArrayList<VCateBean> vclist = vcateBS.getVCateList(0, cnt);
+				if (vclist != null && vclist.size() > 0) {
+					req.setAttribute("vclist", vclist);
+				}
+
 			} else {
 				result = "未找到该视频";
 			}
@@ -126,10 +140,14 @@ public class VideoAction extends Action {
 			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
 			if (bean != null) {
 				log.info("vid = [" + bean.getVid() + "]");
-				bs.delVideoById(bean.getVid());
+				if(!bs.delVideoById(bean.getVid())){
+					result = "删除失败";
+				}
 			} else {
 				result = "参数非法";
 			}
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 
 		} else if ("update".equals(act)) { // 更新视频 for 跳转
 			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
@@ -138,7 +156,9 @@ public class VideoAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setOpdate(Long.valueOf(now));
-				bs.updateVideo(bean);
+				if(!bs.updateVideo(bean)){
+					result = "更新失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -146,6 +166,13 @@ public class VideoAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 				req.setAttribute("video", bean);
+				
+				VCateBS vcateBS = new VCateBS();
+				Integer cnt = vcateBS.getVCateCnt();
+				ArrayList<VCateBean> vclist = vcateBS.getVCateList(0, cnt);
+				if (vclist != null && vclist.size() > 0) {
+					req.setAttribute("vclist", vclist);
+				}
 				return mapping.findForward("edit");
 			} else {
 				req.setAttribute("result", result);

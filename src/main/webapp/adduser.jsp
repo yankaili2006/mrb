@@ -52,6 +52,35 @@
 
 <script type="text/javascript">
 	function adduser() {
+
+		var exp = $('#uname').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("用户名不能为空!");
+			$('#uname').focus();
+			return false;
+		}
+
+		exp = $('#phone').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("手机号不能为空!");
+			$('#phone').focus();
+			return false;
+		}
+
+		exp = $('#pwd').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("密码不能为空!");
+			$('#pwd').focus();
+			return false;
+		}
+
+		exp = $('#status').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("状态不能为空!");
+			$('#status').focus();
+			return false;
+		}
+
 		$('#act').val("add");
 		$('#msg').val(
 				"{uname:" + $('#uname').val() + ",phone:" + $('#phone').val()
@@ -102,7 +131,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -146,6 +175,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -154,9 +184,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -247,7 +274,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

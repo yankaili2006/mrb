@@ -51,24 +51,35 @@
     <![endif]-->
 <script type="text/javascript">
 	function delpcate() {
-		$.post("pcate.do", {
-			act : "del",
-			msg : "{cid:" + $('#cid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				alert("删除成功");
-				window.location.href = "pcate.jsp";
-			}
-		});
+		var exp = $('#cid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("项目分类ID不能为空");
+		} else {
+			$('#act').val("del");
+			$('#msg').val("{cid:" + $('#cid').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 
 	function updatepcate() {
-		$('#act').val("update");
-		$('#msg').val(
-				"{cid:" + $('#cid').val() + ",name:" + $('#name').val() + "}");
-		$('#updateform').submit();
+		var exp = $('#cid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("项目分类ID不能为空");
+		} else {
+
+			var exp = $('#name').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("分类名不能为空!");
+				$('#name').focus();
+				return false;
+			}
+
+			$('#act').val("update");
+			$('#msg').val(
+					"{cid:" + $('#cid').val() + ",name:" + $('#name').val()
+							+ "}");
+			$('#updateform').submit();
+		}
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -123,7 +134,7 @@
 		<div class="row-fluid">
 			<div class="span3">
 				<div class="sidebar-nav">
-					
+
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#home-menu">
 						<i class="icon-home"></i>主页
@@ -155,6 +166,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li class="active"><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -163,9 +175,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -175,7 +184,7 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-					
+
 				</div>
 			</div>
 			<div class="span9">
@@ -192,6 +201,25 @@
 					<input type="hidden" id="act" name="act" value=""> <input
 						type="hidden" id="msg" name="msg" value="">
 				</form>
+				<%
+					Object robj = request.getAttribute("result");
+					if (robj != null) {
+						String result = (String) robj;
+						if ("ok".equals(result)) {
+				%>
+				<div class="alert alert-success">
+					<a href="#" class="alert-link">操作成功！</a>
+				</div>
+				<%
+					} else {
+				%>
+				<div class="alert alert-danger">
+					<a href="#" class="alert-link"><%=result%></a>
+				</div>
+				<%
+					}
+					}
+				%>
 				<div class="well">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
@@ -215,9 +243,7 @@
 								<%
 									} else {
 								%>
-								<label> 分类名 </label> <input type="text" id="name" name="name"
-									value="" class="input-xlarge"> <input type="hidden"
-									id="cid" name="cid" value="">
+								<label> 未找到对应项目分类 </label>
 								<%
 									}
 								%>
@@ -256,7 +282,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

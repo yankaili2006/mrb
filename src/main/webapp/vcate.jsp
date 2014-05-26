@@ -50,22 +50,14 @@
 
 <script type="text/javascript">
 	function delvcate() {
-		$.post("vcate.do", {
-			act : "del",
-			msg : "{vcid:" + $('#vcid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				$.post("vcate.do?act=list", function(data) {
-					$("#vcategrid").html(data);
-				});
-			}
-		});
+		$('#act').val("del");
+		$('#msg').val("{vcid:" + $('#vcid').val() + "}");
+		$('#editvcid').submit();
 	}
 
 	function gotoedit(obj) {
 		var tds = $(obj).parent().parent().find('td');
+		$('#act').val("edit");
 		$('#vcid').val(tds.eq(0).text());
 		$('#msg').val("{vcid:" + tds.eq(0).text() + "}");
 		$('#editvcid').submit();
@@ -175,6 +167,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -183,9 +176,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">

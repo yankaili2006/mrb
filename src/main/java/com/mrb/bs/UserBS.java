@@ -29,14 +29,12 @@ public class UserBS {
 	/*
 	 * 注册新用户
 	 */
-	public Long addUser(UserBean bean) {
+	public boolean addUser(UserBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
-		long uid = 0;
+		boolean rst = true;
 		try {
 			client.startTransaction();
 
-			uid = System.currentTimeMillis() % 1000000;
-			bean.setUid(uid);
 			bean.setType(0);
 			bean.setStatus("Z");
 
@@ -58,9 +56,9 @@ public class UserBS {
 				e1.printStackTrace();
 
 			}
-			uid = -1;
+			rst = false;
 		}
-		return uid;
+		return rst;
 	}
 
 	/*

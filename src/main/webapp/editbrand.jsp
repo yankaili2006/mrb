@@ -53,31 +53,124 @@
 
 <script type="text/javascript">
 	function delbrand() {
-		$.post("brand.do", {
-			act : "del",
-			msg : "{bid:" + $('#bid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				alert("删除成功");
-				window.location.href = "brand.jsp";
-			}
-		});
+		var exp = $('#bid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("品牌ID不能为空!");
+			return false;
+		}
+
+		$('#act').val("del");
+		$('#msg').val("{bid:" + $('#bid').val() + "}");
+		$('#updateform').submit();
+
 	}
 
 	function updatebrand() {
+
+		var exp = $('#bid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("品牌ID不能为空!");
+			return false;
+		}
+
+		exp = $('#btitle').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("品牌标题不能为空!");
+			$('#btitle').focus();
+			return false;
+		}
+
+		exp = $('#pid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("所属项目不能为空!");
+			$('#pid').focus();
+			return false;
+		}
+
+		exp = $('#binfo').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("产品简介不能为空!");
+			$('#binfo').focus();
+			return false;
+		}
+
+		exp = $('#iuri').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("品牌图标不能为空!");
+			$('#iuri').focus();
+			return false;
+		}
+
+		exp = $('#name').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("名称不能为空!");
+			$('#name').focus();
+			return false;
+		}
+
+		exp = $('#price').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("价格不能为空!");
+			$('#price').focus();
+			return false;
+		}
+
+		exp = $('#function').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("产品功效不能为空!");
+			$('#function').focus();
+			return false;
+		}
+
+		exp = $('#summary').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("其他说明不能为空!");
+			$('#summary').focus();
+			return false;
+		}
+
+		var iuri = $('#iuri').val();
+		if (iuri.indexOf("\\") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
+		}
+		if (iuri.indexOf("/") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
+		}
+
 		$('#act').val("update");
 		$('#msg').val(
 				"{pid:" + $('#pid').val() + ",bid:" + $('#bid').val()
 						+ ",btitle:\"" + $('#btitle').val() + "\",binfo:\""
-						+ $('#binfo').val() + "\",iuri:" + $('#iuri').val()
-						+ ",name:\"" + $('#name').val() + "\",price:\""
+						+ $('#binfo').val() + "\",iuri:\"" + iuri
+						+ "\",name:\"" + $('#name').val() + "\",price:\""
 						+ $('#price').val() + "\",function:\""
 						+ $('#function').val() + "\",summary:\""
 						+ $('#summary').val() + "\"}");
-		//alert($('#msg').val());
 		$('#updateform').submit();
+	}
+
+	function upload() {
+		var exp = $('#uploadfile').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("请选择图片");
+			$('#uploadfile').focus();
+			return false;
+		}
+
+		$('#uploadform').submit();
+
+		var iuri = $('#uploadfile').val();
+		if (iuri.indexOf("\\") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
+		}
+		if (iuri.indexOf("/") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
+		}
+
+		var filePath = "http://localhost:8080/mrb/files/";
+		$('#iuri').val(iuri);
+		$('#imguri').attr("src", filePath + iuri);
+		$('#uploadModal').modal('hide');
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -121,7 +214,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -165,6 +258,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li class="active"><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -173,9 +267,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -229,6 +320,7 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
+									String filePath = "http://localhost:8080/mrb/files/";
 									Object obj = request.getAttribute("brand");
 									if (obj != null) {
 										Brand2ShowBean bean = (Brand2ShowBean) obj;
@@ -241,9 +333,13 @@
 									产品简介 </label>
 								<textarea name="binfo" id="binfo" class="form-control" rows="3"><%=bean.getBinfo()%></textarea>
 
-								<label> 品牌图标 </label> <input type="text" name="iuri" id="iuri"
-									value="<%=bean.getIuri()%>" class="input-xlarge"> <label>
-									名称 </label> <input type="text" name="name" id="name"
+								<label> 品牌图标 </label><img id="imguri" name="imguri" alt=""
+									width="100" height="60" src="<%=filePath + bean.getIuri()%>"></img><input
+									type="text" name="iuri" id="iuri" value="<%=bean.getIuri()%>"
+									class="input-xlarge" style="display: none;">
+								<button class="btn btn-primary btn-lg" data-toggle="modal"
+									data-target="#uploadModal">上传图片</button>
+								<label> 名称 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"> <label>
 									价格 </label> <input type="text" name="price" id="price"
 									value="<%=bean.getPrice()%>" class="input-xlarge"> <label>
@@ -252,30 +348,12 @@
 									其他说明 </label>
 								<textarea name="summary" id="summary" class="form-control"
 									rows="3"><%=bean.getSummary()%></textarea>
-
-
 								<input type="hidden" id="bid" name="bid"
 									value="<%=bean.getBid()%>">
 								<%
 									} else {
 								%>
-								<label> 品牌标题 </label> <input type="text" name="btitle"
-									id="btitle" value="" class="input-xlarge"> <label>
-									所属项目 </label> <input type="text" name="pid" id="pid" value=""
-									class="input-xlarge"> <label> 产品简介 </label> <input
-									type="text" name="binfo" id="binfo" value=""
-									class="input-xlarge"> <label> 品牌图标 </label> <input
-									type="text" name="iuri" id="iuri" value="" class="input-xlarge">
-
-								<label> 名称 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"> <label> 价格 </label> <input
-									type="text" name="price" id="price" value=""
-									class="input-xlarge"> <label> 产品功效 </label> <input
-									type="text" name="function" id="function" value=""
-									class="input-xlarge"> <label> 其他说明 </label> <input
-									type="text" name="summary" id="summary" value=""
-									class="input-xlarge"> <input type="hidden" id="bid"
-									name="bid" value="">
+								<label> 未找到对应品牌 </label>
 								<%
 									}
 								%>
@@ -308,11 +386,40 @@
 			</div>
 		</div>
 
-
+		<!-- Modal -->
+		<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+					</div>
+					<div class="modal-body">
+						<form action="UploadServlet" method="post"
+							enctype="multipart/form-data" target="post_frame" id="uploadform"
+							name="uploadform">
+							<input type="file" class="btn btn-primary" name="uploadfile"
+								id="uploadfile" size="100" /> <input type="submit"
+								class="btn btn-primary" value="upload" style="display: none;" />
+						</form>
+						<iframe name='post_frame' id="post_frame" style="display: none;"></iframe>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="upload()">上传</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

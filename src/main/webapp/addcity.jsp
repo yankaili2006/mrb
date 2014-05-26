@@ -53,6 +53,20 @@
 
 <script type="text/javascript">
 	function addcity() {
+		var exp = $('#name').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("城市名不能为空!");
+			$('#name').focus();
+			return false;
+		}
+		
+		exp = $('#level').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("城市层级不能为空!");
+			$('#level').focus();
+			return false;
+		}
+		
 		$('#act').val("add");
 		$('#msg').val(
 				"{name:" + $('#name').val() + ",level:" + $('#level').val()
@@ -101,7 +115,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -123,14 +137,6 @@
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#city-menu">
-						<i class="icon-city"></i>城市管理
-					</div>
-					<ul id="city-menu" class="nav nav-list collapse in">
-						<li class="active"><a href="city.jsp">城市列表</a></li>
-					</ul>
-
-					<div class="nav-header" data-toggle="collapse"
 						data-target="#video-menu">
 						<i class="icon-facetime-video"></i>视频管理
 					</div>
@@ -145,6 +151,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li class="active"><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -153,9 +160,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="city.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -215,13 +219,13 @@
 								<label> 城市名 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"> <label>
 									城市层级 </label> <input type="text" name="level" id="level"
-									value="<%=bean.getLevel()%>" class="input-xlarge">
+									value="<%=bean.getLevel()%>" class="input-xlarge" readonly="readonly">
 								<%
 									} else {
 								%>
 								<label> 城市名 </label> <input type="text" name="name" id="name"
 									value="" class="input-xlarge"> <label> 城市层级 </label> <input
-									type="text" name="level" id="level" value=""
+									type="text" name="level" id="level" value="1" readonly="readonly" 
 									class="input-xlarge">
 								<%
 									}

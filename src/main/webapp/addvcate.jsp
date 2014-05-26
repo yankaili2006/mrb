@@ -53,11 +53,16 @@
 
 <script type="text/javascript">
 	function addvcate() {
+
+		exp = $('#name').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("分类名称不能为空!");
+			$('#name').focus();
+			return false;
+		}
+
 		$('#act').val("add");
-		$('#msg')
-				.val(
-						"{vcid:" + $('#vcid').val() + ",name:"
-								+ $('#name').val() + "}");
+		$('#msg').val("{name:" + $('#name').val() + "}");
 		$('#addform').submit();
 	}
 </script>
@@ -103,7 +108,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -147,6 +152,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -155,9 +161,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -214,17 +217,14 @@
 									if (obj != null) {
 										VCateBean bean = (VCateBean) obj;
 								%>
-								<label> 视频分类ID </label> <input type="text" name="vcid" id="vcid"
-									value="<%=bean.getVcid()%>" class="input-xlarge"> <label>
-									分类名称 </label> <input type="text" name="name" id="name"
+								<label> 分类名称 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge">
 
 								<%
 									} else {
 								%>
-								<label> 视频分类ID </label> <input type="text" name="vcid" id="vcid"
-									value="" class="input-xlarge"> <label> 分类名称 </label> <input
-									type="text" name="name" id="name" value="" class="input-xlarge">
+								<label> 分类名称 </label> <input type="text" name="name" id="name"
+									value="" class="input-xlarge">
 
 
 								<%
@@ -239,15 +239,16 @@
 
 
 			<footer>
-		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
-		</p>
+			<hr>
+			<p class="pull-right">
+				<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+			</p>
 
 
-		<p>
-			&copy; 2014 <a href="#">美人帮</a>
-		</p>
-		</footer>
+			<p>
+				&copy; 2014 <a href="#">美人帮</a>
+			</p>
+			</footer>
 
 
 

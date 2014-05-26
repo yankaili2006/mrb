@@ -32,7 +32,7 @@
 		update tbproject set date=#date#
 		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
 		<isNotEmpty prepend="," property="cid">cid=#cid#</isNotEmpty>
-		<isNotEmpty prepend="," property="irui">iuri=#iuri#</isNotEmpty>
+		<isNotEmpty prepend="," property="iuri">iuri=#iuri#</isNotEmpty>
 		<isNotEmpty prepend="," property="level">level=#level#</isNotEmpty>
 		<isNotEmpty prepend="," property="area">area=#area#</isNotEmpty>
 		<isNotEmpty prepend="," property="store">store=#store#</isNotEmpty>

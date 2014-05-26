@@ -50,22 +50,14 @@
 
 <script type="text/javascript">
 	function delvideo() {
-		$.post("video.do", {
-			act : "del",
-			msg : "{vid:" + $('#vid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				$.post("video.do?act=list", function(data) {
-					$("#videogrid").html(data);
-				});
-			}
-		});
+		$('#act').val("del");
+		$('#msg').val("{vid:" + $('#vid').val() + "}");
+		$('#editvid').submit();
 	}
 
 	function gotoedit(obj) {
 		var tds = $(obj).parent().parent().find('td');
+		$('#act').val("edit");
 		$('#vid').val(tds.eq(0).text());
 		$('#msg').val("{vid:" + tds.eq(0).text() + "}");
 		$('#editvid').submit();
@@ -143,7 +135,7 @@
 		<div class="row-fluid">
 			<div class="span3">
 				<div class="sidebar-nav">
-				
+
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#home-menu">
 						<i class="icon-home"></i>主页
@@ -175,6 +167,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -183,10 +176,7 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
-
+					
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
 						<i class="icon-legal"></i>法律协议
@@ -195,7 +185,7 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-					
+
 				</div>
 			</div>
 			<div class="span9">
@@ -260,7 +250,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

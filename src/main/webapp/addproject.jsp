@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mrb.bean.ProjectBean"%>
+<%@ page import="com.mrb.bean.CityBean"%>
+<%@ page import="com.mrb.bs.CityBS"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -53,17 +55,123 @@
 
 <script type="text/javascript">
 	function addproject() {
+
+		var exp = $('#name').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("项目名不能为空!");
+			$('#name').focus();
+			return false;
+		}
+
+		exp = $('#cid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("城市不能为空!");
+			$('#cid').focus();
+			return false;
+		}
+
+		exp = $('#iuri').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("图标不能为空!");
+			$('#iuri').focus();
+			return false;
+		}
+
+		exp = $('#level').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("定位不能为空!");
+			$('#level').focus();
+			return false;
+		}
+
+		exp = $('#area').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("生存地址不能为空!");
+			$('#area').focus();
+			return false;
+		}
+
+		exp = $('#store').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("店面类型不能为空!");
+			$('#store').focus();
+			return false;
+		}
+
+		exp = $('#build').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("成立时间不能为空!");
+			$('#build').focus();
+			return false;
+		}
+
+		exp = $('#pack').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("产品包装不能为空!");
+			$('#pack').focus();
+			return false;
+		}
+
+		exp = $('#sale').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("销售模式不能为空!");
+			$('#sale').focus();
+			return false;
+		}
+
+		exp = $('#chain').val();
+		if (!exp || typeof (exp) == "undefined" || exp == -1) {
+			alert("是否下店扶持不能为空!");
+			$('#chain').focus();
+			return false;
+		}
+
+		exp = $('#fee').val();
+		if (!exp || typeof (exp) == "undefined" || exp == -1) {
+			alert("是否有加盟费不能为空!");
+			$('#fee').focus();
+			return false;
+		}
+
+		var iuri = $('#iuri').val();
+		if (iuri.indexOf("\\") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
+		}
+		if (iuri.indexOf("/") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
+		}
+
 		$('#act').val("add");
 		$('#msg').val(
 				"{name:" + $('#name').val() + ",cid:" + $('#cid').val()
-						+ ",iuri:" + $('#iuri').val() + ",level:"
-						+ $('#level').val() + ",area:" + $('#area').val()
-						+ ",store:" + $('#store').val() + ",build:"
-						+ $('#build').val() + ",pack:" + $('#pack').val()
-						+ ",sale:" + $('#sale').val() + ",chain:"
-						+ $('#chain').val() + ",fee:" + $('#fee').val()
-						+ ",date:" + $('#date').val() + "}");
+						+ ",iuri:\"" + iuri + "\",level:" + $('#level').val()
+						+ ",area:" + $('#area').val() + ",store:"
+						+ $('#store').val() + ",build:" + $('#build').val()
+						+ ",pack:" + $('#pack').val() + ",sale:"
+						+ $('#sale').val() + ",chain:" + $('#chain').val()
+						+ ",fee:" + $('#fee').val() + "}");
 		$('#addform').submit();
+	}
+
+	function upload() {
+		var exp = $('#uploadfile').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("请选择图片");
+			$('#uploadfile').focus();
+			return false;
+		}
+
+		var iuri = $('#uploadfile').val();
+		if (iuri.indexOf("\\") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
+		}
+		if (iuri.indexOf("/") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
+		}
+
+		$('#uploadform').submit();
+		$('#iuri').val(iuri);
+		$('#uploadModal').modal('hide');
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -108,7 +216,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -151,6 +259,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li class="active"><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -159,9 +268,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -182,6 +288,10 @@
 					<div class="btn-group"></div>
 				</div>
 				<%
+					CityBS cityBS = new CityBS();
+					Integer cnt = cityBS.getCityCnt();
+					ArrayList<CityBean> clist = cityBS.getCityList(0, cnt);
+
 					Object robj = request.getAttribute("result");
 					if (robj != null) {
 						String result = (String) robj;
@@ -219,9 +329,24 @@
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"><label>
-									城市 </label> <input type="text" name="cid" id="cid"
-									value="<%=bean.getCid()%>" class="input-xlarge"> <label>
-									图标 </label> <input type="text" name="iuri" id="iuri"
+									城市 </label> <select name="cid" id="cid">
+									<%
+										if (clist != null && clist.size() > 0) {
+												for (int i = 0; i < clist.size(); i++) {
+													CityBean cBean = clist.get(i);
+									%>
+									<option value="<%=cBean.getCid()%>"
+										<%if (cBean.getCid() == bean.getCid())
+							out.print("selected=\"selected\"");%>><%=cBean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select><label> 图标 </label> <input type="text" name="iuri" id="iuri"
 									value="<%=bean.getIuri()%>" class="input-xlarge"> <label>
 									定位 </label> <input type="text" name="level" id="level"
 									value="<%=bean.getLevel()%>" class="input-xlarge"> <label>
@@ -258,18 +383,33 @@
 					out.print("selected=\"selected\"");
 				}%>>
 										否</option>
-								</select> <label> 修改时间 </label> <input type="text" name="date" id="date"
-									value="<%=bean.getDate()%>" class="input-xlarge">
+								</select>
 								<%
 									} else {
 								%>
 								<label> 项目名 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"><label> 城市 </label> <input
-									type="text" name="cid" id="cid" value="" class="input-xlarge">
-								<label> 图标 </label> <input type="text" name="iuri" id="iuri"
-									value="" class="input-xlarge"> <label> 定位 </label> <input
-									type="text" name="level" id="level" value=""
-									class="input-xlarge"> <label> 生存地址 </label> <input
+									value="" class="input-xlarge"><label> 城市 </label> <select
+									name="cid" id="cid">
+									<%
+										if (clist != null && clist.size() > 0) {
+												for (int i = 0; i < clist.size(); i++) {
+													CityBean cBean = clist.get(i);
+									%>
+									<option value="<%=cBean.getCid()%>"><%=cBean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select> <label> 图标 </label> <input type="text" name="iuri" id="iuri"
+									value="" class="input-xlarge">
+								<button class="btn btn-primary btn-lg" data-toggle="modal"
+									data-target="#uploadModal">上传图片</button>
+								<label> 定位 </label> <input type="text" name="level" id="level"
+									value="" class="input-xlarge"> <label> 生存地址 </label> <input
 									type="text" name="area" id="area" value="" class="input-xlarge">
 								<label> 店面类型 </label> <input type="text" name="store" id="store"
 									value="" class="input-xlarge"> <label> 成立时间 </label> <input
@@ -285,8 +425,7 @@
 									class="input-xlarge">
 									<option value="1">是</option>
 									<option value="0">否</option>
-								</select> <label> 修改时间 </label> <input type="text" name="date" id="date"
-									value="" class="input-xlarge">
+								</select>
 								<%
 									}
 								%>
@@ -297,7 +436,35 @@
 			</div>
 		</div>
 
-
+		<!-- Modal -->
+		<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+					</div>
+					<div class="modal-body">
+						<form action="UploadServlet" method="post"
+							enctype="multipart/form-data" target="post_frame" id="uploadform"
+							name="uploadform">
+							<input type="file" class="btn btn-primary" name="uploadfile"
+								id="uploadfile" size="100" /> <input type="submit"
+								class="btn btn-primary" value="upload" style="display: none;" />
+						</form>
+						<iframe name='post_frame' id="post_frame" style="display: none;"></iframe>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="upload()">上传</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 
 		<footer>
 		<hr>

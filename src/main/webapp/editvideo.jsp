@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mrb.bean.VideoBean"%>
+<%@ page import="com.mrb.bean.VCateBean"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -53,26 +54,98 @@
 
 <script type="text/javascript">
 	function delvideo() {
-		$.post("video.do", {
-			act : "del",
-			msg : "{uid:" + $('#uid').val() + "}"
-		}, function(data) {
-			if (data != "ok") {
-				alert(data);
-			} else {
-				alert("删除成功");
-				window.location.href = "video.jsp";
-			}
-		});
+		var exp = $('#vid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("视频ID不能为空");
+		} else {
+			$('#act').val("del");
+			$('#msg').val("{vid:" + $('#vid').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 
 	function updatevideo() {
-		$('#act').val("update");
-		$('#msg').val(
-				"{uid:" + $('#uid').val() + ",uname:" + $('#uname').val()
-						+ ",phone:" + $('#phone').val() + ",status:"
-						+ $('#status').val() + "}");
-		$('#updateform').submit();
+		var exp = $('#vid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("视频ID不能为空");
+		} else {
+
+			exp = $('#title').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("视频名称不能为空!");
+				$('#title').focus();
+				return false;
+			}
+
+			exp = $('#description').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("描述信息不能为空!");
+				$('#description').focus();
+				return false;
+			}
+
+			exp = $('#vcid').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("视频分类不能为空!");
+				$('#vcid').focus();
+				return false;
+			}
+
+			exp = $('#snapshot_url').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("截图不能为空!");
+				$('#snapshot_url').focus();
+				return false;
+			}
+
+			exp = $('#thumbnail_url').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("缩略图不能为空!");
+				$('#thumbnail_url').focus();
+				return false;
+			}
+
+			exp = $('#duration').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("时长不能为空!");
+				$('#duration').focus();
+				return false;
+			}
+
+			exp = $('#created_time').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("创建时间不能为空!");
+				$('#created_time').focus();
+				return false;
+			}
+
+			exp = $('#modified_time').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("修改时间不能为空!");
+				$('#modified_time').focus();
+				return false;
+			}
+
+			exp = $('#status').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("状态不能为空!");
+				$('#status').focus();
+				return false;
+			}
+
+			$('#act').val("update");
+			$('#msg').val(
+					"{vid:" + $('#vid').val() + ",title:" + $('#title').val()
+							+ ",description:" + $('#description').val()
+							+ ",vcid:" + $('#vicd').val() + ",snapshot_url:"
+							+ $('#snapshot_url').val() + ",thumbnail_url:"
+							+ $('#thumbnail_url').val() + ",duration:"
+							+ $('#duration').val() + ",created_time:"
+							+ $('#created_time').val() + ",modified_time:"
+							+ $('#modified_time').val() + ",status:"
+							+ $('#status').val() + "}");
+			$('#updateform').submit();
+		}
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -116,7 +189,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -160,6 +233,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -168,9 +242,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -225,29 +296,54 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
+									Object vcobj = request.getAttribute("vclist");
+									ArrayList<VCateBean> vclist = (ArrayList<VCateBean>) vcobj;
+
 									Object obj = request.getAttribute("video");
 									if (obj != null) {
 										VideoBean bean = (VideoBean) obj;
 								%>
-								<label>视频名称</label> <input type="text" name="title" id="title"
+								<label>石山视频ID</label><input type="text" id="vid" name="vid"
+									value="<%=bean.getVid()%>" readOnly="true"> <label>视频名称</label>
+								<input type="text" name="title" id="title"
 									value="<%=bean.getTitle()%>" class="input-xlarge"> <label>
 									描述信息</label>
 								<textarea name="description" id="description"
 									class="form-control" rows="3"><%=bean.getDescription()%></textarea>
-
-								<label>截图</label> <img alt="" src="<%=bean.getSnapshot_url()%>">
-								<label>缩略图</label> <img alt=""
+								<label> 视频分类 </label><select name="vcid" id="vcid"
+									class="input-xlarge">
+									<%
+										if (vclist != null && vclist.size() > 0) {
+												for (int i = 0; i < vclist.size(); i++) {
+													VCateBean vcbean = vclist.get(i);
+									%>
+									<option value="<%=vcbean.getVcid()%>"
+										<%if (vcbean != null
+								&& bean.getVcid() == vcbean.getVcid()) {
+							out.print("selected=\"selected\"");
+						}%>>
+										<%=vcbean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select> <label>截图</label> <img id="snapshot_url" name="snapshot_url"
+									alt="" src="<%=bean.getSnapshot_url()%>"> <label>缩略图</label>
+								<img id="thumbnail_url" name="thumbnail_url" alt=""
 									src="<%=bean.getThumbnail_url()%>"> <label>时长</label> <input
-									type="text" name="title" id="title"
+									type="text" name="duration" id="duration"
 									value="<%=bean.getDuration()%>" class="input-xlarge"> <label>创建时间</label>
-								<input type="text" name="title" id="title"
+								<input type="text" name="created_time" id="created_time"
 									value="<%=bean.getCreated_time()%>" class="input-xlarge">
 
-								<label>修改时间</label> <input type="text" name="title" id="title"
-									value="<%=bean.getModified_time()%>" class="input-xlarge">
-
-								<label>状态</label> <select name="status" id="status"
-									class="input-xlarge">
+								<label>修改时间</label> <input type="text" name="modified_time"
+									id="modified_time" value="<%=bean.getModified_time()%>"
+									class="input-xlarge"> <label>状态</label> <select
+									name="status" id="status" class="input-xlarge">
 									<option value="Z"
 										<%if ("Z".equals(bean.getStatus())) {
 					out.print("selected=\"selected\"");
@@ -258,24 +354,15 @@
 					out.print("selected=\"selected\"");
 				}%>>
 										注销</option>
-								</select> <input type="hidden" id="vid" name="vid"
-									value="<%=bean.getVid()%>">
+								</select>
 								<%
 									} else {
 								%>
-								<label> 视频名称 </label> <input type="text" name="title" id="title"
-									value="" class="input-xlarge"> <label> 描述信息 </label>
-								<textarea name="description" id="description"
-									class="form-control" rows="3"></textarea>
-
-								<label> 状态 </label> <select name="status" id="status"
-									class="input-xlarge">
-									<option value="Z">正常</option>
-									<option value="C">注销</option>
-								</select> <input type="hidden" id="vid" name="vid" value="0">
+								<label>未找到相应视频</label>
 								<%
 									}
 								%>
+
 							</form>
 						</div>
 					</div>

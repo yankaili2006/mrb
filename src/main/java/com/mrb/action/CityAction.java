@@ -170,10 +170,13 @@ public class CityAction extends Action {
 			CityBean bean = (CityBean) gson.fromJson(msg, CityBean.class);
 			if (bean != null) {
 				log.info("cid = [" + bean.getCid() + "]");
-				bs.delCityById(bean.getCid());
+				bs.delCityById(bean);
 			} else {
 				result = "参数非法";
 			}
+			
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 
 		} else if ("update".equals(act)) { // 更新城市 for 跳转
 			CityBean bean = (CityBean) gson.fromJson(msg, CityBean.class);

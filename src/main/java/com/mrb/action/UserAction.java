@@ -88,7 +88,9 @@ public class UserAction extends Action {
 		} else if ("add".equals(act)) { // 添加用户 for 跳转
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
-				bs.addUser(bean);
+				if (!bs.addUser(bean)) {
+					result = "添加失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -124,8 +126,11 @@ public class UserAction extends Action {
 			} else {
 
 				// 添加用户
-				Long uid = bs.addUser(bean);
-				if (uid > 0) {
+				boolean rst = bs.addUser(bean);
+				Long uid = System.currentTimeMillis() % 1000000;
+
+				bean.setUid(uid);
+				if (rst) {
 					respBean.setCode("0000");
 					respBean.setMsg("注册成功");
 					respBean.setUid(uid);
@@ -147,7 +152,7 @@ public class UserAction extends Action {
 				e.printStackTrace();
 				log.error(e.getStackTrace());
 			}
-			
+
 			UserRegRespBean respBean = new UserRegRespBean();
 
 			if (bean == null) {
@@ -236,10 +241,15 @@ public class UserAction extends Action {
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
 				log.info("uid = [" + bean.getUid() + "]");
-				bs.delUserById(bean.getUid());
+				if (!bs.delUserById(bean.getUid())) {
+					result = "删除失败";
+				}
 			} else {
 				result = "参数非法";
 			}
+
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 
 		} else if ("update".equals(act)) { // 更新用户 for 跳转
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
@@ -248,7 +258,9 @@ public class UserAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setOpdate(Long.valueOf(now));
-				bs.updateUser(bean);
+				if (!bs.updateUser(bean)) {
+					result = "更新失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -271,7 +283,9 @@ public class UserAction extends Action {
 				user.setOpdate(Long.valueOf(now));
 				user.setUid(bean.getUid());
 				user.setPwd(bean.getPwd());
-				bs.updateUserPwd(user);
+				if (bs.updateUserPwd(user)) {
+					result = "更新密码失败";
+				}
 			} else {
 				result = "参数非法";
 			}

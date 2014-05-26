@@ -121,7 +121,8 @@ public class VideoBS {
 			vbean.setThumbnail_url(metaBean.getThumbnail_url());
 			vbean.setCreated_time(metaBean.getCreated_time());
 			vbean.setModified_time(metaBean.getModified_time());
-
+			
+			vbean.setVcid(reqBean.getVcid());
 		}
 
 		SqlMapClient client = SqlMap.getSqlMapInstance();

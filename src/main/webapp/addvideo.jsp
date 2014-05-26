@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.mrb.bean.VideoReqBean"%>
+<%@ page import="com.mrb.bean.VCateBean"%>
+<%@ page import="com.mrb.bs.VCateBS"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -53,15 +55,24 @@
 
 <script type="text/javascript">
 	function addvideo() {
-
-		if ($('#entryid').val() == '') {
-			alert("请输入视频ID");
-			return false;
+		var exp = $('#entryid').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("视频ID不能为空");
+		} else {
+			
+			exp = $('#vcid').val();
+			if (!exp || typeof (exp) == "undefined" || exp == 0) {
+				alert("视频分类不能为空!");
+				$('#vcid').focus();
+				return false;
+			}
+			
+			$('#act').val("add");
+			$('#msg').val(
+					"{entryid:" + $('#entryid').val() + ",vcid:"
+							+ $('#vcid').val() + "}");
+			$('#addform').submit();
 		}
-
-		$('#act').val("add");
-		$('#msg').val("{entryid:" + $('#entryid').val() + "}");
-		$('#addform').submit();
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -105,7 +116,7 @@
 						</ul></li>
 
 				</ul>
-				<a class="brand" href="home.do"><span class="first">pdpda欢迎登陆</span>
+				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
 					<span class="second">美人帮管理端</span> </a>
 			</div>
 		</div>
@@ -149,6 +160,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 					</ul>
@@ -157,9 +169,6 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					<ul id="store-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">城市列表</a></li>
-					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
@@ -212,22 +221,64 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
+									VCateBS vcateBS = new VCateBS();
+									Integer cnt = vcateBS.getVCateCnt();
+									ArrayList<VCateBean> vclist = vcateBS.getVCateList(0, cnt);
+
 									Object obj = request.getAttribute("video");
 									if (obj != null) {
 										VideoReqBean bean = (VideoReqBean) obj;
 								%>
-								<label> 视频ID </label> <input type="text" name="entryid"
+								<label> 石山视频ID </label> <input type="text" name="entryid"
 									id="entryid" value="<%=bean.getEntryid()%>"
+									class="input-xlarge"> <label> 视频分类 </label><select
+									name="vcid" id="vcid" class="input-xlarge">
+									<%
+										if (vclist != null && vclist.size() > 0) {
+												for (int i = 0; i < vclist.size(); i++) {
+													VCateBean vcbean = vclist.get(i);
+									%>
+									<option value="<%=vcbean.getVcid()%>"
+										<%if (vcbean != null
+								&& bean.getVcid() == vcbean.getVcid()) {
+							out.print("selected=\"selected\"");
+						}%>>
+										<%=vcbean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+									<%
+										} else {
+									%>
+									<label> 视频ID </label>
+									<input type="text" name="entryid" id="entryid" value=""
 									class="input-xlarge">
-								<%
-									} else {
-								%>
-								<label> 视频ID </label> <input type="text" name="entryid"
-									id="entryid" value="" class="input-xlarge">
-								<%
-									}
-								%>
-
+									<label> 视频分类 </label>
+									<select name="vcid" id="vcid" class="input-xlarge">
+										<%
+											if (vclist != null && vclist.size() > 0) {
+													for (int i = 0; i < vclist.size(); i++) {
+														VCateBean vcbean = vclist.get(i);
+										%>
+										<option value="<%=vcbean.getVcid()%>">
+											<%=vcbean.getName()%></option>
+										<%
+											}
+												} else {
+										%>
+										<option value="-1">无</option>
+										<%
+											}
+										%>
+										<%
+											}
+										%>
+								
 							</form>
 						</div>
 					</div>

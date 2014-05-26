@@ -192,7 +192,9 @@ public class ProjectAction extends Action {
 			ProjectBean bean = (ProjectBean) gson.fromJson(msg,
 					ProjectBean.class);
 			if (bean != null) {
-				bs.addProject(bean);
+				if (!bs.addProject(bean)) {
+					result = "添加失败";
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -235,7 +237,10 @@ public class ProjectAction extends Action {
 					ProjectBean.class);
 			if (bean != null) {
 				log.info("pid = [" + bean.getPid() + "]");
-				bs.delProjectById(bean.getPid());
+				if (!bs.delProjectById(bean.getPid())) {
+					result = "删除失败";
+				}
+
 			} else {
 				result = "参数非法";
 			}
@@ -251,7 +256,9 @@ public class ProjectAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setDate(Long.valueOf(now));
-				bs.updateProject(bean);
+				if (!bs.updateProject(bean)) {
+					result = "更新失败";
+				}
 			} else {
 				result = "参数非法";
 			}
