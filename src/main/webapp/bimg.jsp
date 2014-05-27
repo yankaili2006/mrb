@@ -1,11 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page import="com.mrb.bean.PcateBean"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta charset="utf-8">
-<title>分类管理</title>
+<title>品牌图片管理</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -49,37 +47,40 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
 <script type="text/javascript">
-	function delpcate() {
-		var exp = $('#cid').val();
-		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("项目分类ID不能为空");
-		} else {
-			$('#act').val("del");
-			$('#msg').val("{cid:" + $('#cid').val() + "}");
-			$('#updateform').submit();
-		}
+	function delbimg() {
+		$('#act').val("del");
+		$('#msg').val("{biid:" + $('#biid').val() + "}");
+		$('#editbiid').submit();
 	}
 
-	function updatepcate() {
-		var exp = $('#cid').val();
-		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("项目分类ID不能为空");
-		} else {
+	function gotoedit(obj) {
+		var tds = $(obj).parent().parent().find('td');
+		$('#act').val("edit");
+		$('#biid').val(tds.eq(0).text());
+		$('#msg').val("{biid:" + tds.eq(0).text() + "}");
+		$('#editbiid').submit();
+	}
 
-			var exp = $('#name').val();
-			if (!exp || typeof (exp) == "undefined" || exp == 0) {
-				alert("分类名不能为空!");
-				$('#name').focus();
-				return false;
-			}
+	function gotoadd() {
+		window.location.href = "addbimg.jsp";
+	}
 
-			$('#act').val("update");
-			$('#msg').val(
-					"{cid:" + $('#cid').val() + ",name:" + $('#name').val()
-							+ "}");
-			$('#updateform').submit();
-		}
+	function setbiid(obj) {
+		var tds = $(obj).parent().parent().find('td');
+		$('#biid').val(tds.eq(0).text());
+		$('#update').modal('show');
+	}
+
+	$(document).ready(function() {
+		load(1);
+	});
+
+	function load(page) {
+		$.post("bimg.do?act=list&msg={p:" + page + "}", function(data) {
+			$("#bimggrid").html(data);
+		});
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -134,7 +135,6 @@
 		<div class="row-fluid">
 			<div class="span3">
 				<div class="sidebar-nav">
-
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#home-menu">
 						<i class="icon-home"></i>主页
@@ -165,11 +165,11 @@
 						<i class="icon-road"></i>项目管理
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
-						<li class="active"><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="pcate.jsp">项目分类</a></li>
 						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
-						<li><a href="bimg.jsp">品牌图片列表</a></li>
+						<li class="active"><a href="bimg.jsp">品牌图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -185,23 +185,16 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">编辑分类</h1>
+				<h1 class="page-title">所有品牌图片</h1>
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" onclick="updatepcate();">
-						<i class="icon-save"></i>保存
+					<button class="btn btn-primary" onclick="gotoadd();">
+						<i class="icon-plus"></i>添加品牌图片
 					</button>
-					<a href="#myModal" data-toggle="modal" class="btn">删除</a>
 					<div class="btn-group"></div>
 				</div>
-				<form id="updateform" name="updateform" action="pcate.do"
-					method="post">
-					<input type="hidden" id="act" name="act" value=""> <input
-						type="hidden" id="msg" name="msg" value="">
-				</form>
 				<%
 					Object robj = request.getAttribute("result");
 					if (robj != null) {
@@ -221,39 +214,13 @@
 					}
 					}
 				%>
-				<div class="well">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
-						</li>
-					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane active in" id="home">
-							<form id="tab">
-								<%
-									Object obj = request.getAttribute("pcate");
-									if (obj != null) {
-										PcateBean bean = (PcateBean) obj;
-								%>
-								<label> 分类名 </label> <input type="text" id="name" name="name"
-									value="<%if (bean != null)
-					out.print(bean.getName());%>"
-									class="input-xlarge"> <input type="hidden" id="cid"
-									name="cid"
-									value="<%if (bean != null)
-					out.print(bean.getCid());%>">
-								<%
-									} else {
-								%>
-								<label> 未找到对应项目分类 </label>
-								<%
-									}
-								%>
-							</form>
-						</div>
-
-					</div>
-
-				</div>
+				<!-- 位置重要 -->
+				<form name="editbiid" id="editbiid" action="bimg.do" method="post">
+					<input type="hidden" id="act" name="act" value=""> <input
+						type="hidden" id="msg" name="msg" value="">
+				</form>
+				<input type="hidden" id="biid" value="">
+				<div id="bimggrid"></div>
 
 				<div class="modal small hide fade" id="myModal" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -263,16 +230,15 @@
 						<h3 id="myModalLabel">删除确认</h3>
 					</div>
 					<div class="modal-body">
-
 						<p class="error-text">
-							<i class="icon-warning-sign modal-icon"></i>您确定删除该分类?
+							<i class="icon-warning-sign modal-icon"></i>您确定删除该品牌图片?
 						</p>
 					</div>
 					<div class="modal-footer">
 						<button class="btn" data-dismiss="modal" aria-hidden="true">
 							取消</button>
 						<button class="btn btn-danger" data-dismiss="modal"
-							onclick="delpcate();">删除</button>
+							onclick="delbimg();">删除</button>
 					</div>
 				</div>
 

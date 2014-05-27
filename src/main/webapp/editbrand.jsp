@@ -261,6 +261,7 @@
 						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li class="active"><a href="brand.jsp">品牌列表</a></li>
+						<li><a href="bimg.jsp">品牌图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"

@@ -153,7 +153,7 @@
 			$('#uploadfile').focus();
 			return false;
 		}
-		
+
 		var iuri = $('#uploadfile').val();
 		if (iuri.indexOf("\\") != -1) {
 			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
@@ -161,7 +161,7 @@
 		if (iuri.indexOf("/") != -1) {
 			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
 		}
-		
+
 		$('#uploadform').submit();
 		$('#iuri').val(iuri);
 		$('#uploadModal').modal('hide');
@@ -255,6 +255,7 @@
 						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li class="active"><a href="brand.jsp">品牌列表</a></li>
+						<li><a href="bimg.jsp">品牌图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -325,7 +326,7 @@
 												for (int i = 0; i < plist.size(); i++) {
 													ProjectBean pbean = plist.get(i);
 									%>
-									<option value="<%=bean.getPid()%>"
+									<option value="<%=pbean.getPid()%>"
 										<%if (pbean != null && bean.getPid() == pbean.getPid()) {
 							out.print("selected=\"selected\"");
 						}%>>

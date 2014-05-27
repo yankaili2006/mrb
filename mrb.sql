@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.37, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: mrb
 -- ------------------------------------------------------
--- Server version	5.5.35-0ubuntu0.13.10.2
+-- Server version	5.5.37-0ubuntu0.13.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `tbbimg`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbbimg` (
-  `id` bigint(20) NOT NULL,
+  `biid` bigint(20) NOT NULL,
   `bid` int(10) NOT NULL,
   `iuri` varchar(20480) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -35,6 +35,7 @@ CREATE TABLE `tbbimg` (
 
 LOCK TABLES `tbbimg` WRITE;
 /*!40000 ALTER TABLE `tbbimg` DISABLE KEYS */;
+INSERT INTO `tbbimg` VALUES (503473,799618,'美人邦学堂.png'),(483510,925927,'相关视频.png');
 /*!40000 ALTER TABLE `tbbimg` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -577,4 +578,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-27  1:41:52
+-- Dump completed on 2014-05-28  1:18:41

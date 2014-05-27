@@ -61,6 +61,12 @@ public class ProjectBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return false;
 		}
 		return true;

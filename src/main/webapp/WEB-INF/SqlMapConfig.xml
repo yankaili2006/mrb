@@ -38,6 +38,7 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
 	<sqlMap resource="com/mrb/persistence/Pcate.xml" />
 	<sqlMap resource="com/mrb/persistence/Project.xml" />
 	<sqlMap resource="com/mrb/persistence/Brand.xml" />
+	<sqlMap resource="com/mrb/persistence/BImg.xml" />
 	<sqlMap resource="com/mrb/persistence/Vcate.xml" />
 	<sqlMap resource="com/mrb/persistence/Video.xml" />
 	<sqlMap resource="com/mrb/persistence/Code.xml" />
