@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class ZmBean {
+	
 	private String status;
 	private String error_code;
 	private String name;

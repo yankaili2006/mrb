@@ -1,13 +1,13 @@
 package com.mrb.pbean;
 
-public class VRespBean {
-	
+import java.util.ArrayList;
+
+public class PReviewRespBean {
 	
 	private String code;
 	private String msg;
-	private int start;
 	private int num;
-	private String vlist;
+	private ArrayList<PReviewBean> rlist;
 
 	public String getCode() {
 		return code;
@@ -25,14 +25,6 @@ public class VRespBean {
 		this.msg = msg;
 	}
 
-	public int getStart() {
-		return start;
-	}
-
-	public void setStart(int start) {
-		this.start = start;
-	}
-
 	public int getNum() {
 		return num;
 	}
@@ -41,12 +33,12 @@ public class VRespBean {
 		this.num = num;
 	}
 
-	public String getVlist() {
-		return vlist;
+	public ArrayList<PReviewBean> getRlist() {
+		return rlist;
 	}
 
-	public void setVlist(String vlist) {
-		this.vlist = vlist;
+	public void setRlist(ArrayList<PReviewBean> rlist) {
+		this.rlist = rlist;
 	}
 
 }

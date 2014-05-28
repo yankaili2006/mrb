@@ -9,6 +9,7 @@ package com.mrb.bean;
  */
 public class VideoBean {
 	
+	
 	private String vid;
 	private long vcid;
 	private String status;

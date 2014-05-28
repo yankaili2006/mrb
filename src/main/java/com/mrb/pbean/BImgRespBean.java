@@ -3,6 +3,7 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 public class BImgRespBean {
+	
 	private String code;
 	private String msg;
 	private int num;

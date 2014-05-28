@@ -277,7 +277,7 @@
 		//获取品牌图片列表
 		$('#bimg').click(
 				function() {
-					$.post("project.do?act=bimg&msg={bid:"
+					$.post("bimg.do?act=listall&msg={bid:"
 							+ $('#bimg_bid').val() + ",start:"
 							+ $('#bimg_start').val() + ",num:"
 							+ $('#bimg_num').val() + "}", function(data) {
@@ -285,6 +285,57 @@
 					});
 				});
 
+		//获取项目评论列表
+		$('#preview').click(
+				function() {
+					$.post("project.do?act=review&msg={pid:"
+							+ $('#preview_pid').val() + ",start:"
+							+ $('#preview_start').val() + ",num:"
+							+ $('#preview_num').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
+		//评论项目
+		$('#pview').click(
+				function() {
+					$.post("project.do?act=doreview&msg={pid:"
+							+ $('#pview_pid').val() + ",uid:"
+							+ $('#pview_uid').val() + ",text:"
+							+ $('#pview_text').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
+
+		//关于我们
+		$('#about').click(
+				function() {
+					$.post("other.do?act=about&msg={}", function(data) {
+						alert(data);
+					});
+				});
+		
+
+		//更新
+		$('#update').click(
+				function() {
+					$.post("other.do?act=update&msg={}", function(data) {
+						alert(data);
+					});
+				});
+
+		//有奖反馈
+		$('#feed').click(
+				function() {
+					$.post("other.do?act=feed&msg={uid:"
+							+ $('#feed_uid').val() + ",info:"
+							+ $('#feed_text').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
+		
 	});
 </script>
 <!-- Le fav and touch icons -->
@@ -617,12 +668,81 @@
 			<div class="span4">
 				<h4>获取品牌图片列表</h4>
 				<label>pid</label> <input type="text" id="bimg_bid" name="bimg_bid"
-					value="29781"> <br> <label>start</label> <input
+					value="799618"> <br> <label>start</label> <input
 					type="text" id="bimg_start" name="bimg_start" value=""> <br>
 				<label>num</label> <input type="text" id="bimg_num" name="bimg_num"
 					value=""> <br>
 				<button id="bimg" name="bimg" class="btn" data-dismiss="modal"
 					aria-hidden="true">获取品牌图片列表</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<h2>获取项目评论列表</h2>
+			<hr>
+			<div class="span4">
+				<h4>获取项目评论列表</h4>
+				<label>pid</label> <input type="text" id="preview_pid"
+					name="preview_pid" value="476979"> <br> <label>start</label>
+				<input type="text" id="preview_start" name="preview_start" value="">
+				<br> <label>num</label> <input type="text" id="preview_num"
+					name="preview_num" value=""> <br>
+				<button id="preview" name="preview" class="btn" data-dismiss="modal"
+					aria-hidden="true">获取项目评论列表</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<h2>评论项目</h2>
+			<hr>
+			<div class="span4">
+				<h4>评论项目</h4>
+				<label>pid</label> <input type="text" id="pview_pid"
+					name="pview_pid" value="476979"> <br> <label>uid</label>
+				<input type="text" id="pview_uid" name="pview_uid" value="562869">
+				<br> <label>text</label> <input type="text" id="pview_num"
+					name="pview_num" value=""> <br>
+				<button id="pview" name="pview" class="btn" data-dismiss="modal"
+					aria-hidden="true">评论项目</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<h2>关于我们</h2>
+			<hr>
+			<div class="span4">
+				<h4>关于我们</h4>
+				<button id="about" name="about" class="btn" data-dismiss="modal"
+					aria-hidden="true">关于我们</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<h2>更新</h2>
+			<hr>
+			<div class="span4">
+				<h4>更新</h4>
+				<button id="update" name="update" class="btn" data-dismiss="modal"
+					aria-hidden="true">更新</button>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<h2>有奖反馈</h2>
+			<hr>
+			<div class="span4">
+				<h4>有奖反馈</h4>
+				<label>uid</label> <input type="text" id="feed_uid"
+					name="feed_uid" value="562869"> <br> <label>text</label>
+				<input type="text" id="feed_text" name="feed_text" value="">
+				<br>
+				<button id="feed" name="feed" class="btn" data-dismiss="modal"
+					aria-hidden="true">有奖反馈</button>
 			</div>
 		</div>
 

@@ -17,18 +17,22 @@
 		#cnt#
 	</select>
 
+	<select id="getPReviewList" parameterClass="com.mrb.pbean.BrandReqBean"
+		resultClass="com.mrb.pbean.PReviewBean">
+		select * from tbpreview order by date desc limit #start#,
+		#num#
+	</select>
+
+	<insert id="addPReview" parameterClass="com.mrb.pbean.PReviewBean">
+		insert into tbpreview
+		values(#rid#,#pid#,#uid#,#text#,#date#)
+	</insert>
+
+
 	<select id="getProjec4PhonetList" parameterClass="com.mrb.pbean.ProjectReqBean"
 		resultClass="com.mrb.pbean.Project4PhoneBean">
 		select pid, name, iuri from tbproject order by date desc
 		limit #start#,
-		#num#
-	</select>
-
-	<select id="getProjectImagesList" parameterClass="com.mrb.pbean.BImgReqBean"
-		resultClass="java.lang.String">
-		select id, bid, iuri from tbbimg where bid= #bid#
-		limit
-		#start#,
 		#num#
 	</select>
 

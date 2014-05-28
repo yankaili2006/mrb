@@ -1,28 +1,27 @@
 package com.mrb.pbean;
 
-public class VReviewBean {
+public class PReviewBean {
 	
-	
-	private long vrid;
-	private String vid;
+	private long rid;
+	private long pid;
 	private long uid;
 	private String text;
 	private long date;
 
-	public long getVrid() {
-		return vrid;
+	public long getRid() {
+		return rid;
 	}
 
-	public void setVrid(long vrid) {
-		this.vrid = vrid;
+	public void setRid(long rid) {
+		this.rid = rid;
 	}
 
-	public String getVid() {
-		return vid;
+	public long getPid() {
+		return pid;
 	}
 
-	public void setVid(String vid) {
-		this.vid = vid;
+	public void setPid(long pid) {
+		this.pid = pid;
 	}
 
 	public long getUid() {

@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VHisReqBean {
 	
+	
 	private long uid;
 	private int start;
 	private int num;

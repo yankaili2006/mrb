@@ -2,6 +2,8 @@ package com.mrb.pbean;
 
 public class CityReqBean {
 	
+	
+	
 	private int level;
 	private int start;
 	private int num;

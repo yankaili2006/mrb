@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class ThumbBean {
 	
+	
 	private String data;
 	private String refer_id;
 	private String rendition_id;

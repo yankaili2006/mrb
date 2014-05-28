@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class EntryBean {
 
-	
 	private ArrayList cuepoints;
 	private String description;
 	private String title;

@@ -1,11 +1,10 @@
 package com.mrb.pbean;
 
-public class PCateRespBean {
-	
+public class UpdateRespBean {
 	private String code;
 	private String msg;
-	private int num;
-	private String clist;
+	private String version;
+	private String uri;
 
 	public String getCode() {
 		return code;
@@ -23,20 +22,20 @@ public class PCateRespBean {
 		this.msg = msg;
 	}
 
-	public int getNum() {
-		return num;
+	public String getVersion() {
+		return version;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public void setVersion(String version) {
+		this.version = version;
 	}
 
-	public String getClist() {
-		return clist;
+	public String getUri() {
+		return uri;
 	}
 
-	public void setClist(String clist) {
-		this.clist = clist;
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 
 }

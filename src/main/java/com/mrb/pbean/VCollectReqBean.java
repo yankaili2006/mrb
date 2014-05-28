@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VCollectReqBean {
 	
+	
 	private int uid;
 	private int start;
 	private int num;

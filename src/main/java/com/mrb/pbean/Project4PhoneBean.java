@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class Project4PhoneBean {
+	
 	private long pid;
 	private String name;
 	private String iuri;

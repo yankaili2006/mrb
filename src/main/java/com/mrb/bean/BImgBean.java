@@ -8,6 +8,7 @@ package com.mrb.bean;
  * @author Administrator 11:52:49 AM
  */
 public class BImgBean {
+	
 
 	private long biid;
 	private long bid;

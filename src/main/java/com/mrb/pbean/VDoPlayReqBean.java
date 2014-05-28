@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VDoPlayReqBean {
 	
+	
 	private long uid;
 	private String vid;
 	private int finish;

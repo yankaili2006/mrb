@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VRelateReqBean {
 	
+	
 	private String vid;
 	private int start;
 	private int num;

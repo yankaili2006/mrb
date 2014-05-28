@@ -93,7 +93,6 @@
 		</action>
 
 
-
 		<!-- 管理台首页 -->
 		<action path="/home" type="com.mrb.action.HomeAction" name="jsonForm"
 			scope="request" validate="false">
@@ -120,6 +119,12 @@
 			name="jsonForm" scope="request" validate="false">
 			<forward name="admin" path="/admin.jsp" />
 		</action>
+
+
+		<action path="/other" type="com.mrb.paction.OtherAction" name="jsonForm"
+			scope="request" validate="false">
+		</action>
+
 
 		<action path="/index" type="com.mrb.action.IndexAction">
 			<forward name="index" path="/admin.jsp" />

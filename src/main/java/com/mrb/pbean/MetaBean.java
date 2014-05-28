@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class MetaBean {
 	
+	
 	private String status; // 视频状态
 	private String audio_channels; // 音轨
 	private String description; // 视频简介

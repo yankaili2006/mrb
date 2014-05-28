@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class UrlBean {
 	
+	
 	private String url;
 	private long expires;
 

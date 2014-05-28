@@ -9,6 +9,7 @@ package com.mrb.bean;
  */
 public class Brand2ShowBean {
 
+	
 	private long pid;
 	private String pname;
 	private long bid;

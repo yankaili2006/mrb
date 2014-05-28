@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VCollectBean {
 	
+	
 	private long ucid;
 	private String vid;
 	private String iuri;

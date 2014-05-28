@@ -6,9 +6,7 @@ package com.mrb.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +24,7 @@ import com.mrb.bean.PageBean;
 import com.mrb.bs.BImgBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.BImgReqBean;
+import com.mrb.pbean.BImgRespBean;
 import com.mrb.util.PageUtil;
 
 /**
@@ -99,6 +98,34 @@ public class BImgAction extends Action {
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
 			}
+		} else if ("listall".equals(act)) { // 获取品牌图片列表 for phone
+			BImgReqBean bean = (BImgReqBean) gson.fromJson(msg,
+					BImgReqBean.class);
+			ArrayList<BImg2ShowBean> list = null;
+			BImgRespBean respBean = new BImgRespBean();
+			if (bean != null) {
+				list = bs.getBImgListByBid(bean);
+				if (list == null || list.size() == 0) {
+					respBean.setCode("1501");
+					respBean.setMsg("查询失败");
+				} else {
+					ArrayList<String> imgs = new ArrayList<String>();
+					for (int i = 0; i < list.size(); i++) {
+						BImg2ShowBean bibean = list.get(i);
+						imgs.add(bibean.getIuri());
+					}
+					respBean.setCode("0000");
+					respBean.setMsg("交易成功");
+					respBean.setNum(list.size());
+					respBean.setImgs(imgs);
+				}
+			} else {
+				respBean.setCode("1500");
+				respBean.setMsg("参数非法");
+			}
+
+			result = gson.toJson(respBean);
+
 		} else if ("edit".equals(act)) {// 编辑品牌图片 for 跳转
 			BImg2ShowBean bimg = null;
 			BImgBean bean = (BImgBean) gson.fromJson(msg, BImgBean.class);

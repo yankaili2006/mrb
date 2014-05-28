@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VHisBean {
 
+	
 	private long vpid;
 	private String vid;
 	private String title;

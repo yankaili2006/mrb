@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class VDoCollectBean {
+	
 	private long ucid;
 	private long uid;
 	private String vid;

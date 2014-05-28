@@ -8,7 +8,6 @@ package com.mrb.bean;
  * @author Administrator 11:52:49 AM
  */
 public class CityBean {
-	
 
 	private long cid;
 	private String name;

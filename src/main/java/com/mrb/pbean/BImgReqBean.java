@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class BImgReqBean {
+	
 	private long bid;
 	private int start;
 	private int num;

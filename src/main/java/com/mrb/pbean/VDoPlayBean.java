@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class VDoPlayBean {
+	
 
 	private long vpid;
 	private long uid;

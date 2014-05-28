@@ -2,7 +2,6 @@ package com.mrb.pbean;
 
 public class VRelateBean {
 	
-	
 	private int vrid;
 	private String vid;
 	private String iuri;

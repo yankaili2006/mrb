@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class PCate4PhoneBean {
+	
 
 	private long cid;
 	private String name;

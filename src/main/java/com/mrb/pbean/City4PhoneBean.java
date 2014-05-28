@@ -2,7 +2,6 @@ package com.mrb.pbean;
 
 public class City4PhoneBean {
 	
-	
 	private long cid;
 	private String name;
 

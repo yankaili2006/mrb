@@ -3,6 +3,7 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 public class ProjectInfoRespBean {
+	
 	private String code;
 	private String msg;
 	private String name;

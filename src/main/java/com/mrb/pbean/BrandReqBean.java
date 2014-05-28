@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class BrandReqBean {
+	
 	private long pid;
 	private Integer start;
 	private Integer num;

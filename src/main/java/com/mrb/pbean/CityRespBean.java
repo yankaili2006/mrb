@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class CityRespBean {
 	
+	
 	private String code;
 	private String msg;
 	private int start;

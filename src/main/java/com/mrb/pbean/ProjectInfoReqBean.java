@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class ProjectInfoReqBean {
+	
 	private long pid;
 
 	public long getPid() {

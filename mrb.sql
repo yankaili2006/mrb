@@ -122,6 +122,31 @@ INSERT INTO `tbcode` VALUES (382139,'15901411984','111111111',1,20140514171629),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbfeed`
+--
+
+DROP TABLE IF EXISTS `tbfeed`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbfeed` (
+  `fid` bigint(20) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  `info` varchar(4096) NOT NULL,
+  `date` bigint(32) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbfeed`
+--
+
+LOCK TABLES `tbfeed` WRITE;
+/*!40000 ALTER TABLE `tbfeed` DISABLE KEYS */;
+INSERT INTO `tbfeed` VALUES (59834,562869,'555',20140529003739);
+/*!40000 ALTER TABLE `tbfeed` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbpcategory`
 --
 
@@ -154,9 +179,9 @@ DROP TABLE IF EXISTS `tbpreview`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbpreview` (
-  `rid` int(10) NOT NULL,
-  `bid` int(10) NOT NULL,
-  `uid` int(10) NOT NULL,
+  `rid` bigint(20) NOT NULL,
+  `pid` bigint(20) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   `text` varchar(512) NOT NULL,
   `date` bigint(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -168,6 +193,7 @@ CREATE TABLE `tbpreview` (
 
 LOCK TABLES `tbpreview` WRITE;
 /*!40000 ALTER TABLE `tbpreview` DISABLE KEYS */;
+INSERT INTO `tbpreview` VALUES (309337,476979,562869,'undefined',20140528235149);
 /*!40000 ALTER TABLE `tbpreview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,31 +231,6 @@ LOCK TABLES `tbproject` WRITE;
 /*!40000 ALTER TABLE `tbproject` DISABLE KEYS */;
 INSERT INTO `tbproject` VALUES (283222,'欧莱雅',168748,1401078312450,'项目首页-品牌故事.png','高端客户','北京','大中型店','1988年','普通装','直销',1,0,20140526215501,0),(476979,'欧莱雅',168748,1401078312450,'左侧抽屉导航.png','高端客户','北','大中型店','1988年',NULL,NULL,1,1,20140526215555,0),(507360,'1',893062,1401078764927,'版本检测.png','1','1','1','1','2','2',1,1,20140526215542,0);
 /*!40000 ALTER TABLE `tbproject` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `tbstore`
---
-
-DROP TABLE IF EXISTS `tbstore`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbstore` (
-  `sid` int(10) NOT NULL,
-  `name` varchar(128) NOT NULL,
-  `cid` int(10) NOT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `tbstore`
---
-
-LOCK TABLES `tbstore` WRITE;
-/*!40000 ALTER TABLE `tbstore` DISABLE KEYS */;
-/*!40000 ALTER TABLE `tbstore` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -306,7 +307,7 @@ CREATE TABLE `tbureview` (
 
 LOCK TABLES `tbureview` WRITE;
 /*!40000 ALTER TABLE `tbureview` DISABLE KEYS */;
-INSERT INTO `tbureview` VALUES (1,'593727852328384587',1,'1111122222',20140323042321),(1,'593727852328384587',1,'1111122222',20140323042321),(20140522223729,'593727852328384587',562869,'2',20140522223729);
+INSERT INTO `tbureview` VALUES (1,'593727852328384587',1,'1111122222',20140323042321),(1,'593727852328384587',1,'1111122222',20140323042321),(20140522223729,'593727852328384587',562869,'2',20140522223729),(20140528205548,'593727852328384587',562869,'11',20140528205548);
 /*!40000 ALTER TABLE `tbureview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,7 +365,7 @@ CREATE TABLE `tbushare` (
 
 LOCK TABLES `tbushare` WRITE;
 /*!40000 ALTER TABLE `tbushare` DISABLE KEYS */;
-INSERT INTO `tbushare` VALUES (20140522222236,562869,'593727852328384587',20140522222236);
+INSERT INTO `tbushare` VALUES (20140522222236,562869,'593727852328384587',20140522222236),(20140528205543,562869,'593727852328384587',20140528205543);
 /*!40000 ALTER TABLE `tbushare` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -578,4 +579,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-28  1:18:41
+-- Dump completed on 2014-05-29  0:38:39

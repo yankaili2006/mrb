@@ -13,7 +13,8 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.ProjectBean;
 import com.mrb.ibatis.SqlMap;
-import com.mrb.pbean.BImgReqBean;
+import com.mrb.pbean.BrandReqBean;
+import com.mrb.pbean.PReviewBean;
 import com.mrb.pbean.Project4PhoneBean;
 import com.mrb.pbean.ProjectReqBean;
 
@@ -149,15 +150,15 @@ public class ProjectBS {
 	}
 
 	/*
-	 * 获取项目列表
+	 * 获取项目评论列表
 	 */
-	public ArrayList<String> getProjectImagesList(BImgReqBean bean) {
-		ArrayList<String> projectImagesList = null;
+	public ArrayList<PReviewBean> getPReviewList(BrandReqBean bean) {
+		ArrayList<PReviewBean> projectList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			projectImagesList = (ArrayList<String>) client.queryForList(
-					"getProjectImagesList", bean);
+			projectList = (ArrayList<PReviewBean>) client.queryForList(
+					"getPReviewList", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -170,7 +171,39 @@ public class ProjectBS {
 				e1.printStackTrace();
 			}
 		}
-		return projectImagesList;
+		return projectList;
+	}
+
+	/*
+	 * 添加项目评论
+	 */
+	public Boolean addPReview(PReviewBean bean) {
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+
+			long rid = System.currentTimeMillis() % 1000000;
+			bean.setRid(rid);
+
+			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
+			String now = dfm.format(new Date());
+			bean.setDate(Long.valueOf(now));
+
+			client.update("addPReview", bean);
+			client.commitTransaction();
+
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return false;
+		}
+		return true;
 	}
 
 	/*

@@ -2,7 +2,6 @@ package com.mrb.bean;
 
 public class PublishBean {
 	
-	
 	private String flash;
 	private String js;
 	private String embedded;

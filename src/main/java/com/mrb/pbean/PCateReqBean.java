@@ -1,6 +1,7 @@
 package com.mrb.pbean;
 
 public class PCateReqBean {
+	
 private int num;
 
 public int getNum() {

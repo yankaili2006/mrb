@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VDoReviewReqBean {
 	
+	
 	private long uid;
 	private String vid;
 	private String text;
