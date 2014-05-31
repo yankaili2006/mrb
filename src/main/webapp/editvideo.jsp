@@ -170,6 +170,10 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
+
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">

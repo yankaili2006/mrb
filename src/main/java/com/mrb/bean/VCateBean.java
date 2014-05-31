@@ -4,11 +4,16 @@
  */
 package com.mrb.bean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.mrb.util.DateUtil;
+
 /**
  * @author Administrator 11:52:49 AM
  */
 public class VCateBean {
-	
+
 	private long vcid;
 	private String name;
 	private long date;
@@ -30,8 +35,8 @@ public class VCateBean {
 		this.name = name;
 	}
 
-	public long getDate() {
-		return date;
+	public String getDate() {
+		return DateUtil.format(date);
 	}
 
 	public void setDate(long date) {

@@ -100,8 +100,8 @@
 	</div>
 
 	<form name="loginform" id="loginform" action="user.do" method="post">
-		<input type="hidden" id="act" name="act" value="loginuserphone"> <input
-			type="hidden" id="msg" name="msg" value="">
+		<input type="hidden" id="act" name="act" value="loginuserphone">
+		<input type="hidden" id="msg" name="msg" value="">
 	</form>
 	<div class="container-fluid">
 

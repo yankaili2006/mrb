@@ -4,11 +4,15 @@
  */
 package com.mrb.bean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.mrb.util.DateUtil;
+
 /**
  * @author Administrator 11:52:49 AM
  */
 public class UserBean {
-	
 
 	private long uid;
 	private String uname;
@@ -98,12 +102,13 @@ public class UserBean {
 	/**
 	 * @return the date
 	 */
-	public long getDate() {
-		return date;
+	public String getDate() {
+		return DateUtil.format(date);
 	}
 
 	/**
-	 * @param date the date to set
+	 * @param date
+	 *            the date to set
 	 */
 	public void setDate(long date) {
 		this.date = date;
@@ -117,7 +122,8 @@ public class UserBean {
 	}
 
 	/**
-	 * @param opdate the opdate to set
+	 * @param opdate
+	 *            the opdate to set
 	 */
 	public void setOpdate(long opdate) {
 		this.opdate = opdate;
@@ -146,7 +152,8 @@ public class UserBean {
 	}
 
 	/**
-	 * @param operid the operid to set
+	 * @param operid
+	 *            the operid to set
 	 */
 	public void setOperid(long operid) {
 		this.operid = operid;

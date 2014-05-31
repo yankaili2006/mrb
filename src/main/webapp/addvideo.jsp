@@ -59,14 +59,14 @@
 		if (!exp || typeof (exp) == "undefined" || exp == 0) {
 			alert("视频ID不能为空");
 		} else {
-			
+
 			exp = $('#vcid').val();
 			if (!exp || typeof (exp) == "undefined" || exp == 0) {
 				alert("视频分类不能为空!");
 				$('#vcid').focus();
 				return false;
 			}
-			
+
 			$('#act').val("add");
 			$('#msg').val(
 					"{entryid:" + $('#entryid').val() + ",vcid:"
@@ -97,6 +97,9 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">

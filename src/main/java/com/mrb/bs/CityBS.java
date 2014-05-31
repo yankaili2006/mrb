@@ -49,7 +49,7 @@ public class CityBS {
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			log.debug(e.getMessage());
+			log.debug(e.getMessage());	
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {

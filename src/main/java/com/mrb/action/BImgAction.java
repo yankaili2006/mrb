@@ -20,8 +20,10 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.mrb.bean.BImg2ShowBean;
 import com.mrb.bean.BImgBean;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bs.BImgBS;
+import com.mrb.bs.OperateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.BImgReqBean;
 import com.mrb.pbean.BImgRespBean;
@@ -43,8 +45,18 @@ public class BImgAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		BImgBS bs = new BImgBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+		
 		if ("list".equals(act)) { // 获取品牌图片列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -92,12 +104,16 @@ public class BImgAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+			operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加品牌图片");
+				operBS.addOperate(operBean);
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("bimg", bean);
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
 			}
+
 		} else if ("listall".equals(act)) { // 获取品牌图片列表 for phone
 			BImgReqBean bean = (BImgReqBean) gson.fromJson(msg,
 					BImgReqBean.class);
@@ -157,6 +173,11 @@ public class BImgAction extends Action {
 				if (!bs.delBImgByBiid(bean.getBiid())) {
 					result = "删除失败";
 				}
+				else{
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除品牌图片");
+					operBS.addOperate(operBean);
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -178,6 +199,10 @@ public class BImgAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新品牌图片");
+				operBS.addOperate(operBean);
+				
 				BImg2ShowBean showBean = bs.getBImgByBiid(bean.getBiid());
 				req.setAttribute("bimg", showBean);
 				return mapping.findForward("edit");

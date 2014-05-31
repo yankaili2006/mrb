@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page language="java"
+	import="com.mrb.bs.UserBS,com.mrb.bs.VideoBS,com.mrb.bs.ProjectBS,com.mrb.bs.OperateBS"%>
+<%@ page language="java"
+	import="com.mrb.bean.UserBean,com.mrb.bean.OperateBean"%>
+<%@ page language="java" import="java.util.ArrayList"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,6 +76,10 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
+
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -108,7 +118,7 @@
 					<ul id="home-menu" class="nav nav-list collapse in">
 						<li class="active"><a href="home.jsp">主页</a></li>
 					</ul>
-					
+
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#user-menu">
 						<i class="icon-user"></i>用户管理
@@ -152,6 +162,11 @@
 					</ul>
 				</div>
 			</div>
+			<%
+				UserBS userBS = new UserBS();
+				VideoBS videoBS = new VideoBS();
+				ProjectBS proBS = new ProjectBS();
+			%>
 			<div class="span9">
 				<script type="text/javascript" src="lib/jqplot/jquery.jqplot.min.js"></script>
 				<script type="text/javascript" charset="utf-8"
@@ -159,13 +174,13 @@
 
 				<div class="stats">
 					<p class="stat">
-						<span class="number">53</span>tickets
+						<span class="number"><%=userBS.getUserCnt()%></span>用户
 					</p>
 					<p class="stat">
-						<span class="number">27</span>tasks
+						<span class="number"><%=proBS.getProjectCnt()%></span>项目
 					</p>
 					<p class="stat">
-						<span class="number">15</span>waiting
+						<span class="number"><%=videoBS.getVideoCnt()%></span>视频
 					</p>
 				</div>
 				<h1 class="page-title">主页</h1>
@@ -188,42 +203,35 @@
 							<table class="table">
 								<thead>
 									<tr>
-										<th>First Name</th>
-										<th>Last Name</th>
-										<th>Username</th>
+										<th>用户名</th>
+										<th>手机号</th>
+										<th>注册时间</th>
 									</tr>
 								</thead>
 								<tbody>
+									<%
+										ArrayList<UserBean> ulist = userBS.getUserList(0, 6);
+										if (ulist != null && ulist.size() > 0) {
+											for (int i = 0; i < ulist.size(); i++) {
+												UserBean ubean = ulist.get(i);
+									%>
 									<tr>
-										<td>Mark</td>
-										<td>Tompson</td>
-										<td>the_mark7</td>
+										<td><%=ubean.getUname()%></td>
+										<td><%=ubean.getPhone()%></td>
+										<td><%=ubean.getDate()%></td>
 									</tr>
+									<%
+										}
+										} else {
+									%>
 									<tr>
-										<td>Ashley</td>
-										<td>Jacobs</td>
-										<td>ash11927</td>
+										<td></td>
+										<td>没有注册用户</td>
+										<td></td>
 									</tr>
-									<tr>
-										<td>Audrey</td>
-										<td>Ann</td>
-										<td>audann84</td>
-									</tr>
-									<tr>
-										<td>John</td>
-										<td>Robinson</td>
-										<td>jr5527</td>
-									</tr>
-									<tr>
-										<td>Aaron</td>
-										<td>Butler</td>
-										<td>aaron_butler</td>
-									</tr>
-									<tr>
-										<td>Chris</td>
-										<td>Albert</td>
-										<td>cab79</td>
-									</tr>
+									<%
+										}
+									%>
 								</tbody>
 							</table>
 							<p>
@@ -240,69 +248,58 @@
 						</div>
 					</div>
 				</div>
-
+				<%
+					OperateBS operBS = new OperateBS();
+					ArrayList<OperateBean> operList = operBS.getOperateList(0, 6);
+				%>
 				<div class="row-fluid">
 					<div class="block span6">
 						<div class="block-heading" data-toggle="collapse"
 							data-target="#widget2container">
-							操作历史<span class="label label-warning">+10</span>
+							操作历史<span class="label label-warning">+<%=operBS.getOperateCnt()%></span>
 						</div>
 						<div id="widget2container" class="block-body collapse in">
 							<table class="table">
+								<thead>
+									<tr>
+										<th>用户名</th>
+										<th>操作</th>
+										<th>时间</th>
+									</tr>
+								</thead>
 								<tbody>
+									<%
+										if (operList != null && operList.size() > 0) {
+											for (int i = 0; i < operList.size(); i++) {
+												OperateBean operBean = operList.get(i);
+									%>
 									<tr>
 										<td>
 											<p>
-												<i class="icon-user"></i> Mark Otto
+												<i class="icon-user"></i><%=operBean.getUname()%>
 											</p>
 										</td>
 										<td>
-											<p>Amount: $1,247</p>
+											<p><%=operBean.getOper()%></p>
 										</td>
 										<td>
-											<p>Date: 7/19/2012</p> <a href="#">查看</a>
+											<p><%=operBean.getDate()%></p>
 										</td>
 									</tr>
+									<%
+										}
+										} else {
+									%>
 									<tr>
+										<td></td>
 										<td>
-											<p>
-												<i class="icon-user"></i> Audrey Ann
-											</p>
+											<p>没有操作记录</p>
 										</td>
-										<td>
-											<p>Amount: $2,793</p>
-										</td>
-										<td>
-											<p>Date: 7/12/2012</p> <a href="#">查看</a>
-										</td>
+										<td></td>
 									</tr>
-									<tr>
-										<td>
-											<p>
-												<i class="icon-user"></i> Mark Tompson
-											</p>
-										</td>
-										<td>
-											<p>Amount: $2,349</p>
-										</td>
-										<td>
-											<p>Date: 3/10/2012</p> <a href="#">查看</a>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p>
-												<i class="icon-user"></i> Ashley Jacobs
-											</p>
-										</td>
-										<td>
-											<p>Amount: $1,192</p>
-										</td>
-										<td>
-											<p>Date: 1/19/2012</p> <a href="#">查看</a>
-										</td>
-									</tr>
-
+									<%
+										}
+									%>
 								</tbody>
 							</table>
 						</div>
@@ -312,6 +309,16 @@
 						<div class="block-body">
 							<h2>如何添加视频？</h2>
 							<p>请先将视频上传至石山视频(www.smvp.cn),生成一个唯一ID号，点击菜单中的[视频管理]->[视频列表]->[添加视频]。录入在石山视频的唯一的ID号，系统自动获取该视频的播放地址，简介等详细信息。添加成功后，可以修改该视频的部分信息。
+
+
+
+
+
+
+
+
+
+
 							
 							<p>
 								<a class="btn btn-primary btn-large">了解更多 &raquo;</a>

@@ -4,18 +4,23 @@
  */
 package com.mrb.bean;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.mrb.util.DateUtil;
+
 /**
  * @author Administrator 11:52:49 AM
  */
 public class VideoBean {
-	
-	
+
 	private String vid;
 	private long vcid;
 	private String status;
 	private String description;
 	private String tags;
-	private String snapshot_url; //大图
+	private String snapshot_url; // 大图
 	private String thumbnail_url;
 	private long file_size;
 	private int activated;
@@ -258,8 +263,8 @@ public class VideoBean {
 		this.zm_id = zm_id;
 	}
 
-	public long getDate() {
-		return date;
+	public String getDate() {
+		return DateUtil.format(date);
 	}
 
 	public void setDate(long date) {

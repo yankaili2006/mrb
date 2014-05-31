@@ -106,6 +106,9 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -238,9 +241,10 @@
 										VCateBean bean = (VCateBean) obj;
 								%>
 								<label> 视频分类ID </label> <input type="text" name="vcid" id="vcid"
-									value="<%=bean.getVcid()%>" class="input-xlarge" readonly="readonly"> <label>
-									分类名称 </label> <input type="text" name="name" id="name"
-									value="<%=bean.getName()%>" class="input-xlarge">
+									value="<%=bean.getVcid()%>" class="input-xlarge"
+									readonly="readonly"> <label> 分类名称 </label> <input
+									type="text" name="name" id="name" value="<%=bean.getName()%>"
+									class="input-xlarge">
 
 								<%
 									} else {

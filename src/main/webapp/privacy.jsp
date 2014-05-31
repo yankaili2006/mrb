@@ -70,6 +70,10 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
+
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -101,7 +105,7 @@
 		<div class="row-fluid">
 			<div class="span3">
 				<div class="sidebar-nav">
-				
+
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#home-menu">
 						<i class="icon-home"></i>主页
@@ -152,7 +156,7 @@
 						<li class="active"><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人帮使用协议</a></li>
 					</ul>
-					
+
 				</div>
 			</div>
 			<div class="span9">
@@ -168,7 +172,8 @@
 
 		<footer>
 		<hr>
-		<p class="pull-right"><a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
+		<p class="pull-right">
+			<a href="#" target="_blank">技术支持</a> by <a href="#" target="_blank">YKLI</a>
 		</p>
 
 

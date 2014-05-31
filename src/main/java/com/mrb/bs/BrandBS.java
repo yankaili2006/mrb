@@ -34,7 +34,6 @@ public class BrandBS {
 			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 			String now = dfm.format(new Date());
 			bean.setDate(Long.valueOf(now));
-			bean.setOperid(1L);
 
 			String iuri = bean.getIuri();
 			if (iuri.contains("/")) {

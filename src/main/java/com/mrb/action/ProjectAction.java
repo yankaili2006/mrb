@@ -22,9 +22,11 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.mrb.bean.Brand2ShowBean;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.ProjectBean;
 import com.mrb.bs.BrandBS;
+import com.mrb.bs.OperateBS;
 import com.mrb.bs.PcateBS;
 import com.mrb.bs.ProjectBS;
 import com.mrb.form.JsonForm;
@@ -59,8 +61,18 @@ public class ProjectAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		ProjectBS bs = new ProjectBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+
 		if ("list".equals(act)) { // 获取项目列表 for ajax
 			PageBean pbean = null;
 			try {
@@ -356,6 +368,10 @@ public class ProjectAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加项目");
+				operBS.addOperate(operBean);
+
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("project", bean);
@@ -394,6 +410,10 @@ public class ProjectAction extends Action {
 				log.info("pid = [" + bean.getPid() + "]");
 				if (!bs.delProjectById(bean.getPid())) {
 					result = "删除失败";
+				} else {
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除项目");
+					operBS.addOperate(operBean);
 				}
 
 			} else {
@@ -420,7 +440,11 @@ public class ProjectAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新项目");
+				operBS.addOperate(operBean);
 				req.setAttribute("project", bean);
+
 				return mapping.findForward("edit");
 			} else {
 				req.setAttribute("result", result);

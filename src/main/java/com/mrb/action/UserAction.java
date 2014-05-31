@@ -20,9 +20,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.UserBean;
 import com.mrb.bean.UserRegRespBean;
+import com.mrb.bs.OperateBS;
 import com.mrb.bs.UserBS;
 import com.mrb.form.JsonForm;
 import com.mrb.util.PageUtil;
@@ -43,8 +45,18 @@ public class UserAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update,updatepwd".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		UserBS bs = new UserBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+
 		if ("list".equals(act)) { // 获取用户列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -97,6 +109,10 @@ public class UserAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加用户");
+				operBS.addOperate(operBean);
+
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("user", bean);
@@ -243,6 +259,9 @@ public class UserAction extends Action {
 				log.info("uid = [" + bean.getUid() + "]");
 				if (!bs.delUserById(bean.getUid())) {
 					result = "删除失败";
+				} else {
+					operBean.setOper("删除用户");
+					operBS.addOperate(operBean);
 				}
 			} else {
 				result = "参数非法";
@@ -267,7 +286,11 @@ public class UserAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新用户");
+				operBS.addOperate(operBean);
 				req.setAttribute("user", bean);
+
 				return mapping.findForward("edit");
 			} else {
 				req.setAttribute("result", result);
@@ -292,6 +315,10 @@ public class UserAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新用户密码");
+				operBS.addOperate(operBean);
+
 				user = bs.getUserById(bean.getUid());
 				req.setAttribute("user", user);
 				return mapping.findForward("edit");

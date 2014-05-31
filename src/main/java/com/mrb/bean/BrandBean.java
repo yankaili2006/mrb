@@ -4,11 +4,15 @@
  */
 package com.mrb.bean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.mrb.util.DateUtil;
+
 /**
  * @author Administrator 11:52:49 AM
  */
 public class BrandBean {
-	
 
 	private long pid;
 	private long bid;
@@ -153,8 +157,8 @@ public class BrandBean {
 	/**
 	 * @return the date
 	 */
-	public long getDate() {
-		return date;
+	public String getDate() {
+		return DateUtil.format(date);
 	}
 
 	/**

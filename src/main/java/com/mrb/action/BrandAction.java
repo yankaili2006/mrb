@@ -22,8 +22,10 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.mrb.bean.Brand2ShowBean;
 import com.mrb.bean.BrandBean;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bs.BrandBS;
+import com.mrb.bs.OperateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.BrandReqBean;
 import com.mrb.util.PageUtil;
@@ -44,8 +46,18 @@ public class BrandAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if("add,edit,del,update".contains(act)){
+			if(suid == null || "".equals(suid) || "null".equals(suid)){
+				return mapping.findForward("admin");
+			}
+		}
+
 		BrandBS bs = new BrandBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+
 		if ("list".equals(act)) { // 获取品牌列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -95,6 +107,9 @@ public class BrandAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加品牌");
+				operBS.addOperate(operBean);
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("brand", bean);
@@ -132,6 +147,11 @@ public class BrandAction extends Action {
 				if (!bs.delBrandById(bean.getBid())) {
 					result = "删除失败";
 				}
+				else{
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除品牌");
+					operBS.addOperate(operBean);
+				}
 			} else {
 				result = "参数非法";
 			}
@@ -156,6 +176,10 @@ public class BrandAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新品牌");
+				operBS.addOperate(operBean);
+				
 				Brand2ShowBean showBean = bs.getBrandById(bean.getBid());
 				req.setAttribute("brand", showBean);
 				return mapping.findForward("edit");

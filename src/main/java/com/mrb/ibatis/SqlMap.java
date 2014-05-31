@@ -23,7 +23,6 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
  */
 public class SqlMap {
 	
-
 	
 	private static SqlMapClient sqlMap = null;
 

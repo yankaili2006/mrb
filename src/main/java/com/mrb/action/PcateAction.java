@@ -18,8 +18,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.PcateBean;
+import com.mrb.bs.OperateBS;
 import com.mrb.bs.PcateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.util.PageUtil;
@@ -42,8 +44,17 @@ public class PcateAction extends Action {
 
 		// act = act == null ? "list" : act;
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		PcateBS bs = new PcateBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
 
 		if ("list".equals(act)) { // 获取分类列表 for ajax
 			ArrayList<PcateBean> ulist = null;
@@ -91,12 +102,17 @@ public class PcateAction extends Action {
 				if (!bs.addPcate(bean)) {
 					result = "操作失败!";
 				}
+
 			} else {
 				log.error("bean is null");
 				result = "参数错误";
 			}
 
 			if (!"ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加项目分类");
+				operBS.addOperate(operBean);
+
 				req.setAttribute("result", result);
 				return mapping.findForward(act);
 			} else {
@@ -127,8 +143,14 @@ public class PcateAction extends Action {
 			PcateBean bean = (PcateBean) gson.fromJson(msg, PcateBean.class);
 			if (bean != null) {
 				log.info("cid = [" + bean.getCid() + "]");
-				bs.updatePcate(bean);
-				req.setAttribute("pcate", bean);
+				if (!bs.updatePcate(bean)) {
+					result = "更新失败";
+				} else {
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("更新项目分类");
+					operBS.addOperate(operBean);
+					req.setAttribute("pcate", bean);
+				}
 			} else {
 				log.error("bean is null");
 				result = "参数错误";
@@ -141,7 +163,13 @@ public class PcateAction extends Action {
 			PcateBean bean = (PcateBean) gson.fromJson(msg, PcateBean.class);
 			if (bean != null) {
 				log.info("cid = [" + bean.getCid() + "]");
-				bs.delPcateById(bean.getCid());
+				if (!bs.delPcateById(bean.getCid())) {
+					result = "操作失败";
+				} else {
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除项目分类");
+					operBS.addOperate(operBean);
+				}
 			} else {
 				result = "未找到该分类";
 			}

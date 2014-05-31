@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="operate">
+	<insert id="addOperate" parameterClass="com.mrb.bean.OperateBean">
+		insert into tbuoperate
+		values(#opid#,#uid#,#oper#,#date#)
+	</insert>
+
+	<select id="getOperateList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.OperateBean">
+		select op.*, user.uname from tbuoperate op, tbuser user
+		where op.uid = user.uid order by op.date desc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getOperateCnt" resultClass="java.lang.Integer">
+		select count(1) from
+		tbuoperate
+	</select>
+
+</sqlMap>

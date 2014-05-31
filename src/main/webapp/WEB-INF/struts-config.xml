@@ -20,6 +20,7 @@
 			<forward name="home" path="/home.jsp" />
 			<forward name="add" path="/adduser.jsp" />
 			<forward name="edit" path="/edituser.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 
@@ -30,6 +31,7 @@
 			<forward name="list" path="/pcate.jsp" />
 			<forward name="add" path="/addpcate.jsp" />
 			<forward name="edit" path="/editpcate.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 
@@ -40,6 +42,7 @@
 			<forward name="list" path="/project.jsp" />
 			<forward name="add" path="/addproject.jsp" />
 			<forward name="edit" path="/editproject.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 
@@ -50,6 +53,7 @@
 			<forward name="list" path="/brand.jsp" />
 			<forward name="add" path="/addbrand.jsp" />
 			<forward name="edit" path="/editbrand.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 		<!-- 视频分类管理 -->
@@ -59,6 +63,7 @@
 			<forward name="list" path="/vcate.jsp" />
 			<forward name="add" path="/addvcate.jsp" />
 			<forward name="edit" path="/editvcate.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 		<!-- 视频管理 -->
@@ -68,6 +73,7 @@
 			<forward name="list" path="/video.jsp" />
 			<forward name="add" path="/addvideo.jsp" />
 			<forward name="edit" path="/editvideo.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 
@@ -79,6 +85,7 @@
 			<forward name="home" path="/home.jsp" />
 			<forward name="add" path="/addcity.jsp" />
 			<forward name="edit" path="/editcity.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 
@@ -90,6 +97,7 @@
 			<forward name="home" path="/home.jsp" />
 			<forward name="add" path="/addbimg.jsp" />
 			<forward name="edit" path="/editbimg.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 
@@ -97,6 +105,7 @@
 		<action path="/home" type="com.mrb.action.HomeAction" name="jsonForm"
 			scope="request" validate="false">
 			<forward name="home" path="/home.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
 		<!-- 校验码 for phone -->

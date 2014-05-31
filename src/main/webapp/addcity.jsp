@@ -59,14 +59,14 @@
 			$('#name').focus();
 			return false;
 		}
-		
+
 		exp = $('#level').val();
 		if (!exp || typeof (exp) == "undefined" || exp == 0) {
 			alert("城市层级不能为空!");
 			$('#level').focus();
 			return false;
 		}
-		
+
 		$('#act').val("add");
 		$('#msg').val(
 				"{name:" + $('#name').val() + ",level:" + $('#level').val()
@@ -96,6 +96,9 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -220,14 +223,15 @@
 								<label> 城市名 </label> <input type="text" name="name" id="name"
 									value="<%=bean.getName()%>" class="input-xlarge"> <label>
 									城市层级 </label> <input type="text" name="level" id="level"
-									value="<%=bean.getLevel()%>" class="input-xlarge" readonly="readonly">
+									value="<%=bean.getLevel()%>" class="input-xlarge"
+									readonly="readonly">
 								<%
 									} else {
 								%>
 								<label> 城市名 </label> <input type="text" name="name" id="name"
 									value="" class="input-xlarge"> <label> 城市层级 </label> <input
-									type="text" name="level" id="level" value="1" readonly="readonly" 
-									class="input-xlarge">
+									type="text" name="level" id="level" value="1"
+									readonly="readonly" class="input-xlarge">
 								<%
 									}
 								%>

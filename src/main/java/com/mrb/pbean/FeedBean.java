@@ -1,5 +1,6 @@
 package com.mrb.pbean;
 
+
 public class FeedBean {
 	private long fid;
 	private long uid;

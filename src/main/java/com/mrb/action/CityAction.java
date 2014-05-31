@@ -19,9 +19,11 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.CityBean;
 import com.mrb.bs.CityBS;
+import com.mrb.bs.OperateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.City4PhoneBean;
 import com.mrb.pbean.CityReqBean;
@@ -44,8 +46,18 @@ public class CityAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		CityBS bs = new CityBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+
 		if ("list".equals(act)) { // 获取城市列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -135,6 +147,9 @@ public class CityAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加城市");
+				operBS.addOperate(operBean);
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("city", bean);
@@ -170,11 +185,17 @@ public class CityAction extends Action {
 			CityBean bean = (CityBean) gson.fromJson(msg, CityBean.class);
 			if (bean != null) {
 				log.info("cid = [" + bean.getCid() + "]");
-				bs.delCityById(bean);
+				if (!bs.delCityById(bean)) {
+					result = "删除失败";
+				} else {
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除城市");
+					operBS.addOperate(operBean);
+				}
 			} else {
 				result = "参数非法";
 			}
-			
+
 			req.setAttribute("result", result);
 			return mapping.findForward("list");
 
@@ -189,6 +210,10 @@ public class CityAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新城市");
+				operBS.addOperate(operBean);
+				
 				req.setAttribute("city", bean);
 				return mapping.findForward("edit");
 			} else {

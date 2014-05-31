@@ -20,8 +20,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.VCateBean;
+import com.mrb.bs.OperateBS;
 import com.mrb.bs.VCateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.util.PageUtil;
@@ -42,8 +44,18 @@ public class VCateAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		VCateBS bs = new VCateBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+
 		if ("list".equals(act)) { // 获取视频分类列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -80,7 +92,7 @@ public class VCateAction extends Action {
 		} else if ("add".equals(act)) { // 添加视频分类 for 跳转
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
-				if(!bs.addVCate(bean)){
+				if (!bs.addVCate(bean)) {
 					result = "添加失败";
 				}
 			} else {
@@ -89,6 +101,10 @@ public class VCateAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加视频分类");
+				operBS.addOperate(operBean);
+
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("vcate", bean);
@@ -123,8 +139,12 @@ public class VCateAction extends Action {
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
 				log.info("vcid = [" + bean.getVcid() + "]");
-				if(!bs.delVCateById(bean.getVcid())){
+				if (!bs.delVCateById(bean.getVcid())) {
 					result = "删除失败";
+				} else {
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除视频分类");
+					operBS.addOperate(operBean);
 				}
 			} else {
 				result = "参数非法";
@@ -139,7 +159,7 @@ public class VCateAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setDate(Long.valueOf(now));
-				if(!bs.updateVCate(bean)){
+				if (!bs.updateVCate(bean)) {
 					result = "更新失败";
 				}
 			} else {
@@ -148,6 +168,10 @@ public class VCateAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新视频分类");
+				operBS.addOperate(operBean);
+
 				req.setAttribute("vcate", bean);
 				return mapping.findForward("edit");
 			} else {

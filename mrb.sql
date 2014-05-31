@@ -259,6 +259,31 @@ INSERT INTO `tbucollect` VALUES (1,562869,'593727852328384587',11111),(201405222
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tbuoperate`
+--
+
+DROP TABLE IF EXISTS `tbuoperate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tbuoperate` (
+  `opid` bigint(20) NOT NULL,
+  `uid` bigint(20) NOT NULL,
+  `oper` varchar(512) NOT NULL,
+  `date` bigint(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tbuoperate`
+--
+
+LOCK TABLES `tbuoperate` WRITE;
+/*!40000 ALTER TABLE `tbuoperate` DISABLE KEYS */;
+INSERT INTO `tbuoperate` VALUES (16916,608197,'增加视频分类',20140531095016);
+/*!40000 ALTER TABLE `tbuoperate` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tbuplay`
 --
 
@@ -390,7 +415,7 @@ CREATE TABLE `tbvcate` (
 
 LOCK TABLES `tbvcate` WRITE;
 /*!40000 ALTER TABLE `tbvcate` DISABLE KEYS */;
-INSERT INTO `tbvcate` VALUES (648194,'专家课堂',20140513185728,1),(836808,'2222',20140526140331,0),(308646,'2323',20140526140508,1);
+INSERT INTO `tbvcate` VALUES (648194,'专家课堂',20140513185728,1),(836808,'2222',20140526140331,0),(308646,'2323',20140526140508,1),(16870,'测试分类',20140531095016,1);
 /*!40000 ALTER TABLE `tbvcate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -579,4 +604,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-29  0:38:39
+-- Dump completed on 2014-05-31 11:28:34

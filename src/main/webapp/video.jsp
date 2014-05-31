@@ -104,6 +104,10 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
+
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -177,7 +181,7 @@
 						data-target="#store-menu">
 						<i class="icon-globe"></i>管店管理
 					</div>
-					
+
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">
 						<i class="icon-legal"></i>法律协议

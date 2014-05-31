@@ -20,10 +20,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
+import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.VCateBean;
 import com.mrb.bean.VideoBean;
 import com.mrb.bean.VideoReqBean;
+import com.mrb.bs.OperateBS;
 import com.mrb.bs.VCateBS;
 import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
@@ -45,8 +47,18 @@ public class VideoAction extends Action {
 		String msg = ((JsonForm) form).getMsg();
 		log.debug("act = " + act + ", msg = " + msg);
 
+		Long suid = (Long) req.getSession().getAttribute("uid");
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
+				return mapping.findForward("admin");
+			}
+		}
+
 		VideoBS bs = new VideoBS();
 		Gson gson = new Gson();
+		OperateBS operBS = new OperateBS();
+		OperateBean operBean = new OperateBean();
+
 		if ("list".equals(act)) { // 获取视频列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -85,7 +97,7 @@ public class VideoAction extends Action {
 			VideoReqBean bean = (VideoReqBean) gson.fromJson(msg,
 					VideoReqBean.class);
 			if (bean != null) {
-				if(!bs.addVideo(bean)){
+				if (!bs.addVideo(bean)) {
 					result = "添加失败";
 				}
 			} else {
@@ -94,6 +106,10 @@ public class VideoAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("增加视频");
+				operBS.addOperate(operBean);
+
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("video", bean);
@@ -137,8 +153,12 @@ public class VideoAction extends Action {
 			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
 			if (bean != null) {
 				log.info("vid = [" + bean.getVid() + "]");
-				if(!bs.delVideoById(bean.getVid())){
+				if (!bs.delVideoById(bean.getVid())) {
 					result = "删除失败";
+				} else {
+					operBean.setUid(Long.valueOf(suid));
+					operBean.setOper("删除视频");
+					operBS.addOperate(operBean);
 				}
 			} else {
 				result = "参数非法";
@@ -153,7 +173,7 @@ public class VideoAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setOpdate(Long.valueOf(now));
-				if(!bs.updateVideo(bean)){
+				if (!bs.updateVideo(bean)) {
 					result = "更新失败";
 				}
 			} else {
@@ -162,8 +182,11 @@ public class VideoAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
+				operBean.setUid(Long.valueOf(suid));
+				operBean.setOper("更新视频");
+				operBS.addOperate(operBean);
 				req.setAttribute("video", bean);
-				
+
 				VCateBS vcateBS = new VCateBS();
 				Integer cnt = vcateBS.getVCateCnt();
 				ArrayList<VCateBean> vclist = vcateBS.getVCateList(0, cnt);
