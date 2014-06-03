@@ -28,6 +28,7 @@ import com.mrb.bs.BrandBS;
 import com.mrb.bs.OperateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.BrandReqBean;
+import com.mrb.util.DateUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -163,9 +164,7 @@ public class BrandAction extends Action {
 			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
 			if (bean != null) {
 				log.info("bid = [" + bean.getBid() + "]");
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				bean.setDate(Long.valueOf(now));
+				bean.setDate(DateUtil.getNow());
 				if (!bs.updateBrand(bean)) {
 					result = "更新失败";
 				}

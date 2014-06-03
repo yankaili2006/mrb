@@ -6,7 +6,7 @@ public class PReviewBean {
 	private long pid;
 	private long uid;
 	private String text;
-	private long date;
+	private String date;
 
 	public long getRid() {
 		return rid;
@@ -40,11 +40,11 @@ public class PReviewBean {
 		this.text = text;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

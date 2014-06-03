@@ -1,7 +1,5 @@
 package com.mrb.bean;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.mrb.util.DateUtil;
 
@@ -10,7 +8,7 @@ public class OperateBean {
 	private long uid;
 	private String uname;
 	private String oper;
-	private long date;
+	private String date;
 
 	public long getOpid() {
 		return opid;
@@ -45,11 +43,13 @@ public class OperateBean {
 	}
 
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
+
 
 }

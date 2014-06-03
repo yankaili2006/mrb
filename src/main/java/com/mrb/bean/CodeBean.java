@@ -1,17 +1,12 @@
 package com.mrb.bean;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.mrb.util.DateUtil;
-
 public class CodeBean {
 
 	private long uid;
 	private String phone;
 	private String code;
 	private String status;
-	private long date;
+	private String date;
 
 	public long getUid() {
 		return uid;
@@ -46,10 +41,11 @@ public class CodeBean {
 	}
 
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
 }

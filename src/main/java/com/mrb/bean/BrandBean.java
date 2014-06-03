@@ -23,7 +23,7 @@ public class BrandBean {
 	private String price;
 	private String function;
 	private String summary;
-	private long date;
+	private String date;
 	private long operid;
 
 	/**
@@ -154,18 +154,11 @@ public class BrandBean {
 		this.summary = summary;
 	}
 
-	/**
-	 * @return the date
-	 */
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

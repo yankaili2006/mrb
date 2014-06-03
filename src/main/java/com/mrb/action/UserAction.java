@@ -27,6 +27,7 @@ import com.mrb.bean.UserRegRespBean;
 import com.mrb.bs.OperateBS;
 import com.mrb.bs.UserBS;
 import com.mrb.form.JsonForm;
+import com.mrb.util.DateUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -289,9 +290,7 @@ public class UserAction extends Action {
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
 				log.info("uid = [" + bean.getUid() + "]");
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				bean.setOpdate(Long.valueOf(now));
+				bean.setOpdate(DateUtil.getNow());
 
 				int rst = bs.updateUser(bean);
 				if (rst >= 0) {
@@ -326,9 +325,7 @@ public class UserAction extends Action {
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			UserBean user = new UserBean();
 			if (bean != null) {
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				user.setOpdate(Long.valueOf(now));
+				user.setOpdate(DateUtil.getNow());
 				user.setUid(bean.getUid());
 				user.setPwd(bean.getPwd());
 				if (bs.updateUserPwd(user)) {

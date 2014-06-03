@@ -15,6 +15,7 @@ import com.mrb.bean.OperateBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.BrandReqBean;
 import com.mrb.pbean.PReviewBean;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -38,10 +39,7 @@ public class OperateBS {
 
 			long pid = System.currentTimeMillis() % 1000000;
 			bean.setOpid(pid);
-
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 
 			client.update("addOperate", bean);
 			client.commitTransaction();

@@ -9,7 +9,7 @@ public class VCollectBean {
 	private String title;
 	private long duration;
 	private int reviewcnt;
-	private long date;
+	private String date;
 
 	public long getUcid() {
 		return ucid;
@@ -59,12 +59,14 @@ public class VCollectBean {
 		this.reviewcnt = reviewcnt;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
+	
 
 }

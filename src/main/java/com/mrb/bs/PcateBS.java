@@ -15,6 +15,7 @@ import com.mrb.bean.PcateBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.PCate4PhoneBean;
 import com.mrb.pbean.PCateReqBean;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -40,9 +41,7 @@ public class PcateBS {
 			long uid = System.currentTimeMillis() % 1000000;
 			bean.setCid(uid);
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 			bean.setOperid(1L);
 
 			client.update("addPcate", bean);
@@ -171,10 +170,8 @@ public class PcateBS {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
-
+			bean.setDate(DateUtil.getNow());
+			
 			client.update("updatePcate", bean);
 			client.commitTransaction();
 			client.endTransaction();

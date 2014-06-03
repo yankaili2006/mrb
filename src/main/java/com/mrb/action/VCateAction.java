@@ -26,6 +26,7 @@ import com.mrb.bean.VCateBean;
 import com.mrb.bs.OperateBS;
 import com.mrb.bs.VCateBS;
 import com.mrb.form.JsonForm;
+import com.mrb.util.DateUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -156,9 +157,7 @@ public class VCateAction extends Action {
 			VCateBean bean = (VCateBean) gson.fromJson(msg, VCateBean.class);
 			if (bean != null) {
 				log.info("Vcid = [" + bean.getVcid() + "]");
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				bean.setDate(Long.valueOf(now));
+				bean.setDate(DateUtil.getNow());
 				if (!bs.updateVCate(bean)) {
 					result = "更新失败";
 				}

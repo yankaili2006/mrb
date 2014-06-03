@@ -1,5 +1,8 @@
 package com.mrb.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class DateUtil {
 	/*
 	 * 20140529003739 2014-05-29 00:37:39
@@ -31,4 +34,13 @@ public class DateUtil {
 
 		return sb.toString();
 	}
+
+	public static String getNow() {
+
+		SimpleDateFormat dfm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String now = dfm.format(new Date());
+
+		return now;
+	}
+
 }

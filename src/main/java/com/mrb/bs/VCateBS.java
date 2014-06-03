@@ -13,6 +13,7 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.VCateBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -36,9 +37,7 @@ public class VCateBS {
 
 			long vcid = System.currentTimeMillis() % 1000000;
 			bean.setVcid(vcid);
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 			bean.setOperid(1L);
 
 			client.update("addVCate", bean);

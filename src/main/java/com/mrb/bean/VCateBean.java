@@ -16,7 +16,7 @@ public class VCateBean {
 
 	private long vcid;
 	private String name;
-	private long date;
+	private String date;
 	private long operid;
 
 	public long getVcid() {
@@ -35,11 +35,13 @@ public class VCateBean {
 		this.name = name;
 	}
 
+
+
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -17,6 +17,7 @@ import com.mrb.pbean.BrandReqBean;
 import com.mrb.pbean.PReviewBean;
 import com.mrb.pbean.Project4PhoneBean;
 import com.mrb.pbean.ProjectReqBean;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -41,9 +42,7 @@ public class ProjectBS {
 			long pid = System.currentTimeMillis() % 1000000;
 			bean.setPid(pid);
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 			bean.setOperid(1L);
 
 			String iuri = bean.getIuri();
@@ -185,10 +184,8 @@ public class ProjectBS {
 			long rid = System.currentTimeMillis() % 1000000;
 			bean.setRid(rid);
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
-
+			bean.setDate(DateUtil.getNow());
+			
 			client.update("addPReview", bean);
 			client.commitTransaction();
 

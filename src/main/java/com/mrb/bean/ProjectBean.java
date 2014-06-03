@@ -27,7 +27,7 @@ public class ProjectBean {
 	private String sale;
 	private int chain;
 	private int fee;
-	private long date;
+	private String date;
 	private long operid;
 
 	public long getCid() {
@@ -197,18 +197,11 @@ public class ProjectBean {
 		this.fee = fee;
 	}
 
-	/**
-	 * @return the date
-	 */
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

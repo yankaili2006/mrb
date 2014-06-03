@@ -13,6 +13,7 @@ import java.util.HashMap;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.CodeBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -38,9 +39,7 @@ public class CodeBS {
 			bean.setUid(uid);
 			bean.setStatus("0");
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 
 			client.update("addCode", bean);
 			client.commitTransaction();
@@ -71,7 +70,8 @@ public class CodeBS {
 			String now = dfm.format(new Date());
 			// 有效时间五分钟
 			Long left = Long.valueOf(now) - 300;
-			bean.setDate(left);
+			
+			bean.setDate(DateUtil.format(left));
 
 			cnt = (Integer) client.queryForObject("chkCode", bean);
 			client.commitTransaction();

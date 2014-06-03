@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.UserBean;
 import com.mrb.ibatis.SqlMap;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -64,10 +65,8 @@ public class UserBS {
 			bean.setType(0);
 			bean.setStatus("Z");
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
-			bean.setOpdate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
+			bean.setOpdate(DateUtil.getNow());
 			bean.setOperid(1L);
 
 			client.update("addUser", bean);

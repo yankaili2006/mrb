@@ -15,6 +15,7 @@ import com.mrb.bean.Brand2ShowBean;
 import com.mrb.bean.BrandBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.BrandReqBean;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -31,9 +32,7 @@ public class BrandBS {
 
 			long bid = System.currentTimeMillis() % 1000000;
 			bean.setBid(bid);
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 
 			String iuri = bean.getIuri();
 			if (iuri.contains("/")) {

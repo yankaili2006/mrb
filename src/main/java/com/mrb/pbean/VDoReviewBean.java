@@ -6,15 +6,17 @@ public class VDoReviewBean {
 	private long uid;
 	private String vid;
 	private String text;
-	private long date;
+	private String date;
 
-	public long getDate() {
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
 
 	public String getVid() {
 		return vid;

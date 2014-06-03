@@ -38,6 +38,8 @@ import com.mrb.pbean.VRelateReqBean;
 import com.mrb.pbean.VReviewBean;
 import com.mrb.pbean.VReviewReqBean;
 import com.mrb.pbean.ZmBean;
+import com.mrb.util.DateUtil;
+import com.mrb.util.IdUtil;
 import com.mrb.util.SmvpUtil;
 
 /**
@@ -61,11 +63,8 @@ public class VideoBS {
 		SmvpBean smvpBean = util.smvpPost(reqBean.getEntryid());
 
 		VideoBean vbean = new VideoBean();
-		SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-		String now = dfm.format(new Date());
-
-		vbean.setDate(Long.valueOf(now));
-		vbean.setOpdate(Long.valueOf(now));
+		vbean.setDate(DateUtil.getNow());
+		vbean.setOpdate(DateUtil.getNow());
 		vbean.setOperid(1L);
 
 		MetaBean metaBean = util.getEntries(reqBean.getEntryid());
@@ -122,7 +121,7 @@ public class VideoBS {
 			vbean.setThumbnail_url(metaBean.getThumbnail_url());
 			vbean.setCreated_time(metaBean.getCreated_time());
 			vbean.setModified_time(metaBean.getModified_time());
-			
+
 			vbean.setVcid(reqBean.getVcid());
 		}
 
@@ -206,7 +205,8 @@ public class VideoBS {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			videoList = (ArrayList<VBean>) client.queryForList("getVList", bean);
+			videoList = (ArrayList<VBean>) client
+					.queryForList("getVList", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -428,15 +428,13 @@ public class VideoBS {
 		try {
 			client.startTransaction();
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
 
 			VDoCollectBean bean = new VDoCollectBean();
 
-			bean.setUcid(Long.valueOf(now));
+			bean.setUcid(IdUtil.generateID());
 			bean.setUid(reqBean.getUid());
 			bean.setVid(reqBean.getVid());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 
 			client.update("doVCollect", bean);
 			client.commitTransaction();
@@ -462,15 +460,13 @@ public class VideoBS {
 		try {
 			client.startTransaction();
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
 
 			VDoPlayBean bean = new VDoPlayBean();
 
-			bean.setVpid(Long.valueOf(now));
+			bean.setVpid(IdUtil.generateID());
 			bean.setUid(reqBean.getUid());
 			bean.setVid(reqBean.getVid());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 			bean.setLaststop(reqBean.getLaststop());
 			bean.setFinish(reqBean.getFinish());
 
@@ -490,79 +486,68 @@ public class VideoBS {
 		return true;
 	}
 
-
-
 	/*
 	 * 分享视频信息
 	 */
 	public Boolean doVShare(VDoCollectReqBean reqBean) {
-			SqlMapClient client = SqlMap.getSqlMapInstance();
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+
+			VDoCollectBean bean = new VDoCollectBean();
+
+			bean.setUcid(IdUtil.generateID());
+			bean.setUid(reqBean.getUid());
+			bean.setVid(reqBean.getVid());
+			bean.setDate(DateUtil.getNow());
+
+			client.update("doVShare", bean);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			try {
-				client.startTransaction();
-
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-
-				VDoCollectBean bean = new VDoCollectBean();
-
-				bean.setUcid(Long.valueOf(now));
-				bean.setUid(reqBean.getUid());
-				bean.setVid(reqBean.getVid());
-				bean.setDate(Long.valueOf(now));
-
-				client.update("doVShare", bean);
-				client.commitTransaction();
 				client.endTransaction();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				try {
-					client.endTransaction();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				return false;
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
-			return true;
+			return false;
 		}
-	
+		return true;
+	}
 
 	/*
 	 * 视频评论信息
 	 */
 	public Boolean doVReview(VDoReviewReqBean reqBean) {
-			SqlMapClient client = SqlMap.getSqlMapInstance();
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+
+			VDoReviewBean bean = new VDoReviewBean();
+
+			bean.setVrid(IdUtil.generateID());
+			bean.setUid(reqBean.getUid());
+			bean.setVid(reqBean.getVid());
+			bean.setText(reqBean.getText());
+			bean.setDate(DateUtil.getNow());
+
+			client.update("doVReivew", bean);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
 			try {
-				client.startTransaction();
-
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-
-				VDoReviewBean bean = new VDoReviewBean();
-
-				bean.setVrid(Long.valueOf(now));
-				bean.setUid(reqBean.getUid());
-				bean.setVid(reqBean.getVid());
-				bean.setText(reqBean.getText());
-				bean.setDate(Long.valueOf(now));
-
-				client.update("doVReivew", bean);
-				client.commitTransaction();
 				client.endTransaction();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				try {
-					client.endTransaction();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				return false;
+			} catch (SQLException e1) {
+				e1.printStackTrace();
 			}
-			return true;
+			return false;
 		}
-	
-	
+		return true;
+	}
+
 	/*
 	 * 删除视频信息
 	 */

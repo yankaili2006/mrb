@@ -9,7 +9,7 @@ public class PcateBean {
 
 	private long cid;
 	private String name;
-	private long date;
+	private String date;
 	private long operid;
 
 	/**
@@ -42,18 +42,11 @@ public class PcateBean {
 		this.name = name;
 	}
 
-	/**
-	 * @return the date
-	 */
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

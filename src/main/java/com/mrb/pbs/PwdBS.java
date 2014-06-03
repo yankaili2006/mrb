@@ -15,6 +15,7 @@ import com.mrb.bean.UserBean;
 import com.mrb.bs.UserBS;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.PwdBean;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -92,9 +93,7 @@ public class PwdBS {
 			return -100;
 		}
 
-		SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-		String now = dfm.format(new Date());
-		userBean.setOpdate(Long.valueOf(now));
+		userBean.setOpdate(DateUtil.getNow());
 		try {
 			client.startTransaction();
 			client.update("updateUserPwd", userBean);

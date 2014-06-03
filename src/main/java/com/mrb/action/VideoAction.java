@@ -29,6 +29,7 @@ import com.mrb.bs.OperateBS;
 import com.mrb.bs.VCateBS;
 import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
+import com.mrb.util.DateUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -170,9 +171,7 @@ public class VideoAction extends Action {
 			VideoBean bean = (VideoBean) gson.fromJson(msg, VideoBean.class);
 			if (bean != null) {
 				log.info("vid = [" + bean.getVid() + "]");
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				bean.setOpdate(Long.valueOf(now));
+				bean.setOpdate(DateUtil.getNow());
 				if (!bs.updateVideo(bean)) {
 					result = "更新失败";
 				}

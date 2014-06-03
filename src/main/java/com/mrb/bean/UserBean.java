@@ -20,8 +20,8 @@ public class UserBean {
 	private String pwd;
 	private int type;
 	private String status;
-	private long date;
-	private long opdate;
+	private String date;
+	private String opdate;
 	private long operid;
 
 	/**
@@ -99,33 +99,20 @@ public class UserBean {
 		this.status = status;
 	}
 
-	/**
-	 * @return the date
-	 */
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	/**
-	 * @param date
-	 *            the date to set
-	 */
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	/**
-	 * @return the opdate
-	 */
-	public long getOpdate() {
+
+	public String getOpdate() {
 		return opdate;
 	}
 
-	/**
-	 * @param opdate
-	 *            the opdate to set
-	 */
-	public void setOpdate(long opdate) {
+	public void setOpdate(String opdate) {
 		this.opdate = opdate;
 	}
 

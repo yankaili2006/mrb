@@ -43,8 +43,8 @@ public class VideoBean {
 	private String zm_id;
 	private String type;
 	private String teacher;
-	private long date;
-	private long opdate;
+	private String date;
+	private String opdate;
 	private long operid;
 
 	public String getType() {
@@ -264,18 +264,18 @@ public class VideoBean {
 	}
 
 	public String getDate() {
-		return DateUtil.format(date);
+		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public long getOpdate() {
+	public String getOpdate() {
 		return opdate;
 	}
 
-	public void setOpdate(long opdate) {
+	public void setOpdate(String opdate) {
 		this.opdate = opdate;
 	}
 

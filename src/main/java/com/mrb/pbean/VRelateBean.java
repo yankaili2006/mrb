@@ -8,7 +8,7 @@ public class VRelateBean {
 	private String title;
 	private long duration;
 	private int reviewCnt;
-	private long date;
+	private String date;
 
 	public int getVrid() {
 		return vrid;
@@ -58,12 +58,13 @@ public class VRelateBean {
 		this.duration = duration;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
 
 }

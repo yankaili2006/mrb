@@ -5,7 +5,7 @@ public class FeedBean {
 	private long fid;
 	private long uid;
 	private String info;
-	private long date;
+	private String date;
 
 	public long getFid() {
 		return fid;
@@ -15,14 +15,13 @@ public class FeedBean {
 		this.fid = fid;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-
 	public long getUid() {
 		return uid;
 	}

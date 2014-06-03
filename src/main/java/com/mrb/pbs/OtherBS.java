@@ -14,6 +14,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.CodeBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.FeedBean;
+import com.mrb.util.DateUtil;
 
 /**
  * @author Administrator 7:24:13 PM
@@ -38,9 +39,7 @@ public class OtherBS {
 			long fid = System.currentTimeMillis() % 1000000;
 			bean.setFid(fid);
 
-			SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-			String now = dfm.format(new Date());
-			bean.setDate(Long.valueOf(now));
+			bean.setDate(DateUtil.getNow());
 
 			client.update("addFeed", bean);
 			client.commitTransaction();

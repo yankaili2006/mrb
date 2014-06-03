@@ -43,6 +43,7 @@ import com.mrb.pbean.ProjectInfoRespBean;
 import com.mrb.pbean.ProjectReqBean;
 import com.mrb.pbean.ProjectRespBean;
 import com.mrb.pbean.ResBean;
+import com.mrb.util.DateUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -428,9 +429,7 @@ public class ProjectAction extends Action {
 					ProjectBean.class);
 			if (bean != null) {
 				log.info("pid = [" + bean.getPid() + "]");
-				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
-				String now = dfm.format(new Date());
-				bean.setDate(Long.valueOf(now));
+				bean.setDate(DateUtil.getNow());
 				if (!bs.updateProject(bean)) {
 					result = "更新失败";
 				}

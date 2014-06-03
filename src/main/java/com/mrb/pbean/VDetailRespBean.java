@@ -13,7 +13,7 @@ public class VDetailRespBean {
 	private String type;
 	private String teacher;
 	private String description;
-	private long date;
+	private String date;
 	
 
 	public String getCode() {
@@ -96,12 +96,13 @@ public class VDetailRespBean {
 		this.description = description;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+
 
 }

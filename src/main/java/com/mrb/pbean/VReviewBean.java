@@ -1,13 +1,12 @@
 package com.mrb.pbean;
 
 public class VReviewBean {
-	
-	
+
 	private long vrid;
 	private String vid;
 	private long uid;
 	private String text;
-	private long date;
+	private String date;
 
 	public long getVrid() {
 		return vrid;
@@ -41,11 +40,11 @@ public class VReviewBean {
 		this.text = text;
 	}
 
-	public long getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

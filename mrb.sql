@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `tbbimg`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbbimg` (
   `biid` bigint(20) NOT NULL,
-  `bid` int(10) NOT NULL,
+  `bid` bigint(20) NOT NULL,
   `iuri` varchar(20480) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -47,8 +47,8 @@ DROP TABLE IF EXISTS `tbbrand`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbbrand` (
-  `pid` int(10) NOT NULL,
-  `bid` int(10) NOT NULL,
+  `pid` bigint(20) NOT NULL,
+  `bid` bigint(20) NOT NULL,
   `btitle` varchar(128) NOT NULL,
   `binfo` varchar(1024) DEFAULT NULL,
   `iuri` varchar(512) DEFAULT NULL,
@@ -56,8 +56,8 @@ CREATE TABLE `tbbrand` (
   `price` varchar(128) DEFAULT NULL,
   `function` varchar(1024) DEFAULT NULL,
   `summary` varchar(1024) NOT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
+  `date` varchar(32) NOT NULL,
+  `operid` bigint(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,7 +67,7 @@ CREATE TABLE `tbbrand` (
 
 LOCK TABLES `tbbrand` WRITE;
 /*!40000 ALTER TABLE `tbbrand` DISABLE KEYS */;
-INSERT INTO `tbbrand` VALUES (283222,29781,'眼部护理系列','产品简介','管店首页.png','祛皱眼部精华','1280元/套','功效','其他说明',20140526215046,0),(283222,799618,'眼部护理系列111','产品简介33','切换店铺.png','祛皱眼部精华','33222元/套','功效','其他说明33',20140526185743,0),(476979,925927,'1','1','有奖反馈.png','1','1','1','1',20140526184532,0);
+INSERT INTO `tbbrand` VALUES (283222,29781,'眼部护理系列','产品简介','管店首页.png','祛皱眼部精华','1280元/套','功效','其他说明','2014-05-26 21:50:46',0),(283222,799618,'眼部护理系列111','产品简介33','切换店铺.png','祛皱眼部精华','33222元/套','功效','其他说明33','2014-05-26 21:50:46',0),(476979,925927,'1','1','有奖反馈.png','1','1','1','1','2014-05-26 21:50:46',0);
 /*!40000 ALTER TABLE `tbbrand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,11 +103,11 @@ DROP TABLE IF EXISTS `tbcode`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbcode` (
-  `uid` int(10) DEFAULT NULL,
+  `uid` bigint(20) DEFAULT NULL,
   `phone` varchar(20) NOT NULL,
   `code` varchar(10) NOT NULL,
   `status` int(1) DEFAULT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,7 +117,7 @@ CREATE TABLE `tbcode` (
 
 LOCK TABLES `tbcode` WRITE;
 /*!40000 ALTER TABLE `tbcode` DISABLE KEYS */;
-INSERT INTO `tbcode` VALUES (382139,'15901411984','111111111',1,20140514171629),(159375,'15901411984','111111111',1,20140514171629),(29159,'1233','111111111',1,20140520220744),(711457,'111','255200',1,20140520225234),(742466,'111','310226',0,20140520225542),(46366,'11','077531',0,20140520230046),(49204,'11','700504',0,20140520230049),(119238,'```','328517',0,20140520230159),(122437,'111','225013',0,20140520230202),(603735,'55','068772',0,20140520231003),(637857,'er','171868',0,20140520231037),(671591,'1212','721834',0,20140520231111),(688897,'1212','681222',1,20140520230900),(837930,'3','424417',0,20140520231357),(887716,'2','435083',0,20140520231447);
+INSERT INTO `tbcode` VALUES (382139,'15901411984','111111111',1,'2014-05-26 21:50:46'),(159375,'15901411984','111111111',1,'2014-05-26 21:50:46'),(29159,'1233','111111111',1,'2014-05-26 21:50:46'),(711457,'111','255200',1,'2014-05-26 21:50:46'),(742466,'111','310226',0,'2014-05-26 21:50:46'),(46366,'11','077531',0,'2014-05-26 21:50:46'),(49204,'11','700504',0,'2014-05-26 21:50:46'),(119238,'```','328517',0,'2014-05-26 21:50:46'),(122437,'111','225013',0,'2014-05-26 21:50:46'),(603735,'55','068772',0,'2014-05-26 21:50:46'),(637857,'er','171868',0,'2014-05-26 21:50:46'),(671591,'1212','721834',0,'2014-05-26 21:50:46'),(688897,'1212','681222',1,'2014-05-26 21:50:46'),(837930,'3','424417',0,'2014-05-26 21:50:46'),(887716,'2','435083',0,'2014-05-26 21:50:46'),(474322,'15901411984','283488',1,'2014-05-26 21:50:46'),(954518,'15901411984','676420',1,'2014-06-04 03:12:58');
 /*!40000 ALTER TABLE `tbcode` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +132,7 @@ CREATE TABLE `tbfeed` (
   `fid` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
   `info` varchar(4096) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,7 +142,7 @@ CREATE TABLE `tbfeed` (
 
 LOCK TABLES `tbfeed` WRITE;
 /*!40000 ALTER TABLE `tbfeed` DISABLE KEYS */;
-INSERT INTO `tbfeed` VALUES (59834,562869,'555',20140529003739);
+INSERT INTO `tbfeed` VALUES (59834,562869,'555','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbfeed` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,10 +154,10 @@ DROP TABLE IF EXISTS `tbpcategory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbpcategory` (
-  `cid` int(10) NOT NULL,
+  `cid` bigint(20) NOT NULL,
   `name` varchar(128) NOT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
+  `date` varchar(32) NOT NULL,
+  `operid` bigint(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -167,7 +167,7 @@ CREATE TABLE `tbpcategory` (
 
 LOCK TABLES `tbpcategory` WRITE;
 /*!40000 ALTER TABLE `tbpcategory` DISABLE KEYS */;
-INSERT INTO `tbpcategory` VALUES (893062,'面部护理',20140526131344,1),(168748,'疗效护理',20140514002248,1);
+INSERT INTO `tbpcategory` VALUES (893062,'面部护理','2014-05-26 21:50:46',1),(168748,'疗效护理','2014-05-26 21:50:46',1),(916605,'sss','2014-06-04 03:15:16',1);
 /*!40000 ALTER TABLE `tbpcategory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -183,7 +183,7 @@ CREATE TABLE `tbpreview` (
   `pid` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
   `text` varchar(512) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -193,7 +193,7 @@ CREATE TABLE `tbpreview` (
 
 LOCK TABLES `tbpreview` WRITE;
 /*!40000 ALTER TABLE `tbpreview` DISABLE KEYS */;
-INSERT INTO `tbpreview` VALUES (309337,476979,562869,'undefined',20140528235149);
+INSERT INTO `tbpreview` VALUES (309337,476979,562869,'undefined','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbpreview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `tbproject`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbproject` (
-  `pid` int(10) NOT NULL,
+  `pid` bigint(20) NOT NULL,
   `name` varchar(128) NOT NULL,
   `pcid` bigint(20) NOT NULL,
   `cid` bigint(20) NOT NULL,
@@ -218,8 +218,8 @@ CREATE TABLE `tbproject` (
   `sale` varchar(128) DEFAULT NULL,
   `chain` int(1) DEFAULT NULL,
   `fee` int(1) DEFAULT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
+  `date` varchar(32) NOT NULL,
+  `operid` bigint(20) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -229,7 +229,7 @@ CREATE TABLE `tbproject` (
 
 LOCK TABLES `tbproject` WRITE;
 /*!40000 ALTER TABLE `tbproject` DISABLE KEYS */;
-INSERT INTO `tbproject` VALUES (283222,'欧莱雅',168748,1401078312450,'项目首页-品牌故事.png','高端客户','北京','大中型店','1988年','普通装','直销',1,0,20140526215501,0),(476979,'欧莱雅',168748,1401078312450,'左侧抽屉导航.png','高端客户','北','大中型店','1988年',NULL,NULL,1,1,20140526215555,0),(507360,'1',893062,1401078764927,'版本检测.png','1','1','1','1','2','2',1,1,20140526215542,0);
+INSERT INTO `tbproject` VALUES (283222,'欧莱雅',168748,1401078312450,'项目首页-品牌故事.png','高端客户','北京','大中型店','1988年','普通装','直销',1,0,'2014-05-26 21:50:46',0),(476979,'欧莱雅',168748,1401078312450,'左侧抽屉导航.png','高端客户','北','大中型店','1988年',NULL,NULL,1,1,'2014-05-26 21:50:46',0),(507360,'1',893062,1401078764927,'版本检测.png','1','1','1','1','2','2',1,1,'2014-05-26 21:50:46',0);
 /*!40000 ALTER TABLE `tbproject` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -242,9 +242,9 @@ DROP TABLE IF EXISTS `tbucollect`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbucollect` (
   `ucid` bigint(20) NOT NULL,
-  `uid` int(10) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   `vid` varchar(32) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -254,7 +254,7 @@ CREATE TABLE `tbucollect` (
 
 LOCK TABLES `tbucollect` WRITE;
 /*!40000 ALTER TABLE `tbucollect` DISABLE KEYS */;
-INSERT INTO `tbucollect` VALUES (1,562869,'593727852328384587',11111),(20140522214159,562869,'593727852328384587',20140522214159),(20140522215812,562869,'593727852328384587',20140522215812),(20140522222003,562869,'593727852328384587',20140522222003),(20140522222104,562869,'593727852328384587',20140522222104);
+INSERT INTO `tbucollect` VALUES (1,562869,'593727852328384587','2014-05-26 21:50:46'),(20140522214159,562869,'593727852328384587','2014-05-26 21:50:46'),(20140522215812,562869,'593727852328384587','2014-05-26 21:50:46'),(20140522222003,562869,'593727852328384587','2014-05-26 21:50:46'),(20140522222104,562869,'593727852328384587','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbucollect` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +269,7 @@ CREATE TABLE `tbuoperate` (
   `opid` bigint(20) NOT NULL,
   `uid` bigint(20) NOT NULL,
   `oper` varchar(512) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -279,7 +279,7 @@ CREATE TABLE `tbuoperate` (
 
 LOCK TABLES `tbuoperate` WRITE;
 /*!40000 ALTER TABLE `tbuoperate` DISABLE KEYS */;
-INSERT INTO `tbuoperate` VALUES (16916,608197,'增加视频分类',20140531095016);
+INSERT INTO `tbuoperate` VALUES (16916,608197,'增加视频分类','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbuoperate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,9 +293,9 @@ DROP TABLE IF EXISTS `tbuplay`;
 CREATE TABLE `tbuplay` (
   `vpid` bigint(20) NOT NULL,
   `vid` varchar(32) NOT NULL,
-  `uid` int(10) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   `finish` char(1) NOT NULL,
-  `date` bigint(20) NOT NULL,
+  `date` varchar(32) NOT NULL,
   `laststop` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -306,7 +306,7 @@ CREATE TABLE `tbuplay` (
 
 LOCK TABLES `tbuplay` WRITE;
 /*!40000 ALTER TABLE `tbuplay` DISABLE KEYS */;
-INSERT INTO `tbuplay` VALUES (1111,'593727852328384587',562869,'0',20140321042322,'20140321042322'),(20140522220905,'593727852328384587',562869,'1',20140522220905,'1'),(20140522221625,'593727852328384587',562869,'1',20140522221625,'1');
+INSERT INTO `tbuplay` VALUES (1111,'593727852328384587',562869,'0','2014-05-26 21:50:46','20140321042322'),(20140522220905,'593727852328384587',562869,'1','2014-05-26 21:50:46','1'),(20140522221625,'593727852328384587',562869,'1','2014-05-26 21:50:46','1');
 /*!40000 ALTER TABLE `tbuplay` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,9 +320,9 @@ DROP TABLE IF EXISTS `tbureview`;
 CREATE TABLE `tbureview` (
   `vrid` bigint(20) NOT NULL,
   `vid` varchar(32) NOT NULL,
-  `uid` int(10) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   `text` varchar(512) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -332,7 +332,7 @@ CREATE TABLE `tbureview` (
 
 LOCK TABLES `tbureview` WRITE;
 /*!40000 ALTER TABLE `tbureview` DISABLE KEYS */;
-INSERT INTO `tbureview` VALUES (1,'593727852328384587',1,'1111122222',20140323042321),(1,'593727852328384587',1,'1111122222',20140323042321),(20140522223729,'593727852328384587',562869,'2',20140522223729),(20140528205548,'593727852328384587',562869,'11',20140528205548);
+INSERT INTO `tbureview` VALUES (1,'593727852328384587',1,'1111122222','2014-05-26 21:50:46'),(1,'593727852328384587',1,'1111122222','2014-05-26 21:50:46'),(20140522223729,'593727852328384587',562869,'2','2014-05-26 21:50:46'),(20140528205548,'593727852328384587',562869,'11','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbureview` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,15 +344,15 @@ DROP TABLE IF EXISTS `tbuser`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbuser` (
-  `uid` int(10) NOT NULL AUTO_INCREMENT,
+  `uid` bigint(20) NOT NULL AUTO_INCREMENT,
   `uname` varchar(32) NOT NULL,
   `phone` varchar(20) NOT NULL,
   `pwd` varchar(32) NOT NULL,
   `type` int(1) NOT NULL,
   `status` char(1) NOT NULL,
-  `date` bigint(20) NOT NULL,
-  `opdate` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL,
+  `date` varchar(32) NOT NULL,
+  `opdate` varchar(32) NOT NULL,
+  `operid` bigint(20) NOT NULL,
   PRIMARY KEY (`uid`),
   UNIQUE KEY `uid` (`uid`),
   UNIQUE KEY `uname` (`uname`)
@@ -365,7 +365,7 @@ CREATE TABLE `tbuser` (
 
 LOCK TABLES `tbuser` WRITE;
 /*!40000 ALTER TABLE `tbuser` DISABLE KEYS */;
-INSERT INTO `tbuser` VALUES (482773,'yankaili2006','15901411984','dddd',0,'C',20140510180802,20140510203950,1),(562869,'abc','111112233333','1111',0,'Z',20140510203922,20140526203414,1),(950133,'coola58','15901411984','000000',0,'C',20140505220910,20140512003523,0),(597783,'1221','1212','1212',0,'Z',20140514113637,20140514113637,1),(608197,'1212','root','root',0,'Z',20140514113648,20140514113648,1),(995811,'1','1','1',0,'Z',20140514141315,20140514141315,1),(78392,'2','2','2',0,'Z',20140514141438,20140514141438,1),(276263,'3','3','3',0,'Z',20140514141756,20140514141756,1),(995812,'w8888','15641190209','654321',0,'Z',20140526203110,20140526203110,1),(501161,'6','6','6',0,'Z',20140514145501,20140526140159,1),(559350,'7','7','7',0,'Z',20140514145559,20140603235436,1),(593289,'8','8','8',0,'Z',20140514145633,20140514145633,1);
+INSERT INTO `tbuser` VALUES (482773,'yankaili2006','15901411984','dddd',0,'C','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(562869,'abc','111112233333','1111',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(950133,'coola58','15901411984','000000',0,'C','2014-05-26 21:50:46','2014-05-26 21:50:46',0),(597783,'1221','1212','1212',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(608197,'1212','root','root',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(995811,'1','1','1',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(78392,'2','2','2',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(276263,'3','3','3',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(995812,'w8888','15641190209','654321',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(501161,'6','6','6',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(559350,'7','7','7',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1),(593289,'8','8','8',0,'Z','2014-05-26 21:50:46','2014-05-26 21:50:46',1);
 /*!40000 ALTER TABLE `tbuser` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,9 +378,9 @@ DROP TABLE IF EXISTS `tbushare`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbushare` (
   `usid` bigint(20) NOT NULL,
-  `uid` int(10) NOT NULL,
+  `uid` bigint(20) NOT NULL,
   `vid` varchar(32) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -390,7 +390,7 @@ CREATE TABLE `tbushare` (
 
 LOCK TABLES `tbushare` WRITE;
 /*!40000 ALTER TABLE `tbushare` DISABLE KEYS */;
-INSERT INTO `tbushare` VALUES (20140522222236,562869,'593727852328384587',20140522222236),(20140528205543,562869,'593727852328384587',20140528205543);
+INSERT INTO `tbushare` VALUES (20140522222236,562869,'593727852328384587','2014-05-26 21:50:46'),(20140528205543,562869,'593727852328384587','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbushare` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,10 +402,10 @@ DROP TABLE IF EXISTS `tbvcate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbvcate` (
-  `vcid` int(10) NOT NULL,
+  `vcid` bigint(20) NOT NULL,
   `name` varchar(128) NOT NULL,
-  `date` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
+  `date` varchar(32) NOT NULL,
+  `operid` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -415,7 +415,7 @@ CREATE TABLE `tbvcate` (
 
 LOCK TABLES `tbvcate` WRITE;
 /*!40000 ALTER TABLE `tbvcate` DISABLE KEYS */;
-INSERT INTO `tbvcate` VALUES (648194,'专家课堂',20140513185728,1),(836808,'2222',20140526140331,0),(308646,'2323',20140526140508,1),(16870,'测试分类',20140531095016,1);
+INSERT INTO `tbvcate` VALUES (648194,'专家课堂','2014-05-26 21:50:46',1),(836808,'2222','2014-05-26 21:50:46',0),(308646,'2323','2014-05-26 21:50:46',1),(16870,'测试分类','2014-05-26 21:50:46',1);
 /*!40000 ALTER TABLE `tbvcate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -428,7 +428,7 @@ DROP TABLE IF EXISTS `tbvideo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbvideo` (
   `vid` varchar(32) NOT NULL,
-  `vcid` int(10) DEFAULT NULL,
+  `vcid` bigint(20) DEFAULT NULL,
   `status` char(1) DEFAULT NULL,
   `description` varchar(2048) DEFAULT NULL,
   `tags` varchar(512) DEFAULT NULL,
@@ -454,9 +454,9 @@ CREATE TABLE `tbvideo` (
   `zm_id` varchar(32) DEFAULT NULL,
   `type` varchar(32) DEFAULT NULL,
   `teacher` varchar(32) DEFAULT NULL,
-  `date` bigint(20) NOT NULL,
-  `opdate` bigint(20) NOT NULL,
-  `operid` int(10) NOT NULL
+  `date` varchar(32) NOT NULL,
+  `opdate` varchar(32) NOT NULL,
+  `operid` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -466,7 +466,7 @@ CREATE TABLE `tbvideo` (
 
 LOCK TABLES `tbvideo` WRITE;
 /*!40000 ALTER TABLE `tbvideo` DISABLE KEYS */;
-INSERT INTO `tbvideo` VALUES ('593727852328384587',648194,'Z','','','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-593727852328384587/593727865242728667.jpg','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-593727852328384587/593727865242728669.jpg',25030656,1,'2014-05-19 23:28:51','2014-05-19 23:27:18',360,640,159310,'.mp4','周杰伦-天台的月光-国语[www.mtvxz.cn]','',0,'',11,'',0,0,'','',NULL,NULL,20140520004748,20140520004748,1),('592063311985780151',648194,'Z','','','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-592063311985780151/592063324897358963.jpg','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-592063311985780151/592063324897358965.jpg',194048,1,'2014-05-15 11:48:06','2014-05-15 11:48:02',97,165,10290,'.avi','split','',0,'',11,'',0,0,'','',NULL,NULL,20140520010154,20140520010154,1);
+INSERT INTO `tbvideo` VALUES ('593727852328384587',648194,'Z','','','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-593727852328384587/593727865242728667.jpg','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-593727852328384587/593727865242728669.jpg',25030656,1,'2014-05-19 23:28:51','2014-05-19 23:27:18',360,640,159310,'.mp4','周杰伦-天台的月光-国语[www.mtvxz.cn]','',0,'',11,'',0,0,'','',NULL,NULL,'2014-05-26 21:50:46','20140520004748',1),('592063311985780151',648194,'Z','','','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-592063311985780151/592063324897358963.jpg','http://misc.smvp.cn/snapshot/pub-591771258504619901/ent-592063311985780151/592063324897358965.jpg',194048,1,'2014-05-15 11:48:06','2014-05-15 11:48:02',97,165,10290,'.avi','split','',0,'',11,'',0,0,'','',NULL,NULL,'2014-05-26 21:50:46','20140520010154',1);
 /*!40000 ALTER TABLE `tbvideo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -478,10 +478,10 @@ DROP TABLE IF EXISTS `tbvrelate`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbvrelate` (
-  `vrid` int(10) NOT NULL,
+  `vrid` bigint(20) NOT NULL,
   `vida` varchar(32) NOT NULL,
   `vidb` varchar(32) NOT NULL,
-  `date` bigint(20) NOT NULL
+  `date` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -491,7 +491,7 @@ CREATE TABLE `tbvrelate` (
 
 LOCK TABLES `tbvrelate` WRITE;
 /*!40000 ALTER TABLE `tbvrelate` DISABLE KEYS */;
-INSERT INTO `tbvrelate` VALUES (1,'593727852328384587','593727852328384587',20140323);
+INSERT INTO `tbvrelate` VALUES (1,'593727852328384587','593727852328384587','2014-05-26 21:50:46');
 /*!40000 ALTER TABLE `tbvrelate` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -604,4 +604,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-06-04  2:11:00
+-- Dump completed on 2014-06-04  3:16:29

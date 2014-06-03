@@ -7,7 +7,7 @@ public class VDoPlayBean {
 	private long uid;
 	private String vid;
 	private int finish;
-	private long date;
+	private String date;
 	private long laststop;
 
 	public long getVpid() {
@@ -42,11 +42,12 @@ public class VDoPlayBean {
 		this.finish = finish;
 	}
 
-	public long getDate() {
+
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(long date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
