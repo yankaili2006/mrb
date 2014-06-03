@@ -66,14 +66,15 @@ public class PwdAction extends Action {
 				resBean.setMsg("新密码不能为空");
 			} else {
 
-				if (bs.chgPwd(bean) == 0) {
+				int rst = bs.chgPwd(bean);
+				if (rst == 0) {
 					resBean.setCode("0000");
 					resBean.setMsg("交易成功");
 					resBean.setUid(bean.getUid());
-				} else if (bs.chgPwd(bean) == -100) {
+				} else if (rst == -100) {
 					resBean.setCode("5005");
 					resBean.setMsg("原密码校验失败");
-				} else if (bs.chgPwd(bean) == -200) {
+				} else if (rst == -200) {
 					resBean.setCode("5006");
 					resBean.setMsg("更新密码失败");
 				} else {

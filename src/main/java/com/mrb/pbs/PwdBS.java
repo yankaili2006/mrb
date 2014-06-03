@@ -60,6 +60,7 @@ public class PwdBS {
 		UserBean userBean = new UserBean();
 		userBean.setUid(bean.getUid());
 		userBean.setPwd(bean.getNewpwd());
+		userBean.setOpdate(DateUtil.getNow());
 		client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();

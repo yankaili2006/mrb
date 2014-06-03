@@ -122,7 +122,7 @@ public class VAction extends Action {
 			} else if (reqBean.getVcid() <= 0) {
 				respBean.setCode("6002");
 				respBean.setMsg("视频分类ID值非法");
-			} else if (reqBean.getStart() <= 0) {
+			} else if (reqBean.getStart() < 0) {
 				respBean.setCode("6003");
 				respBean.setMsg("开始索引start值非法");
 			} else if (reqBean.getNum() <= 0) {
