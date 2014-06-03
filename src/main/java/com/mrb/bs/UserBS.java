@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.UserBean;
 import com.mrb.ibatis.SqlMap;
@@ -18,6 +20,8 @@ import com.mrb.ibatis.SqlMap;
  * @author Administrator 7:24:13 PM
  */
 public class UserBS {
+
+	Logger log = Logger.getLogger(this.getClass());
 
 	/**
 	 * 
@@ -29,12 +33,34 @@ public class UserBS {
 	/*
 	 * 注册新用户
 	 */
-	public boolean addUser(UserBean bean) {
+	public int addUser(UserBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
-		boolean rst = true;
 		try {
-			client.startTransaction();
 
+			client.startTransaction();
+			Object existObj = client.queryForObject("getUserByName",
+					bean.getUname());
+			client.commitTransaction();
+			client.endTransaction();
+			// 用户名已经存在
+			if (existObj != null) {
+				log.error("User already exist, uname = [" + bean.getUname()
+						+ "]");
+				return -2;
+			}
+
+			client.startTransaction();
+			existObj = client.queryForObject("getUserByPhone", bean.getPhone());
+			client.commitTransaction();
+			client.endTransaction();
+			// 手机号已经存在
+			if (existObj != null) {
+				log.error("User already exist, phone = [" + bean.getPhone()
+						+ "]");
+				return -3;
+			}
+
+			client.startTransaction();
 			bean.setType(0);
 			bean.setStatus("Z");
 
@@ -48,6 +74,7 @@ public class UserBS {
 			client.commitTransaction();
 
 			client.endTransaction();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {
@@ -56,9 +83,9 @@ public class UserBS {
 				e1.printStackTrace();
 
 			}
-			rst = false;
+			return -1;
 		}
-		return rst;
+		return 0;
 	}
 
 	/*
@@ -136,6 +163,96 @@ public class UserBS {
 	}
 
 	/*
+	 * 通过uname获取用户信息
+	 */
+	public UserBean getUserByName(String name) {
+		UserBean bean = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			bean = (UserBean) client.queryForObject("getUserByName", name);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return bean;
+	}
+
+	/*
+	 * 通过uname获取用户信息 for update
+	 */
+	public UserBean getUserByName4Update(UserBean reqBean) {
+		UserBean bean = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			bean = (UserBean) client.queryForObject("getUserByName4Update",
+					reqBean);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return bean;
+	}
+
+	/*
+	 * 通过phone获取用户信息
+	 */
+	public UserBean getUserByPhone(String phone) {
+		UserBean bean = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			bean = (UserBean) client.queryForObject("getUserByPhone", phone);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return bean;
+	}
+
+	/*
+	 * 通过phone获取用户信息 for update
+	 */
+	public UserBean getUserByPhone4Update(UserBean reqBean) {
+		UserBean bean = null;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			bean = (UserBean) client.queryForObject("getUserByPhone4Update",
+					reqBean);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return bean;
+	}
+
+	/*
 	 * 获取用户列表
 	 */
 	public ArrayList<UserBean> getUserList(Integer index, Integer cnt) {
@@ -188,23 +305,53 @@ public class UserBS {
 	/*
 	 * 更新用户信息
 	 */
-	public Boolean updateUser(UserBean bean) {
+	public int updateUser(UserBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
+
+			client.startTransaction();
+			Object existObj = client.queryForObject("getUserByName4Update",
+					bean);
+			client.commitTransaction();
+			client.endTransaction();
+			// 用户名已经存在
+			if (existObj != null) {
+				log.error("User already exist, uname = [" + bean.getUname()
+						+ "]");
+				return -2;
+			}
+
+			client.startTransaction();
+			existObj = client.queryForObject("getUserByPhone4Update",
+					bean);
+			client.commitTransaction();
+			client.endTransaction();
+			// 手机号已经存在
+			if (existObj != null) {
+				log.error("User already exist, phone = [" + bean.getPhone()
+						+ "]");
+				return -3;
+			}
+
 			client.startTransaction();
 			client.update("updateUser", bean);
 			client.commitTransaction();
 			client.endTransaction();
+
 		} catch (SQLException e) {
+			log.error(e.getMessage());
 			e.printStackTrace();
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				log.error(e1.getMessage());
 				e1.printStackTrace();
 			}
-			return false;
+
+			return -1;
 		}
-		return true;
+		
+		return 0;
 	}
 
 	/*

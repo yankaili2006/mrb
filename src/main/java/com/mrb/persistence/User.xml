@@ -10,6 +10,26 @@
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where uid = #id#
 	</select>
+	
+	<select id="getUserByName" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where uname = #name#
+	</select>
+	
+	<select id="getUserByName4Update" parameterClass="com.mrb.bean.UserBean"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where uname = #uname# and uid != #uid#
+	</select>
+	
+	<select id="getUserByPhone" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where phone = #phone#
+	</select>
+	
+	<select id="getUserByPhone4Update" parameterClass="com.mrb.bean.UserBean"
+		resultClass="com.mrb.bean.UserBean">
+		select * from tbuser where phone = #phone# and uid != #uid#
+	</select>
 
 	<select id="loginUPUser" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.bean.UserBean">

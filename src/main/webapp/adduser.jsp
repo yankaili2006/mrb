@@ -74,6 +74,19 @@
 			return false;
 		}
 
+		exp = $('#pwd2').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("重复密码不能为空!");
+			$('#pwd2').focus();
+			return false;
+		}
+
+		if ($('#pwd').val() != $('#pwd2').val()) {
+			alert("两次输入的密码不一致!");
+			$('#pwd2').focus();
+			return false;
+		}
+
 		exp = $('#status').val();
 		if (!exp || typeof (exp) == "undefined" || exp == 0) {
 			alert("状态不能为空!");

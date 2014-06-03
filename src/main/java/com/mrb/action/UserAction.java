@@ -100,9 +100,18 @@ public class UserAction extends Action {
 		} else if ("add".equals(act)) { // 添加用户 for 跳转
 			UserBean bean = (UserBean) gson.fromJson(msg, UserBean.class);
 			if (bean != null) {
-				if (!bs.addUser(bean)) {
-					result = "添加失败";
+
+				int rst = bs.addUser(bean);
+				if (rst >= 0) {
+					result = "注册成功";
+				} else if (rst == -2) {
+					result = "用户名已经被注册";
+				} else if (rst == -3) {
+					result = "手机号已经被注册";
+				} else {
+					result = "未知错误";
 				}
+
 			} else {
 				result = "参数非法";
 			}
@@ -142,19 +151,25 @@ public class UserAction extends Action {
 			} else {
 
 				// 添加用户
-				boolean rst = bs.addUser(bean);
+				int rst = bs.addUser(bean);
 				Long uid = System.currentTimeMillis() % 1000000;
 
 				bean.setUid(uid);
-				if (rst) {
+				if (rst >= 0) {
 					respBean.setCode("0000");
 					respBean.setMsg("注册成功");
 					respBean.setUid(uid);
 					respBean.setPhone(bean.getPhone());
 					respBean.setUser(bean.getUname());
+				} else if (rst == -2) {
+					respBean.setCode("1004");
+					respBean.setMsg("用户名已经被注册");
+				} else if (rst == -3) {
+					respBean.setCode("1005");
+					respBean.setMsg("手机号已经被注册");
 				} else {
-					respBean.setCode("1000");
-					respBean.setMsg("注册失败");
+					respBean.setCode("1006");
+					respBean.setMsg("未知错误");
 				}
 			}
 
@@ -277,8 +292,18 @@ public class UserAction extends Action {
 				SimpleDateFormat dfm = new SimpleDateFormat("yyyyMMddHHmmss");
 				String now = dfm.format(new Date());
 				bean.setOpdate(Long.valueOf(now));
-				if (!bs.updateUser(bean)) {
-					result = "更新失败";
+
+				int rst = bs.updateUser(bean);
+				if (rst >= 0) {
+					result = "修改成功";
+				} else if (rst == -2) {
+					result = "用户名已经被注册";
+				} else if (rst == -3) {
+					result = "手机号已经被注册";
+				} else if (rst == -1) {
+					result = "修改失败";
+				} else {
+					result = "未知错误";
 				}
 			} else {
 				result = "参数非法";
@@ -345,5 +370,4 @@ public class UserAction extends Action {
 
 		return null;
 	}
-
 }
