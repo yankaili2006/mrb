@@ -5,17 +5,22 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.google.gson.Gson;
 import com.mrb.bean.PublishBean;
+import com.mrb.pbean.EntryBean;
 import com.mrb.pbean.MetaBean;
 import com.mrb.pbean.SmvpBean;
+import com.mrb.pbean.UrlBean;
+import com.mrb.pbean.UrlsBean;
+import com.mrb.pbean.ZmBean;
 import com.smvp.sdk.SmvpClient;
 
 public class SmvpUtil {
 	private final String TOKEN = "5JfFMQFjrtCD6LjUK5xw61khgkH0fUZw3K0GymjqPmUZB22Gum9rq-lDrW9fmecg";
-	private final String ENTRY_ID = "592063311985780151";
+	private final String ENTRY_ID = "593727852328384587";
 	private final String PLAYER_ID = "591771262799587214";
 	private final Integer WIDTH = 640;
 	private final Integer HEIGHT = 480;
@@ -127,7 +132,23 @@ public class SmvpUtil {
 		SmvpUtil smvp = new SmvpUtil();
 		// System.out.println(smvp.getPublishing(ENTRY_ID).getFlash());
 		// System.out.println(smvp.getEntries(ENTRY_ID).getThumbnail_url());
-		smvp.smvpPost(smvp.ENTRY_ID);
+		SmvpBean smvpBean = smvp.smvpPost(smvp.ENTRY_ID);
+		ArrayList<EntryBean> entries = smvpBean.getEntries();
+		if (entries != null && entries.size() > 0) {
+			EntryBean entryBean = entries.get(0);
+			System.out.println(entryBean.getTitle());
+			ArrayList<ZmBean> zms = entryBean.getRenditions();
+			if (zms != null && zms.size() > 0) {
+				ZmBean zmBean = zms.get(0);
+				System.out.println(zmBean.getKbps());
+
+				UrlsBean urls = zmBean.getUrls();
+				UrlBean mp4Bean = urls.getMp4();
+				System.out.println(mp4Bean.getUrl());
+			}
+
+		}
+		// smvp.getEntries(smvp.ENTRY_ID);
 	}
 
 }

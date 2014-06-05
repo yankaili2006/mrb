@@ -79,6 +79,8 @@ public class VideoBS {
 
 			vbean.setTags("");
 			vbean.setDuration(entryBean.getDuration());
+			vbean.setTitle(entryBean.getTitle());
+			vbean.setDescription(entryBean.getDescription());
 
 			ArrayList<ZmBean> zms = entryBean.getRenditions();
 			if (zms != null && zms.size() > 0) {
@@ -100,16 +102,23 @@ public class VideoBS {
 				vbean.setExtension(zmBean.getType()); // TODO 有小问题
 
 				UrlsBean urls = zmBean.getUrls();
-				UrlBean mp4Bean = urls.getMp4();
-				UrlBean permantBean = urls.getPermanent();
-				UrlBean m3u8Bean = urls.getM3u8();
-
-				vbean.setMp4_expires(mp4Bean.getExpires());
-				vbean.setMp4_url(mp4Bean.getUrl());
-				vbean.setM3u8_expires(m3u8Bean.getExpires());
-				vbean.setM3u8_url(m3u8Bean.getUrl());
-				vbean.setPermanent_expires(permantBean.getExpires());
-				vbean.setPermanent_url(permantBean.getUrl());
+				if (urls != null) {
+					UrlBean mp4Bean = urls.getMp4();
+					UrlBean permantBean = urls.getPermanent();
+					UrlBean m3u8Bean = urls.getM3u8();
+					if (mp4Bean != null) {
+						vbean.setMp4_expires(mp4Bean.getExpires());
+						vbean.setMp4_url(mp4Bean.getUrl());
+					}
+					if (m3u8Bean != null) {
+						vbean.setM3u8_expires(m3u8Bean.getExpires());
+						vbean.setM3u8_url(m3u8Bean.getUrl());
+					}
+					if (permantBean != null) {
+						vbean.setPermanent_expires(permantBean.getExpires());
+						vbean.setPermanent_url(permantBean.getUrl());
+					}
+				}
 
 				vbean.setZm_file_size(zmBean.getFile_size());
 				vbean.setFile_size(zmBean.getFile_size());
@@ -428,7 +437,6 @@ public class VideoBS {
 		try {
 			client.startTransaction();
 
-
 			VDoCollectBean bean = new VDoCollectBean();
 
 			bean.setUcid(IdUtil.generateID());
@@ -459,7 +467,6 @@ public class VideoBS {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-
 
 			VDoPlayBean bean = new VDoPlayBean();
 

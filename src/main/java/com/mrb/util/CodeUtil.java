@@ -32,6 +32,27 @@ public class CodeUtil {
 		}
 
 		// 发送code给手机
+		xmlEntity xmlentity = new xmlEntity();
+		String xml = null;
+		testHttp t = new testHttp();
+		xml = t.SendMessage(
+				"mrb",
+				"xd000032",
+				"xd000032",
+				phone,
+				"【美人帮】美人帮动态验证码" + code
+						+ "，5分钟内有效。如非本人操作，请忽略本短信。切勿泄漏给他人，以防您的帐号被盗风险", "")
+				.toString();
+		log.debug("xml.toString():" + xml.toString());
+		xmlentity.setReturnstatus("returnstatus");
+		xmlentity.setMessage("message");
+		xmlentity.setRemainpoint("remainpoint");
+		xmlentity.setTaskID("taskID");
+		xmlentity.setSuccessCounts("successCounts");
+		xmlentity = t.readStringXmlCommen(xmlentity, xml);
+		System.out.println("状态" + xmlentity.getReturnstatus() + "返回信息"
+				+ xmlentity.getMessage() + "成功条数"
+				+ xmlentity.getSuccessCounts());
 
 		bean.setCode(code.toString());
 		// 发送code
