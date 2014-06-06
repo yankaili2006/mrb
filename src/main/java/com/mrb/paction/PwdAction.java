@@ -69,7 +69,7 @@ public class PwdAction extends Action {
 				int rst = bs.chgPwd(bean);
 				if (rst == 0) {
 					resBean.setCode("0000");
-					resBean.setMsg("交易成功");
+					resBean.setMsg("密码修改成功");
 					resBean.setUid(bean.getUid());
 				} else if (rst == -100) {
 					resBean.setCode("5005");
@@ -108,7 +108,7 @@ public class PwdAction extends Action {
 				// 设置新密码
 				if (bs.setPwd(bean) == 0) {
 					resBean.setCode("0000");
-					resBean.setMsg("交易成功");
+					resBean.setMsg("密码重置成功");
 					resBean.setUid(bean.getUid());
 				} else if (bs.setPwd(bean) == -100) {
 					resBean.setCode("6004");

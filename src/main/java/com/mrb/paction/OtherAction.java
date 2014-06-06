@@ -29,6 +29,7 @@ import com.mrb.pbean.BImgRespBean;
 import com.mrb.pbean.FeedBean;
 import com.mrb.pbean.PwdBean;
 import com.mrb.pbean.ResBean;
+import com.mrb.pbean.UpdateReqBean;
 import com.mrb.pbean.UpdateRespBean;
 import com.mrb.pbs.OtherBS;
 import com.mrb.util.PageUtil;
@@ -63,13 +64,25 @@ public class OtherAction extends Action {
 			result = gson.toJson(resp);
 
 		} else if ("update".equals(act)) { // 版本更新 for 手机
+			UpdateReqBean bean = null;
+			try {
+				bean = (UpdateReqBean) gson.fromJson(msg, UpdateReqBean.class);
+			} catch (Exception e) {
+				e.printStackTrace();
+				log.error(e.getStackTrace());
+			}
 
 			UpdateRespBean resp = new UpdateRespBean();
-			resp.setCode("0000");
-			resp.setMsg("交易成功");
-			resp.setVersion("1.0.0");
-			resp.setUri("mrbv1.0.0.pkg");
-
+			if (bean == null) {
+				resp.setCode("0001");
+				resp.setMsg("请求参数非法");
+			} else {
+				resp.setCode("0000");
+				resp.setMsg("交易成功");
+				resp.setPlatform(bean.getPlatform());
+				resp.setVersion("1.0.0");
+				resp.setUri("mrbv1.0.0.pkg");
+			}
 			result = gson.toJson(resp);
 
 		} else if ("feed".equals(act)) { // 有奖反馈 for 手机
@@ -80,13 +93,12 @@ public class OtherAction extends Action {
 				log.error(e.getStackTrace());
 			}
 			ResBean resp = new ResBean();
-			
+
 			OtherBS otherBS = new OtherBS();
 			if (otherBS.addFeed(bean)) {
 				resp.setCode("0000");
 				resp.setMsg("交易成功");
-			}
-			else{
+			} else {
 				resp.setCode("0001");
 				resp.setMsg("交易失败");
 			}

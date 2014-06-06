@@ -161,7 +161,7 @@ public class UserAction extends Action {
 					respBean.setMsg("注册成功");
 					respBean.setUid(uid);
 					respBean.setPhone(bean.getPhone());
-					respBean.setUser(bean.getUname());
+					respBean.setUname(bean.getUname());
 				} else if (rst == -2) {
 					respBean.setCode("1004");
 					respBean.setMsg("用户名已经被注册");

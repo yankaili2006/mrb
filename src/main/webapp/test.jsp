@@ -307,35 +307,33 @@
 					});
 				});
 
-
 		//关于我们
-		$('#about').click(
-				function() {
-					$.post("other.do?act=about&msg={}", function(data) {
-						alert(data);
-					});
-				});
-		
+		$('#about').click(function() {
+			$.post("other.do?act=about&msg={}", function(data) {
+				alert(data);
+			});
+		});
 
 		//更新
 		$('#update').click(
 				function() {
-					$.post("other.do?act=update&msg={}", function(data) {
-						alert(data);
-					});
+					$.post("other.do?act=update&msg={platform:"
+							+ $('#update_platform').val() + "}",
+							function(data) {
+								alert(data);
+							});
 				});
 
 		//有奖反馈
 		$('#feed').click(
 				function() {
-					$.post("other.do?act=feed&msg={uid:"
-							+ $('#feed_uid').val() + ",info:"
-							+ $('#feed_text').val() + "}", function(data) {
+					$.post("other.do?act=feed&msg={uid:" + $('#feed_uid').val()
+							+ ",info:" + $('#feed_text').val() + "}", function(
+							data) {
 						alert(data);
 					});
 				});
 
-		
 	});
 </script>
 <!-- Le fav and touch icons -->
@@ -726,6 +724,8 @@
 			<hr>
 			<div class="span4">
 				<h4>更新</h4>
+				<label>platform</label> <input type="text" id="update_platform"
+					name="update_platform" value="ios"> <br>
 				<button id="update" name="update" class="btn" data-dismiss="modal"
 					aria-hidden="true">更新</button>
 			</div>
@@ -737,10 +737,9 @@
 			<hr>
 			<div class="span4">
 				<h4>有奖反馈</h4>
-				<label>uid</label> <input type="text" id="feed_uid"
-					name="feed_uid" value="562869"> <br> <label>text</label>
-				<input type="text" id="feed_text" name="feed_text" value="">
-				<br>
+				<label>uid</label> <input type="text" id="feed_uid" name="feed_uid"
+					value="562869"> <br> <label>text</label> <input
+					type="text" id="feed_text" name="feed_text" value=""> <br>
 				<button id="feed" name="feed" class="btn" data-dismiss="modal"
 					aria-hidden="true">有奖反馈</button>
 			</div>

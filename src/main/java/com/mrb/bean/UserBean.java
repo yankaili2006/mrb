@@ -4,11 +4,6 @@
  */
 package com.mrb.bean;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.mrb.util.DateUtil;
-
 /**
  * @author Administrator 11:52:49 AM
  */

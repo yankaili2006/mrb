@@ -1,12 +1,11 @@
 package com.mrb.bean;
 
 public class UserRegRespBean {
-	
-	
+
 	private String code;
 	private String msg;
 	private long uid;
-	private String user;
+	private String uname;
 	private String phone;
 
 	public String getCode() {
@@ -33,12 +32,12 @@ public class UserRegRespBean {
 		this.uid = uid;
 	}
 
-	public String getUser() {
-		return user;
+	public String getUname() {
+		return uname;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setUname(String uname) {
+		this.uname = uname;
 	}
 
 	public String getPhone() {
