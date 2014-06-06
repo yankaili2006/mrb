@@ -1,11 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page import="com.mrb.bean.CityBean"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta charset="utf-8">
-<title>城市管理</title>
+<title>配置管理</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -50,28 +48,39 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-
 <script type="text/javascript">
-	function addcity() {
-		var exp = $('#name').val();
-		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("城市名不能为空!");
-			$('#name').focus();
-			return false;
-		}
+	function delParam() {
+		$('#act').val("del");
+		$('#msg').val("{pid:" + $('#pid').val() + "}");
+		$('#editpid').submit();
+	}
 
-		exp = $('#level').val();
-		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("城市层级不能为空!");
-			$('#level').focus();
-			return false;
-		}
+	function gotoedit(obj) {
+		var tds = $(obj).parent().parent().find('td');
+		$('#act').val("edit");
+		$('#pid').val(tds.eq(0).text());
+		$('#msg').val("{pid:" + tds.eq(0).text() + "}");
+		$('#editpid').submit();
+	}
 
-		$('#act').val("add");
-		$('#msg').val(
-				"{name:" + $('#name').val() + ",level:" + $('#level').val()
-						+ "}");
-		$('#addform').submit();
+	function gotoadd() {
+		window.location.href = "addparam.jsp";
+	}
+
+	function setpid(obj) {
+		var tds = $(obj).parent().parent().find('td');
+		$('#pid').val(tds.eq(0).text());
+		$('#update').modal('show');
+	}
+
+	$(document).ready(function() {
+		load(1);
+	});
+
+	function load(page) {
+		$.post("param.do?act=list&msg={p:" + page + "}", function(data) {
+			$("#paramgrid").html(data);
+		});
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -92,13 +101,13 @@
 <!--[if IE 9 ]> <body class="ie ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body>
-	&nbsp;
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
 		if (uid == null || uid <= 0) {
 			response.sendRedirect("admin.jsp");
 		}
+
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -108,11 +117,11 @@
 
 					<li id="fat-menu" class="dropdown"><a href="#" id="drop3"
 						role="button" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-city"></i><%=uname%><i class="icon-caret-down"></i>
+							<i class="icon-user"></i><%=uname%><i class="icon-caret-down"></i>
 					</a>
 
 						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#">设置</a> <br></li>
+							<li><a tabindex="-1" href="#">设置</a></li>
 							<li class="divider"></li>
 							<li><a tabindex="-1" href="loginout.do">退出</a></li>
 						</ul></li>
@@ -140,6 +149,14 @@
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
+						data-target="#user-menu">
+						<i class="icon-user"></i>用户管理
+					</div>
+					<ul id="user-menu" class="nav nav-list collapse in">
+						<li><a href="user.jsp">用户列表</a></li>
+					</ul>
+
+					<div class="nav-header" data-toggle="collapse"
 						data-target="#video-menu">
 						<i class="icon-facetime-video"></i>视频管理
 					</div>
@@ -154,7 +171,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
-						<li class="active"><a href="city.jsp">城市列表</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 						<li><a href="bimg.jsp">品牌图片列表</a></li>
@@ -165,7 +182,7 @@
 						<i class="icon-globe"></i>系统配置
 					</div>
 					<ul id="param-menu" class="nav nav-list collapse in">
-						<li><a href="param.jsp">参数</a></li>
+						<li class="active"><a href="param.jsp">参数</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -180,10 +197,10 @@
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">添加城市</h1>
+				<h1 class="page-title">所有配置</h1>
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" onclick="addcity();">
-						<i class="icon-save"></i>保存
+					<button class="btn btn-primary" onclick="gotoadd();">
+						<i class="icon-plus"></i>添加配置
 					</button>
 					<div class="btn-group"></div>
 				</div>
@@ -206,42 +223,32 @@
 					}
 					}
 				%>
-				<div class="well">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
-						</li>
-					</ul>
-					<form id="addform" name="addform" action="city.do" method="post">
-						<input type="hidden" id="act" name="act" value=""> <input
-							type="hidden" id="msg" name="msg" value="">
-					</form>
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane active in" id="home">
-							<form id="tab">
-								<%
-									Object obj = request.getAttribute("city");
-									if (obj != null) {
-										CityBean bean = (CityBean) obj;
-								%>
-								<label> 城市名 </label> <input type="text" name="name" id="name"
-									value="<%=bean.getName()%>" class="input-xlarge"> <label>
-									城市层级 </label> <input type="text" name="level" id="level"
-									value="<%=bean.getLevel()%>" class="input-xlarge"
-									readonly="readonly">
-								<%
-									} else {
-								%>
-								<label> 城市名 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"> <label> 城市层级 </label> <input
-									type="text" name="level" id="level" value="1"
-									readonly="readonly" class="input-xlarge">
-								<%
-									}
-								%>
-							</form>
-						</div>
-					</div>
+				<!-- 位置重要 -->
+				<form name="editpid" id="editpid" action="param.do" method="post">
+					<input type="hidden" id="act" name="act" value="edit"> <input
+						type="hidden" id="msg" name="msg" value="">
+				</form>
+				<input type="hidden" id="pid" value="">
+				<div id="paramgrid"></div>
 
+				<div class="modal small hide fade" id="myModal" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h3 id="myModalLabel">删除确认</h3>
+					</div>
+					<div class="modal-body">
+						<p class="error-text">
+							<i class="icon-warning-sign modal-icon"></i>您确定删除该配置?
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">
+							取消</button>
+						<button class="btn btn-danger" data-dismiss="modal"
+							onclick="delparam();">删除</button>
+					</div>
 				</div>
 
 			</div>

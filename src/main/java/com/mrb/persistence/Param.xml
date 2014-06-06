@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="param">
+	<insert id="addParam" parameterClass="com.mrb.bean.ParamBean">
+		insert into tbparam
+		values(#param_id#,#param_name#,#param_value#)
+	</insert>
+
+	<select id="getParamById" parameterClass="java.lang.String"
+		resultClass="com.mrb.bean.ParamBean">
+		select * from tbparam where param_id = #id#
+	</select>
+
+	<select id="getParamList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.ParamBean">
+		select * from tbparam order by param_id asc limit #index#,
+		#cnt#
+	</select>
+
+	<select id="getParamCnt" resultClass="java.lang.Integer">
+		select Count(1) from
+		tbparam
+	</select>
+
+	<update id="updateParam" parameterClass="com.mrb.bean.ParamBean">
+		update tbparam set param_name=#param_name#
+		<isNotEmpty prepend="," property="param_value">param_value=#param_value#</isNotEmpty>
+		where param_id=#param_id#
+	</update>
+
+	<delete id="delParamById" parameterClass="java.lang.String">
+		delete from tbparam
+		where
+		param_id = #param_id#
+	</delete>
+
+</sqlMap>

@@ -21,7 +21,9 @@ import com.google.gson.Gson;
 import com.mrb.bean.BImg2ShowBean;
 import com.mrb.bean.BImgBean;
 import com.mrb.bean.PageBean;
+import com.mrb.bean.ParamBean;
 import com.mrb.bs.BImgBS;
+import com.mrb.bs.ParamBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.AboutRespBean;
 import com.mrb.pbean.BImgReqBean;
@@ -54,9 +56,14 @@ public class OtherAction extends Action {
 		Gson gson = new Gson();
 
 		if ("about".equals(act)) { // 关于我们 for 手机
-
-			String info = "关于我们";
 			AboutRespBean resp = new AboutRespBean();
+
+			ParamBS paramBS = new ParamBS();
+			ParamBean paramBean = paramBS.getParamById("about");
+			String info = "关于我们";
+			if (paramBean != null) {
+				info = paramBean.getParam_value();
+			}
 			resp.setCode("0000");
 			resp.setMsg("交易成功");
 			resp.setInfo(info);
@@ -77,11 +84,29 @@ public class OtherAction extends Action {
 				resp.setCode("0001");
 				resp.setMsg("请求参数非法");
 			} else {
-				resp.setCode("0000");
-				resp.setMsg("交易成功");
-				resp.setPlatform(bean.getPlatform());
-				resp.setVersion("1.0.0");
-				resp.setUri("mrbv1.0.0.pkg");
+
+				ParamBS paramBS = new ParamBS();
+				ParamBean paramBean = paramBS.getParamById("version_"
+						+ bean.getPlatform());
+
+				if (paramBean == null) {
+					resp.setCode("0000");
+					resp.setMsg("交易成功");
+					resp.setPlatform(bean.getPlatform());
+					resp.setVersion("1.0.0");
+					resp.setUri("mrbv1.0.0.pkg");
+				} else {
+					resp.setCode("0000");
+					resp.setMsg("交易成功");
+					resp.setPlatform(bean.getPlatform());
+					String paramValue = paramBean.getParam_value();
+					if (paramValue != null && !"".equals(paramValue)
+							&& paramValue.contains(",")) {
+						String[] values = paramValue.split(",");
+						resp.setVersion(values[0]);
+						resp.setUri(values[1]);
+					}
+				}
 			}
 			result = gson.toJson(resp);
 

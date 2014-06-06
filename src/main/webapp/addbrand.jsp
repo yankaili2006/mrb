@@ -189,9 +189,9 @@
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
-	if (uid == null || uid <= 0) {
-		response.sendRedirect("admin.jsp");
-	}
+		if (uid == null || uid <= 0) {
+			response.sendRedirect("admin.jsp");
+		}
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -260,11 +260,15 @@
 						<li class="active"><a href="brand.jsp">品牌列表</a></li>
 						<li><a href="bimg.jsp">品牌图片列表</a></li>
 					</ul>
-
+					
 					<div class="nav-header" data-toggle="collapse"
-						data-target="#store-menu">
-						<i class="icon-globe"></i>管店管理
+						data-target="#param-menu">
+						<i class="icon-globe"></i>系统配置
 					</div>
+					<ul id="param-menu" class="nav nav-list collapse in">
+						<li><a href="param.jsp">参数</a></li>
+					</ul>
+
 
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#legal-menu">

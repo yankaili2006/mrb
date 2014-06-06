@@ -100,6 +100,17 @@
 			<forward name="admin" path="/admin.jsp"></forward>
 		</action>
 
+		<!-- 参数配置 -->
+		<action path="/param" type="com.mrb.action.ParamAction" name="jsonForm"
+			scope="request" validate="false">
+			<forward name="fail" path="/index.do" />
+			<forward name="list" path="/param.jsp" />
+			<forward name="home" path="/home.jsp" />
+			<forward name="add" path="/addparam.jsp" />
+			<forward name="edit" path="/editparam.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
+		</action>
+
 
 		<!-- 管理台首页 -->
 		<action path="/home" type="com.mrb.action.HomeAction" name="jsonForm"

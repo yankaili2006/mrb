@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page import="com.mrb.bean.CityBean"%>
+<%@ page import="com.mrb.bean.ParamBean"%>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta charset="utf-8">
-<title>城市管理</title>
+<title>配置管理</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -52,25 +52,33 @@
 
 
 <script type="text/javascript">
-	function addcity() {
-		var exp = $('#name').val();
+	function addparam() {
+		var exp = $('#param_id').val();
 		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("城市名不能为空!");
-			$('#name').focus();
+			alert("配置ID不能为空!");
+			$('#param_id').focus();
 			return false;
 		}
 
-		exp = $('#level').val();
+		exp = $('#param_name').val();
 		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("城市层级不能为空!");
-			$('#level').focus();
+			alert("配置名不能为空!");
+			$('#param_name').focus();
+			return false;
+		}
+
+		exp = $('#param_value').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("配置名不能为空!");
+			$('#param_value').focus();
 			return false;
 		}
 
 		$('#act').val("add");
 		$('#msg').val(
-				"{name:" + $('#name').val() + ",level:" + $('#level').val()
-						+ "}");
+				"{param_id:\"" + $('#param_id').val() + "\",param_name:\""
+						+ $('#param_name').val() + "\",param_value:\""
+						+ $('#param_value').val() + "\"}");
 		$('#addform').submit();
 	}
 </script>
@@ -154,7 +162,7 @@
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
 						<li><a href="pcate.jsp">项目分类</a></li>
-						<li class="active"><a href="city.jsp">城市列表</a></li>
+						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
 						<li><a href="bimg.jsp">品牌图片列表</a></li>
@@ -165,7 +173,7 @@
 						<i class="icon-globe"></i>系统配置
 					</div>
 					<ul id="param-menu" class="nav nav-list collapse in">
-						<li><a href="param.jsp">参数</a></li>
+						<li class="active"><a href="param.jsp">参数</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -180,9 +188,9 @@
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">添加城市</h1>
+				<h1 class="page-title">添加配置</h1>
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" onclick="addcity();">
+					<button class="btn btn-primary" onclick="addparam();">
 						<i class="icon-save"></i>保存
 					</button>
 					<div class="btn-group"></div>
@@ -211,7 +219,7 @@
 						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
 						</li>
 					</ul>
-					<form id="addform" name="addform" action="city.do" method="post">
+					<form id="addform" name="addform" action="param.do" method="post">
 						<input type="hidden" id="act" name="act" value=""> <input
 							type="hidden" id="msg" name="msg" value="">
 					</form>
@@ -219,22 +227,26 @@
 						<div class="tab-pane active in" id="home">
 							<form id="tab">
 								<%
-									Object obj = request.getAttribute("city");
+									Object obj = request.getAttribute("param");
 									if (obj != null) {
-										CityBean bean = (CityBean) obj;
+										ParamBean bean = (ParamBean) obj;
 								%>
-								<label> 城市名 </label> <input type="text" name="name" id="name"
-									value="<%=bean.getName()%>" class="input-xlarge"> <label>
-									城市层级 </label> <input type="text" name="level" id="level"
-									value="<%=bean.getLevel()%>" class="input-xlarge"
-									readonly="readonly">
+								<label> 配置ID </label> <input type="text" name="param_id"
+									id="param_id" value="<%=bean.getParam_id()%>"
+									class="input-xlarge"> <label> 配置名 </label> <input
+									type="text" name="param_name" id="param_name"
+									value="<%=bean.getParam_name()%>" class="input-xlarge"><label>
+									配置值 </label> <input type="text" name="param_value" id="param_value"
+									value="<%=bean.getParam_value()%>" class="input-xlarge">
 								<%
 									} else {
 								%>
-								<label> 城市名 </label> <input type="text" name="name" id="name"
-									value="" class="input-xlarge"> <label> 城市层级 </label> <input
-									type="text" name="level" id="level" value="1"
-									readonly="readonly" class="input-xlarge">
+								<label> 配置ID </label> <input type="text" name="param_id"
+									id="param_id" value="" class="input-xlarge"> <label>
+									配置名 </label> <input type="text" name="param_name" id="param_name"
+									value="" class="input-xlarge"><label> 配置值 </label> <input
+									type="text" name="param_value" id="param_value" value=""
+									class="input-xlarge">
 								<%
 									}
 								%>
