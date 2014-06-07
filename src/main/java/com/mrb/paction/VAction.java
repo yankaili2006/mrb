@@ -25,7 +25,6 @@ import com.mrb.bs.VideoBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.ResBean;
 import com.mrb.pbean.VBean;
-import com.mrb.pbean.VCateReqBean;
 import com.mrb.pbean.VCateRespBean;
 import com.mrb.pbean.VCollectBean;
 import com.mrb.pbean.VCollectReqBean;
@@ -65,44 +64,24 @@ public class VAction extends Action {
 
 		Gson gson = new Gson();
 		if ("category".equals(act)) {
-			VCateReqBean reqBean = null;
-			try {
-				reqBean = gson.fromJson(msg, VCateReqBean.class);
-			} catch (Exception e) {
-				e.printStackTrace();
-				log.error(e.getStackTrace());
-			}
 
 			VCateRespBean respBean = new VCateRespBean();
-			if (reqBean == null) {
-				respBean.setCode("6001");
-				respBean.setMsg("参数非法");
-			} else if (reqBean.getNum() <= 0) {
-				respBean.setCode("6002");
-				respBean.setMsg("num值非法");
-			} else {
-				VCateBS bs = new VCateBS();
-				ArrayList<VCateBean> ulist = bs.getVCateList(0,
-						reqBean.getNum());
+			VCateBS bs = new VCateBS();
+			ArrayList<VCateBean> ulist = bs.getVCateList(0, bs.getVCateCnt());
 
-				if (ulist == null || ulist.size() < 0) {
-					respBean.setCode("6003");
-					respBean.setMsg("查询视频分类信息失败");
-					respBean.setNum(0);
-					respBean.setClist("");
-				} else if (ulist.size() >= 0) {
-					respBean.setCode("0000");
-					respBean.setMsg("交易成功");
-					respBean.setNum(ulist.size());
-					respBean.setClist(gson.toJson(ulist,
-							new TypeToken<ArrayList<VCateBean>>() {
-							}.getType()));
-				} else {
-					respBean.setCode("6004");
-					respBean.setMsg("交易失败");
-					respBean.setNum(0);
-					respBean.setClist("");
-				}
+			if (ulist == null || ulist.size() < 0) {
+				respBean.setCode("6003");
+				respBean.setMsg("查询视频分类信息失败");
+				respBean.setNum(0);
+			} else if (ulist.size() >= 0) {
+				respBean.setCode("0000");
+				respBean.setMsg("交易成功");
+				respBean.setNum(ulist.size());
+				respBean.setClist(ulist);
+			} else {
+				respBean.setCode("6004");
+				respBean.setMsg("交易失败");
+				respBean.setNum(0);
 			}
 			result = gson.toJson(respBean);
 		} else if ("list".equals(act)) { // 获取视频列表 for ajax
@@ -137,21 +116,17 @@ public class VAction extends Action {
 					respBean.setMsg("查询视频列表失败");
 					respBean.setStart(0);
 					respBean.setNum(0);
-					respBean.setVlist("");
 				} else if (ulist.size() >= 0) {
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
 					respBean.setStart(reqBean.getStart());
 					respBean.setNum(ulist.size());
-					respBean.setVlist(gson.toJson(ulist,
-							new TypeToken<ArrayList<VBean>>() {
-							}.getType()));
+					respBean.setVlist(ulist);
 				} else {
 					respBean.setCode("6006");
 					respBean.setMsg("交易失败");
 					respBean.setStart(0);
 					respBean.setNum(0);
-					respBean.setVlist("");
 				}
 			}
 			result = gson.toJson(respBean);
@@ -446,7 +421,6 @@ public class VAction extends Action {
 			}
 			result = gson.toJson(respBean);
 
-
 		} else if ("doreview".equals(act)) { // 评论视频 for ajax
 
 			VDoReviewReqBean reqBean = null;
@@ -467,7 +441,8 @@ public class VAction extends Action {
 			} else if (reqBean.getVid() == null || "".equals(reqBean.getVid())) {
 				respBean.setCode("1403");
 				respBean.setMsg("视频ID值非法");
-			} else if (reqBean.getText() == null || "".equals(reqBean.getText())) {
+			} else if (reqBean.getText() == null
+					|| "".equals(reqBean.getText())) {
 				respBean.setCode("1404");
 				respBean.setMsg("评论内容非法");
 			} else {
@@ -485,7 +460,6 @@ public class VAction extends Action {
 			}
 			result = gson.toJson(respBean);
 
-			
 		} else {
 			result = "不支持的操作类型";
 		}

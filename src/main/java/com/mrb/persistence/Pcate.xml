@@ -17,10 +17,9 @@
 		#index#, #cnt#
 	</select>
 
-	<select id="getPCate4PhonetList" parameterClass="com.mrb.pbean.PCateReqBean"
-		resultClass="com.mrb.pbean.PCate4PhoneBean">
-		select cid,name from tbpcategory order by date desc limit
-		0, #num#
+	<select id="getPCate4PhonetList" resultClass="com.mrb.pbean.PCate4PhoneBean">
+		select cid,name
+		from tbpcategory order by date desc
 	</select>
 
 	<select id="getPcateCnt" resultClass="java.lang.Integer">

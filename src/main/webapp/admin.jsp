@@ -67,10 +67,16 @@
 				});
 	});
 
+	function enterIn(evt) {
+		var evt = evt ? evt : (window.event ? window.event : null);//兼容IE和FF
+		if (evt.keyCode == 13) {
+			$('#loginbutton').click();
+		}
+	}
+
 	$(document).ready(function() {
 		$('#uname').focus();
 	});
-
 </script>
 <!-- Le fav and touch icons -->
 <link rel="shortcut icon" href="../assets/ico/favicon.ico">
@@ -119,7 +125,7 @@
 							<label> 用户名或手机号 </label> <input type="text" id="uname"
 								name="uname" class="span12"> <label>
 								密&nbsp;&nbsp;码 </label> <input type="password" id="pwd" name="pwd"
-								class="span12">
+								class="span12" onkeydown="enterIn(event);">
 							<button type="button" id="loginbutton" name="loginbutton"
 								class="btn btn-primary pull-right">登陆</button>
 							<label class="remember-me"> <input type="checkbox">

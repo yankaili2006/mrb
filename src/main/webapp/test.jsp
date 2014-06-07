@@ -97,13 +97,11 @@
 				});
 
 		// 获取视频分类
-		$('#vcate').click(
-				function() {
-					$.post("v.do?act=category&msg={num:"
-							+ $('#vcate_num').val() + "}", function(data) {
-						alert(data);
-					});
-				});
+		$('#vcate').click(function() {
+			$.post("v.do?act=category&msg={}", function(data) {
+				alert(data);
+			});
+		});
 
 		//获取视频列表
 		$('#vlist').click(
@@ -234,13 +232,11 @@
 				});
 
 		//获取项目分类列表
-		$('#pcate').click(
-				function() {
-					$.post("project.do?act=category&msg={num:"
-							+ $('#pcate_num').val() + "}", function(data) {
-						alert(data);
-					});
-				});
+		$('#pcate').click(function() {
+			$.post("project.do?act=category&msg={}", function(data) {
+				alert(data);
+			});
+		});
 
 		//获取项目列表
 		$('#project').click(
@@ -349,10 +345,10 @@
 </head>
 <body>
 	<div class="row-fluid">
+		<h2>手机校验码</h2>
+		<hr>
 		<div class="row">
-			<h2>手机校验码</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>发送</h4>
 				<label>phone</label> <input type="text" id="snd_phone"
 					name="snd_phone" value=""> <br>
@@ -371,14 +367,14 @@
 			</div>
 		</div>
 
+		<h2>密码</h2>
+		<hr>
 		<div class="row">
-			<h2>密码</h2>
-			<hr>
 			<%
 				PwdBS pwdBs = new PwdBS();
 				Long uid = 562869L;
 			%>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>修改</h4>
 				<label>uid</label> <input type="text" id="chg_uid" name="chg_uid"
 					value="<%=uid%>"> <br> <label>oldpwd</label> <input
@@ -401,10 +397,10 @@
 		</div>
 
 
+		<h2>用户</h2>
+		<hr>
 		<div class="row">
-			<h2>用户</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>注册</h4>
 				<label>uname</label> <input type="text" id="reg_uname"
 					name="reg_uname"> <br> <label>phone</label> <input
@@ -427,17 +423,15 @@
 			String vid = "593727852328384587";
 			String vcid = "648194";
 		%>
+		<h2>视频</h2>
+		<hr>
 		<div class="row">
-			<h2>视频</h2>
-			<hr>
-			<div class="span4">
+			<div class="span3 offset1">
 				<h4>视频分类</h4>
-				<label>num</label> <input type="text" id="vcate_num"
-					name="vcate_num" value=""> <br>
 				<button id="vcate" name="vcate" class="btn" data-dismiss="modal"
 					aria-hidden="true">获取视频分类</button>
 			</div>
-			<div class="span4">
+			<div class="span3">
 				<h4>获取视频列表</h4>
 				<label>vcid</label> <input type="text" id="vlist_vcid"
 					name="vlist_vcid" value="<%=vcid%>"> <br> <label>start</label>
@@ -448,7 +442,7 @@
 					aria-hidden="true">获取视频</button>
 			</div>
 
-			<div class="span4">
+			<div class="span3">
 				<h4>获取视频详细信息</h4>
 				<label>uid</label> <input type="text" id="vdetail_uid"
 					name="vdetail_uid" value="<%=uid%>"> <br> <label>vid</label>
@@ -459,10 +453,10 @@
 			</div>
 		</div>
 
+		<h2>视频评论</h2>
+		<hr>
 		<div class="row">
-			<h2>视频评论</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>视频评论</h4>
 				<label>vid</label> <input type="text" id="vreview_vid"
 					name="vreview_vid" value="<%=vid%>"> <br> <label>start</label>
@@ -474,10 +468,10 @@
 			</div>
 		</div>
 
+		<h2>视频播放历史</h2>
+		<hr>
 		<div class="row">
-			<h2>视频播放历史</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>视频播放历史</h4>
 				<label>vid</label> <input type="text" id="vhis_uid" name="vhis_uid"
 					value="<%=uid%>"> <br> <label>start</label> <input
@@ -490,10 +484,10 @@
 		</div>
 
 
+		<h2>相关视频</h2>
+		<hr>
 		<div class="row">
-			<h2>相关视频</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>相关视频</h4>
 				<label>vid</label> <input type="text" id="vrelate_vid"
 					name="vrelate_vid" value="<%=vid%>"> <br> <label>start</label>
@@ -505,10 +499,10 @@
 			</div>
 		</div>
 
+		<h2>获取收藏视频列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取收藏视频列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取收藏视频列表</h4>
 				<label>vid</label> <input type="text" id="vcollect_uid"
 					name="vcollect_uid" value="<%=uid%>"> <br> <label>start</label>
@@ -521,10 +515,10 @@
 		</div>
 
 
+		<h2>收藏视频</h2>
+		<hr>
 		<div class="row">
-			<h2>收藏视频</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>收藏视频</h4>
 				<label>uid</label> <input type="text" id="vdocollect_uid"
 					name="vdocollect_uid" value="<%=uid%>"> <br> <label>vid</label>
@@ -535,10 +529,10 @@
 			</div>
 		</div>
 
+		<h2>播放视频</h2>
+		<hr>
 		<div class="row">
-			<h2>播放视频</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>播放视频</h4>
 				<label>uid</label> <input type="text" id="vdoplay_uid"
 					name="vdoplay_uid" value="<%=uid%>"> <br> <label>vid</label>
@@ -553,10 +547,10 @@
 		</div>
 
 
+		<h2>分享视频</h2>
+		<hr>
 		<div class="row">
-			<h2>分享视频</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>分享视频</h4>
 				<label>uid</label> <input type="text" id="vdoshare_uid"
 					name="vdoshare_uid" value="<%=uid%>"> <br> <label>vid</label>
@@ -568,10 +562,10 @@
 		</div>
 
 
+		<h2>评论视频</h2>
+		<hr>
 		<div class="row">
-			<h2>评论视频</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>评论视频</h4>
 				<label>uid</label> <input type="text" id="vdoreview_uid"
 					name="vdoreview_uid" value="<%=uid%>"> <br> <label>vid</label>
@@ -584,11 +578,10 @@
 			</div>
 		</div>
 
-
+		<h2>获取城市列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取城市列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取城市列表</h4>
 				<label>level</label> <input type="text" id="city_level"
 					name="city_level" value=""> <br> <label>start</label>
@@ -601,22 +594,20 @@
 		</div>
 
 
+		<h2>获取项目分类列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取项目分类列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取项目分类列表</h4>
-				<label>num</label> <input type="text" id="pcate_num"
-					name="pcate_num" value=""> <br>
 				<button id="pcate" name="pcate" class="btn" data-dismiss="modal"
 					aria-hidden="true">获取项目分类列表</button>
 			</div>
 		</div>
 
+		<h2>获取项目列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取项目列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取项目列表</h4>
 				<label>pcid</label> <input type="text" id="project_pcid"
 					name="project_pcid" value="893062"> <br> <label>cid</label>
@@ -632,10 +623,10 @@
 
 
 
+		<h2>获取品牌列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取品牌列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取品牌列表</h4>
 				<label>pid</label> <input type="text" id="brand_pid"
 					name="brand_pid" value="476979"> <br> <label>start</label>
@@ -648,10 +639,10 @@
 		</div>
 
 
+		<h2>获取项目信息</h2>
+		<hr>
 		<div class="row">
-			<h2>获取项目信息</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取项目信息</h4>
 				<label>pid</label> <input type="text" id="pinfo_pid"
 					name="pinfo_pid" value="476979"> <br>
@@ -660,10 +651,10 @@
 			</div>
 		</div>
 
+		<h2>获取品牌图片列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取品牌图片列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取品牌图片列表</h4>
 				<label>pid</label> <input type="text" id="bimg_bid" name="bimg_bid"
 					value="799618"> <br> <label>start</label> <input
@@ -676,10 +667,10 @@
 		</div>
 
 
+		<h2>获取项目评论列表</h2>
+		<hr>
 		<div class="row">
-			<h2>获取项目评论列表</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>获取项目评论列表</h4>
 				<label>pid</label> <input type="text" id="preview_pid"
 					name="preview_pid" value="476979"> <br> <label>start</label>
@@ -692,10 +683,10 @@
 		</div>
 
 
+		<h2>评论项目</h2>
+		<hr>
 		<div class="row">
-			<h2>评论项目</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>评论项目</h4>
 				<label>pid</label> <input type="text" id="pview_pid"
 					name="pview_pid" value="476979"> <br> <label>uid</label>
@@ -708,10 +699,10 @@
 		</div>
 
 
+		<h2>关于我们</h2>
+		<hr>
 		<div class="row">
-			<h2>关于我们</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>关于我们</h4>
 				<button id="about" name="about" class="btn" data-dismiss="modal"
 					aria-hidden="true">关于我们</button>
@@ -719,10 +710,10 @@
 		</div>
 
 
+		<h2>更新</h2>
+		<hr>
 		<div class="row">
-			<h2>更新</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>更新</h4>
 				<label>platform</label> <input type="text" id="update_platform"
 					name="update_platform" value="ios"> <br>
@@ -732,10 +723,10 @@
 		</div>
 
 
+		<h2>有奖反馈</h2>
+		<hr>
 		<div class="row">
-			<h2>有奖反馈</h2>
-			<hr>
-			<div class="span4">
+			<div class="span4 offset2">
 				<h4>有奖反馈</h4>
 				<label>uid</label> <input type="text" id="feed_uid" name="feed_uid"
 					value="562869"> <br> <label>text</label> <input
