@@ -2,14 +2,12 @@ package com.mrb.pbean;
 
 import java.util.ArrayList;
 
-public class VReviewResBean {
-	
+public class ModelImgRespBean {
 	
 	private String code;
 	private String msg;
-	private int start;
 	private int num;
-	private ArrayList<VReviewBean> rlist;
+	private ArrayList<String> imgs;
 
 	public String getCode() {
 		return code;
@@ -27,14 +25,6 @@ public class VReviewResBean {
 		this.msg = msg;
 	}
 
-	public int getStart() {
-		return start;
-	}
-
-	public void setStart(int start) {
-		this.start = start;
-	}
-
 	public int getNum() {
 		return num;
 	}
@@ -43,12 +33,12 @@ public class VReviewResBean {
 		this.num = num;
 	}
 
-	public ArrayList<VReviewBean> getRlist() {
-		return rlist;
+	public ArrayList<String> getImgs() {
+		return imgs;
 	}
 
-	public void setRlist(ArrayList<VReviewBean> rlist) {
-		this.rlist = rlist;
+	public void setImgs(ArrayList<String> imgs) {
+		this.imgs = imgs;
 	}
 
 }

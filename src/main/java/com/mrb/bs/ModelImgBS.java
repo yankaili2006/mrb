@@ -10,152 +10,143 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
-
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.mrb.bean.CityBean;
+import com.mrb.bean.ModelImgBean;
 import com.mrb.ibatis.SqlMap;
-import com.mrb.pbean.City4PhoneBean;
+import com.mrb.pbean.ModelImgReqBean;
+import com.mrb.pbean.PlayImgReqBean;
 
 /**
  * @author Administrator 7:24:13 PM
  */
-public class CityBS {
-	Logger log = Logger.getLogger(this.getClass());
-
-	/**
-	 * 
-	 */
-	public CityBS() {
-		// TODO Auto-generated constructor stub
-	}
-
+public class ModelImgBS {
 	/*
-	 * 注册新城市
+	 * 注册新模块图片
 	 */
-	public Long addCity(CityBean bean) {
+	public Boolean addModelImg(ModelImgBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
-		long cid = 0;
 		try {
 			client.startTransaction();
 
-			cid = System.currentTimeMillis();
-			bean.setCid(cid);
+			long iid = System.currentTimeMillis() % 1000000;
+			bean.setIid(iid);
 
-			client.update("addCity", bean);
+			String iuri = bean.getIuri();
+			if (iuri.contains("/")) {
+				iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length());
+			}
+			if (iuri.contains("\\")) {
+				iuri = iuri
+						.substring(iuri.lastIndexOf("\\") + 1, iuri.length());
+			}
+			bean.setIuri(iuri);
+
+			client.update("addModelImg", bean);
 			client.commitTransaction();
 
 			client.endTransaction();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			log.debug(e.getMessage());	
-			try {
-				client.endTransaction();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-
-				log.debug(e1.getMessage());
-			}
-			cid = -1;
+			return false;
 		}
-		return cid;
+		return true;
 	}
 
 	/*
-	 * 通过uid获取城市信息
+	 * 通过uid获取模块图片信息
 	 */
-	public CityBean getCityById(Long id) {
-		CityBean bean = null;
+	public ModelImgBean getModelImgByIid(Long iid) {
+		ModelImgBean bean = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			bean = (CityBean) client.queryForObject("getCityById", id);
+			bean = (ModelImgBean) client.queryForObject("getModelImgByIid", iid);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			e.printStackTrace();
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			e.printStackTrace();
 		}
 		return bean;
 	}
 
 	/*
-	 * 获取城市列表
+	 * 获取模块图片列表
 	 */
-	public ArrayList<CityBean> getCityList(Integer index, Integer cnt) {
-		ArrayList<CityBean> CityList = null;
+	public ArrayList<ModelImgBean> getModelImgList(int start, int num) {
+		ArrayList<ModelImgBean> modelimgList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("index", index);
-			map.put("cnt", cnt);
-			CityList = (ArrayList<CityBean>) client.queryForList("getCityList",
-					map);
+			map.put("start", start);
+			map.put("num", num);
+			Object obj = client.queryForList("getModelImgList", map);
+			if (obj != null) {
+				modelimgList = (ArrayList<ModelImgBean>) obj;
+			}
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		return CityList;
+		return modelimgList;
 	}
-
+	
 	/*
-	 * 获取城市列表 for phone
+	 * 获取模块图片列表
 	 */
-	public ArrayList<City4PhoneBean> getCList(Integer level, Integer index,
-			Integer cnt) {
-		ArrayList<City4PhoneBean> CityList = null;
+	public ArrayList<ModelImgBean> getModelImgListByModel(PlayImgReqBean bean) {
+		ArrayList<ModelImgBean> modelimgList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			HashMap<String, Integer> map = new HashMap<String, Integer>();
-			map.put("level", level);
-			map.put("index", index);
-			map.put("cnt", cnt);
-			CityList = (ArrayList<City4PhoneBean>) client.queryForList(
-					"getCList", map);
+			Object obj = client.queryForList("getModelImgListByModel", bean);
+			if (obj != null) {
+				modelimgList = (ArrayList<ModelImgBean>) obj;
+			}
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
-		return CityList;
+		return modelimgList;
 	}
 
 	/*
-	 * 获取城市数目
+	 * 获取模块图片数目
 	 */
-	public Integer getCityCnt() {
+	public Integer getModelImgCnt() {
 		Integer cnt = 0;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			cnt = (Integer) client.queryForObject("getCityCnt");
+			cnt = (Integer) client.queryForObject("getModelImgCnt");
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -163,13 +154,13 @@ public class CityBS {
 	}
 
 	/*
-	 * 更新城市信息
+	 * 更新模块图片信息
 	 */
-	public Boolean updateCity(CityBean bean) {
+	public Boolean updateModelImg(ModelImgBean bean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("updateCity", bean);
+			client.update("updateModelImg", bean);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -177,6 +168,7 @@ public class CityBS {
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			return false;
@@ -185,13 +177,13 @@ public class CityBS {
 	}
 
 	/*
-	 * 删除城市信息
+	 * 删除模块图片信息
 	 */
-	public Boolean delCityById(CityBean bean) {
+	public Boolean delModelImgByIid(Long iid) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			client.update("delCityById", bean);
+			client.update("delModelImgByIid", iid);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -199,6 +191,7 @@ public class CityBS {
 			try {
 				client.endTransaction();
 			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			return false;
@@ -211,12 +204,7 @@ public class CityBS {
 	 */
 	public static void main(String[] args) {
 
-		CityBS bs = new CityBS();
-		CityBean bean = new CityBean();
-		bean.setName("兰州");
-		bean.setLevel(1);
-
-		bs.addCity(bean);
+		ModelImgBS bs = new ModelImgBS();
 	}
 
 }

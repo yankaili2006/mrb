@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class DateUtil {
+	
 	/*
 	 * 20140529003739 2014-05-29 00:37:39
 	 */

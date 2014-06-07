@@ -18,23 +18,21 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.mrb.bean.Brand2ShowBean;
-import com.mrb.bean.BrandBean;
+import com.mrb.bean.ModelImgBean;
 import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
-import com.mrb.bs.BrandBS;
+import com.mrb.bs.ModelImgBS;
 import com.mrb.bs.OperateBS;
 import com.mrb.form.JsonForm;
-import com.mrb.pbean.BrandReqBean;
-import com.mrb.util.DateUtil;
+import com.mrb.pbean.ModelImgReqBean;
 import com.mrb.util.PageUtil;
 
 /**
  * @author Administrator 9:06:26 PM
  * 
- *         品牌注册的Action
+ *         模块图片注册的Action
  */
-public class BrandAction extends Action {
+public class ModelImgAction extends Action {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest req, HttpServletResponse res) {
@@ -46,46 +44,46 @@ public class BrandAction extends Action {
 		log.debug("act = " + act + ", msg = " + msg);
 
 		Long suid = (Long) req.getSession().getAttribute("uid");
-		if("add,edit,del,update".contains(act)){
-			if(suid == null || "".equals(suid) || "null".equals(suid)){
+		if ("add,edit,del,update".contains(act)) {
+			if (suid == null || "".equals(suid) || "null".equals(suid)) {
 				return mapping.findForward("admin");
 			}
 		}
 
-		BrandBS bs = new BrandBS();
+		ModelImgBS bs = new ModelImgBS();
 		Gson gson = new Gson();
 		OperateBS operBS = new OperateBS();
 		OperateBean operBean = new OperateBean();
 
-		if ("list".equals(act)) { // 获取品牌列表 for ajax
+		if ("list".equals(act)) { // 获取模块图片列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
 			pbean.setMaxpage(5);
 			pbean.setPerpage(5);
-			pbean.setTotal((bs.getBrandCnt() - 1) / pbean.getPerpage() + 1);
+			pbean.setTotal((bs.getModelImgCnt() - 1) / pbean.getPerpage() + 1);
 
-			BrandReqBean reqBean = new BrandReqBean();
+			ModelImgReqBean reqBean = new ModelImgReqBean();
 			reqBean.setStart((pbean.getP() - 1) * pbean.getPerpage());
 			reqBean.setNum(pbean.getPerpage());
-			ArrayList<Brand2ShowBean> ulist = bs.getBrandList(reqBean);
+			ArrayList<ModelImgBean> ulist = bs.getModelImgList(
+					reqBean.getStart(), reqBean.getNum());
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>品牌ID</th><th>品牌标题</th><th>项目名称</th><th>品牌图标</th><th>名称</th><th>价格</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>ID</th><th>图片ID</th><th>模块</th><th>模块内显示次序</th><th>图片链接</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
-					Brand2ShowBean bean = (Brand2ShowBean) ulist.get(i);
-					html.append("<tr><td>" + bean.getBid() + "</td><td>"
-							+ bean.getBtitle() + "</td><td>" + bean.getPname()
+					ModelImgBean bean = (ModelImgBean) ulist.get(i);
+					html.append("<tr><td>" + bean.getIid() + "</td><td>"
+							+ bean.getModel() + "</td><td>" + bean.getIdx()
 							+ "</td><td>" + bean.getIuri() + "</td><td>"
-							+ bean.getName() + "</td><td>" + bean.getPrice()
-							+ "</td>");
+							+ bean.getIuri() + "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
-					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setbid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
+					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setiid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
 
 			} else {
-				html.append("<tr><td>没有品牌记录！</td><td></td><td></td><td></td></tr>");
+				html.append("<tr><td>没有模块图片记录！</td><td></td><td></td><td></td><td></td><td></td></tr>");
 			}
 			html.append("</tbody></table></div>");
 
@@ -94,10 +92,11 @@ public class BrandAction extends Action {
 
 			result = html.toString();
 
-		} else if ("add".equals(act)) { // 添加品牌 for 跳转
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+		} else if ("add".equals(act)) { // 添加模块图片 for 跳转
+			ModelImgBean bean = (ModelImgBean) gson.fromJson(msg,
+					ModelImgBean.class);
 			if (bean != null) {
-				if (!bs.addBrand(bean)) {
+				if (!bs.addModelImg(bean)) {
 					result = "添加失败";
 				}
 			} else {
@@ -107,29 +106,31 @@ public class BrandAction extends Action {
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 				operBean.setUid(Long.valueOf(suid));
-				operBean.setOper("增加品牌");
+				operBean.setOper("增加模块图片");
 				operBS.addOperate(operBean);
 				return mapping.findForward("list");
 			} else {
-				req.setAttribute("brand", bean);
+				req.setAttribute("modelimg", bean);
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
 			}
-		} else if ("edit".equals(act)) {// 编辑品牌 for 跳转
-			Brand2ShowBean brand = null;
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+
+		} else if ("edit".equals(act)) {// 编辑模块图片 for 跳转
+			ModelImgBean modelimg = null;
+			ModelImgBean bean = (ModelImgBean) gson.fromJson(msg,
+					ModelImgBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				brand = bs.getBrandById(bean.getBid());
+				log.info("iid = [" + bean.getIid() + "]");
+				modelimg = bs.getModelImgByIid(bean.getIid());
 			} else {
 				log.error("bean is null");
 				result = "参数非法";
 			}
 
-			if (brand != null) {
-				req.setAttribute("brand", brand);
+			if (modelimg != null) {
+				req.setAttribute("modelimg", modelimg);
 			} else {
-				result = "未找到该品牌";
+				result = "未找到该模块图片";
 			}
 
 			if ("ok".equals(result)) {
@@ -139,16 +140,16 @@ public class BrandAction extends Action {
 				return mapping.findForward("list");
 			}
 
-		} else if ("del".equals(act)) { // 删除品牌 for ajax
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+		} else if ("del".equals(act)) { // 删除模块图片 for ajax
+			ModelImgBean bean = (ModelImgBean) gson.fromJson(msg,
+					ModelImgBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				if (!bs.delBrandById(bean.getBid())) {
+				log.info("iid = [" + bean.getIid() + "]");
+				if (!bs.delModelImgByIid(bean.getIid())) {
 					result = "删除失败";
-				}
-				else{
+				} else {
 					operBean.setUid(Long.valueOf(suid));
-					operBean.setOper("删除品牌");
+					operBean.setOper("删除模块图片");
 					operBS.addOperate(operBean);
 				}
 			} else {
@@ -158,12 +159,12 @@ public class BrandAction extends Action {
 			req.setAttribute("result", result);
 			return mapping.findForward("list");
 
-		} else if ("update".equals(act)) { // 更新品牌 for 跳转
-			BrandBean bean = (BrandBean) gson.fromJson(msg, BrandBean.class);
+		} else if ("update".equals(act)) { // 更新模块图片 for 跳转
+			ModelImgBean bean = (ModelImgBean) gson.fromJson(msg,
+					ModelImgBean.class);
 			if (bean != null) {
-				log.info("bid = [" + bean.getBid() + "]");
-				bean.setDate(DateUtil.getNow());
-				if (!bs.updateBrand(bean)) {
+				log.info("iid = [" + bean.getIid() + "]");
+				if (!bs.updateModelImg(bean)) {
 					result = "更新失败";
 				}
 			} else {
@@ -174,11 +175,11 @@ public class BrandAction extends Action {
 			if ("ok".equals(result)) {
 
 				operBean.setUid(Long.valueOf(suid));
-				operBean.setOper("更新品牌");
+				operBean.setOper("更新模块图片");
 				operBS.addOperate(operBean);
-				
-				Brand2ShowBean showBean = bs.getBrandById(bean.getBid());
-				req.setAttribute("brand", showBean);
+
+				ModelImgBean showBean = bs.getModelImgByIid(bean.getIid());
+				req.setAttribute("modelimg", showBean);
 				return mapping.findForward("edit");
 			} else {
 				req.setAttribute("result", result);

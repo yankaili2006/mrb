@@ -3,6 +3,7 @@
 <%@ page import="com.mrb.bean.Brand2ShowBean"%>
 <%@ page import="com.mrb.pbean.BrandReqBean"%>
 <%@ page import="com.mrb.bs.BrandBS"%>
+<%@ page import="com.mrb.util.MrbUtil"%>
 <%
 	//品牌列表
 	BrandBS pbs = new BrandBS();
@@ -120,9 +121,9 @@
 			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
 		}
 
-		var filePath = "files/";
+		var filePath = "files";
 		$('#iuri').val(iuri);
-		$('#imguri').attr("src", filePath + iuri);
+		$('#imguri').attr("src", filePath + "/" + iuri);
 		$('#uploadModal').modal('hide');
 		$('#uploadform').submit();
 
@@ -228,6 +229,7 @@
 					</div>
 					<ul id="param-menu" class="nav nav-list collapse in">
 						<li><a href="param.jsp">参数</a></li>
+						<li><a href="modelimg.jsp">模块图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -308,7 +310,8 @@
 										}
 									%>
 								</select> <label> 品牌图片 </label><img id="imguri" name="imguri" alt=""
-									width="100" height="60" src="<%=filePath + bean.getIuri()%>"></img><input
+									width="100" height="60"
+									src="files/<%=bean.getIuri()%>"></img><input
 									type="text" name="iuri" id="iuri" value="<%=bean.getIuri()%>"
 									class="input-xlarge">
 								<button class="btn btn-primary btn-lg" data-toggle="modal"

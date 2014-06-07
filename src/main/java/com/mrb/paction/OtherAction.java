@@ -18,24 +18,21 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.mrb.bean.BImg2ShowBean;
-import com.mrb.bean.BImgBean;
-import com.mrb.bean.PageBean;
+import com.mrb.bean.ModelImgBean;
 import com.mrb.bean.ParamBean;
-import com.mrb.bs.BImgBS;
+import com.mrb.bs.ModelImgBS;
 import com.mrb.bs.ParamBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.AboutRespBean;
-import com.mrb.pbean.BImgReqBean;
-import com.mrb.pbean.BImgRespBean;
 import com.mrb.pbean.FeedBean;
-import com.mrb.pbean.PwdBean;
+import com.mrb.pbean.PlayImgReqBean;
+import com.mrb.pbean.PlayImgRespBean;
 import com.mrb.pbean.ResBean;
 import com.mrb.pbean.ShopInfoRespBean;
 import com.mrb.pbean.UpdateReqBean;
 import com.mrb.pbean.UpdateRespBean;
 import com.mrb.pbs.OtherBS;
-import com.mrb.util.PageUtil;
+import com.mrb.util.MrbUtil;
 
 /**
  * @author Administrator 9:06:26 PM
@@ -158,6 +155,7 @@ public class OtherAction extends Action {
 
 			result = gson.toJson(resp);
 		} else if ("memberinfo".equals(act)) { // 会员介绍 for 手机
+
 			ShopInfoRespBean resp = new ShopInfoRespBean();
 
 			ParamBS paramBS = new ParamBS();
@@ -176,6 +174,42 @@ public class OtherAction extends Action {
 				} else {
 					resp.setCode("0001");
 					resp.setMsg("交易失败");
+				}
+			} else {
+				resp.setCode("0001");
+				resp.setMsg("交易失败");
+			}
+
+			result = gson.toJson(resp);
+
+		} else if ("playimg".equals(act)) { // 动态播放图片 for 手机
+			PlayImgReqBean bean = null;
+			try {
+				bean = (PlayImgReqBean) gson
+						.fromJson(msg, PlayImgReqBean.class);
+			} catch (Exception e) {
+				log.error(e.getStackTrace());
+			}
+
+			PlayImgRespBean resp = new PlayImgRespBean();
+
+			ModelImgBS modelimgBS = new ModelImgBS();
+			bean.setStart(0);
+			bean.setNum(modelimgBS.getModelImgCnt());
+			ArrayList<ModelImgBean> imglist = modelimgBS
+					.getModelImgListByModel(bean);
+
+			if (imglist != null && imglist.size() > 0) {
+				resp.setCode("0000");
+				resp.setMsg("交易成功");
+				resp.setNum(imglist.size());
+				if (imglist != null && imglist.size() > 0) {
+					ArrayList<String> imgs = new ArrayList<String>();
+					for (int i = 0; i < imglist.size(); i++) {
+						ModelImgBean imgbean = imglist.get(i);
+						imgs.add(MrbUtil.getImgUrl() + "/" + imgbean.getIuri());
+					}
+					resp.setImgs(imgs);
 				}
 			} else {
 				resp.setCode("0001");

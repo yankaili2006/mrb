@@ -101,7 +101,7 @@ public class ProjectAction extends Action {
 						html.append("<tr><td>" + bean.getPid() + "</td><td>"
 								+ bean.getName() + "</td><td>" + bean.getIuri()
 								+ "</td><td>" + bean.getLevel() + "</td><td>"
-								+ bean.getArea() + "</td><td>");
+								+ bean.getArea() + "</td>");
 
 						html.append("<td>" + bean.getDate() + "</td>");
 
