@@ -100,7 +100,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人帮管理端</span> </a>
+					<span class="second">美人邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -162,7 +162,7 @@
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
 						<li><a href="privacy.jsp">版权说明</a></li>
-						<li><a href="terms.jsp">美人帮使用协议</a></li>
+						<li><a href="terms.jsp">美人邦使用协议</a></li>
 					</ul>
 				</div>
 			</div>
@@ -248,7 +248,7 @@
 							data-target="#widget1container">通知</div>
 						<div id="widget1container" class="block-body collapse in">
 							<h2>通知标题</h2>
-							<p>恭喜美人帮正式上线！</p>
+							<p>恭喜美人邦正式上线！</p>
 						</div>
 					</div>
 				</div>
@@ -344,7 +344,7 @@
 
 
 		<p>
-			&copy; 2014 <a href="#">美人帮</a>
+			&copy; 2014 <a href="#">美人邦</a>
 		</p>
 		</footer>
 

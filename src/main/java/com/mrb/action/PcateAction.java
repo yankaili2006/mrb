@@ -75,7 +75,7 @@ public class PcateAction extends Action {
 			}
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>分类ID</th><th>分类名</th><th>注册日期</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>分类ID</th><th>分类名</th><th>注册日期</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					PcateBean bean = (PcateBean) ulist.get(i);

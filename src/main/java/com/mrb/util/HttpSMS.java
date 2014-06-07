@@ -13,7 +13,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
-public class testHttp {
+public class HttpSMS {
 
 	// 使用StringBuffer的append获得xml形式的字符串
 	StringBuffer sub = new StringBuffer();
@@ -26,7 +26,7 @@ public class testHttp {
 
 		xmlEntity xmlentity = new xmlEntity();
 		String xml = null;
-		testHttp t = new testHttp();
+		HttpSMS t = new HttpSMS();
 
 		// 查询调用方法
 /*		xml = t.SelSum("mrb", "xd000032", "xd000032").toString();

@@ -72,7 +72,7 @@ public class VideoAction extends Action {
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>视频ID</th><th>视频名称</th><th>视频缩略图</th><th>上传时间</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>视频ID</th><th>视频名称</th><th>视频缩略图</th><th>上传时间</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					VideoBean bean = (VideoBean) ulist.get(i);
