@@ -64,7 +64,7 @@ public class ParamAction extends Action {
 			req.setAttribute("plist", plist);
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>配置ID</th><th>配置名</th><th>配置值</th><th style=\"width: 26px;\"></th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>配置ID</th><th>配置名</th><th>配置值</th><th style=\"width:50px;\">操作</th></tr></thead><tbody>");
 			if (plist != null && plist.size() > 0) {
 				for (int i = 0; i < plist.size(); i++) {
 					ParamBean bean = (ParamBean) plist.get(i);

@@ -105,7 +105,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人帮管理端</span> </a>
+					<span class="second">美人邦管理端</span> </a>
 			</div>
 		</div>
 	</div>

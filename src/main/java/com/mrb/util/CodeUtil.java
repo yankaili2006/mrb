@@ -5,6 +5,8 @@ import java.util.Random;
 import org.apache.log4j.Logger;
 
 import com.mrb.bean.CodeBean;
+import com.mrb.bean.ParamBean;
+import com.mrb.bs.ParamBS;
 
 public class CodeUtil {
 
@@ -31,17 +33,24 @@ public class CodeUtil {
 			return null;
 		}
 
+		ParamBS paramBS = new ParamBS();
+		ParamBean paramBean = paramBS.getParamById("sms");
+
+		String sms = "【美人邦】美人邦动态验证码：" + code
+				+ "，5分钟内有效。如非本人操作，请忽略本短信。切勿泄漏给他人，以防您的帐号被盗风险";
+		if (paramBean != null) {
+			String paramValue = paramBean.getParam_value();
+			if (paramValue != null && !"".equals(paramValue)
+					&& paramValue.contains("#code#")) {
+				sms = paramValue.replace("#code#", code);
+			}
+		}
 		// 发送code给手机
 		xmlEntity xmlentity = new xmlEntity();
 		String xml = null;
-		testHttp t = new testHttp();
-		xml = t.SendMessage(
-				"mrb",
-				"xd000032",
-				"xd000032",
-				phone,
-				"【美人帮】美人帮动态验证码" + code
-						+ "，5分钟内有效。如非本人操作，请忽略本短信。切勿泄漏给他人，以防您的帐号被盗风险", "")
+		HttpSMS t = new HttpSMS();
+
+		xml = t.SendMessage("mrb", "xd000032", "xd000032", phone, sms, "")
 				.toString();
 		log.debug("xml.toString():" + xml.toString());
 		xmlentity.setReturnstatus("returnstatus");
