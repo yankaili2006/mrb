@@ -5,7 +5,7 @@
 <%
 	//项目列表
 	ProjectBS pbs = new ProjectBS();
-	ArrayList<ProjectBean> plist = pbs.getProjectList(0,5);
+	ArrayList<ProjectBean> plist = pbs.getProjectList(0,pbs.getProjectCnt());
 	String result = null;
 	
 	Object robj = request.getAttribute("result");
