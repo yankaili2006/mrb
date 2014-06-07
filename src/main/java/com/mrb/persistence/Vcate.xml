@@ -13,7 +13,8 @@
 
 	<select id="getVCateList" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.bean.VCateBean">
-		select * from tbvcate order by date desc limit #index#,
+		select * from tbvcate
+		order by date desc limit #index#,
 		#cnt#
 	</select>
 

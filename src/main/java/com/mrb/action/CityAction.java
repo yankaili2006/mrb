@@ -127,9 +127,7 @@ public class CityAction extends Action {
 					respBean.setMsg("交易成功");
 					respBean.setStart(reqBean.getStart());
 					respBean.setNum(ulist.size());
-					respBean.setClist(gson.toJson(ulist,
-							new TypeToken<ArrayList<City4PhoneBean>>() {
-							}.getType()));
+					respBean.setClist(ulist);
 				} else {
 					respBean.setCode("1600");
 					respBean.setMsg("交易失败");
@@ -213,7 +211,7 @@ public class CityAction extends Action {
 				operBean.setUid(Long.valueOf(suid));
 				operBean.setOper("更新城市");
 				operBS.addOperate(operBean);
-				
+
 				req.setAttribute("city", bean);
 				return mapping.findForward("edit");
 			} else {

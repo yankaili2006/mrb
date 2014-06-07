@@ -6,9 +6,7 @@ package com.mrb.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,7 +31,6 @@ import com.mrb.form.JsonForm;
 import com.mrb.pbean.BrandReqBean;
 import com.mrb.pbean.BrandRespBean;
 import com.mrb.pbean.PCate4PhoneBean;
-import com.mrb.pbean.PCateReqBean;
 import com.mrb.pbean.PCateRespBean;
 import com.mrb.pbean.PReviewBean;
 import com.mrb.pbean.PReviewRespBean;
@@ -162,9 +159,7 @@ public class ProjectAction extends Action {
 					respBean.setMsg("交易成功");
 					respBean.setStart(reqBean.getStart());
 					respBean.setNum(ulist.size());
-					respBean.setPlist(gson.toJson(ulist,
-							new TypeToken<ArrayList<Project4PhoneBean>>() {
-							}.getType()));
+					respBean.setPlist(ulist);
 				} else {
 					respBean.setCode("1700");
 					respBean.setMsg("交易失败");
@@ -258,39 +253,22 @@ public class ProjectAction extends Action {
 		} else if ("category".equals(act)) { // 获取项目分类列表 for 手机端
 
 			PcateBS pbs = new PcateBS();
-			PCateReqBean reqBean = null;
-			try {
-				reqBean = gson.fromJson(msg, PCateReqBean.class);
-			} catch (Exception e) {
-				e.printStackTrace();
-				log.error(e.getStackTrace());
-			}
 
 			PCateRespBean respBean = new PCateRespBean();
-			if (reqBean == null) {
-				respBean.setCode("1801");
-				respBean.setMsg("参数非法");
-			} else if (reqBean.getNum() < 0) {
-				respBean.setCode("1802");
-				respBean.setMsg("个数非法");
-			} else {
-				ArrayList<PCate4PhoneBean> ulist = pbs
-						.getPCate4PhonetList(reqBean);
 
-				if (ulist == null || ulist.size() < 0) {
-					respBean.setCode("1706");
-					respBean.setMsg("查询项目分类列表失败");
-				} else if (ulist.size() >= 0) {
-					respBean.setCode("0000");
-					respBean.setMsg("交易成功");
-					respBean.setNum(ulist.size());
-					respBean.setClist(gson.toJson(ulist,
-							new TypeToken<ArrayList<Project4PhoneBean>>() {
-							}.getType()));
-				} else {
-					respBean.setCode("1700");
-					respBean.setMsg("交易失败");
-				}
+			ArrayList<PCate4PhoneBean> ulist = pbs.getPCate4PhonetList();
+
+			if (ulist == null || ulist.size() < 0) {
+				respBean.setCode("1706");
+				respBean.setMsg("查询项目分类列表失败");
+			} else if (ulist.size() >= 0) {
+				respBean.setCode("0000");
+				respBean.setMsg("交易成功");
+				respBean.setNum(ulist.size());
+				respBean.setClist(ulist);
+			} else {
+				respBean.setCode("1700");
+				respBean.setMsg("交易失败");
 			}
 			result = gson.toJson(respBean);
 

@@ -1,11 +1,15 @@
 package com.mrb.pbean;
 
+import java.util.ArrayList;
+
+import com.mrb.bean.VCateBean;
+
 public class VCateRespBean {
-	
+
 	private String code;
 	private String msg;
 	private Integer num;
-	private String clist;
+	private ArrayList<VCateBean> clist;
 
 	public String getCode() {
 		return code;
@@ -31,11 +35,11 @@ public class VCateRespBean {
 		this.num = num;
 	}
 
-	public String getClist() {
+	public ArrayList<VCateBean> getClist() {
 		return clist;
 	}
 
-	public void setClist(String clist) {
+	public void setClist(ArrayList<VCateBean> clist) {
 		this.clist = clist;
 	}
 

@@ -1,13 +1,14 @@
 package com.mrb.pbean;
 
+import java.util.ArrayList;
+
 public class ProjectRespBean {
-	
-	
+
 	private String code;
 	private String msg;
 	private int start;
 	private int num;
-	private String plist;
+	private ArrayList<Project4PhoneBean> plist;
 
 	public String getCode() {
 		return code;
@@ -41,11 +42,11 @@ public class ProjectRespBean {
 		this.num = num;
 	}
 
-	public String getPlist() {
+	public ArrayList<Project4PhoneBean> getPlist() {
 		return plist;
 	}
 
-	public void setPlist(String plist) {
+	public void setPlist(ArrayList<Project4PhoneBean> plist) {
 		this.plist = plist;
 	}
 

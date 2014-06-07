@@ -3,13 +3,12 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 public class CityRespBean {
-	
-	
+
 	private String code;
 	private String msg;
 	private int start;
 	private int num;
-	private String clist;
+	private ArrayList<City4PhoneBean> clist;
 
 	public String getCode() {
 		return code;
@@ -43,11 +42,11 @@ public class CityRespBean {
 		this.num = num;
 	}
 
-	public String getClist() {
+	public ArrayList<City4PhoneBean> getClist() {
 		return clist;
 	}
 
-	public void setClist(String clist) {
+	public void setClist(ArrayList<City4PhoneBean> clist) {
 		this.clist = clist;
 	}
 

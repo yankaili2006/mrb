@@ -14,7 +14,6 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.PcateBean;
 import com.mrb.ibatis.SqlMap;
 import com.mrb.pbean.PCate4PhoneBean;
-import com.mrb.pbean.PCateReqBean;
 import com.mrb.util.DateUtil;
 
 /**
@@ -117,13 +116,13 @@ public class PcateBS {
 	/*
 	 * 获取项目分类列表
 	 */
-	public ArrayList<PCate4PhoneBean> getPCate4PhonetList(PCateReqBean bean) {
+	public ArrayList<PCate4PhoneBean> getPCate4PhonetList() {
 		ArrayList<PCate4PhoneBean> pcateList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
 			pcateList = (ArrayList<PCate4PhoneBean>) client.queryForList(
-					"getPCate4PhonetList", bean);
+					"getPCate4PhonetList");
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {

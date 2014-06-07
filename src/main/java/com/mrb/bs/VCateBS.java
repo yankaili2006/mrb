@@ -83,7 +83,7 @@ public class VCateBS {
 	/*
 	 * 获取视频分类列表
 	 */
-	public ArrayList<VCateBean> getVCateList(Integer index, Integer cnt) {
+	public ArrayList<VCateBean> getVCateList(int index, int cnt) {
 		ArrayList<VCateBean> vcateList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
@@ -91,8 +91,8 @@ public class VCateBS {
 			HashMap<String, Integer> map = new HashMap<String, Integer>();
 			map.put("index", index);
 			map.put("cnt", cnt);
-			vcateList = (ArrayList<VCateBean>) client.queryForList(
-					"getVCateList", map);
+			vcateList = (ArrayList<VCateBean>) client
+					.queryForList("getVCateList", cnt);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {
@@ -189,7 +189,7 @@ public class VCateBS {
 
 		bs.addVCate(bean);
 
-		System.out.println(bs.getVCateList(0, 5).size());
+		System.out.println(bs.getVCateList(0, bs.getVCateCnt()).size());
 
 	}
 

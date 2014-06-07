@@ -1,11 +1,13 @@
 package com.mrb.pbean;
 
+import java.util.ArrayList;
+
 public class PCateRespBean {
-	
+
 	private String code;
 	private String msg;
 	private int num;
-	private String clist;
+	private ArrayList<PCate4PhoneBean> clist;
 
 	public String getCode() {
 		return code;
@@ -31,11 +33,11 @@ public class PCateRespBean {
 		this.num = num;
 	}
 
-	public String getClist() {
+	public ArrayList<PCate4PhoneBean> getClist() {
 		return clist;
 	}
 
-	public void setClist(String clist) {
+	public void setClist(ArrayList<PCate4PhoneBean> clist) {
 		this.clist = clist;
 	}
 
