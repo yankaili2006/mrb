@@ -330,6 +330,20 @@
 					});
 				});
 
+		//管店介绍
+		$('#shopinfo').click(function() {
+			$.post("other.do?act=shopinfo&msg={}", function(data) {
+				alert(data);
+			});
+		});
+
+		//会员介绍
+		$('#memberinfo').click(function() {
+			$.post("other.do?act=memberinfo&msg={}", function(data) {
+				alert(data);
+			});
+		});
+
 	});
 </script>
 <!-- Le fav and touch icons -->
@@ -736,6 +750,30 @@
 			</div>
 		</div>
 
+		<h2>管店介绍</h2>
+		<hr>
+		<div class="row">
+			<div class="span4 offset2">
+				<h4>管店介绍</h4>
+				<button id="shopinfo" name="shopinfo" class="btn"
+					data-dismiss="modal" aria-hidden="true">管店介绍</button>
+			</div>
+		</div>
+
+
+
+		<h2>会员介绍</h2>
+		<hr>
+		<div class="row">
+			<div class="span4 offset2">
+				<h4>会员介绍</h4>
+				<button id="memberinfo" name="memberinfo" class="btn"
+					data-dismiss="modal" aria-hidden="true">会员介绍</button>
+			</div>
+		</div>
+
+
+		<br>
 	</div>
 </body>
 </html>

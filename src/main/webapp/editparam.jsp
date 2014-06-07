@@ -1,4 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page import="com.mrb.bean.ParamBean"%>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -48,39 +50,29 @@
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
+
 <script type="text/javascript">
-	function delparam() {
-		$('#act').val("del");
-		$('#msg').val("{param_id:" + $('#param_id').val() + "}");
-		$('#editparam_id').submit();
-	}
+	function updateparam() {
+		var exp = $('#param_name').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("配置名不能为空!");
+			$('#param_name').focus();
+			return false;
+		}
 
-	function gotoedit(obj) {
-		var tds = $(obj).parent().parent().find('td');
-		$('#act').val("edit");
-		$('#param_id').val(tds.eq(0).text());
-		$('#msg').val("{param_id:" + tds.eq(0).text() + "}");
-		$('#editparam_id').submit();
-	}
+		exp = $('#param_value').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("配置名不能为空!");
+			$('#param_value').focus();
+			return false;
+		}
 
-	function gotoadd() {
-		window.location.href = "addparam.jsp";
-	}
-
-	function setparam_id(obj) {
-		var tds = $(obj).parent().parent().find('td');
-		$('#param_id').val(tds.eq(0).text());
-		$('#update').modal('show');
-	}
-
-	$(document).ready(function() {
-		load(1);
-	});
-
-	function load(page) {
-		$.post("param.do?act=list&msg={p:" + page + "}", function(data) {
-			$("#paramgrid").html(data);
-		});
+		$('#act').val("update");
+		$('#msg').val(
+				"{param_id:\"" + $('#param_id').val() + "\",param_name:\""
+						+ $('#param_name').val() + "\",param_value:\""
+						+ $('#param_value').val() + "\"}");
+		$('#updateform').submit();
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -101,13 +93,13 @@
 <!--[if IE 9 ]> <body class="ie ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body>
+	&nbsp;
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
 		if (uid == null || uid <= 0) {
 			response.sendRedirect("admin.jsp");
 		}
-
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -117,11 +109,11 @@
 
 					<li id="fat-menu" class="dropdown"><a href="#" id="drop3"
 						role="button" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-user"></i><%=uname%><i class="icon-caret-down"></i>
+							<i class="icon-city"></i><%=uname%><i class="icon-caret-down"></i>
 					</a>
 
 						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#">设置</a></li>
+							<li><a tabindex="-1" href="#">设置</a> <br></li>
 							<li class="divider"></li>
 							<li><a tabindex="-1" href="loginout.do">退出</a></li>
 						</ul></li>
@@ -146,14 +138,6 @@
 					</div>
 					<ul id="home-menu" class="nav nav-list collapse in">
 						<li><a href="home.jsp">主页</a></li>
-					</ul>
-
-					<div class="nav-header" data-toggle="collapse"
-						data-target="#user-menu">
-						<i class="icon-user"></i>用户管理
-					</div>
-					<ul id="user-menu" class="nav nav-list collapse in">
-						<li><a href="user.jsp">用户列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -197,10 +181,10 @@
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">所有配置</h1>
+				<h1 class="page-title">修改配置</h1>
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" onclick="gotoadd();">
-						<i class="icon-plus"></i>添加配置
+					<button class="btn btn-primary" onclick="updateparam();">
+						<i class="icon-save"></i>保存
 					</button>
 					<div class="btn-group"></div>
 				</div>
@@ -223,32 +207,42 @@
 					}
 					}
 				%>
-				<!-- 位置重要 -->
-				<form name="editparam_id" id="editparam_id" action="param.do" method="post">
-					<input type="hidden" id="act" name="act" value="edit"> <input
-						type="hidden" id="msg" name="msg" value="">
-				</form>
-				<input type="hidden" id="param_id" value="">
-				<div id="paramgrid"></div>
+				<div class="well">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
+						</li>
+					</ul>
+					<form id="updateform" name="updateform" action="param.do" method="post">
+						<input type="hidden" id="act" name="act" value=""> <input
+							type="hidden" id="msg" name="msg" value="">
+					</form>
+					<div id="myTabContent" class="tab-content">
+						<div class="tab-pane active in" id="home">
+							<form id="tab">
+								<%
+									Object obj = request.getAttribute("param");
+									if (obj != null) {
+										ParamBean bean = (ParamBean) obj;
+								%>
+								<label> 配置ID </label> <input type="text" name="param_id"
+									id="param_id" value="<%=bean.getParam_id()%>"
+									class="input-xlarge" readonly="readonly"> <label> 配置名 </label> <input
+									type="text" name="param_name" id="param_name"
+									value="<%=bean.getParam_name()%>" class="input-xlarge"><label>
+									配置值 </label>
+								<textarea name="param_value" id="param_value" class="form-control"
+									rows="5"><%=bean.getParam_value()%></textarea>
+								<%
+									} else {
+								%>
+								<label> 未找到该配置! </label> 
+								<%
+									}
+								%>
+							</form>
+						</div>
+					</div>
 
-				<div class="modal small hide fade" id="myModal" tabindex="-1"
-					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">×</button>
-						<h3 id="myModalLabel">删除确认</h3>
-					</div>
-					<div class="modal-body">
-						<p class="error-text">
-							<i class="icon-warning-sign modal-icon"></i>您确定删除该配置?
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button class="btn" data-dismiss="modal" aria-hidden="true">
-							取消</button>
-						<button class="btn btn-danger" data-dismiss="modal"
-							onclick="delparam();">删除</button>
-					</div>
 				</div>
 
 			</div>

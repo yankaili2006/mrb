@@ -317,7 +317,7 @@
 									value="<%=bean.getTitle()%>" class="input-xlarge"> <label>
 									描述信息</label>
 								<textarea name="description" id="description"
-									class="form-control" rows="3"><%=bean.getDescription()%></textarea>
+									class="form-control" rows="5"><%=bean.getDescription()%></textarea>
 								<label> 视频分类 </label><select name="vcid" id="vcid"
 									class="input-xlarge">
 									<%

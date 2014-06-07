@@ -92,7 +92,7 @@ public class VCateBS {
 			map.put("index", index);
 			map.put("cnt", cnt);
 			vcateList = (ArrayList<VCateBean>) client
-					.queryForList("getVCateList", cnt);
+					.queryForList("getVCateList", map);
 			client.commitTransaction();
 			client.endTransaction();
 		} catch (SQLException e) {

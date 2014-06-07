@@ -338,7 +338,7 @@
 								<label> 所属项目 </label> <input type="text" name="pid" id="pid"
 									value="<%=bean.getPid()%>" class="input-xlarge"> <label>
 									产品简介 </label>
-								<textarea name="binfo" id="binfo" class="form-control" rows="3"><%=bean.getBinfo()%></textarea>
+								<textarea name="binfo" id="binfo" class="form-control" rows="5"><%=bean.getBinfo()%></textarea>
 
 								<label> 品牌图标 </label><img id="imguri" name="imguri" alt=""
 									width="100" height="60" src="<%=filePath + bean.getIuri()%>"></img><input
@@ -354,7 +354,7 @@
 									value="<%=bean.getFunction()%>" class="input-xlarge"> <label>
 									其他说明 </label>
 								<textarea name="summary" id="summary" class="form-control"
-									rows="3"><%=bean.getSummary()%></textarea>
+									rows="5"><%=bean.getSummary()%></textarea>
 								<input type="hidden" id="bid" name="bid"
 									value="<%=bean.getBid()%>">
 								<%

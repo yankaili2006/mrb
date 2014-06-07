@@ -31,6 +31,7 @@ import com.mrb.pbean.BImgRespBean;
 import com.mrb.pbean.FeedBean;
 import com.mrb.pbean.PwdBean;
 import com.mrb.pbean.ResBean;
+import com.mrb.pbean.ShopInfoRespBean;
 import com.mrb.pbean.UpdateReqBean;
 import com.mrb.pbean.UpdateRespBean;
 import com.mrb.pbs.OtherBS;
@@ -130,6 +131,59 @@ public class OtherAction extends Action {
 
 			result = gson.toJson(resp);
 
+		} else if ("shopinfo".equals(act)) { // 管店介绍 for 手机
+			ShopInfoRespBean resp = new ShopInfoRespBean();
+
+			ParamBS paramBS = new ParamBS();
+			ParamBean paramBean = paramBS.getParamById("shopinfo");
+
+			if (paramBean != null) {
+				String paramValue = paramBean.getParam_value();
+				if (paramValue != null && !"".equals(paramValue)) {
+					resp.setCode("0000");
+					resp.setMsg("交易成功");
+					if (paramValue.contains(",")) {
+						String[] paramList = paramValue.split(",");
+						resp.setInfo(paramList[0]);
+						resp.setPhone(paramList[1]);
+					}
+				} else {
+					resp.setCode("0001");
+					resp.setMsg("交易失败");
+				}
+			} else {
+				resp.setCode("0001");
+				resp.setMsg("交易失败");
+			}
+
+			result = gson.toJson(resp);
+		} else if ("memberinfo".equals(act)) { // 会员介绍 for 手机
+			ShopInfoRespBean resp = new ShopInfoRespBean();
+
+			ParamBS paramBS = new ParamBS();
+			ParamBean paramBean = paramBS.getParamById("memberinfo");
+
+			if (paramBean != null) {
+				String paramValue = paramBean.getParam_value();
+				if (paramValue != null && !"".equals(paramValue)) {
+					resp.setCode("0000");
+					resp.setMsg("交易成功");
+					if (paramValue.contains(",")) {
+						String[] paramList = paramValue.split(",");
+						resp.setInfo(paramList[0]);
+						resp.setPhone(paramList[1]);
+					}
+				} else {
+					resp.setCode("0001");
+					resp.setMsg("交易失败");
+				}
+			} else {
+				resp.setCode("0001");
+				resp.setMsg("交易失败");
+			}
+
+			result = gson.toJson(resp);
+
 		} else {
 			result = "不支持的操作类型";
 		}
@@ -148,5 +202,4 @@ public class OtherAction extends Action {
 
 		return null;
 	}
-
 }

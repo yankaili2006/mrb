@@ -104,7 +104,6 @@ public class UserAction extends Action {
 
 				int rst = bs.addUser(bean);
 				if (rst >= 0) {
-					result = "注册成功";
 				} else if (rst == -2) {
 					result = "用户名已经被注册";
 				} else if (rst == -3) {
@@ -122,6 +121,8 @@ public class UserAction extends Action {
 				operBean.setUid(Long.valueOf(suid));
 				operBean.setOper("增加用户");
 				operBS.addOperate(operBean);
+				
+				result = "注册成功";
 
 				return mapping.findForward("list");
 			} else {
@@ -294,7 +295,6 @@ public class UserAction extends Action {
 
 				int rst = bs.updateUser(bean);
 				if (rst >= 0) {
-					result = "修改成功";
 				} else if (rst == -2) {
 					result = "用户名已经被注册";
 				} else if (rst == -3) {
@@ -314,6 +314,8 @@ public class UserAction extends Action {
 				operBean.setOper("更新用户");
 				operBS.addOperate(operBean);
 				req.setAttribute("user", bean);
+
+				result = "修改成功";
 
 				return mapping.findForward("edit");
 			} else {
