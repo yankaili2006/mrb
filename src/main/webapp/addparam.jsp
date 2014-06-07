@@ -236,17 +236,20 @@
 									class="input-xlarge"> <label> 配置名 </label> <input
 									type="text" name="param_name" id="param_name"
 									value="<%=bean.getParam_name()%>" class="input-xlarge"><label>
-									配置值 </label> <input type="text" name="param_value" id="param_value"
-									value="<%=bean.getParam_value()%>" class="input-xlarge">
+									配置值 </label>
+								<textarea name="param_value" id="param_value"
+									value="<%=bean.getParam_value()%>" class="form-control"
+									rows="5"></textarea>
 								<%
 									} else {
 								%>
 								<label> 配置ID </label> <input type="text" name="param_id"
 									id="param_id" value="" class="input-xlarge"> <label>
 									配置名 </label> <input type="text" name="param_name" id="param_name"
-									value="" class="input-xlarge"><label> 配置值 </label> <input
-									type="text" name="param_value" id="param_value" value=""
-									class="input-xlarge">
+									value="" class="input-xlarge"><label> 配置值 </label>
+
+								<textarea name="param_value" id="param_value"
+									class="form-control" rows="5"></textarea>
 								<%
 									}
 								%>

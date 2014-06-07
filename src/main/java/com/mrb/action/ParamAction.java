@@ -72,7 +72,7 @@ public class ParamAction extends Action {
 							+ bean.getParam_name() + "</td><td>"
 							+ bean.getParam_value() + "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
-					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setuid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
+					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setparam_id(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
 
 			} else {
@@ -91,7 +91,6 @@ public class ParamAction extends Action {
 
 				int rst = bs.addParam(bean);
 				if (rst >= 0) {
-					result = "添加成功";
 				} else if (rst == -2) {
 					result = "配置名已经存在";
 				} else {
@@ -108,11 +107,36 @@ public class ParamAction extends Action {
 				operBean.setOper("增加配置");
 				operBS.addOperate(operBean);
 
+				result = "添加成功";
+
 				return mapping.findForward("list");
 			} else {
 				req.setAttribute("param", bean);
 				req.setAttribute("result", result);
 				return mapping.findForward("add");
+			}
+		} else if ("edit".equals(act)) {// 编辑配置 for 跳转
+			ParamBean param = null;
+			ParamBean bean = (ParamBean) gson.fromJson(msg, ParamBean.class);
+			if (bean != null) {
+				log.info("param_id = [" + bean.getParam_id() + "]");
+				param = bs.getParamById(bean.getParam_id());
+			} else {
+				log.error("bean is null");
+				result = "参数非法";
+			}
+
+			if (param != null) {
+				req.setAttribute("param", param);
+			} else {
+				result = "未找到该配置";
+			}
+
+			if ("ok".equals(result)) {
+				return mapping.findForward(act);
+			} else {
+				req.setAttribute("result", result);
+				return mapping.findForward("list");
 			}
 
 		} else if ("update".equals(act)) { // 更新配置 for 跳转
@@ -121,7 +145,6 @@ public class ParamAction extends Action {
 
 				int rst = bs.updateParam(bean);
 				if (rst >= 0) {
-					result = "修改成功";
 				} else if (rst == -1) {
 					result = "修改失败";
 				} else {
@@ -138,11 +161,29 @@ public class ParamAction extends Action {
 				operBS.addOperate(operBean);
 				req.setAttribute("param", bean);
 
+				result = "修改成功";
+
 				return mapping.findForward("edit");
 			} else {
 				req.setAttribute("result", result);
 				return mapping.findForward("list");
 			}
+		} else if ("del".equals(act)) { // 删除配置 for ajax
+			ParamBean bean = (ParamBean) gson.fromJson(msg, ParamBean.class);
+			if (bean != null) {
+				log.info("param_id = [" + bean.getParam_id() + "]");
+				if (!bs.delParamById(bean.getParam_id())) {
+					result = "删除失败";
+				} else {
+					operBean.setOper("删除配置");
+					operBS.addOperate(operBean);
+				}
+			} else {
+				result = "参数非法";
+			}
+
+			req.setAttribute("result", result);
+			return mapping.findForward("list");
 
 		} else {
 			result = "不支持的操作类型";

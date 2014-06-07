@@ -27,6 +27,7 @@ import com.mrb.bs.OperateBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.BImgReqBean;
 import com.mrb.pbean.BImgRespBean;
+import com.mrb.util.MrbUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -56,7 +57,7 @@ public class BImgAction extends Action {
 		Gson gson = new Gson();
 		OperateBS operBS = new OperateBS();
 		OperateBean operBean = new OperateBean();
-		
+
 		if ("list".equals(act)) { // 获取品牌图片列表 for ajax
 
 			PageBean pbean = gson.fromJson(msg, PageBean.class);
@@ -104,7 +105,7 @@ public class BImgAction extends Action {
 
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
-			operBean.setUid(Long.valueOf(suid));
+				operBean.setUid(Long.valueOf(suid));
 				operBean.setOper("增加品牌图片");
 				operBS.addOperate(operBean);
 				return mapping.findForward("list");
@@ -128,7 +129,7 @@ public class BImgAction extends Action {
 					ArrayList<String> imgs = new ArrayList<String>();
 					for (int i = 0; i < list.size(); i++) {
 						BImg2ShowBean bibean = list.get(i);
-						imgs.add(bibean.getIuri());
+						imgs.add(MrbUtil.getImgUrl() + "/" + bibean.getIuri());
 					}
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
@@ -172,8 +173,7 @@ public class BImgAction extends Action {
 				log.info("biid = [" + bean.getBiid() + "]");
 				if (!bs.delBImgByBiid(bean.getBiid())) {
 					result = "删除失败";
-				}
-				else{
+				} else {
 					operBean.setUid(Long.valueOf(suid));
 					operBean.setOper("删除品牌图片");
 					operBS.addOperate(operBean);
@@ -202,7 +202,7 @@ public class BImgAction extends Action {
 				operBean.setUid(Long.valueOf(suid));
 				operBean.setOper("更新品牌图片");
 				operBS.addOperate(operBean);
-				
+
 				BImg2ShowBean showBean = bs.getBImgByBiid(bean.getBiid());
 				req.setAttribute("bimg", showBean);
 				return mapping.findForward("edit");

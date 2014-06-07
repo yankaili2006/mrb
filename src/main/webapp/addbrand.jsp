@@ -361,7 +361,7 @@
 									value="<%=bean.getFunction()%>" class="input-xlarge"> <label>
 									其他说明 </label>
 								<textarea name="summary" id="summary" class="form-control"
-									rows="3"><%=bean.getSummary()%></textarea>
+									rows="5"><%=bean.getSummary()%></textarea>
 
 
 								<input type="hidden" id="bid" name="bid"
@@ -388,7 +388,7 @@
 										}
 									%>
 								</select> <label> 产品简介 </label>
-								<textarea name="binfo" id="binfo" class="form-control" rows="3"></textarea>
+								<textarea name="binfo" id="binfo" class="form-control" rows="5"></textarea>
 
 								<label> 品牌图标 </label> <input type="text" name="iuri" id="iuri"
 									value="" class="input-xlarge">
@@ -401,7 +401,7 @@
 									type="text" name="function" id="function" value=""
 									class="input-xlarge"> <label> 其他说明 </label>
 								<textarea name="summary" id="summary" class="form-control"
-									rows="3"></textarea>
+									rows="5"></textarea>
 
 								<input type="hidden" id="bid" name="bid" value="0">
 								<%
