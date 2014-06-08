@@ -112,6 +112,18 @@
 		</action>
 
 
+		<!-- 模块图片 -->
+		<action path="/modelimg" type="com.mrb.action.ModelImgAction"
+			name="jsonForm" scope="request" validate="false">
+			<forward name="fail" path="/index.do" />
+			<forward name="list" path="/modelimg.jsp" />
+			<forward name="home" path="/home.jsp" />
+			<forward name="add" path="/addmodel.jsp" />
+			<forward name="edit" path="/editmodelimg.jsp" />
+			<forward name="admin" path="/admin.jsp"></forward>
+		</action>
+
+
 		<!-- 管理台首页 -->
 		<action path="/home" type="com.mrb.action.HomeAction" name="jsonForm"
 			scope="request" validate="false">

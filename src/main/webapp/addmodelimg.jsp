@@ -1,11 +1,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ page import="com.mrb.bean.PcateBean"%>
+<%@ page import="com.mrb.bean.ModelImgBean"%>
+<%@ page import="com.mrb.bs.ParamBS"%>
+<%@ page import="com.mrb.bean.ParamBean"%>
+<%
+	//模块列表
 
+	String result = null;
+	Object robj = request.getAttribute("result");
+	if (robj != null) {
+		result = (String) robj;
+	}
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta charset="utf-8">
-<title>分类管理</title>
+<title>模块图片管理</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -49,18 +59,59 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+
 <script type="text/javascript">
-	function addpcate() {
-		var exp = $('#name').val();
+	function addmodelimg() {
+
+		exp = $('#model').val();
 		if (!exp || typeof (exp) == "undefined" || exp == 0) {
-			alert("分类名不能为空!");
-			$('#name').focus();
+			alert("模块不能为空!");
+			$('#model').focus();
 			return false;
 		}
 
+		exp = $('#iuri').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("图标不能为空!");
+			$('#iuri').focus();
+			return false;
+		}
+
+		var iuri = $('#iuri').val();
+		if (iuri.indexOf("\\") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
+		}
+		if (iuri.indexOf("/") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
+		}
+
 		$('#act').val("add");
-		$('#msg').val("{name:" + $('#name').val() + "}");
+		$('#msg').val(
+				"{model:" + $('#model').val() + ",idx:" + $('#idx').val()
+						+ ",iuri:\"" + iuri + "\"}");
 		$('#addform').submit();
+	}
+
+	function upload() {
+		var exp = $('#uploadfile').val();
+		if (!exp || typeof (exp) == "undefined" || exp == 0) {
+			alert("请选择图片");
+			$('#uploadfile').focus();
+			return false;
+		}
+
+		var iuri = $('#uploadfile').val();
+		if (iuri.indexOf("\\") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("\\") + 1, iuri.length);
+		}
+		if (iuri.indexOf("/") != -1) {
+			iuri = iuri.substring(iuri.lastIndexOf("/") + 1, iuri.length);
+		}
+
+		$('#uploadform').submit();
+		$('#iuri').val(iuri);
+		$('#uploadModal').modal('hide');
 	}
 </script>
 <!-- Le fav and touch icons -->
@@ -81,6 +132,7 @@
 <!--[if IE 9 ]> <body class="ie ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body>
+	&nbsp;
 	<!--<![endif]-->
 	<%
 		Long uid = (Long) session.getAttribute("uid");
@@ -100,8 +152,9 @@
 					</a>
 
 						<ul class="dropdown-menu">
-							<li><a tabindex="-1" href="#">设置</a></li>
-							<li class="divider"></li>
+							<li><a tabindex="-1" href="#">设置</a> <br></li>
+							<li class="divider">u <br>
+							</li>
 							<li><a tabindex="-1" href="loginout.do">退出</a></li>
 						</ul></li>
 
@@ -148,7 +201,7 @@
 						<i class="icon-road"></i>项目管理
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
-						<li class="active"><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="pcate.jsp">项目分类</a></li>
 						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
@@ -161,7 +214,7 @@
 					</div>
 					<ul id="param-menu" class="nav nav-list collapse in">
 						<li><a href="param.jsp">参数</a></li>
-						<li><a href="modelimg.jsp">模块图片列表</a></li>
+						<li class="active"><a href="modelimg.jsp">模块图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -175,18 +228,17 @@
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">添加分类</h1>
+				<h1 class="page-title">添加模块图片</h1>
 				<div class="btn-toolbar">
-					<button class="btn btn-primary" onclick="addpcate();">
+					<button class="btn btn-primary" onclick="addmodelimg();">
 						<i class="icon-save"></i>保存
 					</button>
 					<div class="btn-group"></div>
 				</div>
 				<%
-					Object robj = request.getAttribute("result");
-					if (robj != null) {
-						String result = (String) robj;
-						if ("ok".equals(result)) {
+					if (result == null || "".equals(result)) {
+						;
+					} else if ("ok".equals(result)) {
 				%>
 				<div class="alert alert-success">
 					<a href="#" class="alert-link">操作成功！</a>
@@ -199,34 +251,102 @@
 				</div>
 				<%
 					}
-					}
 				%>
-				<form id="addform" name="addform" action="pcate.do" method="post">
-					<input type="hidden" id="act" name="act" value=""> <input
-						type="hidden" id="msg" name="msg" value="">
-				</form>
 				<div class="well">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#home" data-toggle="tab">基本信息</a>
 						</li>
 					</ul>
+
+					<form id="addform" name="addform" action="modelimg.do"
+						method="post">
+						<input type="hidden" id="act" name="act" value=""> <input
+							type="hidden" id="msg" name="msg" value="">
+					</form>
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane active in" id="home">
-							<form id="tab">
+							<form id="tab" name="tab">
 								<%
-									Object obj = request.getAttribute("pcate");
+									ParamBS paramBS = new ParamBS();
+									ParamBean paramBean = paramBS.getParamById("model");
+									String paramList[] = null;
+									if (paramBean != null) {
+										String paramValue = paramBean.getParam_value();
+										if (paramValue != null && !"".equals(paramValue)
+												&& paramValue.contains(",")) {
+											paramList = paramValue.split(",");
+										}
+									}
+
+									Object obj = request.getAttribute("modelimg");
 									if (obj != null) {
-										PcateBean bean = (PcateBean) obj;
+										ModelImgBean bean = (ModelImgBean) obj;
 								%>
-								<label> 分类名 </label> <input type="text" id="name" name="name"
-									value="<%if (bean != null)
-					out.print(bean.getName());%>"
+
+								<label>模块</label>
+								<%
+									if (paramList == null) {
+								%>
+								<input type="text" name="model" id="model"
+									value="<%=bean.getModel()%>" class="input-xlarge">
+								<%
+									} else {
+								%>
+								<select name="model" id="model" class="input-xlarge">
+									<%
+										for (int i = 0; i < paramList.length; i++) {
+									%>
+									<option value="<%=paramList[i]%>"
+										<%if (bean.getModel() == paramList[i])
+							out.print("selected=\"selected\"");%>>
+										<%=paramList[i]%></option>
+									<%
+										}
+									%>
+								</select>
+								<%
+									}
+								%>
+								<label> 模块内显示次序 </label> <input type="text" name="idx" id="idx"
+									value="<%=bean.getIdx()%>" class="input-xlarge"> <label>
+									模块图片 </label> <input type="text" name="iuri" id="iuri"
+									value="<%=bean.getIuri()%>" class="input-xlarge">
+								<button class="btn btn-primary btn-lg" data-toggle="modal"
+									data-target="#uploadModal">上传图片</button>
+
+								<input type="hidden" id="iid" name="iid"
+									value="<%=bean.getIid()%>">
+								<%
+									} else {
+								%>
+								<label>模块</label>
+
+								<%
+									if (paramList == null) {
+								%>
+								<input type="text" name="model" id="model" value=""
 									class="input-xlarge">
 								<%
 									} else {
 								%>
-								<label> 分类名 </label> <input type="text" id="name" name="name"
-									value="" class="input-xlarge">
+								<select name="model" id="model" class="input-xlarge">
+									<%
+										for (int i = 0; i < paramList.length; i++) {
+									%>
+									<option value="<%=paramList[i]%>"><%=paramList[i]%></option>
+									<%
+										}
+									%>
+								</select>
+								<%
+									}
+								%>
+								<label> 模块内显示次序 </label> <input type="text" name="idx" id="idx"
+									value="" class="input-xlarge"> <label> 模块图片 </label> <input
+									type="text" name="iuri" id="iuri" value="" class="input-xlarge">
+								<button class="btn btn-primary btn-lg" data-toggle="modal"
+									data-target="#uploadModal">上传图片</button>
+								<input type="hidden" id="iid" name="iid" value="0">
 								<%
 									}
 								%>
@@ -239,6 +359,36 @@
 
 
 
+		<!-- Modal -->
+		<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">上传图片</h4>
+					</div>
+					<div class="modal-body">
+						<form action="UploadServlet" method="post"
+							enctype="multipart/form-data" target="post_frame" id="uploadform"
+							name="uploadform">
+							<input type="file" class="btn btn-primary" name="uploadfile"
+								id="uploadfile" size="100" /> <input type="submit"
+								class="btn btn-primary" value="upload" style="display: none;" />
+						</form>
+						<iframe name='post_frame' id="post_frame" style="display: none;"></iframe>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="upload()">上传</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
 		<footer>
 		<hr>
 		<p class="pull-right">
@@ -250,9 +400,6 @@
 			&copy; 2014 <a href="#">美人邦</a>
 		</p>
 		</footer>
-
-
-
 
 		<!-- Le javascript
     ================================================== -->

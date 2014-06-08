@@ -183,6 +183,7 @@
 					</div>
 					<ul id="param-menu" class="nav nav-list collapse in">
 						<li><a href="param.jsp">参数</a></li>
+						<li><a href="modelimg.jsp">模块图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"

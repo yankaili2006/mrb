@@ -1,10 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta charset="utf-8">
-<title>项目分类管理</title>
+<title>模块图片管理</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -50,27 +49,27 @@
     <![endif]-->
 
 <script type="text/javascript">
-	function delpcate() {
+	function delmodelimg() {
 		$('#act').val("del");
-		$('#msg').val("{cid:" + $('#cid').val() + "}");
-		$('#editcid').submit();
+		$('#msg').val("{iid:" + $('#iid').val() + "}");
+		$('#editiid').submit();
 	}
 
 	function gotoedit(obj) {
 		var tds = $(obj).parent().parent().find('td');
 		$('#act').val("edit");
-		$('#cid').val(tds.eq(0).text());
-		$('#msg').val("{cid:" + tds.eq(0).text() + "}");
-		$('#editcid').submit();
+		$('#iid').val(tds.eq(0).text());
+		$('#msg').val("{iid:" + tds.eq(0).text() + "}");
+		$('#editiid').submit();
 	}
 
 	function gotoadd() {
-		window.location.href = "addpcate.jsp";
+		window.location.href = "addmodelimg.jsp";
 	}
 
-	function setcid(obj) {
+	function setiid(obj) {
 		var tds = $(obj).parent().parent().find('td');
-		$('#cid').val(tds.eq(0).text());
+		$('#iid').val(tds.eq(0).text());
 		$('#update').modal('show');
 	}
 
@@ -79,8 +78,8 @@
 	});
 
 	function load(page) {
-		$.post("pcate.do?act=list&msg={p:" + page + "}", function(data) {
-			$("#pcategrid").html(data);
+		$.post("modelimg.do?act=list&msg={p:" + page + "}", function(data) {
+			$("#modelimggrid").html(data);
 		});
 	}
 </script>
@@ -95,6 +94,7 @@
 <link rel="apple-touch-icon-precomposed"
 	href="../assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
+
 <!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
 <!--[if IE 7 ]> <body class="ie ie7"> <![endif]-->
 <!--[if IE 8 ]> <body class="ie ie8"> <![endif]-->
@@ -107,7 +107,6 @@
 		if (uid == null || uid <= 0) {
 			response.sendRedirect("admin.jsp");
 		}
-
 		String uname = (String) session.getAttribute("uname");
 	%>
 	<div class="navbar">
@@ -139,7 +138,6 @@
 		<div class="row-fluid">
 			<div class="span3">
 				<div class="sidebar-nav">
-
 					<div class="nav-header" data-toggle="collapse"
 						data-target="#home-menu">
 						<i class="icon-home"></i>主页
@@ -170,7 +168,7 @@
 						<i class="icon-road"></i>项目管理
 					</div>
 					<ul id="project-menu" class="nav nav-list collapse in">
-						<li class="active"><a href="pcate.jsp">项目分类</a></li>
+						<li><a href="pcate.jsp">项目分类</a></li>
 						<li><a href="city.jsp">城市列表</a></li>
 						<li><a href="project.jsp">项目列表</a></li>
 						<li><a href="brand.jsp">品牌列表</a></li>
@@ -183,7 +181,7 @@
 					</div>
 					<ul id="param-menu" class="nav nav-list collapse in">
 						<li><a href="param.jsp">参数</a></li>
-						<li><a href="modelimg.jsp">模块图片列表</a></li>
+						<li class="active"><a href="modelimg.jsp">模块图片列表</a></li>
 					</ul>
 
 					<div class="nav-header" data-toggle="collapse"
@@ -194,14 +192,13 @@
 						<li><a href="privacy.jsp">版权说明</a></li>
 						<li><a href="terms.jsp">美人邦使用协议</a></li>
 					</ul>
-
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">项目分类</h1>
+				<h1 class="page-title">所有模块图片</h1>
 				<div class="btn-toolbar">
 					<button class="btn btn-primary" onclick="gotoadd();">
-						<i class="icon-plus"></i>添加分类
+						<i class="icon-plus"></i>添加模块图片
 					</button>
 					<div class="btn-group"></div>
 				</div>
@@ -225,12 +222,12 @@
 					}
 				%>
 				<!-- 位置重要 -->
-				<form name="editcid" id="editcid" action="pcate.do" method="post">
-					<input type="hidden" id="act" name="act" value="edit"> <input
+				<form name="editiid" id="editiid" action="modelimg.do" method="post">
+					<input type="hidden" id="act" name="act" value=""> <input
 						type="hidden" id="msg" name="msg" value="">
 				</form>
-				<input type="hidden" id="cid" value="">
-				<div id="pcategrid"></div>
+				<input type="hidden" id="iid" value="">
+				<div id="modelimggrid"></div>
 
 				<div class="modal small hide fade" id="myModal" tabindex="-1"
 					role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -241,14 +238,14 @@
 					</div>
 					<div class="modal-body">
 						<p class="error-text">
-							<i class="icon-warning-sign modal-icon"></i>您确定删除该分类?
+							<i class="icon-warning-sign modal-icon"></i>您确定删除该模块图片?
 						</p>
 					</div>
 					<div class="modal-footer">
 						<button class="btn" data-dismiss="modal" aria-hidden="true">
 							取消</button>
 						<button class="btn btn-danger" data-dismiss="modal"
-							onclick="delpcate();">删除</button>
+							onclick="delmodelimg();">删除</button>
 					</div>
 				</div>
 

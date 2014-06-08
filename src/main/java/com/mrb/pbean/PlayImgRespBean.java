@@ -2,13 +2,13 @@ package com.mrb.pbean;
 
 import java.util.ArrayList;
 
-import com.mrb.bean.Brand2ShowBean;
+import com.mrb.bean.ModelImgBean;
 
-public class BrandRespBean {
+public class PlayImgRespBean {
 	private String code;
 	private String msg;
-	private Integer num;
-	private ArrayList<Brand2ShowBean> blist;
+	private long num;
+	private ArrayList<String> imgs;
 
 	public String getCode() {
 		return code;
@@ -26,20 +26,20 @@ public class BrandRespBean {
 		this.msg = msg;
 	}
 
-	public Integer getNum() {
+	public long getNum() {
 		return num;
 	}
 
-	public void setNum(Integer num) {
+	public void setNum(long num) {
 		this.num = num;
 	}
 
-	public ArrayList<Brand2ShowBean> getBlist() {
-		return blist;
+	public ArrayList<String> getImgs() {
+		return imgs;
 	}
 
-	public void setBlist(ArrayList<Brand2ShowBean> blist) {
-		this.blist = blist;
+	public void setImgs(ArrayList<String> imgs) {
+		this.imgs = imgs;
 	}
 
 }

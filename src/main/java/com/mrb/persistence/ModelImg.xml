@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="modelimg">
+	<insert id="addModelImg" parameterClass="com.mrb.bean.ModelImgBean">
+		insert into tbmodelimg
+		values(#iid#,#model#,#idx#,#iuri#)
+	</insert>
+
+	<select id="getModelImgByIid" parameterClass="java.lang.Long"
+		resultClass="com.mrb.bean.ModelImgBean">
+		select * from tbmodelimg where iid = #iid#
+	</select>
+
+	<select id="getModelImgList" parameterClass="java.util.HashMap"
+		resultClass="com.mrb.bean.ModelImgBean">
+		select * from tbmodelimg limit #start#, #num#
+	</select>
+
+	<select id="getModelImgListByModel" parameterClass="com.mrb.pbean.PlayImgReqBean"
+		resultClass="com.mrb.bean.ModelImgBean">
+		select * from tbmodelimg where model = #model# order by
+		idx asc limit #start#, #num#
+	</select>
+
+	<select id="getModelImgCnt" resultClass="java.lang.Integer">
+		select count(1) from
+		tbmodelimg
+	</select>
+
+	<update id="updateModelImg" parameterClass="com.mrb.bean.ModelImgBean">
+		update tbmodelimg set model=#model#
+		<isNotEmpty prepend="," property="idx">idx=#idx#</isNotEmpty>
+		<isNotEmpty prepend="," property="iuri">iuri=#iuri#</isNotEmpty>
+		where iid=#iid#
+	</update>
+
+	<delete id="delModelImgByIid" parameterClass="java.lang.Long">
+		delete from
+		tbmodelimg
+		where iid = #iid#
+	</delete>
+</sqlMap>

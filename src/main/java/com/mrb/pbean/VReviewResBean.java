@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class VReviewResBean {
 	
+	
 	private String code;
 	private String msg;
 	private int start;

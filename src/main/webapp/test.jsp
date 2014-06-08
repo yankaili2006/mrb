@@ -344,6 +344,15 @@
 			});
 		});
 
+		//动态图片列表
+		$('#playimg').click(
+				function() {
+					$.post("other.do?act=playimg&msg={model:"
+							+ $('#playimg_model').val() + "}", function(data) {
+						alert(data);
+					});
+				});
+
 	});
 </script>
 <!-- Le fav and touch icons -->
@@ -772,6 +781,18 @@
 			</div>
 		</div>
 
+
+		<h2>动态图片列表</h2>
+		<hr>
+		<div class="row">
+			<div class="span4 offset2">
+				<h4>动态图片列表</h4>
+				<label>model</label> <input type="text" id="playimg_model"
+					name="playimg_model" value="video"> <br>
+				<button id="playimg" name="playimg" class="btn" data-dismiss="modal"
+					aria-hidden="true">动态图片列表</button>
+			</div>
+		</div>
 
 		<br>
 	</div>

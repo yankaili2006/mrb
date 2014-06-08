@@ -18,7 +18,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bean.CityBean;

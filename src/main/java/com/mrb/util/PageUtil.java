@@ -3,7 +3,6 @@ package com.mrb.util;
 import com.mrb.bean.PageBean;
 
 public class PageUtil {
-
 	
 	public String pagination(PageBean bean) {
 		StringBuilder html = new StringBuilder();
