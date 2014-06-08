@@ -119,33 +119,31 @@ public class CodeAction extends Action {
 				resBean.setMsg("手机号不能为空");
 			} else {
 
-				UserBS userBS = new UserBS();
-				UserBean userBean = userBS.getUserByPhone(reqBean.getPhone());
-				if (userBean == null) {
-					resBean.setCode("4004");
-					resBean.setMsg("未找到手机号对应的用户");
-				} else {
-					// 校验校验码
-					bean.setCode(reqBean.getChkcode());
-					bean.setPhone(reqBean.getPhone());
-					Integer cnt = bs.chkCode(bean);
+				// 校验校验码
+				bean.setCode(reqBean.getChkcode());
+				bean.setPhone(reqBean.getPhone());
+				Integer cnt = bs.chkCode(bean);
 
-					if (cnt > 0) {
-						// 更新数据库，校验通过
-						bean.setStatus("1");
-						if (bs.updateCode(bean)) {
+				if (cnt > 0) {
+					// 更新数据库，校验通过
+					bean.setStatus("1");
+					if (bs.updateCode(bean)) {
+						UserBS userBS = new UserBS();
+						UserBean userBean = userBS.getUserByPhone(reqBean
+								.getPhone());
+						if (userBean != null) {
 							resBean.setUid(userBean.getUid());
-							resBean.setCode("0000");
-							resBean.setMsg("校验通过");
-						} else {
-							resBean.setCode("4000");
-							resBean.setMsg("校验不通过");
 						}
-
+						resBean.setCode("0000");
+						resBean.setMsg("校验通过");
 					} else {
 						resBean.setCode("4000");
 						resBean.setMsg("校验不通过");
 					}
+
+				} else {
+					resBean.setCode("4000");
+					resBean.setMsg("校验不通过");
 				}
 			}
 			result = gson.toJson(resBean);
