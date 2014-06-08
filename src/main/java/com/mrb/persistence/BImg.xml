@@ -28,7 +28,7 @@
 	</select>
 
 	<select id="getBImgCnt" resultClass="java.lang.Integer">
-		select count(1) from tbbimg
+		select if(isnull(count(1)), 0 , count(1)) from tbbimg
 		bi, tbbrand b where b.bid = bi.bid
 	</select>
 
