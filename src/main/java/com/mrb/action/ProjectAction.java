@@ -18,7 +18,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mrb.bean.Brand2ShowBean;
 import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
@@ -201,9 +200,7 @@ public class ProjectAction extends Action {
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
 					respBean.setNum(ulist.size());
-					respBean.setBlist(gson.toJson(ulist,
-							new TypeToken<ArrayList<Brand2ShowBean>>() {
-							}.getType()));
+					respBean.setBlist(ulist);
 				} else {
 					respBean.setCode("1700");
 					respBean.setMsg("交易失败");

@@ -8,7 +8,7 @@ public class BrandRespBean {
 	private String code;
 	private String msg;
 	private Integer num;
-	private String blist;
+	private ArrayList<Brand2ShowBean> blist;
 
 	public String getCode() {
 		return code;
@@ -34,11 +34,11 @@ public class BrandRespBean {
 		this.num = num;
 	}
 
-	public String getBlist() {
+	public ArrayList<Brand2ShowBean> getBlist() {
 		return blist;
 	}
 
-	public void setBlist(String blist) {
+	public void setBlist(ArrayList<Brand2ShowBean> blist) {
 		this.blist = blist;
 	}
 
