@@ -37,7 +37,7 @@
 	</select>
 
 	<select id="getProjectCnt" resultClass="java.lang.Integer">
-		select count(1) from
+		select if(isnull(count(1)), 0 , count(1)) from
 		tbproject
 	</select>
 

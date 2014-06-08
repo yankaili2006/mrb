@@ -45,7 +45,7 @@
 	</select>
 
 	<select id="getUserCnt" resultClass="java.lang.Integer">
-		select Count(1) from tbuser
+		select if(isnull(count(1)), 0 , count(1)) from tbuser
 	</select>
 
 	<update id="updateUser" parameterClass="com.mrb.bean.UserBean">

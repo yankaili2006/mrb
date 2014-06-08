@@ -19,7 +19,7 @@
 
 
 	<select id="getVideoCnt" resultClass="java.lang.Integer">
-		select count(1) from
+		select if(isnull(count(1)), 0 , count(1)) from
 		tbvideo
 	</select>
 
@@ -107,7 +107,7 @@
 	<select id="getVRelateList" parameterClass="com.mrb.pbean.VRelateReqBean"
 		resultClass="com.mrb.pbean.VRelateBean">
 		select vr.vrid, vr.vidb as vid, v.thumbnail_url as iuri,
-		v.title, v.duration, vv.cnt as reviewcnt, vr.date from tbvideo
+		v.title, v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt, vr.date from tbvideo
 		v,tbvrelate vr
 		left join vvreview vv on vv.vid = vr.vidb where vr.vida
 		= #vid# order by
@@ -121,7 +121,7 @@
 		resultClass="com.mrb.pbean.VCollectBean">
 		select uc.ucid, uc.vid, v.thumbnail_url as iuri,
 		v.title,
-		v.duration, vv.cnt as reviewcnt, uc.date from tbvideo
+		v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt, uc.date from tbvideo
 		v,tbucollect uc
 		left join vvreview vv on vv.vid = uc.vid where uc.uid
 		= #uid# order by

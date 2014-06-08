@@ -24,7 +24,7 @@
 	</select>
 
 	<select id="getCityCnt" resultClass="java.lang.Integer">
-		select Count(1) from tbcity
+		select if(isnull(count(1)), 0 , count(1)) from tbcity
 	</select>
 
 	<update id="updateCity" parameterClass="com.mrb.bean.CityBean">

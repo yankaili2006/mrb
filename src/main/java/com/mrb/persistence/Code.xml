@@ -24,7 +24,7 @@
 	</select>
 
 	<select id="getCodeCnt" resultClass="java.lang.Integer">
-		select count(1) from tbcode
+		select if(isnull(count(1)), 0 , count(1)) from tbcode
 	</select>
 
 	<update id="updateCode" parameterClass="com.mrb.bean.CodeBean">

@@ -527,7 +527,7 @@
 		<div class="row">
 			<div class="span4 offset2">
 				<h4>获取收藏视频列表</h4>
-				<label>vid</label> <input type="text" id="vcollect_uid"
+				<label>uid</label> <input type="text" id="vcollect_uid"
 					name="vcollect_uid" value="<%=uid%>"> <br> <label>start</label>
 				<input type="text" id="vcollect_start" name="vcollect_start"
 					value=""> <br> <label>num</label> <input type="text"

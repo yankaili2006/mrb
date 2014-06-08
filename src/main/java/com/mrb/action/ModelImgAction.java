@@ -70,14 +70,13 @@ public class ModelImgAction extends Action {
 			req.setAttribute("ulist", ulist);
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>ID</th><th>图片ID</th><th>模块</th><th>模块内显示次序</th><th>图片链接</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>图片ID</th><th>模块</th><th>模块内显示次序</th><th>图片链接</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					ModelImgBean bean = (ModelImgBean) ulist.get(i);
 					html.append("<tr><td>" + bean.getIid() + "</td><td>"
 							+ bean.getModel() + "</td><td>" + bean.getIdx()
-							+ "</td><td>" + bean.getIuri() + "</td><td>"
-							+ bean.getIuri() + "</td>");
+							+ "</td><td>" + bean.getIuri() + "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
 					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setiid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 				}
