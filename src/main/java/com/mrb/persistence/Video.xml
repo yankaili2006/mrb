@@ -19,7 +19,8 @@
 
 
 	<select id="getVideoCnt" resultClass="java.lang.Integer">
-		select if(isnull(count(1)), 0 , count(1)) from
+		select if(isnull(count(1)),
+		0 , count(1)) from
 		tbvideo
 	</select>
 
@@ -67,11 +68,14 @@
 		resultClass="com.mrb.pbean.VBean">
 		select v.vid, v.vcid, v.title, v.duration, v.type,
 		v.teacher,
-		v.description, v.date, if(isnull(vr.cnt),0,vr.cnt) as
+		v.description, v.date, v.snapshot_url, v.thumbnail_url,
+		if(isnull(vr.cnt),0,vr.cnt) as
 		reviewcnt from tbvideo v
-		left join vvreview vr on v.vid = vr.vid where
+		left join
+		vvreview vr on v.vid = vr.vid where
 		v.vcid = #vcid#
-		order by v.date desc limit #start#,
+		order by v.date desc
+		limit #start#,
 		#num#
 	</select>
 
@@ -91,7 +95,8 @@
 
 	<select id="getVReviewList" parameterClass="com.mrb.pbean.VReviewReqBean"
 		resultClass="com.mrb.pbean.VReviewBean">
-		select * from tbureview where vid = #vid# order by date
+		select ur.*, u.uname from tbureview ur, tbuser u where
+		ur.vid = #vid# and ur.uid = u.uid order by ur.date
 		desc limit #start#,
 		#num#
 	</select>
@@ -107,9 +112,11 @@
 	<select id="getVRelateList" parameterClass="com.mrb.pbean.VRelateReqBean"
 		resultClass="com.mrb.pbean.VRelateBean">
 		select vr.vrid, vr.vidb as vid, v.thumbnail_url as iuri,
-		v.title, v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt, vr.date from tbvideo
+		v.title, v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt,
+		vr.date from tbvideo
 		v,tbvrelate vr
-		left join vvreview vv on vv.vid = vr.vidb where vr.vida
+		left join vvreview vv on vv.vid =
+		vr.vidb where vr.vida
 		= #vid# order by
 		vr.date
 		desc limit #start#,
@@ -121,9 +128,11 @@
 		resultClass="com.mrb.pbean.VCollectBean">
 		select uc.ucid, uc.vid, v.thumbnail_url as iuri,
 		v.title,
-		v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt, uc.date from tbvideo
+		v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt, uc.date from
+		tbvideo
 		v,tbucollect uc
-		left join vvreview vv on vv.vid = uc.vid where uc.uid
+		left join vvreview vv on vv.vid = uc.vid where
+		uc.uid
 		= #uid# order by
 		uc.date
 		desc limit #start#,
