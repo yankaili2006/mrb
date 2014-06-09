@@ -19,7 +19,8 @@
 
 	<select id="getPReviewList" parameterClass="com.mrb.pbean.BrandReqBean"
 		resultClass="com.mrb.pbean.PReviewBean">
-		select * from tbpreview order by date desc limit #start#,
+		select pre.*, u.uname from tbpreview pre, tbuser u where 
+ 		pre.uid=u.uid order by pre.date desc limit #start#,
 		#num#
 	</select>
 
@@ -37,7 +38,8 @@
 	</select>
 
 	<select id="getProjectCnt" resultClass="java.lang.Integer">
-		select if(isnull(count(1)), 0 , count(1)) from
+		select
+		if(isnull(count(1)), 0 , count(1)) from
 		tbproject
 	</select>
 

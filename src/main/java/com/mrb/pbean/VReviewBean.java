@@ -5,8 +5,17 @@ public class VReviewBean {
 	private long vrid;
 	private String vid;
 	private long uid;
+	private String uname;
 	private String text;
 	private String date;
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
 
 	public long getVrid() {
 		return vrid;

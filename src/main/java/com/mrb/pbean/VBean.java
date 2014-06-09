@@ -2,7 +2,6 @@ package com.mrb.pbean;
 
 public class VBean {
 	
-	
 	private String vid;
 	private long vcid;
 	private String title;
@@ -12,7 +11,25 @@ public class VBean {
 	private String teacher;
 	private String description;
 	private String date;
+	private String snapshot_url;
+	private String thumbnail_url;
 
+
+	public String getSnapshot_url() {
+		return snapshot_url;
+	}
+
+	public void setSnapshot_url(String snapshot_url) {
+		this.snapshot_url = snapshot_url;
+	}
+
+	public String getThumbnail_url() {
+		return thumbnail_url;
+	}
+
+	public void setThumbnail_url(String thumbnail_url) {
+		this.thumbnail_url = thumbnail_url;
+	}
 
 	public String getVid() {
 		return vid;
