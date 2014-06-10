@@ -1,17 +1,17 @@
 package com.mrb.pbean;
 
 public class BImgReqBean {
-	
-	private long bid;
+
+	private long pid;
 	private int start;
 	private int num;
 
-	public long getBid() {
-		return bid;
+	public long getPid() {
+		return pid;
 	}
 
-	public void setBid(long bid) {
-		this.bid = bid;
+	public void setPid(long pid) {
+		this.pid = pid;
 	}
 
 	public int getStart() {

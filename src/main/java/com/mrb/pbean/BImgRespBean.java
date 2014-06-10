@@ -2,12 +2,14 @@ package com.mrb.pbean;
 
 import java.util.ArrayList;
 
+import com.mrb.bean.BrandImgListBean;
+
 public class BImgRespBean {
-	
+
 	private String code;
 	private String msg;
 	private int num;
-	private ArrayList<String> imgs;
+	private ArrayList<BrandImgListBean> bimgs;
 
 	public String getCode() {
 		return code;
@@ -33,12 +35,12 @@ public class BImgRespBean {
 		this.num = num;
 	}
 
-	public ArrayList<String> getImgs() {
-		return imgs;
+	public ArrayList<BrandImgListBean> getBimgs() {
+		return bimgs;
 	}
 
-	public void setImgs(ArrayList<String> imgs) {
-		this.imgs = imgs;
+	public void setBimgs(ArrayList<BrandImgListBean> bimgs) {
+		this.bimgs = bimgs;
 	}
 
 }

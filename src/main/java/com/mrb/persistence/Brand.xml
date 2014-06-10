@@ -21,12 +21,21 @@
 	<select id="getBrandListByPid" parameterClass="com.mrb.pbean.BrandReqBean"
 		resultClass="com.mrb.bean.Brand2ShowBean">
 		select p.name as pname, b.* from tbbrand b, tbproject p
-		where p.pid = b.pid and b.pid=#pid# order by date desc limit #start#, #num#
+		where p.pid = b.pid and b.pid=#pid# order by date desc limit #start#,
+		#num#
 	</select>
 
 	<select id="getBrandCnt" resultClass="java.lang.Integer">
-		select if(isnull(count(1)), 0 , count(1)) from
+		select if(isnull(count(1)),
+		0 , count(1)) from
 		tbbrand b, tbproject p where p.pid = b.pid
+	</select>
+
+	<select id="getBrandCntByPid" parameterClass="java.lang.Long"
+		resultClass="java.lang.Integer">
+		select if(isnull(count(1)), 0 , count(1)) from
+		tbbrand b,
+		tbproject p where p.pid = b.pid and b.pid = #pid#
 	</select>
 
 	<update id="updateBrand" parameterClass="com.mrb.bean.BrandBean">

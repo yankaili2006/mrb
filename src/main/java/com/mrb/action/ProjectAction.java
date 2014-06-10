@@ -40,6 +40,7 @@ import com.mrb.pbean.ProjectReqBean;
 import com.mrb.pbean.ProjectRespBean;
 import com.mrb.pbean.ResBean;
 import com.mrb.util.DateUtil;
+import com.mrb.util.MrbUtil;
 import com.mrb.util.PageUtil;
 
 /**
@@ -154,11 +155,19 @@ public class ProjectAction extends Action {
 					respBean.setCode("1706");
 					respBean.setMsg("查询项目列表失败");
 				} else if (ulist.size() >= 0) {
+					ArrayList<Project4PhoneBean> newulist = new ArrayList<Project4PhoneBean>();
+					for (int i = 0; i < ulist.size(); i++) {
+						Project4PhoneBean pBean = ulist.get(i);
+						pBean.setIuri(MrbUtil.getImgUrl() + "/"
+								+ pBean.getIuri());
+						newulist.add(pBean);
+					}
+
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
 					respBean.setStart(reqBean.getStart());
-					respBean.setNum(ulist.size());
-					respBean.setPlist(ulist);
+					respBean.setNum(newulist.size());
+					respBean.setPlist(newulist);
 				} else {
 					respBean.setCode("1700");
 					respBean.setMsg("交易失败");
