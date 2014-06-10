@@ -103,14 +103,14 @@ public class BImgBS {
 	}
 
 	/*
-	 * 获取品牌图片列表 by pid
+	 * 获取品牌图片列表 by bid
 	 */
-	public ArrayList<BImg2ShowBean> getBImgListByBid(BImgReqBean bean) {
+	public ArrayList<BImg2ShowBean> getBImgListByBid(Long bid) {
 		ArrayList<BImg2ShowBean> bimgList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
 			client.startTransaction();
-			Object obj = client.queryForList("getBImgListByBid", bean);
+			Object obj = client.queryForList("getBImgListByBid", bid);
 			if (obj != null) {
 				bimgList = (ArrayList<BImg2ShowBean>) obj;
 			}
@@ -127,7 +127,7 @@ public class BImgBS {
 		}
 		return bimgList;
 	}
-
+	
 	/*
 	 * 获取品牌图片数目
 	 */

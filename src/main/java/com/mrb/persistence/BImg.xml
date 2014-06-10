@@ -9,7 +9,8 @@
 	<select id="getBImgByBiid" parameterClass="java.lang.Long"
 		resultClass="com.mrb.bean.BImg2ShowBean">
 		select bi.*, b.btitle from tbbimg bi, tbbrand b
-		where bi.bid
+		where
+		bi.bid
 		= b.bid and bi.biid = #id#
 	</select>
 
@@ -20,15 +21,16 @@
 		bi.bid limit #start#, #num#
 	</select>
 
-	<select id="getBImgListByBid" parameterClass="com.mrb.pbean.BImgReqBean"
+	<select id="getBImgListByBid" parameterClass="java.lang.Long"
 		resultClass="com.mrb.bean.BImg2ShowBean">
 		select btitle, bi.* from tbbimg bi, tbbrand b
 		where b.bid =
-		bi.bid and bi.bid = #bid# limit #start#, #num#
+		bi.bid and bi.bid = #bid#
 	</select>
 
 	<select id="getBImgCnt" resultClass="java.lang.Integer">
-		select if(isnull(count(1)), 0 , count(1)) from tbbimg
+		select if(isnull(count(1)),
+		0 , count(1)) from tbbimg
 		bi, tbbrand b where b.bid = bi.bid
 	</select>
 

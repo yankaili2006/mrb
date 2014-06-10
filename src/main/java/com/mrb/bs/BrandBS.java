@@ -160,6 +160,29 @@ public class BrandBS {
 	}
 
 	/*
+	 * 获取品牌数目 by pid
+	 */
+	public Integer getBrandCntByPid(Long pid) {
+		Integer cnt = 0;
+		SqlMapClient client = SqlMap.getSqlMapInstance();
+		try {
+			client.startTransaction();
+			cnt = (Integer) client.queryForObject("getBrandCntByPid", pid);
+			client.commitTransaction();
+			client.endTransaction();
+		} catch (SQLException e) {
+			try {
+				client.endTransaction();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			e.printStackTrace();
+		}
+		return cnt;
+	}
+
+	/*
 	 * 更新品牌信息
 	 */
 	public Boolean updateBrand(BrandBean bean) {

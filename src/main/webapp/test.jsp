@@ -273,8 +273,8 @@
 		//获取品牌图片列表
 		$('#bimg').click(
 				function() {
-					$.post("bimg.do?act=listall&msg={bid:"
-							+ $('#bimg_bid').val() + ",start:"
+					$.post("bimg.do?act=listall&msg={pid:"
+							+ $('#bimg_pid').val() + ",start:"
 							+ $('#bimg_start').val() + ",num:"
 							+ $('#bimg_num').val() + "}", function(data) {
 						alert(data);
@@ -679,7 +679,7 @@
 		<div class="row">
 			<div class="span4 offset2">
 				<h4>获取品牌图片列表</h4>
-				<label>pid</label> <input type="text" id="bimg_bid" name="bimg_bid"
+				<label>pid</label> <input type="text" id="bimg_pid" name="bimg_pid"
 					value="799618"> <br> <label>start</label> <input
 					type="text" id="bimg_start" name="bimg_start" value=""> <br>
 				<label>num</label> <input type="text" id="bimg_num" name="bimg_num"

@@ -20,13 +20,18 @@ import org.apache.struts.action.ActionMapping;
 import com.google.gson.Gson;
 import com.mrb.bean.BImg2ShowBean;
 import com.mrb.bean.BImgBean;
+import com.mrb.bean.Brand2ShowBean;
+import com.mrb.bean.BrandImgListBean;
 import com.mrb.bean.OperateBean;
 import com.mrb.bean.PageBean;
 import com.mrb.bs.BImgBS;
+import com.mrb.bs.BrandBS;
 import com.mrb.bs.OperateBS;
+import com.mrb.bs.ProjectBS;
 import com.mrb.form.JsonForm;
 import com.mrb.pbean.BImgReqBean;
 import com.mrb.pbean.BImgRespBean;
+import com.mrb.pbean.BrandReqBean;
 import com.mrb.util.MrbUtil;
 import com.mrb.util.PageUtil;
 
@@ -121,20 +126,48 @@ public class BImgAction extends Action {
 			ArrayList<BImg2ShowBean> list = null;
 			BImgRespBean respBean = new BImgRespBean();
 			if (bean != null) {
-				list = bs.getBImgListByBid(bean);
-				if (list == null || list.size() == 0) {
+
+				BrandBS bbs = new BrandBS();
+				BrandReqBean bReqBean = new BrandReqBean();
+				bReqBean.setPid(bean.getPid());
+				bReqBean.setStart(0);
+				bReqBean.setNum(bbs.getBrandCntByPid(bean.getPid()));
+				ArrayList<Brand2ShowBean> blist = bbs
+						.getBrandListByPid(bReqBean);
+
+				if (blist == null || blist.size() == 0) {
 					respBean.setCode("1501");
 					respBean.setMsg("查询失败");
 				} else {
-					ArrayList<String> imgs = new ArrayList<String>();
-					for (int i = 0; i < list.size(); i++) {
-						BImg2ShowBean bibean = list.get(i);
-						imgs.add(MrbUtil.getImgUrl() + "/" + bibean.getIuri());
+					ArrayList<BrandImgListBean> brandList = new ArrayList<BrandImgListBean>();
+
+					// 所有品牌
+					for (int k = 0; k < blist.size(); k++) {
+						Brand2ShowBean b2ShowBean = blist.get(k);
+
+						BrandImgListBean bImgListBean = new BrandImgListBean();
+						bImgListBean.setBid(b2ShowBean.getBid());
+						bImgListBean.setBtitle(b2ShowBean.getBtitle());
+
+						// 品牌下的所有图片
+						list = bs.getBImgListByBid(b2ShowBean.getBid());
+						ArrayList<String> imgs = new ArrayList<String>();
+						if (list != null && list.size() > 0) {
+							for (int i = 0; i < list.size(); i++) {
+								BImg2ShowBean bibean = list.get(i);
+								imgs.add(MrbUtil.getImgUrl() + "/"
+										+ bibean.getIuri());
+							}
+						}
+						bImgListBean.setBimgs(imgs);
+
+						brandList.add(bImgListBean);
 					}
+
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
-					respBean.setNum(list.size());
-					respBean.setImgs(imgs);
+					respBean.setNum(brandList.size());
+					respBean.setBimgs(brandList);
 				}
 			} else {
 				respBean.setCode("1500");
