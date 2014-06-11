@@ -121,7 +121,7 @@ public class UserAction extends Action {
 				operBean.setUid(Long.valueOf(suid));
 				operBean.setOper("增加用户");
 				operBS.addOperate(operBean);
-				
+
 				result = "注册成功";
 
 				return mapping.findForward("list");
@@ -199,6 +199,7 @@ public class UserAction extends Action {
 				if (resultBean != null) {
 					respBean.setCode("0000");
 					respBean.setMsg("登录成功");
+					respBean.setUname(resultBean.getUname());
 					respBean.setUid(resultBean.getUid());
 				} else {
 					respBean.setCode("1009");
