@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>美人邦使用协议</title>
+<title>美业邦使用协议</title>
 <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
@@ -94,7 +94,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人邦管理端</span> </a>
+					<span class="second">美业邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -158,13 +158,13 @@
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
 						<li><a href="privacy.jsp">版权说明</a></li>
-						<li class="active"><a href="terms.jsp">美人邦使用协议</a></li>
+						<li class="active"><a href="terms.jsp">美业邦使用协议</a></li>
 					</ul>
 
 				</div>
 			</div>
 			<div class="span9">
-				<h1 class="page-title">美人邦使用协议</h1>
+				<h1 class="page-title">美业邦使用协议</h1>
 				<div class="well">
 					<h2>条款一</h2>
 					条款一条款一条款一条款一条款一
@@ -182,7 +182,7 @@
 
 
 		<p>
-			&copy; 2014 <a href="#">美人邦</a>
+			&copy; 2014 <a href="#">美业邦</a>
 		</p>
 		</footer>
 

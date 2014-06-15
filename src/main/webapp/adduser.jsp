@@ -148,7 +148,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人邦管理端</span> </a>
+					<span class="second">美业邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -212,7 +212,7 @@
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
 						<li><a href="privacy.jsp">版权说明</a></li>
-						<li><a href="terms.jsp">美人邦使用协议</a></li>
+						<li><a href="terms.jsp">美业邦使用协议</a></li>
 					</ul>
 				</div>
 			</div>
@@ -301,7 +301,7 @@
 
 
 		<p>
-			&copy; 2014 <a href="#">美人邦</a>
+			&copy; 2014 <a href="#">美业邦</a>
 		</p>
 		</footer>
 
