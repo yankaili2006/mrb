@@ -70,7 +70,8 @@
 			$('#act').val("add");
 			$('#msg').val(
 					"{entryid:" + $('#entryid').val() + ",vcid:"
-							+ $('#vcid').val() + "}");
+							+ $('#vcid').val() + ",type:" + $('#type').val()
+							+ ",teacher:" + $('#teacher').val() + "}");
 			$('#addform').submit();
 		}
 	}
@@ -260,33 +261,39 @@
 									<%
 										}
 									%>
+								</select> <label> 视频类型 </label> <input type="text" name="type" id="type"
+									value="<%=bean.getType()%>" class="input-xlarge"> <label>
+									主讲人 </label> <input type="text" name="teacher" id="teacher"
+									value="<%=bean.getTeacher()%>" class="input-xlarge">
+
+								<%
+									} else {
+								%>
+								<label> 视频ID </label> <input type="text" name="entryid"
+									id="entryid" value="" class="input-xlarge"> <label>
+									视频分类 </label> <select name="vcid" id="vcid" class="input-xlarge">
 									<%
-										} else {
+										if (vclist != null && vclist.size() > 0) {
+												for (int i = 0; i < vclist.size(); i++) {
+													VCateBean vcbean = vclist.get(i);
 									%>
-									<label> 视频ID </label>
-									<input type="text" name="entryid" id="entryid" value=""
+									<option value="<%=vcbean.getVcid()%>">
+										<%=vcbean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select> <label> 视频类型 </label> <input type="text" name="type" id="type"
+									value="" class="input-xlarge"> <label> 主讲人 </label> <input
+									type="text" name="teacher" id="teacher" value=""
 									class="input-xlarge">
-									<label> 视频分类 </label>
-									<select name="vcid" id="vcid" class="input-xlarge">
-										<%
-											if (vclist != null && vclist.size() > 0) {
-													for (int i = 0; i < vclist.size(); i++) {
-														VCateBean vcbean = vclist.get(i);
-										%>
-										<option value="<%=vcbean.getVcid()%>">
-											<%=vcbean.getName()%></option>
-										<%
-											}
-												} else {
-										%>
-										<option value="-1">无</option>
-										<%
-											}
-										%>
-										<%
-											}
-										%>
-								
+								<%
+									}
+								%>
 							</form>
 						</div>
 					</div>

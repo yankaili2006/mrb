@@ -179,12 +179,13 @@ public class VideoAction extends Action {
 				result = "参数非法";
 			}
 
+			VideoBean resBean = bs.getVideoById(bean.getVid());
 			req.setAttribute("result", result);
 			if ("ok".equals(result)) {
 				operBean.setUid(Long.valueOf(suid));
 				operBean.setOper("更新视频");
 				operBS.addOperate(operBean);
-				req.setAttribute("video", bean);
+				req.setAttribute("video", resBean);
 
 				VCateBS vcateBS = new VCateBS();
 				Integer cnt = vcateBS.getVCateCnt();

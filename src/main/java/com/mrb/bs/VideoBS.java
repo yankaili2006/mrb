@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.apache.log4j.Logger;
+
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.mrb.bean.VideoBean;
 import com.mrb.bean.VideoReqBean;
@@ -45,8 +47,8 @@ import com.mrb.util.SmvpUtil;
  */
 public class VideoBS {
 
-	
-	
+	private Logger loger = Logger.getLogger(this.getClass());
+
 	/**
 	 * 
 	 */
@@ -60,16 +62,45 @@ public class VideoBS {
 	public Boolean addVideo(VideoReqBean reqBean) {
 
 		SmvpUtil util = new SmvpUtil();
-		SmvpBean smvpBean = util.smvpPost(reqBean.getEntryid());
+		SmvpBean smvpBean = null;
+		try {
+			smvpBean = util.smvpPost(reqBean.getEntryid());
+		} catch (Exception e) {
+			e.printStackTrace();
+			loger.error(e.getMessage());
+		}
+
+		if (smvpBean == null) {
+			return false;
+		}
 
 		VideoBean vbean = new VideoBean();
 		vbean.setDate(DateUtil.getNow());
 		vbean.setOpdate(DateUtil.getNow());
 		vbean.setOperid(1L);
+		vbean.setType(reqBean.getType());
+		vbean.setTeacher(reqBean.getTeacher());
 
-		MetaBean metaBean = util.getEntries(reqBean.getEntryid());
+		MetaBean metaBean = null;
+		try {
+			metaBean = util.getEntries(reqBean.getEntryid());
+		} catch (Exception e) {
+			e.printStackTrace();
+			loger.error(e.getMessage());
+		}
 
-		ArrayList<EntryBean> entries = smvpBean.getEntries();
+		if (metaBean == null) {
+			return false;
+		}
+
+		ArrayList<EntryBean> entries = null;
+		try {
+			entries = smvpBean.getEntries();
+		} catch (Exception e) {
+			e.printStackTrace();
+			loger.error(e.getMessage());
+		}
+
 		if (entries != null && entries.size() > 0) {
 			EntryBean entryBean = entries.get(0);
 			vbean.setVid(entryBean.getId());
@@ -132,6 +163,8 @@ public class VideoBS {
 			vbean.setModified_time(metaBean.getModified_time());
 
 			vbean.setVcid(reqBean.getVcid());
+		} else {
+			return false;
 		}
 
 		SqlMapClient client = SqlMap.getSqlMapInstance();

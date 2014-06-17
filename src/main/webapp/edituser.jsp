@@ -93,8 +93,11 @@
 			$('#act').val("update");
 			$('#msg').val(
 					"{uid:" + $('#uid').val() + ",uname:" + $('#uname').val()
-							+ ",phone:" + $('#phone').val() + ",status:"
-							+ $('#status').val() + "}");
+							+ ",realname:" + $('#realname').val() + ",phone:"
+							+ $('#phone').val() + ",status:"
+							+ $('#status').val() + ",title:"
+							+ $('#title').val() + ",shop:" + $('#shop').val()
+							+ "}");
 			$('#updateform').submit();
 		}
 	}
@@ -285,6 +288,8 @@
 								%>
 								<label> 用户名 </label> <input type="text" name="uname" id="uname"
 									value="<%=bean.getUname()%>" class="input-xlarge"> <label>
+									姓名 </label> <input type="text" name="realname" id="realname"
+									value="<%=bean.getRealname()%>" class="input-xlarge"> <label>
 									手机号 </label> <input type="text" name="phone" id="phone"
 									value="<%=bean.getPhone()%>" class="input-xlarge"> <label>
 									状态 </label> <select name="status" id="status" class="input-xlarge">
@@ -298,8 +303,27 @@
 					out.print("selected=\"selected\"");
 				}%>>
 										注销</option>
-								</select> <input type="hidden" id="uid" name="uid"
-									value="<%=bean.getUid()%>">
+								</select><label> 职位 </label> <select name="title" id="title"
+									class="input-xlarge">
+									<option value="店长"
+										<%if ("店长".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>店长</option>
+									<option value="顾问"
+										<%if ("顾问".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>顾问</option>
+									<option value="美容师"
+										<%if ("美容师".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>美容师</option>
+									<option value="其他"
+										<%if ("其他".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>其他</option>
+								</select> <label> 店名 </label> <input type="text" name="shop" id="shop"
+									value="<%=bean.getShop()%>" class="input-xlarge"> <input
+									type="hidden" id="uid" name="uid" value="<%=bean.getUid()%>">
 								<%
 									} else {
 								%>

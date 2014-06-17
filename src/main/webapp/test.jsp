@@ -79,9 +79,12 @@
 		$('#reg').click(
 				function() {
 					$.post("user.do?act=register&msg={uname:"
-							+ $('#reg_uname').val() + ",phone:"
+							+ $('#reg_uname').val() + ",realname:"
+							+ $('#reg_realname').val() + ",phone:"
 							+ $('#reg_phone').val() + ",pwd:"
-							+ $('#reg_pwd').val() + "}", function(data) {
+							+ $('#reg_pwd').val() + ",title:"
+							+ $('#reg_title').val() + ",shop:"
+							+ $('#reg_shop').val() + "}", function(data) {
 						alert(data);
 					});
 				});
@@ -426,9 +429,14 @@
 			<div class="span4 offset2">
 				<h4>注册</h4>
 				<label>uname</label> <input type="text" id="reg_uname"
-					name="reg_uname"> <br> <label>phone</label> <input
-					type="text" id="reg_phone" name="reg_phone"> <br> <label>pwd</label>
-				<input type="text" id="reg_pwd" name="reg_pwd" value=""> <br>
+					name="reg_uname"> <br> <label>realname</label> <input
+					type="text" id="reg_realname" name="reg_realname"> <br>
+				<label>phone</label> <input type="text" id="reg_phone"
+					name="reg_phone"> <br> <label>pwd</label> <input
+					type="text" id="reg_pwd" name="reg_pwd" value=""> <br>
+				<label>title</label> <input type="text" id="reg_title"
+					name="reg_title" value=""> <br> <label>shop</label> <input
+					type="text" id="reg_shop" name="reg_shop" value=""> <br>
 				<button id="reg" name="reg" class="btn" data-dismiss="modal"
 					aria-hidden="true">注册</button>
 			</div>

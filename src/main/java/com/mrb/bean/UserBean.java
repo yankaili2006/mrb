@@ -11,13 +11,40 @@ public class UserBean {
 
 	private long uid;
 	private String uname;
+	private String realname;
 	private String phone;
 	private String pwd;
 	private int type;
 	private String status;
+	private String title;
+	private String shop;
 	private String date;
 	private String opdate;
 	private long operid;
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getShop() {
+		return shop;
+	}
+
+	public void setShop(String shop) {
+		this.shop = shop;
+	}
 
 	/**
 	 * @return the uid
@@ -101,7 +128,6 @@ public class UserBean {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
 
 	public String getOpdate() {
 		return opdate;

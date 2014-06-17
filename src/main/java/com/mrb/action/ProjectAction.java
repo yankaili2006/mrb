@@ -201,6 +201,13 @@ public class ProjectAction extends Action {
 			} else {
 				ArrayList<Brand2ShowBean> ulist = brandBS
 						.getBrandListByPid(reqBean);
+				ArrayList<Brand2ShowBean> newulist = new ArrayList<Brand2ShowBean>();
+				for (int i = 0; i < ulist.size(); i++) {
+					Brand2ShowBean newBean = ulist.get(i);
+					newBean.setIuri(MrbUtil.getImgUrl() + "/"
+							+ newBean.getIuri());
+					newulist.add(newBean);
+				}
 
 				if (ulist == null || ulist.size() < 0) {
 					respBean.setCode("1706");
@@ -208,8 +215,8 @@ public class ProjectAction extends Action {
 				} else if (ulist.size() >= 0) {
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
-					respBean.setNum(ulist.size());
-					respBean.setBlist(ulist);
+					respBean.setNum(newulist.size());
+					respBean.setBlist(newulist);
 				} else {
 					respBean.setCode("1700");
 					respBean.setMsg("交易失败");
