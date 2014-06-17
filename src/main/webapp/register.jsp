@@ -116,7 +116,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人邦管理端</span> </a>
+					<span class="second">美业邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -141,7 +141,7 @@
 								type="password" class="span12"> <label
 								class="remember-me"> <input id="protocol"
 								name="protocol" type="checkbox"> 我已经阅读并同意了 <a
-								href="terms.jsp">《美人邦使用协议》</a>
+								href="terms.jsp">《美业邦使用协议》</a>
 							</label>
 							<button type="button" id="regbutton" name="regbutton"
 								class="btn btn-primary pull-center">注册</button>

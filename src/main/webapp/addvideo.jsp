@@ -70,7 +70,8 @@
 			$('#act').val("add");
 			$('#msg').val(
 					"{entryid:" + $('#entryid').val() + ",vcid:"
-							+ $('#vcid').val() + "}");
+							+ $('#vcid').val() + ",type:" + $('#type').val()
+							+ ",teacher:" + $('#teacher').val() + "}");
 			$('#addform').submit();
 		}
 	}
@@ -120,7 +121,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人邦管理端</span> </a>
+					<span class="second">美业邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -184,7 +185,7 @@
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
 						<li><a href="privacy.jsp">版权说明</a></li>
-						<li><a href="terms.jsp">美人邦使用协议</a></li>
+						<li><a href="terms.jsp">美业邦使用协议</a></li>
 					</ul>
 
 				</div>
@@ -260,33 +261,39 @@
 									<%
 										}
 									%>
+								</select> <label> 视频类型 </label> <input type="text" name="type" id="type"
+									value="<%=bean.getType()%>" class="input-xlarge"> <label>
+									主讲人 </label> <input type="text" name="teacher" id="teacher"
+									value="<%=bean.getTeacher()%>" class="input-xlarge">
+
+								<%
+									} else {
+								%>
+								<label> 视频ID </label> <input type="text" name="entryid"
+									id="entryid" value="" class="input-xlarge"> <label>
+									视频分类 </label> <select name="vcid" id="vcid" class="input-xlarge">
 									<%
-										} else {
+										if (vclist != null && vclist.size() > 0) {
+												for (int i = 0; i < vclist.size(); i++) {
+													VCateBean vcbean = vclist.get(i);
 									%>
-									<label> 视频ID </label>
-									<input type="text" name="entryid" id="entryid" value=""
+									<option value="<%=vcbean.getVcid()%>">
+										<%=vcbean.getName()%></option>
+									<%
+										}
+											} else {
+									%>
+									<option value="-1">无</option>
+									<%
+										}
+									%>
+								</select> <label> 视频类型 </label> <input type="text" name="type" id="type"
+									value="" class="input-xlarge"> <label> 主讲人 </label> <input
+									type="text" name="teacher" id="teacher" value=""
 									class="input-xlarge">
-									<label> 视频分类 </label>
-									<select name="vcid" id="vcid" class="input-xlarge">
-										<%
-											if (vclist != null && vclist.size() > 0) {
-													for (int i = 0; i < vclist.size(); i++) {
-														VCateBean vcbean = vclist.get(i);
-										%>
-										<option value="<%=vcbean.getVcid()%>">
-											<%=vcbean.getName()%></option>
-										<%
-											}
-												} else {
-										%>
-										<option value="-1">无</option>
-										<%
-											}
-										%>
-										<%
-											}
-										%>
-								
+								<%
+									}
+								%>
 							</form>
 						</div>
 					</div>
@@ -305,7 +312,7 @@
 
 
 		<p>
-			&copy; 2014 <a href="#">美人邦</a>
+			&copy; 2014 <a href="#">美业邦</a>
 		</p>
 		</footer>
 

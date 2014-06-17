@@ -36,7 +36,7 @@ public class CodeUtil {
 		ParamBS paramBS = new ParamBS();
 		ParamBean paramBean = paramBS.getParamById("sms");
 
-		String sms = "【美人邦】美人邦动态验证码：" + code
+		String sms = "【美业邦】美业邦动态验证码：" + code
 				+ "，5分钟内有效。如非本人操作，请忽略本短信。切勿泄漏给他人，以防您的帐号被盗风险";
 		if (paramBean != null) {
 			String paramValue = paramBean.getParam_value();

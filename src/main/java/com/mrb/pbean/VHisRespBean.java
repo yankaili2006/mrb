@@ -3,51 +3,52 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 public class VHisRespBean {
+
 	
-	private String Code;
-	private String Msg;
-	private int Start;
-	private int Num;
-	private ArrayList<VHisBean> Vlist;
+	private String code;
+	private String msg;
+	private int start;
+	private int num;
+	private ArrayList<VHisBean> vist;
 
 	public String getCode() {
-		return Code;
+		return code;
 	}
 
 	public void setCode(String code) {
-		Code = code;
+		this.code = code;
 	}
 
 	public String getMsg() {
-		return Msg;
+		return msg;
 	}
 
 	public void setMsg(String msg) {
-		Msg = msg;
+		this.msg = msg;
 	}
 
 	public int getStart() {
-		return Start;
+		return start;
 	}
 
 	public void setStart(int start) {
-		Start = start;
+		this.start = start;
 	}
 
 	public int getNum() {
-		return Num;
+		return num;
 	}
 
 	public void setNum(int num) {
-		Num = num;
+		this.num = num;
 	}
 
-	public ArrayList<VHisBean> getVlist() {
-		return Vlist;
+	public ArrayList<VHisBean> getVist() {
+		return vist;
 	}
 
-	public void setVlist(ArrayList<VHisBean> vlist) {
-		Vlist = vlist;
+	public void setVist(ArrayList<VHisBean> vist) {
+		this.vist = vist;
 	}
 
 }

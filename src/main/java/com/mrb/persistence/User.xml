@@ -3,32 +3,34 @@
 <sqlMap namespace="user">
 	<insert id="addUser" parameterClass="com.mrb.bean.UserBean">
 		insert into tbuser
-		values(#uid#,#uname#,#phone#,#pwd#,#type#,#status#,#date#,#opdate#,#operid#)
+		values(#uid#,#uname#,#realname#,#phone#,#pwd#,#type#,#status#,#title#,#shop#,#date#,#opdate#,#operid#)
 	</insert>
 
 	<select id="getUserById" parameterClass="java.lang.Long"
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where uid = #id#
 	</select>
-	
+
 	<select id="getUserByName" parameterClass="java.lang.String"
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where uname = #name#
 	</select>
-	
+
 	<select id="getUserByName4Update" parameterClass="com.mrb.bean.UserBean"
 		resultClass="com.mrb.bean.UserBean">
-		select * from tbuser where uname = #uname# and uid != #uid#
+		select * from tbuser where uname = #uname# and uid !=
+		#uid#
 	</select>
-	
+
 	<select id="getUserByPhone" parameterClass="java.lang.String"
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where phone = #phone#
 	</select>
-	
+
 	<select id="getUserByPhone4Update" parameterClass="com.mrb.bean.UserBean"
 		resultClass="com.mrb.bean.UserBean">
-		select * from tbuser where phone = #phone# and uid != #uid#
+		select * from tbuser where phone = #phone# and uid !=
+		#uid#
 	</select>
 
 	<select id="loginUPUser" parameterClass="java.util.HashMap"
@@ -45,7 +47,8 @@
 	</select>
 
 	<select id="getUserCnt" resultClass="java.lang.Integer">
-		select if(isnull(count(1)), 0 , count(1)) from tbuser
+		select if(isnull(count(1)),
+		0 , count(1)) from tbuser
 	</select>
 
 	<update id="updateUser" parameterClass="com.mrb.bean.UserBean">
@@ -53,6 +56,9 @@
 		<isNotEmpty prepend="," property="status">status=#status#</isNotEmpty>
 		<isNotEmpty prepend="," property="phone">phone=#phone#</isNotEmpty>
 		<isNotEmpty prepend="," property="uname">uname=#uname#</isNotEmpty>
+		<isNotEmpty prepend="," property="realname">realname=#realname#</isNotEmpty>
+		<isNotEmpty prepend="," property="title">title=#title#</isNotEmpty>
+		<isNotEmpty prepend="," property="shop">shop=#shop#</isNotEmpty>
 		where uid=#uid#
 	</update>
 
@@ -78,11 +84,11 @@
 		resultClass="java.lang.String">
 		select pwd from tbuser where uid = #uid#
 	</select>
-	
+
 	<select id="loginUser" parameterClass="java.util.HashMap"
 		resultClass="com.mrb.bean.UserBean">
 		select * from tbuser where phone = #phone# and pwd = #pwd#
 	</select>
-	
+
 
 </sqlMap>

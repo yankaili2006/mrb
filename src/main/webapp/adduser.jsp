@@ -96,9 +96,11 @@
 
 		$('#act').val("add");
 		$('#msg').val(
-				"{uname:" + $('#uname').val() + ",phone:" + $('#phone').val()
+				"{uname:" + $('#uname').val() + ",realname:"
+						+ $('#realname').val() + ",phone:" + $('#phone').val()
 						+ ",pwd:" + $('#pwd').val() + ",status:"
-						+ $('#status').val() + "}");
+						+ $('#status').val() + ",title:" + $('#title').val()
+						+ ",shop:" + $('#shop').val() + "}");
 		$('#addform').submit();
 	}
 </script>
@@ -148,7 +150,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人邦管理端</span> </a>
+					<span class="second">美业邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -212,7 +214,7 @@
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
 						<li><a href="privacy.jsp">版权说明</a></li>
-						<li><a href="terms.jsp">美人邦使用协议</a></li>
+						<li><a href="terms.jsp">美业邦使用协议</a></li>
 					</ul>
 				</div>
 			</div>
@@ -260,32 +262,74 @@
 									UserBean bean = null;
 									if (obj != null) {
 										bean = (UserBean) obj;
-									}
 								%>
 								<label> 用户名 </label> <input type="text" name="uname" id="uname"
-									value="<%if (bean != null)
-				out.print(bean.getUname());%>"
+									value="<%=bean.getUname()%>" class="input-xlarge"> <label>
+									姓名 </label> <input type="text" name="realname" id="realname"
+									value="<%=bean.getRealname()%>" class="input-xlarge"> <label>
+									手机号 </label> <input type="text" name="phone" id="phone"
+									value="<%=bean.getPhone()%>" class="input-xlarge"> <label>
+									密码 </label> <input type="password" id="pwd" name="pwd"
+									class="input-xlarge"> <label> 重复密码 </label> <input
+									type="password" id="pwd2" name="pwd2" class="input-xlarge">
+								<label> 状态 </label> <select name="status" id="status"
+									class="input-xlarge">
+									<option value="Z"
+										<%if ("Z".equals(bean.getStatus())) {
+					out.print("selected=\"selected\"");
+				}%>>
+										正常</option>
+									<option value="C"
+										<%if ("C".equals(bean.getStatus())) {
+					out.print("selected=\"selected\"");
+				}%>>
+										注销</option>
+								</select><label> 职位 </label> <select name="title" id="title"
+									class="input-xlarge">
+									<option value="店长"
+										<%if ("店长".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>店长</option>
+									<option value="顾问"
+										<%if ("顾问".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>顾问</option>
+									<option value="美容师"
+										<%if ("美容师".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>美容师</option>
+									<option value="其他"
+										<%if ("其他".equals(bean.getTitle())) {
+					out.print("selected=\"selected\"");
+				}%>>其他</option>
+								</select> <label> 店名 </label> <input type="text" name="shop" id="shop"
+									value="<%=bean.getShop()%>" class="input-xlarge">
+								<%
+									} else {
+								%>
+								<label> 用户名 </label> <input type="text" name="uname" id="uname"
+									value="" class="input-xlarge"> <label> 姓名 </label> <input
+									type="text" name="realname" id="realname" value=""
 									class="input-xlarge"> <label> 手机号 </label> <input
-									type="text" name="phone" id="phone"
-									value="<%if (bean != null)
-				out.print(bean.getPhone());%>"
+									type="text" name="phone" id="phone" value=""
 									class="input-xlarge"> <label> 密码 </label> <input
 									type="password" id="pwd" name="pwd" class="input-xlarge">
-
 								<label> 重复密码 </label> <input type="password" id="pwd2"
 									name="pwd2" class="input-xlarge"> <label> 状态 </label> <select
 									name="status" id="status" class="input-xlarge">
-									<option value="Z"
-										<%if (bean != null && "Z".equals(bean.getStatus())) {
-				out.print("selected=\"selected\"");
-			}%>>
-										正常</option>
-									<option value="C"
-										<%if (bean != null && "C".equals(bean.getStatus())) {
-				out.print("selected=\"selected\"");
-			}%>>
-										注销</option>
-								</select>
+									<option value="Z">正常</option>
+									<option value="C">注销</option>
+								</select><label> 职位 </label> <select name="title" id="title"
+									class="input-xlarge">
+									<option value="店长">店长</option>
+									<option value="顾问">顾问</option>
+									<option value="美容师">美容师</option>
+									<option value="其他">其他</option>
+								</select> <label> 店名 </label> <input type="text" name="shop" id="shop"
+									value="" class="input-xlarge">
+								<%
+									}
+								%>
 							</form>
 						</div>
 					</div>
@@ -301,7 +345,7 @@
 
 
 		<p>
-			&copy; 2014 <a href="#">美人邦</a>
+			&copy; 2014 <a href="#">美业邦</a>
 		</p>
 		</footer>
 

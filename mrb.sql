@@ -35,7 +35,7 @@ CREATE TABLE `tbbimg` (
 
 LOCK TABLES `tbbimg` WRITE;
 /*!40000 ALTER TABLE `tbbimg` DISABLE KEYS */;
-INSERT INTO `tbbimg` VALUES (503473,799618,'美人邦学堂.png'),(483510,925927,'相关视频.png');
+INSERT INTO `tbbimg` VALUES (503473,799618,'美业邦学堂.png'),(483510,925927,'相关视频.png');
 /*!40000 ALTER TABLE `tbbimg` ENABLE KEYS */;
 UNLOCK TABLES;
 

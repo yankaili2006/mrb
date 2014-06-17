@@ -2,7 +2,6 @@ package com.mrb.pbean;
 
 public class VDoCollectReqBean {
 	
-	
 	private long uid;
 	private String vid;
 	

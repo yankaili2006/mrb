@@ -91,6 +91,7 @@
 				return false;
 			}
 
+			/*
 			exp = $('#snapshot_url').val();
 			if (!exp || typeof (exp) == "undefined" || exp == 0) {
 				alert("截图不能为空!");
@@ -104,6 +105,7 @@
 				$('#thumbnail_url').focus();
 				return false;
 			}
+			 */
 
 			exp = $('#duration').val();
 			if (!exp || typeof (exp) == "undefined" || exp == 0) {
@@ -134,16 +136,18 @@
 			}
 
 			$('#act').val("update");
+			var str = $('#description').val();
+			str = str.replace(/\"/g, "\\\"");
 			$('#msg').val(
-					"{vid:" + $('#vid').val() + ",title:" + $('#title').val()
-							+ ",description:" + $('#description').val()
-							+ ",vcid:" + $('#vicd').val() + ",snapshot_url:"
-							+ $('#snapshot_url').val() + ",thumbnail_url:"
-							+ $('#thumbnail_url').val() + ",duration:"
-							+ $('#duration').val() + ",created_time:"
-							+ $('#created_time').val() + ",modified_time:"
-							+ $('#modified_time').val() + ",status:"
-							+ $('#status').val() + "}");
+					"{vid:" + $('#vid').val() + ",title:\"" + $('#title').val()
+							+ "\",description:\"" + str + "\",vcid:"
+							+ $('#vcid').val() + ",duration:"
+							+ $('#duration').val() + ",created_time:\""
+							+ $('#created_time').val() + "\",modified_time:\""
+							+ $('#modified_time').val() + "\",status:"
+							+ $('#status').val() + ",type:\""
+							+ $('#type').val() + "\",teacher:\""
+							+ $('#teacher').val() + "\"}");
 			$('#updateform').submit();
 		}
 	}
@@ -194,7 +198,7 @@
 
 				</ul>
 				<a class="brand" href="home.do"><span class="first">欢迎登陆</span>
-					<span class="second">美人邦管理端</span> </a>
+					<span class="second">美业邦管理端</span> </a>
 			</div>
 		</div>
 	</div>
@@ -258,7 +262,7 @@
 					</div>
 					<ul id="legal-menu" class="nav nav-list collapse in">
 						<li><a href="privacy.jsp">版权说明</a></li>
-						<li><a href="terms.jsp">美人邦使用协议</a></li>
+						<li><a href="terms.jsp">美业邦使用协议</a></li>
 					</ul>
 
 				</div>
@@ -363,7 +367,10 @@
 					out.print("selected=\"selected\"");
 				}%>>
 										注销</option>
-								</select>
+								</select> <label> 视频类型 </label> <input type="text" name="type" id="type"
+									value="<%=bean.getType()%>" class="input-xlarge"> <label>
+									主讲人 </label> <input type="text" name="teacher" id="teacher"
+									value="<%=bean.getTeacher()%>" class="input-xlarge">
 								<%
 									} else {
 								%>
@@ -412,7 +419,7 @@
 
 
 		<p>
-			&copy; 2014 <a href="#">美人邦</a>
+			&copy; 2014 <a href="#">美业邦</a>
 		</p>
 		</footer>
 

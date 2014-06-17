@@ -25,34 +25,35 @@
 	</select>
 
 	<update id="updateVideo" parameterClass="com.mrb.bean.VideoBean">
-		update tbvideo set opdate=#opdate#
+		update tbvideo set opdate=#opdate#, operid = #operid#
 		<isNotEmpty prepend="," property="vcid">vcid=#vcid#</isNotEmpty>
 		<isNotEmpty prepend="," property="status">status=#status#</isNotEmpty>
 		<isNotEmpty prepend="," property="description">description=#description#</isNotEmpty>
 		<isNotEmpty prepend="," property="tags">tags=#tags#</isNotEmpty>
 		<isNotEmpty prepend="," property="snapshot_url">snapshot_url=#snapshot_url#</isNotEmpty>
 		<isNotEmpty prepend="," property="thumbnail_url">thumbnail_url=#thumbnail_url#</isNotEmpty>
-		<isNotEmpty prepend="," property="file_size">file_size=#file_size#</isNotEmpty>
-		<isNotEmpty prepend="," property="activated">activated=#activated#</isNotEmpty>
+		<!-- <isNotEmpty prepend="," property="file_size">file_size=#file_size#</isNotEmpty> 
+			<isNotEmpty prepend="," property="activated">activated=#activated#</isNotEmpty> -->
 		<isNotEmpty prepend="," property="modified_time">modified_time=#modified_time#</isNotEmpty>
 		<isNotEmpty prepend="," property="created_time">created_time=#created_time#</isNotEmpty>
-		<isNotEmpty prepend="," property="height">height=#height#</isNotEmpty>
-		<isNotEmpty prepend="," property="width">width=#width#</isNotEmpty>
+		<!-- <isNotEmpty prepend="," property="height">height=#height#</isNotEmpty> 
+			<isNotEmpty prepend="," property="width">width=#width#</isNotEmpty> -->
 		<isNotEmpty prepend="," property="duration">duration=#duration#</isNotEmpty>
 		<isNotEmpty prepend="," property="extension">extension=#extension#</isNotEmpty>
 		<isNotEmpty prepend="," property="title">title=#title#</isNotEmpty>
 		<isNotEmpty prepend="," property="mp4_url">mp4_url=#mp4_url#</isNotEmpty>
-		<isNotEmpty prepend="," property="mp4_expires">mp4_expires=#mp4_expires#</isNotEmpty>
+		<!-- <isNotEmpty prepend="," property="mp4_expires">mp4_expires=#mp4_expires#</isNotEmpty> -->
 		<isNotEmpty prepend="," property="permanent_url">permanent_url=#permanent_url#</isNotEmpty>
-		<isNotEmpty prepend="," property="permanent_expires">permanent_expires=#permanent_expires#</isNotEmpty>
+		<!-- <isNotEmpty prepend="," property="permanent_expires">permanent_expires=#permanent_expires#</isNotEmpty> -->
 		<isNotEmpty prepend="," property="m3u8_url">m3u8_url=#m3u8_url#</isNotEmpty>
-		<isNotEmpty prepend="," property="m3u8_expires">m3u8_expires=#m3u8_expires#</isNotEmpty>
-		<isNotEmpty prepend="," property="zm_file_size">zm_file_size=#zm_file_size#</isNotEmpty>
+		<!-- <isNotEmpty prepend="," property="m3u8_expires">m3u8_expires=#m3u8_expires#</isNotEmpty> 
+			<isNotEmpty prepend="," property="zm_file_size">zm_file_size=#zm_file_size#</isNotEmpty> -->
 		<isNotEmpty prepend="," property="zm_type">zm_type=#zm_type#</isNotEmpty>
 		<isNotEmpty prepend="," property="zm_id">zm_id=#zm_id#</isNotEmpty>
+		<isNotEmpty prepend="," property="type">type=#type#</isNotEmpty>
+		<isNotEmpty prepend="," property="teacher">teacher=#teacher#</isNotEmpty>
 		<isNotEmpty prepend="," property="date">date=#date#</isNotEmpty>
 		<isNotEmpty prepend="," property="opdate">opdate=#opdate#</isNotEmpty>
-		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
 		where vid=#vid#
 	</update>
 

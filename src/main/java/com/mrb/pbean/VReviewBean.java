@@ -2,6 +2,7 @@ package com.mrb.pbean;
 
 public class VReviewBean {
 
+
 	private long vrid;
 	private String vid;
 	private long uid;

@@ -2,7 +2,6 @@ package com.mrb.pbean;
 
 public class PwdBean {
 	
-	
 	private long uid;
 	private String oldpwd;
 	private String newpwd;
