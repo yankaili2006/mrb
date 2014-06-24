@@ -3,12 +3,13 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 import com.mrb.bean.ModelImgBean;
+import com.mrb.bean.ModelImgRespSmallBean;
 
 public class PlayImgRespBean {
 	private String code;
 	private String msg;
 	private long num;
-	private ArrayList<String> imgs;
+	private ArrayList<ModelImgRespSmallBean> imgs;
 
 	public String getCode() {
 		return code;
@@ -34,11 +35,11 @@ public class PlayImgRespBean {
 		this.num = num;
 	}
 
-	public ArrayList<String> getImgs() {
+	public ArrayList<ModelImgRespSmallBean> getImgs() {
 		return imgs;
 	}
 
-	public void setImgs(ArrayList<String> imgs) {
+	public void setImgs(ArrayList<ModelImgRespSmallBean> imgs) {
 		this.imgs = imgs;
 	}
 

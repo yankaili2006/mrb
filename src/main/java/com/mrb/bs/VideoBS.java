@@ -47,7 +47,7 @@ import com.mrb.util.SmvpUtil;
  */
 public class VideoBS {
 
-	private Logger loger = Logger.getLogger(this.getClass());
+	private Logger logger = Logger.getLogger(this.getClass());
 
 	/**
 	 * 
@@ -67,7 +67,7 @@ public class VideoBS {
 			smvpBean = util.smvpPost(reqBean.getEntryid());
 		} catch (Exception e) {
 			e.printStackTrace();
-			loger.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		if (smvpBean == null) {
@@ -86,7 +86,7 @@ public class VideoBS {
 			metaBean = util.getEntries(reqBean.getEntryid());
 		} catch (Exception e) {
 			e.printStackTrace();
-			loger.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		if (metaBean == null) {
@@ -98,7 +98,7 @@ public class VideoBS {
 			entries = smvpBean.getEntries();
 		} catch (Exception e) {
 			e.printStackTrace();
-			loger.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		if (entries != null && entries.size() > 0) {
@@ -468,18 +468,44 @@ public class VideoBS {
 	public Boolean doVCollect(VDoCollectReqBean reqBean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
+
 			client.startTransaction();
 
-			VDoCollectBean bean = new VDoCollectBean();
-
-			bean.setUcid(IdUtil.generateID());
-			bean.setUid(reqBean.getUid());
-			bean.setVid(reqBean.getVid());
-			bean.setDate(DateUtil.getNow());
-
-			client.update("doVCollect", bean);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("uid", reqBean.getUid());
+			map.put("vid", reqBean.getVid());
+			Long cnt = (Long) client.queryForObject("getVCollectByUser", map);
+			logger.info("cnt = " + cnt);
 			client.commitTransaction();
 			client.endTransaction();
+
+			if (cnt > 0) {
+
+				VDoCollectBean bean = new VDoCollectBean();
+				bean.setUid(reqBean.getUid());
+				bean.setVid(reqBean.getVid());
+				bean.setDate(DateUtil.getNow());
+
+				client.startTransaction();
+				client.update("updateVCollect", bean);
+				client.commitTransaction();
+				client.endTransaction();
+				return true;
+			} else {
+
+				client.startTransaction();
+
+				VDoCollectBean bean = new VDoCollectBean();
+
+				bean.setUcid(IdUtil.generateID());
+				bean.setUid(reqBean.getUid());
+				bean.setVid(reqBean.getVid());
+				bean.setDate(DateUtil.getNow());
+
+				client.update("doVCollect", bean);
+				client.commitTransaction();
+				client.endTransaction();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {

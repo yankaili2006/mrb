@@ -13,6 +13,15 @@ public class ModelImgBean {
 	private String model;
 	private long idx;
 	private String iuri;
+	private String linkto;
+
+	public String getLinkto() {
+		return linkto;
+	}
+
+	public void setLinkto(String linkto) {
+		this.linkto = linkto;
+	}
 
 	public long getIdx() {
 		return idx;

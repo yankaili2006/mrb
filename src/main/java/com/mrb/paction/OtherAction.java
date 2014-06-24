@@ -19,6 +19,7 @@ import org.apache.struts.action.ActionMapping;
 
 import com.google.gson.Gson;
 import com.mrb.bean.ModelImgBean;
+import com.mrb.bean.ModelImgRespSmallBean;
 import com.mrb.bean.ParamBean;
 import com.mrb.bs.ModelImgBS;
 import com.mrb.bs.ParamBS;
@@ -203,13 +204,17 @@ public class OtherAction extends Action {
 				resp.setCode("0000");
 				resp.setMsg("交易成功");
 				resp.setNum(imglist.size());
+				ArrayList<ModelImgRespSmallBean> modelImgList = new ArrayList<ModelImgRespSmallBean>();
 				if (imglist != null && imglist.size() > 0) {
-					ArrayList<String> imgs = new ArrayList<String>();
 					for (int i = 0; i < imglist.size(); i++) {
 						ModelImgBean imgbean = imglist.get(i);
-						imgs.add(MrbUtil.getImgUrl() + "/" + imgbean.getIuri());
+						ModelImgRespSmallBean outBean = new ModelImgRespSmallBean();
+						outBean.setIuri(MrbUtil.getImgUrl() + "/"
+								+ imgbean.getIuri());
+						outBean.setLinkto(imgbean.getLinkto());
+						modelImgList.add(outBean);
 					}
-					resp.setImgs(imgs);
+					resp.setImgs(modelImgList);
 				}
 			} else {
 				resp.setCode("0001");

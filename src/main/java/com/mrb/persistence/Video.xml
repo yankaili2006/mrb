@@ -117,10 +117,11 @@
 		vr.date from tbvideo
 		v,tbvrelate vr
 		left join vvreview vv on vv.vid =
-		vr.vidb where vr.vida
+		vr.vidb where v.vid=vr.vida and vr.vida
 		= #vid# order by
 		vr.date
-		desc limit #start#,
+		desc
+		limit #start#,
 		#num#
 	</select>
 
@@ -134,16 +135,29 @@
 		v,tbucollect uc
 		left join vvreview vv on vv.vid = uc.vid where
 		uc.uid
-		= #uid# order by
+		= #uid# and v.vid=uc.vid order by
 		uc.date
 		desc limit #start#,
 		#num#
+	</select>
+
+
+	<select id="getVCollectByUser" parameterClass="java.util.HashMap"
+		resultClass="java.lang.Long">
+		select count(1) from tbucollect uc where uc.uid = #uid#
+		and uc.vid = #vid#
 	</select>
 
 	<insert id="doVCollect" parameterClass="com.mrb.pbean.VDoCollectBean">
 		insert into tbucollect
 		values(#ucid#,#uid#,#vid#,#date#)
 	</insert>
+
+	<update id="updateVCollect" parameterClass="com.mrb.pbean.VDoCollectBean">
+		update tbucollect set
+		date=#date# where uid = #uid# and vid=#vid#
+	</update>
+
 
 	<insert id="doVPlay" parameterClass="com.mrb.pbean.VDoPlayBean">
 		insert into tbuplay
