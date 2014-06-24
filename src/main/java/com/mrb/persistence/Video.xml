@@ -158,16 +158,28 @@
 		date=#date# where uid = #uid# and vid=#vid#
 	</update>
 
-
 	<insert id="doVPlay" parameterClass="com.mrb.pbean.VDoPlayBean">
 		insert into tbuplay
 		values(#vpid#,#vid#,#uid#,#finish#,#date#,#laststop#)
 	</insert>
 
+	<select id="getVShareByUser" parameterClass="java.util.HashMap"
+		resultClass="java.lang.Long">
+		select count(1) from tbushare where uid = #uid#
+		and vid =
+		#vid#
+	</select>
+
+	<update id="updateVShare" parameterClass="com.mrb.pbean.VDoCollectBean">
+		update tbushare set
+		date=#date# where uid = #uid# and vid=#vid#
+	</update>
+
 	<insert id="doVShare" parameterClass="com.mrb.pbean.VDoCollectBean">
 		insert into tbushare
 		values(#ucid#,#uid#,#vid#,#date#)
 	</insert>
+
 
 	<insert id="doVReivew" parameterClass="com.mrb.pbean.VDoReviewBean">
 		insert into tbureview
