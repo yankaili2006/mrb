@@ -4,6 +4,7 @@ package com.mrb.bean;
 import com.mrb.util.DateUtil;
 
 public class OperateBean {
+	
 	private long opid;
 	private long uid;
 	private String uname;

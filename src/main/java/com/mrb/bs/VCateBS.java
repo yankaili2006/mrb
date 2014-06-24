@@ -20,6 +20,7 @@ import com.mrb.util.DateUtil;
  */
 public class VCateBS {
 
+	
 	/**
 	 * 
 	 */

@@ -558,8 +558,29 @@ public class VideoBS {
 	public Boolean doVShare(VDoCollectReqBean reqBean) {
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
+
 			client.startTransaction();
 
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("uid", reqBean.getUid());
+			map.put("vid", reqBean.getVid());
+			Long cnt = (Long) client.queryForObject("getVShareByUser", map);
+			client.commitTransaction();
+			client.endTransaction();
+
+			if (cnt > 0) {
+				client.startTransaction();
+				VDoCollectBean bean = new VDoCollectBean();
+				bean.setUid(reqBean.getUid());
+				bean.setVid(reqBean.getVid());
+				bean.setDate(DateUtil.getNow());
+				client.update("updateVShare", bean);
+				client.commitTransaction();
+				client.endTransaction();
+				return true;
+			}
+
+			client.startTransaction();
 			VDoCollectBean bean = new VDoCollectBean();
 
 			bean.setUcid(IdUtil.generateID());
@@ -570,6 +591,7 @@ public class VideoBS {
 			client.update("doVShare", bean);
 			client.commitTransaction();
 			client.endTransaction();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			try {

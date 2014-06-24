@@ -2,6 +2,7 @@ package com.mrb.bean;
 
 public class VideoReqBean {
 
+	
 	private String entryid;
 	private long vcid;
 	private String type;

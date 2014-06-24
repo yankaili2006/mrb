@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionMapping;
  */
 public class JsonForm extends ActionForm {
 	
+	
 	private String act;
 	private String msg;
 
