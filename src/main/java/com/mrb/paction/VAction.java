@@ -232,7 +232,7 @@ public class VAction extends Action {
 				} else {
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
-					respBean.setVist(vlist);
+					respBean.setVlist(vlist);
 					respBean.setStart(reqBean.getStart());
 					respBean.setNum(vlist.size());
 				}
