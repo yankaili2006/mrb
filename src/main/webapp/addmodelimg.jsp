@@ -89,7 +89,8 @@
 		$('#act').val("add");
 		$('#msg').val(
 				"{model:" + $('#model').val() + ",idx:" + $('#idx').val()
-						+ ",iuri:\"" + iuri + "\"}");
+						+ ",linkto:\"" + $('#linkto').val() + "\",iuri:\""
+						+ iuri + "\"}");
 		$('#addform').submit();
 	}
 
@@ -313,6 +314,8 @@
 									value="<%=bean.getIuri()%>" class="input-xlarge">
 								<button class="btn btn-primary btn-lg" data-toggle="modal"
 									data-target="#uploadModal">上传图片</button>
+								<label> 跳转链接 </label> <input type="text" name="linkto"
+									id="linkto" value="<%=bean.getLinkto()%>" class="input-xlarge">
 
 								<input type="hidden" id="iid" name="iid"
 									value="<%=bean.getIid()%>">
@@ -346,7 +349,9 @@
 									type="text" name="iuri" id="iuri" value="" class="input-xlarge">
 								<button class="btn btn-primary btn-lg" data-toggle="modal"
 									data-target="#uploadModal">上传图片</button>
-								<input type="hidden" id="iid" name="iid" value="0">
+								<label> 跳转链接 </label> <input type="text" name="linkto"
+									id="linkto" value="" class="input-xlarge"> <input
+									type="hidden" id="iid" name="iid" value="0">
 								<%
 									}
 								%>

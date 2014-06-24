@@ -197,7 +197,7 @@ public class VAction extends Action {
 					respBean.setMsg("交易成功");
 					respBean.setRlist(rlist);
 					respBean.setStart(reqBean.getStart());
-					respBean.setNum(reqBean.getNum());
+					respBean.setNum(rlist.size());
 				}
 			}
 			result = gson.toJson(respBean);
@@ -232,9 +232,9 @@ public class VAction extends Action {
 				} else {
 					respBean.setCode("0000");
 					respBean.setMsg("交易成功");
-					respBean.setVist(vlist);
+					respBean.setVlist(vlist);
 					respBean.setStart(reqBean.getStart());
-					respBean.setNum(reqBean.getNum());
+					respBean.setNum(vlist.size());
 				}
 			}
 			result = gson.toJson(respBean);
@@ -272,7 +272,7 @@ public class VAction extends Action {
 					respBean.setMsg("交易成功");
 					respBean.setRlist(vlist);
 					respBean.setStart(reqBean.getStart());
-					respBean.setNum(reqBean.getNum());
+					respBean.setNum(vlist.size());
 				}
 			}
 			result = gson.toJson(respBean);
@@ -310,7 +310,7 @@ public class VAction extends Action {
 					respBean.setMsg("交易成功");
 					respBean.setVlist(vlist);
 					respBean.setStart(reqBean.getStart());
-					respBean.setNum(reqBean.getNum());
+					respBean.setNum(vlist.size());
 				}
 			}
 			result = gson.toJson(respBean);

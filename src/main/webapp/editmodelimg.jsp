@@ -87,11 +87,10 @@
 		}
 
 		$('#act').val("update");
-		$('#msg')
-				.val(
-						"{iid:" + $('#iid').val() + ",model:"
-								+ $('#model').val() + ",idx:" + $('#idx').val()
-								+ ",iuri:\"" + iuri + "\"}");
+		$('#msg').val(
+				"{iid:" + $('#iid').val() + ",model:" + $('#model').val()
+						+ ",idx:" + $('#idx').val() + ",linkto:\""
+						+ $('#linkto').val() + "\",iuri:\"" + iuri + "\"}");
 		$('#updateform').submit();
 	}
 
@@ -317,7 +316,8 @@
 									class="input-xlarge">
 								<button class="btn btn-primary btn-lg" data-toggle="modal"
 									data-target="#uploadModal">上传图片</button>
-
+								<label> 跳转链接 </label> <input type="text" name="linkto"
+									id="linkto" value="<%=bean.getLinkto()%>" class="input-xlarge">
 								<input type="hidden" id="iid" name="iid"
 									value="<%=bean.getIid()%>">
 								<%

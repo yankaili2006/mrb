@@ -3,7 +3,7 @@
 <sqlMap namespace="modelimg">
 	<insert id="addModelImg" parameterClass="com.mrb.bean.ModelImgBean">
 		insert into tbmodelimg
-		values(#iid#,#model#,#idx#,#iuri#)
+		values(#iid#,#model#,#idx#,#iuri#,#linkto#)
 	</insert>
 
 	<select id="getModelImgByIid" parameterClass="java.lang.Long"
@@ -23,7 +23,8 @@
 	</select>
 
 	<select id="getModelImgCnt" resultClass="java.lang.Integer">
-		select if(isnull(count(1)), 0 , count(1)) from
+		select
+		if(isnull(count(1)), 0 , count(1)) from
 		tbmodelimg
 	</select>
 
@@ -31,6 +32,7 @@
 		update tbmodelimg set model=#model#
 		<isNotEmpty prepend="," property="idx">idx=#idx#</isNotEmpty>
 		<isNotEmpty prepend="," property="iuri">iuri=#iuri#</isNotEmpty>
+		<isNotEmpty prepend="," property="linkto">linkto=#linkto#</isNotEmpty>
 		where iid=#iid#
 	</update>
 

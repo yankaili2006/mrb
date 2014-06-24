@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 public class VHisRespBean {
 
-	
 	private String code;
 	private String msg;
 	private int start;
 	private int num;
-	private ArrayList<VHisBean> vist;
+	private ArrayList<VHisBean> vlist;
 
 	public String getCode() {
 		return code;
@@ -43,12 +42,12 @@ public class VHisRespBean {
 		this.num = num;
 	}
 
-	public ArrayList<VHisBean> getVist() {
-		return vist;
+	public ArrayList<VHisBean> getVlist() {
+		return vlist;
 	}
 
-	public void setVist(ArrayList<VHisBean> vist) {
-		this.vist = vist;
+	public void setVlist(ArrayList<VHisBean> vlist) {
+		this.vlist = vlist;
 	}
 
 }
