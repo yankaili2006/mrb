@@ -46,8 +46,8 @@
 	<update id="updateProject" parameterClass="com.mrb.bean.ProjectBean">
 		update tbproject set date=#date#
 		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
-		<isNotEmpty prepend="," property="pcid">pcid=#pcid#</isNotEmpty>
-		<isNotEmpty prepend="," property="cid">cid=#cid#</isNotEmpty>
+		<isNotEqual compareValue="0" prepend="," property="pcid">pcid=#pcid#</isNotEqual>
+		<isNotEqual compareValue="0" prepend="," property="cid">cid=#cid#</isNotEqual>
 		<isNotEmpty prepend="," property="iuri">iuri=#iuri#</isNotEmpty>
 		<isNotEmpty prepend="," property="level">level=#level#</isNotEmpty>
 		<isNotEmpty prepend="," property="area">area=#area#</isNotEmpty>
@@ -55,9 +55,9 @@
 		<isNotEmpty prepend="," property="build">build=#build#</isNotEmpty>
 		<isNotEmpty prepend="," property="pack">pack=#pack#</isNotEmpty>
 		<isNotEmpty prepend="," property="sale">sale=#sale#</isNotEmpty>
-		<isNotEmpty prepend="," property="chain">chain=#chain#</isNotEmpty>
-		<isNotEmpty prepend="," property="fee">fee=#fee#</isNotEmpty>
-		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		<isNotEqual compareValue="0" prepend="," property="chain">chain=#chain#</isNotEqual>
+		<isNotEqual compareValue="0" prepend="," property="fee">fee=#fee#</isNotEqual>
+		<isNotEqual compareValue="0" prepend="," property="operid">operid=#operid#</isNotEqual>
 		<isNotEmpty prepend="," property="phone">phone=#phone#</isNotEmpty>
 		where pid=#pid#
 	</update>

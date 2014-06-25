@@ -1,11 +1,19 @@
 package com.mrb.pbean;
 
 public class VRelateReqBean {
-	
-	
+
 	private String vid;
 	private int start;
 	private int num;
+	private String teacher;
+
+	public String getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(String teacher) {
+		this.teacher = teacher;
+	}
 
 	public String getVid() {
 		return vid;

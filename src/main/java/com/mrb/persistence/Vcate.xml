@@ -27,7 +27,7 @@
 		update tbvcate set date=#date#
 		<isNotEmpty prepend="," property="name">name=#name#</isNotEmpty>
 		<isNotEmpty prepend="," property="date">date=#date#</isNotEmpty>
-		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		<isNotEqual compareValue="0" prepend="," property="operid">operid=#operid#</isNotEqual>
 		where vcid=#vcid#
 	</update>
 
