@@ -252,6 +252,7 @@ public class ProjectAction extends Action {
 				respBean.setPack(pBean.getPack());
 				respBean.setSale(pBean.getSale());
 				respBean.setStore(pBean.getStore());
+				respBean.setPhone(pBean.getPhone());
 
 				if (pBean == null) {
 					respBean.setCode("1706");

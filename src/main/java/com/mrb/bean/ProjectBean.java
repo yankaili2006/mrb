@@ -29,6 +29,15 @@ public class ProjectBean {
 	private int fee;
 	private String date;
 	private long operid;
+	private String phone;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public long getCid() {
 		return cid;

@@ -71,10 +71,6 @@ public class VBean {
 		return reviewcnt;
 	}
 
-	public void setReviewcnt(int reviewcnt) {
-		this.reviewcnt = reviewcnt;
-	}
-
 	public String getType() {
 		return type;
 	}

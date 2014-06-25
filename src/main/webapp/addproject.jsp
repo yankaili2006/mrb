@@ -144,15 +144,19 @@
 		}
 
 		$('#act').val("add");
-		$('#msg').val(
-				"{name:" + $('#name').val() + ",pcid:" + $('#pcid').val()
-						+ ",cid:" + $('#cid').val() + ",iuri:\"" + iuri
-						+ "\",level:" + $('#level').val() + ",area:"
-						+ $('#area').val() + ",store:" + $('#store').val()
-						+ ",build:" + $('#build').val() + ",pack:"
-						+ $('#pack').val() + ",sale:" + $('#sale').val()
-						+ ",chain:" + $('#chain').val() + ",fee:"
-						+ $('#fee').val() + "}");
+		$('#msg')
+				.val(
+						"{name:" + $('#name').val() + ",pcid:"
+								+ $('#pcid').val() + ",cid:" + $('#cid').val()
+								+ ",iuri:\"" + iuri + "\",level:"
+								+ $('#level').val() + ",area:"
+								+ $('#area').val() + ",store:"
+								+ $('#store').val() + ",build:"
+								+ $('#build').val() + ",pack:"
+								+ $('#pack').val() + ",sale:"
+								+ $('#sale').val() + ",chain:"
+								+ $('#chain').val() + ",fee:" + $('#fee').val()
+								+ ",phone:" + $('#phone').val() + "}");
 		$('#addform').submit();
 	}
 
@@ -415,7 +419,8 @@
 					out.print("selected=\"selected\"");
 				}%>>
 										否</option>
-								</select>
+								</select><label> 直拨电话 </label> <input type="text" name="phone" id="phone"
+									value="<%=bean.getPhone()%>" class="input-xlarge">
 								<%
 									} else {
 								%>
@@ -472,7 +477,8 @@
 									class="input-xlarge">
 									<option value="1">是</option>
 									<option value="0">否</option>
-								</select>
+								</select><label> 直拨电话 </label> <input type="text" name="phone" id="phone"
+									value="" class="input-xlarge">
 								<%
 									}
 								%>
