@@ -349,11 +349,20 @@ public class VideoBS {
 		ArrayList<VRelateBean> videoList = null;
 		SqlMapClient client = SqlMap.getSqlMapInstance();
 		try {
+
 			client.startTransaction();
-			videoList = (ArrayList<VRelateBean>) client.queryForList(
-					"getVRelateList", bean);
+			VideoBean vBean = (VideoBean) client.queryForObject("getVideoById",
+					bean.getVid());
 			client.commitTransaction();
 			client.endTransaction();
+			if (vBean != null) {
+				bean.setTeacher(vBean.getTeacher());
+				client.startTransaction();
+				videoList = (ArrayList<VRelateBean>) client.queryForList(
+						"getVRelateList", bean);
+				client.commitTransaction();
+				client.endTransaction();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

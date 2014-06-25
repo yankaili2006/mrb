@@ -30,7 +30,7 @@
 
 	<update id="updateModelImg" parameterClass="com.mrb.bean.ModelImgBean">
 		update tbmodelimg set model=#model#
-		<isNotEmpty prepend="," property="idx">idx=#idx#</isNotEmpty>
+		<isNotEqual compareValue="0" prepend="," property="idx">idx=#idx#</isNotEqual>
 		<isNotEmpty prepend="," property="iuri">iuri=#iuri#</isNotEmpty>
 		<isNotEmpty prepend="," property="linkto">linkto=#linkto#</isNotEmpty>
 		where iid=#iid#

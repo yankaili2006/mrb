@@ -32,22 +32,25 @@
 		<isNotEmpty prepend="," property="tags">tags=#tags#</isNotEmpty>
 		<isNotEmpty prepend="," property="snapshot_url">snapshot_url=#snapshot_url#</isNotEmpty>
 		<isNotEmpty prepend="," property="thumbnail_url">thumbnail_url=#thumbnail_url#</isNotEmpty>
-		<!-- <isNotEmpty prepend="," property="file_size">file_size=#file_size#</isNotEmpty> 
-			<isNotEmpty prepend="," property="activated">activated=#activated#</isNotEmpty> -->
+		<isNotEqual compareValue="0" prepend="," property="file_size">file_size=#file_size#</isNotEqual>
+		<isNotEqual compareValue="0" prepend="," property="activated">activated=#activated#</isNotEqual>
 		<isNotEmpty prepend="," property="modified_time">modified_time=#modified_time#</isNotEmpty>
 		<isNotEmpty prepend="," property="created_time">created_time=#created_time#</isNotEmpty>
-		<!-- <isNotEmpty prepend="," property="height">height=#height#</isNotEmpty> 
-			<isNotEmpty prepend="," property="width">width=#width#</isNotEmpty> -->
+		<isNotEqual compareValue="0" prepend="," property="height">height=#height#</isNotEqual>
+		<isNotEqual compareValue="0" prepend="," property="width">width=#width#</isNotEqual>
 		<isNotEmpty prepend="," property="duration">duration=#duration#</isNotEmpty>
 		<isNotEmpty prepend="," property="extension">extension=#extension#</isNotEmpty>
 		<isNotEmpty prepend="," property="title">title=#title#</isNotEmpty>
 		<isNotEmpty prepend="," property="mp4_url">mp4_url=#mp4_url#</isNotEmpty>
-		<!-- <isNotEmpty prepend="," property="mp4_expires">mp4_expires=#mp4_expires#</isNotEmpty> -->
+		<isNotEqual compareValue="0" prepend="," property="mp4_expires">mp4_expires=#mp4_expires#</isNotEqual>
 		<isNotEmpty prepend="," property="permanent_url">permanent_url=#permanent_url#</isNotEmpty>
-		<!-- <isNotEmpty prepend="," property="permanent_expires">permanent_expires=#permanent_expires#</isNotEmpty> -->
+		<isNotEqual compareValue="0" prepend="," property="permanent_expires">permanent_expires=#permanent_expires#</isNotEqual>
 		<isNotEmpty prepend="," property="m3u8_url">m3u8_url=#m3u8_url#</isNotEmpty>
-		<!-- <isNotEmpty prepend="," property="m3u8_expires">m3u8_expires=#m3u8_expires#</isNotEmpty> 
-			<isNotEmpty prepend="," property="zm_file_size">zm_file_size=#zm_file_size#</isNotEmpty> -->
+		<isNotEqual compareValue="0" prepend="," property="m3u8_expires">
+			m3u8_expires=#m3u8_expires#</isNotEqual>
+		<isNotEqual compareValue="0" prepend="," property="zm_file_size">
+			zm_file_size=#zm_file_size#
+		</isNotEqual>
 		<isNotEmpty prepend="," property="zm_type">zm_type=#zm_type#</isNotEmpty>
 		<isNotEmpty prepend="," property="zm_id">zm_id=#zm_id#</isNotEmpty>
 		<isNotEmpty prepend="," property="type">type=#type#</isNotEmpty>
@@ -112,14 +115,14 @@
 
 	<select id="getVRelateList" parameterClass="com.mrb.pbean.VRelateReqBean"
 		resultClass="com.mrb.pbean.VRelateBean">
-		select vr.vrid, vr.vidb as vid, v.thumbnail_url as iuri,
-		v.title, v.duration, if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt,
-		vr.date from tbvideo
-		v,tbvrelate vr
-		left join vvreview vv on vv.vid =
-		vr.vidb where v.vid=vr.vida and vr.vida
-		= #vid# order by
-		vr.date
+		select v.vid, v.thumbnail_url as iuri,
+		v.title, v.duration,
+		if(isnull(vv.cnt), 0 , vv.cnt) as reviewcnt,
+		v.date from tbvideo v left
+		join vvreview vv on vv.vid =
+		v.vid where v.vid
+		!= #vid# and v.teacher = #teacher# order by
+		v.date
 		desc
 		limit #start#,
 		#num#
