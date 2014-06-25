@@ -134,17 +134,29 @@ public class OtherAction extends Action {
 
 			ParamBS paramBS = new ParamBS();
 			ParamBean paramBean = paramBS.getParamById("shopinfo");
-
 			if (paramBean != null) {
 				String paramValue = paramBean.getParam_value();
 				if (paramValue != null && !"".equals(paramValue)) {
-					resp.setCode("0000");
-					resp.setMsg("交易成功");
-					if (paramValue.contains(",")) {
-						String[] paramList = paramValue.split(",");
-						resp.setInfo(paramList[0]);
-						resp.setPhone(paramList[1]);
+					resp.setInfo(paramValue);
+
+					ParamBean paramPhoneBean = paramBS.getParamById("shopinfo_phone");
+					if (paramPhoneBean != null) {
+						String paramPhoneValue = paramPhoneBean
+								.getParam_value();
+						if (paramPhoneValue != null
+								&& !"".equals(paramPhoneValue)) {
+							resp.setCode("0000");
+							resp.setMsg("交易成功");
+							resp.setPhone(paramPhoneValue);
+						} else {
+							resp.setCode("0001");
+							resp.setMsg("交易失败");
+						}
+					} else {
+						resp.setCode("0001");
+						resp.setMsg("交易失败");
 					}
+
 				} else {
 					resp.setCode("0001");
 					resp.setMsg("交易失败");
@@ -155,6 +167,7 @@ public class OtherAction extends Action {
 			}
 
 			result = gson.toJson(resp);
+			
 		} else if ("memberinfo".equals(act)) { // 会员介绍 for 手机
 
 			ShopInfoRespBean resp = new ShopInfoRespBean();
@@ -165,13 +178,26 @@ public class OtherAction extends Action {
 			if (paramBean != null) {
 				String paramValue = paramBean.getParam_value();
 				if (paramValue != null && !"".equals(paramValue)) {
-					resp.setCode("0000");
-					resp.setMsg("交易成功");
-					if (paramValue.contains(",")) {
-						String[] paramList = paramValue.split(",");
-						resp.setInfo(paramList[0]);
-						resp.setPhone(paramList[1]);
-					}
+						resp.setInfo(paramValue);
+						
+						ParamBean paramPhoneBean = paramBS.getParamById("memberinfo_phone");
+						if (paramPhoneBean != null) {
+							String paramPhoneValue = paramPhoneBean
+									.getParam_value();
+							if (paramPhoneValue != null
+									&& !"".equals(paramPhoneValue)) {
+								resp.setCode("0000");
+								resp.setMsg("交易成功");
+								resp.setPhone(paramPhoneValue);
+							} else {
+								resp.setCode("0001");
+								resp.setMsg("交易失败");
+							}
+						} else {
+							resp.setCode("0001");
+							resp.setMsg("交易失败");
+						}
+						
 				} else {
 					resp.setCode("0001");
 					resp.setMsg("交易失败");

@@ -3,7 +3,7 @@
 <sqlMap namespace="project">
 	<insert id="addProject" parameterClass="com.mrb.bean.ProjectBean">
 		insert into tbproject
-		values(#pid#,#name#,#pcid#,#cid#,#iuri#,#level#,#area#,#store#,#build#,#pack#,#sale#,#chain#,#fee#,#date#,#operid#)
+		values(#pid#,#name#,#pcid#,#cid#,#iuri#,#level#,#area#,#store#,#build#,#pack#,#sale#,#chain#,#fee#,#date#,#operid#,#phone#)
 	</insert>
 
 	<select id="getProjectById" parameterClass="java.lang.Long"
@@ -58,6 +58,7 @@
 		<isNotEmpty prepend="," property="chain">chain=#chain#</isNotEmpty>
 		<isNotEmpty prepend="," property="fee">fee=#fee#</isNotEmpty>
 		<isNotEmpty prepend="," property="operid">operid=#operid#</isNotEmpty>
+		<isNotEmpty prepend="," property="phone">phone=#phone#</isNotEmpty>
 		where pid=#pid#
 	</update>
 

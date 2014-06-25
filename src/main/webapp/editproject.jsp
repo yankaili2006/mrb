@@ -168,7 +168,8 @@
 							+ ",build:" + $('#build').val() + ",pack:"
 							+ $('#pack').val() + ",sale:" + $('#sale').val()
 							+ ",chain:" + $('#chain').val() + ",fee:"
-							+ $('#fee').val() + "}");
+							+ $('#fee').val() + ",phone:" + $('#phone').val()
+							+ "}");
 
 			$('#updateform').submit();
 		}
@@ -444,8 +445,9 @@
 					out.print("selected=\"selected\"");
 				}%>>
 										否</option>
-								</select><input type="hidden" id="pid" name="pid"
-									value="<%=bean.getPid()%>">
+								</select> <label> 直拨电话</label> <input type="text" name="phone" id="phone"
+									value="<%=bean.getPhone()%>" class="input-xlarge"> <input
+									type="hidden" id="pid" name="pid" value="<%=bean.getPid()%>">
 								<%
 									} else {
 								%>

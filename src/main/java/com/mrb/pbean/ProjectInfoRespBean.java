@@ -3,7 +3,7 @@ package com.mrb.pbean;
 import java.util.ArrayList;
 
 public class ProjectInfoRespBean {
-	
+
 	private String code;
 	private String msg;
 	private String name;
@@ -15,6 +15,15 @@ public class ProjectInfoRespBean {
 	private String sale;
 	private int chain;
 	private int fee;
+	private String phone;
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
 	public String getCode() {
 		return code;
@@ -103,6 +112,5 @@ public class ProjectInfoRespBean {
 	public void setFee(int fee) {
 		this.fee = fee;
 	}
-
 
 }
