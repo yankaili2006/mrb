@@ -292,7 +292,7 @@
 										<%if (pbean != null && bean.getBid() == pbean.getBid()) {
 							out.print("selected=\"selected\"");
 						}%>>
-										<%=pbean.getName()%></option>
+										<%=pbean.getBtitle()%></option>
 									<%
 										}
 											} else {
@@ -320,7 +320,7 @@
 													Brand2ShowBean pbean = plist.get(i);
 									%>
 									<option value="<%=pbean.getBid()%>">
-										<%=pbean.getName()%></option>
+										<%=pbean.getBtitle()%></option>
 									<%
 										}
 											} else {

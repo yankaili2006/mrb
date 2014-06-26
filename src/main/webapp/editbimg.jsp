@@ -300,7 +300,7 @@
 										<%if (pbean != null && bean.getBid() == pbean.getBid()) {
 							out.print("selected=\"selected\"");
 						}%>>
-										<%=pbean.getName()%></option>
+										<%=pbean.getBtitle()%></option>
 									<%
 										}
 											} else {
