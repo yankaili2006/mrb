@@ -1,13 +1,13 @@
 package com.mrb.pbean;
 
 public class VRelateBean {
-	
+
 	private int vrid;
 	private String vid;
 	private String iuri;
 	private String title;
 	private long duration;
-	private int reviewCnt;
+	private int reviewcnt;
 	private String date;
 
 	public int getVrid() {
@@ -18,12 +18,12 @@ public class VRelateBean {
 		this.vrid = vrid;
 	}
 
-	public int getReviewCnt() {
-		return reviewCnt;
+	public int getReviewcnt() {
+		return reviewcnt;
 	}
 
-	public void setReviewCnt(int reviewCnt) {
-		this.reviewCnt = reviewCnt;
+	public void setReviewcnt(int reviewcnt) {
+		this.reviewcnt = reviewcnt;
 	}
 
 	public String getVid() {
@@ -65,6 +65,5 @@ public class VRelateBean {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
 
 }
