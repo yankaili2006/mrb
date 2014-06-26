@@ -1,8 +1,7 @@
 package com.mrb.pbean;
 
 public class VDetailRespBean {
-	
-	
+
 	private String code;
 	private String msg;
 	private String vuri;
@@ -14,7 +13,33 @@ public class VDetailRespBean {
 	private String teacher;
 	private String description;
 	private String date;
-	
+	private String snapshot_url;
+	private String thumbnail_url;
+	private int collect;
+
+	public int getCollect() {
+		return collect;
+	}
+
+	public void setCollect(int collect) {
+		this.collect = collect;
+	}
+
+	public String getSnapshot_url() {
+		return snapshot_url;
+	}
+
+	public void setSnapshot_url(String snapshot_url) {
+		this.snapshot_url = snapshot_url;
+	}
+
+	public String getThumbnail_url() {
+		return thumbnail_url;
+	}
+
+	public void setThumbnail_url(String thumbnail_url) {
+		this.thumbnail_url = thumbnail_url;
+	}
 
 	public String getCode() {
 		return code;
@@ -103,6 +128,5 @@ public class VDetailRespBean {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
 
 }

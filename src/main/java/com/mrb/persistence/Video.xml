@@ -88,10 +88,11 @@
 		select v.mp4_url as vuri, v.title, v.duration, v.type,
 		v.teacher,
 		v.description, v.date, if(isnull(vp.cnt), 0 , vp.cnt) as
-		playcnt from
+		playcnt, v.snapshot_url, v.thumbnail_url,if(isnull(uc.ucid), 0 , 1) as collect from
 		tbvideo v
 		left outer join vvplay vp on v.vid =
 		vp.vid
+		left outer join tbucollect uc on v.vid = uc.vid and uc.uid = #uid#
 		where
 		v.vid = #vid# order by
 		v.date desc
