@@ -19,7 +19,7 @@
 
 	<select id="getPReviewList" parameterClass="com.mrb.pbean.BrandReqBean"
 		resultClass="com.mrb.pbean.PReviewBean">
-		select pre.*, u.uname from tbpreview pre, tbproject p,
+		select pre.*, u.uname from tbpreview pre,
 		tbuser u where
 		pre.pid=#pid# and pre.uid = u.uid order by pre.date desc
 		limit #start#,
