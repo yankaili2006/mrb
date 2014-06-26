@@ -19,8 +19,10 @@
 
 	<select id="getPReviewList" parameterClass="com.mrb.pbean.BrandReqBean"
 		resultClass="com.mrb.pbean.PReviewBean">
-		select pre.*, u.uname from tbpreview pre, tbuser u where 
- 		pre.uid=u.uid order by pre.date desc limit #start#,
+		select pre.*, u.uname from tbpreview pre, tbproject p,
+		tbuser u where
+		pre.pid=#pid# and pre.uid = u.uid order by pre.date desc
+		limit #start#,
 		#num#
 	</select>
 
@@ -32,7 +34,10 @@
 
 	<select id="getProjec4PhonetList" parameterClass="com.mrb.pbean.ProjectReqBean"
 		resultClass="com.mrb.pbean.Project4PhoneBean">
-		select pid, name, iuri from tbproject order by date desc
+		select pid, name, iuri from tbproject where 1 = 1
+		<isNotEqual compareValue="0" prepend=" and " property="cid">cid=#cid#</isNotEqual>
+		<isNotEqual compareValue="0" prepend=" and " property="pcid">pcid=#pcid#</isNotEqual>
+		order by date desc
 		limit #start#,
 		#num#
 	</select>
