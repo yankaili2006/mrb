@@ -1,9 +1,5 @@
 package com.mrb.bean;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.mrb.util.DateUtil;
 
 public class PcateBean {
 
@@ -11,6 +7,15 @@ public class PcateBean {
 	private String name;
 	private String date;
 	private long operid;
+	private long idx;
+
+	public long getIdx() {
+		return idx;
+	}
+
+	public void setIdx(long idx) {
+		this.idx = idx;
+	}
 
 	/**
 	 * @return the cid

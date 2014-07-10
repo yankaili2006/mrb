@@ -75,20 +75,20 @@ public class PcateAction extends Action {
 			}
 
 			StringBuilder html = new StringBuilder(
-					"<div class=\"well\"><table class=\"table\"><thead><tr><th>分类ID</th><th>分类名</th><th>注册日期</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
+					"<div class=\"well\"><table class=\"table\"><thead><tr><th>分类ID</th><th>分类名</th><th>注册日期</th><th>显示次序</th><th style=\"width: 50px;\">操作</th></tr></thead><tbody>");
 			if (ulist != null && ulist.size() > 0) {
 				for (int i = 0; i < ulist.size(); i++) {
 					PcateBean bean = (PcateBean) ulist.get(i);
 					html.append("<tr><td>" + bean.getCid() + "</td><td>"
 							+ bean.getName() + "</td><td>" + bean.getDate()
-							+ "</td>");
+							+ "</td><td>" + bean.getIdx() + "</td>");
 					html.append("<td><a href=\"javascript:void(0)\"}\" onclick=\"gotoedit(this);\"><i class=\"icon-pencil\"></i></a>&nbsp;&nbsp;");
 					html.append("<a href=\"#myModal\" role=\"button\" data-toggle=\"modal\" onclick=\"setcid(this);\"><i class=\"icon-remove\"></i></a></td></tr>");
 
 				}
 
 			} else {
-				html.append("<tr><td>没有分类记录！</td><td></td><td></td></tr>");
+				html.append("<tr><td>没有分类记录！</td><td></td><td></td><td></td></tr>");
 			}
 			html.append("</tbody></table></div>");
 

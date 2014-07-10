@@ -1,7 +1,7 @@
 package com.mrb.pbean;
 
 public class ZmBean {
-	
+
 	private String status;
 	private String error_code;
 	private String name;
@@ -13,9 +13,19 @@ public class ZmBean {
 	private String setting_id;
 	private UrlsBean urls;
 
+	private String url;
+
 	private long file_size;
 	private String type;
 	private String id;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public String getStatus() {
 		return status;

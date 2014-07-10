@@ -57,9 +57,8 @@
 			$('#name').focus();
 			return false;
 		}
-
 		$('#act').val("add");
-		$('#msg').val("{name:" + $('#name').val() + "}");
+		$('#msg').val("{name:" + $('#name').val() + ",idx:"+ $('#idx').val() + "}");
 		$('#addform').submit();
 	}
 </script>
@@ -221,12 +220,17 @@
 								<label> 分类名 </label> <input type="text" id="name" name="name"
 									value="<%if (bean != null)
 					out.print(bean.getName());%>"
+									class="input-xlarge"><label> 显示次序 </label> <input
+									type="text" id="idx" name="idx"
+									value="<%if (bean != null)
+					out.print(bean.getIdx());%>"
 									class="input-xlarge">
 								<%
 									} else {
 								%>
 								<label> 分类名 </label> <input type="text" id="name" name="name"
-									value="" class="input-xlarge">
+									value="" class="input-xlarge"><label> 显示次序 </label> <input
+									type="text" id="idx" name="idx" value="" class="input-xlarge">
 								<%
 									}
 								%>

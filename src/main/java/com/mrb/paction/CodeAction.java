@@ -56,6 +56,7 @@ public class CodeAction extends Action {
 			} catch (Exception e) {
 				log.error(e.getStackTrace());
 			}
+
 			// 判断参数
 			CodeResBean respBean = new CodeResBean();
 			if (reqBean == null) {
@@ -66,6 +67,13 @@ public class CodeAction extends Action {
 				respBean.setCode("3002");
 				respBean.setMsg("手机号码不能为空");
 			} else {
+
+				UserBS userBS = new UserBS();
+				UserBean uBean = userBS.getUserByPhone(reqBean.getPhone());
+				if (uBean != null) {
+					respBean.setUid(uBean.getUid());
+				}
+
 				// 发送校验码
 				CodeBean bean = util.sendCode(reqBean.getPhone());
 
