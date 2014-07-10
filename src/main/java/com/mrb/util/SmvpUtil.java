@@ -20,7 +20,7 @@ import com.smvp.sdk.SmvpClient;
 
 public class SmvpUtil {
 	private final String TOKEN = "5JfFMQFjrtCD6LjUK5xw61khgkH0fUZw3K0GymjqPmUZB22Gum9rq-lDrW9fmecg";
-	private final String ENTRY_ID = "593727852328384587";
+	private final String ENTRY_ID = "602792153169409438";
 	private final String PLAYER_ID = "591771262799587214";
 	private final Integer WIDTH = 640;
 	private final Integer HEIGHT = 480;
@@ -139,12 +139,15 @@ public class SmvpUtil {
 			System.out.println(entryBean.getTitle());
 			ArrayList<ZmBean> zms = entryBean.getRenditions();
 			if (zms != null && zms.size() > 0) {
-				ZmBean zmBean = zms.get(0);
-				System.out.println(zmBean.getKbps());
+				for (int i = 0; i < zms.size(); i++) {
+					ZmBean zmBean = zms.get(i);
 
-				UrlsBean urls = zmBean.getUrls();
-				UrlBean mp4Bean = urls.getMp4();
-				System.out.println(mp4Bean.getUrl());
+					// UrlsBean urls = zmBean.getUrls();
+					// UrlBean mp4Bean = urls.getMp4();
+
+					System.out
+							.println(zmBean.getType() + ":" + zmBean.getUrl());
+				}
 			}
 
 		}

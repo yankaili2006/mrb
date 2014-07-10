@@ -4,6 +4,15 @@ public class UrlsBean {
 	private UrlBean mp4;
 	private UrlBean permanent;
 	private UrlBean m3u8;
+	private UrlBean smf;
+
+	public UrlBean getSmf() {
+		return smf;
+	}
+
+	public void setSmf(UrlBean smf) {
+		this.smf = smf;
+	}
 
 	public UrlBean getMp4() {
 		return mp4;

@@ -77,7 +77,7 @@
 			$('#act').val("update");
 			$('#msg').val(
 					"{cid:" + $('#cid').val() + ",name:" + $('#name').val()
-							+ "}");
+							+ ",idx:" + $('#idx').val() + "}");
 			$('#updateform').submit();
 		}
 	}
@@ -244,10 +244,15 @@
 								<label> 分类名 </label> <input type="text" id="name" name="name"
 									value="<%if (bean != null)
 					out.print(bean.getName());%>"
+									class="input-xlarge"> <label> 显示次序 </label> <input
+									type="text" id="idx" name="idx"
+									value="<%if (bean != null)
+					out.print(bean.getIdx());%>"
 									class="input-xlarge"> <input type="hidden" id="cid"
 									name="cid"
 									value="<%if (bean != null)
 					out.print(bean.getCid());%>">
+
 								<%
 									} else {
 								%>

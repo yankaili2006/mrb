@@ -105,7 +105,6 @@ public class VideoBS {
 			EntryBean entryBean = entries.get(0);
 			vbean.setVid(entryBean.getId());
 
-			vbean.setVcid(0);
 			vbean.setDescription(entryBean.getDescription());
 
 			vbean.setTags("");
@@ -115,46 +114,38 @@ public class VideoBS {
 
 			ArrayList<ZmBean> zms = entryBean.getRenditions();
 			if (zms != null && zms.size() > 0) {
-				ZmBean zmBean = zms.get(0);
 
-				if ("FINISHED".equals(zmBean.getStatus())) {
-					vbean.setActivated(1);
-				} else {
-					vbean.setActivated(0);
-				}
-				if ("FINISHED".equals(zmBean.getStatus())) {
-					vbean.setStatus("Z");
-				} else {
-					vbean.setStatus("C");
-				}
+				for (int i = 0; i < zms.size(); i++) {
+					ZmBean zmBean = zms.get(i);
 
-				vbean.setHeight(zmBean.getHeight());
-				vbean.setWidth(zmBean.getWidth());
-				vbean.setExtension(zmBean.getType()); // TODO 有小问题
+					if ("MP4".equals(zmBean.getType())) {
+						if ("FINISHED".equals(zmBean.getStatus())) {
+							vbean.setActivated(1);
+						} else {
+							vbean.setActivated(0);
+						}
+						if ("FINISHED".equals(zmBean.getStatus())) {
+							vbean.setStatus("Z");
+						} else {
+							vbean.setStatus("C");
+						}
 
-				UrlsBean urls = zmBean.getUrls();
-				if (urls != null) {
-					UrlBean mp4Bean = urls.getMp4();
-					UrlBean permantBean = urls.getPermanent();
-					UrlBean m3u8Bean = urls.getM3u8();
-					if (mp4Bean != null) {
-						vbean.setMp4_expires(mp4Bean.getExpires());
-						vbean.setMp4_url(mp4Bean.getUrl());
-					}
-					if (m3u8Bean != null) {
-						vbean.setM3u8_expires(m3u8Bean.getExpires());
-						vbean.setM3u8_url(m3u8Bean.getUrl());
-					}
-					if (permantBean != null) {
-						vbean.setPermanent_expires(permantBean.getExpires());
-						vbean.setPermanent_url(permantBean.getUrl());
+						vbean.setHeight(zmBean.getHeight());
+						vbean.setWidth(zmBean.getWidth());
+						vbean.setExtension(zmBean.getType()); // TODO 有小问题
+
+						UrlsBean urls = zmBean.getUrls();
+						
+						vbean.setMp4_url(zmBean.getUrl());
+						vbean.setMp4_expires(entryBean.getDuration());
+
+						vbean.setZm_file_size(zmBean.getFile_size());
+						vbean.setFile_size(zmBean.getFile_size());
+						vbean.setZm_id(zmBean.getId());
+						vbean.setZm_type(zmBean.getType());
 					}
 				}
 
-				vbean.setZm_file_size(zmBean.getFile_size());
-				vbean.setFile_size(zmBean.getFile_size());
-				vbean.setZm_id(zmBean.getId());
-				vbean.setZm_type(zmBean.getType());
 			}
 
 			vbean.setSnapshot_url(metaBean.getSnapshot_url());

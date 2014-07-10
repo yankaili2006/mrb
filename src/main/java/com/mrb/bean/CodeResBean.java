@@ -1,11 +1,21 @@
 package com.mrb.bean;
 
 public class CodeResBean {
-	
+
 	private String code;
 	private String msg;
 	private String phone;
 	private String chkcode;
+	private long uid;
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
 	public String getCode() {
 		return code;
 	}
