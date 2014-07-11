@@ -2,7 +2,7 @@ package com.mrb.pbean;
 
 public class NailBean {
 	private int width;
-	private int group;
+	private String group;
 	private int height;
 
 	public int getWidth() {
@@ -13,11 +13,11 @@ public class NailBean {
 		this.width = width;
 	}
 
-	public int getGroup() {
+	public String getGroup() {
 		return group;
 	}
 
-	public void setGroup(int group) {
+	public void setGroup(String group) {
 		this.group = group;
 	}
 

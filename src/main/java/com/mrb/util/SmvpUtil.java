@@ -20,7 +20,7 @@ import com.smvp.sdk.SmvpClient;
 
 public class SmvpUtil {
 	private final String TOKEN = "5JfFMQFjrtCD6LjUK5xw61khgkH0fUZw3K0GymjqPmUZB22Gum9rq-lDrW9fmecg";
-	private final String ENTRY_ID = "602792153169409438";
+	private final String ENTRY_ID = "613213491884495847";
 	private final String PLAYER_ID = "591771262799587214";
 	private final Integer WIDTH = 640;
 	private final Integer HEIGHT = 480;

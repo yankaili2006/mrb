@@ -1,8 +1,7 @@
 package com.mrb.pbean;
 
 public class ThumbBean {
-	
-	
+
 	private String data;
 	private String refer_id;
 	private String rendition_id;
@@ -15,7 +14,7 @@ public class ThumbBean {
 	private String url;
 	private long file_size;
 	private String created_time;
-	private int group;
+	private String group;
 	private String publisher_id;
 	private String id;
 
@@ -115,11 +114,11 @@ public class ThumbBean {
 		this.created_time = created_time;
 	}
 
-	public int getGroup() {
+	public String getGroup() {
 		return group;
 	}
 
-	public void setGroup(int group) {
+	public void setGroup(String group) {
 		this.group = group;
 	}
 
