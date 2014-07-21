@@ -11,7 +11,7 @@ Maven
 
 在终端执行如下命令：
 
-`mvn install:install-file -Dfile=/home/liyankai/github/mrb/src/main/webapp/WEB-INF/lib/sdk-java-1.0.jar -DgroupId=com.smvp -DartifactId=smvp-com -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true`
+    mvn install:install-file -Dfile=/home/liyankai/github/mrb/src/main/webapp/WEB-INF/lib/sdk-java-1.0.jar -DgroupId=com.smvp -DartifactId=smvp-com -Dversion=1.0 -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true
   
 
 pom.xml里增加如下配置：
